@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="Biome" load_steps=11 format=3 uid="uid://dsi2onu11ycrk"]
+
+[ext_resource type="Script" uid="uid://cc3nsyteovesb" path="res://scripts/resources/biomes/biome_tile.gd" id="1_vm1dw"]
+[ext_resource type="Script" uid="uid://cwsidvx7pcx03" path="res://scripts/resources/biomes/biome.gd" id="2_y1qnf"]
+[ext_resource type="Script" uid="uid://bvepyq7muv6n1" path="res://scripts/resources/biomes/biome_vector.gd" id="3_5l4ra"]
+
+[sub_resource type="Resource" id="Resource_3xah6"]
+script = ExtResource("1_vm1dw")
+source = 0
+coordinates = Vector2i(4, 5)
+
+[sub_resource type="Resource" id="Resource_vm1dw"]
+script = ExtResource("1_vm1dw")
+source = 2
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_k7yn6"]
+script = ExtResource("1_vm1dw")
+source = 2
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_wibqt"]
+script = ExtResource("1_vm1dw")
+source = 1
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_iye1c"]
+script = ExtResource("1_vm1dw")
+source = 2
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_f54dn"]
+script = ExtResource("1_vm1dw")
+source = 1
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_y1qnf"]
+script = ExtResource("3_5l4ra")
+height = 0.2509999999999999
+
+[resource]
+script = ExtResource("2_y1qnf")
+id = "beach"
+source = 2
+vectors = Array[ExtResource("3_5l4ra")]([SubResource("Resource_y1qnf")])
+ground_tiles = Array[ExtResource("1_vm1dw")]([SubResource("Resource_vm1dw")])
+river_tile = SubResource("Resource_f54dn")
+river_bank_tile = SubResource("Resource_iye1c")
+lake_tile = SubResource("Resource_wibqt")
+lake_bank_tile = SubResource("Resource_k7yn6")
+cave_entrance = SubResource("Resource_3xah6")
+metadata/_custom_type_script = "uid://cwsidvx7pcx03"

@@ -1,0 +1,82 @@
+[gd_resource type="Resource" script_class="Biome" load_steps=16 format=3 uid="uid://bxnerdbrm1woq"]
+
+[ext_resource type="Script" uid="uid://cc3nsyteovesb" path="res://scripts/resources/biomes/biome_tile.gd" id="1_ain6u"]
+[ext_resource type="Script" uid="uid://cwsidvx7pcx03" path="res://scripts/resources/biomes/biome.gd" id="2_61mo6"]
+[ext_resource type="Script" uid="uid://bvepyq7muv6n1" path="res://scripts/resources/biomes/biome_vector.gd" id="3_avlil"]
+
+[sub_resource type="Resource" id="Resource_34tu2"]
+script = ExtResource("1_ain6u")
+source = 0
+coordinates = Vector2i(4, 5)
+
+[sub_resource type="Resource" id="Resource_ain6u"]
+script = ExtResource("1_ain6u")
+source = 0
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_61mo6"]
+script = ExtResource("1_ain6u")
+source = 0
+coordinates = Vector2i(9, 2)
+chance = 0.284
+
+[sub_resource type="Resource" id="Resource_dxllc"]
+script = ExtResource("1_ain6u")
+source = 2
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_bvdmu"]
+script = ExtResource("1_ain6u")
+source = 1
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_qqa1h"]
+script = ExtResource("1_ain6u")
+source = 2
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_3qf88"]
+script = ExtResource("1_ain6u")
+source = 1
+terrain = 0
+
+[sub_resource type="Resource" id="Resource_avlil"]
+script = ExtResource("1_ain6u")
+source = 0
+coordinates = Vector2i(0, 4)
+chance = 0.1
+
+[sub_resource type="Resource" id="Resource_00o1d"]
+script = ExtResource("1_ain6u")
+source = 0
+coordinates = Vector2i(3, 4)
+chance = 0.2465
+flippable_v = true
+
+[sub_resource type="Resource" id="Resource_a04wh"]
+script = ExtResource("1_ain6u")
+source = 0
+coordinates = Vector2i(4, 4)
+chance = 0.197
+flippable_h = true
+flippable_v = true
+
+[sub_resource type="Resource" id="Resource_c8qcg"]
+script = ExtResource("3_avlil")
+
+[sub_resource type="Resource" id="Resource_pcpq2"]
+script = ExtResource("3_avlil")
+height = 0.2549999999999999
+
+[resource]
+script = ExtResource("2_61mo6")
+id = "plains"
+vectors = Array[ExtResource("3_avlil")]([SubResource("Resource_c8qcg"), SubResource("Resource_pcpq2")])
+ground_tiles = Array[ExtResource("1_ain6u")]([SubResource("Resource_ain6u"), SubResource("Resource_61mo6")])
+topping_tiles = Array[ExtResource("1_ain6u")]([SubResource("Resource_avlil"), SubResource("Resource_00o1d"), SubResource("Resource_a04wh")])
+river_tile = SubResource("Resource_3qf88")
+river_bank_tile = SubResource("Resource_qqa1h")
+lake_tile = SubResource("Resource_bvdmu")
+lake_bank_tile = SubResource("Resource_dxllc")
+cave_entrance = SubResource("Resource_34tu2")
+metadata/_custom_type_script = "uid://cwsidvx7pcx03"

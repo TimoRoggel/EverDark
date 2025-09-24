@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://ymxr4fas105j"]
+
+[ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
+[ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
+[ext_resource type="Script" uid="uid://1ymurug5rwwb" path="res://scripts/components/input_component.gd" id="3_atpat"]
+[ext_resource type="Script" uid="uid://cnvj3qt0x6603" path="res://scripts/components/move_component.gd" id="4_kqtwu"]
+[ext_resource type="Script" uid="uid://b86jl8d8bnv68" path="res://scripts/components/camera_component.gd" id="5_6eyoc"]
+[ext_resource type="Script" uid="uid://dqan6upx40ywc" path="res://scripts/components/pickup_component.gd" id="6_kqtwu"]
+[ext_resource type="Script" uid="uid://bgrlfbkgtg7lx" path="res://scripts/components/inventory_component.gd" id="7_6eyoc"]
+[ext_resource type="Script" uid="uid://bp2m4dafooblw" path="res://scripts/tools/inventory_container.gd" id="8_eojnx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
+size = Vector2(6, 8)
+
+[node name="player" type="CharacterBody2D"]
+z_as_relative = false
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_yewv4")
+metadata/_custom_type_script = "uid://bdg3j7sgmdj0n"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_dyp2m")
+
+[node name="sprite" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(0, -7)
+texture = ExtResource("2_76oj4")
+
+[node name="components" type="Node2D" parent="."]
+
+[node name="input" type="Node2D" parent="components"]
+script = ExtResource("3_atpat")
+metadata/_custom_type_script = "uid://1ymurug5rwwb"
+
+[node name="movement" type="Node2D" parent="components"]
+script = ExtResource("4_kqtwu")
+metadata/_custom_type_script = "uid://cnvj3qt0x6603"
+
+[node name="camera" type="Node2D" parent="components" node_paths=PackedStringArray("camera")]
+script = ExtResource("5_6eyoc")
+camera = NodePath("../../camera")
+metadata/_custom_type_script = "uid://b86jl8d8bnv68"
+
+[node name="inventory" type="Node2D" parent="components" node_paths=PackedStringArray("container")]
+script = ExtResource("7_6eyoc")
+container = NodePath("../../CanvasLayer/inventory")
+metadata/_custom_type_script = "uid://bgrlfbkgtg7lx"
+
+[node name="pickup" type="Node2D" parent="components"]
+position = Vector2(0, -4)
+script = ExtResource("6_kqtwu")
+pickup_radius = 32.0
+metadata/_custom_type_script = "uid://dqan6upx40ywc"
+
+[node name="camera" type="Camera2D" parent="."]
+offset = Vector2(0, -4)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="inventory" type="GridContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 64.0
+offset_top = 200.0
+offset_right = 580.0
+offset_bottom = 352.0
+columns = 10
+script = ExtResource("8_eojnx")
+metadata/_custom_type_script = "uid://bp2m4dafooblw"

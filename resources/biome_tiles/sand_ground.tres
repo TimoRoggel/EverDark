@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BiomeTile" load_steps=2 format=3 uid="uid://rhhomob5rdwr"]
+
+[ext_resource type="Script" uid="uid://cc3nsyteovesb" path="res://scripts/resources/biomes/biome_tile.gd" id="1_vcaoa"]
+
+[resource]
+script = ExtResource("1_vcaoa")
+source = 2
+terrain = 2
+metadata/_custom_type_script = "uid://cc3nsyteovesb"

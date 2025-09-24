@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BiomeTile" load_steps=2 format=3 uid="uid://bgdsctno7huc7"]
+
+[ext_resource type="Script" uid="uid://cc3nsyteovesb" path="res://scripts/resources/biomes/biome_tile.gd" id="1_jxe6q"]
+
+[resource]
+script = ExtResource("1_jxe6q")
+source = 0
+coordinates = Vector2i(4, 4)
+chance = 0.2
+flippable_h = true
+flippable_v = true
+metadata/_custom_type_script = "uid://cc3nsyteovesb"

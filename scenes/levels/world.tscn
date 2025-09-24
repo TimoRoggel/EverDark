@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=8 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
 [ext_resource type="Script" uid="uid://bjl66vmgiycyi" path="res://scripts/tools/generated_tile_map_layer.gd" id="3_7xgas"]
 [ext_resource type="Script" uid="uid://cuoyob352u88i" path="res://scripts/tools/flippable_tile_map_layer.gd" id="4_gy5pc"]
 [ext_resource type="Script" uid="uid://bqjk7fr0n0p3p" path="res://scripts/tools/everdark.gd" id="5_7xgas"]
+[ext_resource type="PackedScene" uid="uid://2sk6w6jiy3ng" path="res://scenes/crafting/crafting.tscn" id="6_gy5pc"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -64,3 +65,6 @@ script = ExtResource("5_7xgas")
 size = Vector2(4, 160)
 generate_position = Vector2(-320, 0)
 metadata/_custom_type_script = "uid://bqjk7fr0n0p3p"
+
+[node name="Crafting" parent="." instance=ExtResource("6_gy5pc")]
+position = Vector2(-12, 8)

@@ -9,6 +9,7 @@ const INVENTORY_SLOT: PackedScene = preload("uid://chgdmhkgaavft")
 @onready var item_texture : TextureRect = %ItemTexture
 
 var recipe_material_dict : Dictionary[Item, int] = {}
+var inventory: InventoryComponent = null
 
 func _ready() -> void:
 	build_recipe_tree()

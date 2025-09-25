@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://2sk6w6jiy3ng"]
 
-[ext_resource type="Script" uid="uid://ddvwga4h802ko" path="res://scripts/tools/crafting.gd" id="1_hwda8"]
+[ext_resource type="Script" uid="uid://ddvwga4h802ko" path="res://Crafting/crafting.gd" id="1_hwda8"]
 [ext_resource type="Texture2D" uid="uid://c3jgcwc5lwenq" path="res://graphics/crafting.png" id="1_rj1pl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hwda8"]

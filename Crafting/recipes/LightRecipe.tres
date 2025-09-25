@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemRecipe" load_steps=6 format=3 uid="uid://ddm1pcbdn1t64"]
+
+[ext_resource type="Resource" uid="uid://wicadkarsl2i" path="res://Crafting/items/light.tres" id="1_2meij"]
+[ext_resource type="Script" uid="uid://d2pmr45cqp0fs" path="res://Crafting/items/ItemData.gd" id="2_fdxu6"]
+[ext_resource type="Resource" uid="uid://bhat74a1wqehf" path="res://Crafting/items/core.tres" id="3_dg4v1"]
+[ext_resource type="Resource" uid="uid://dpf8qpj76k56f" path="res://Crafting/items/lumen.tres" id="4_m2okw"]
+[ext_resource type="Script" uid="uid://j2msqkkluvfq" path="res://Crafting/recipes/ItemRecipes.gd" id="5_s4s8q"]
+
+[resource]
+script = ExtResource("5_s4s8q")
+recipe_name = "Light"
+recipe_final_item = ExtResource("1_2meij")
+recipe_material_array = Array[ExtResource("2_fdxu6")]([ExtResource("3_dg4v1"), ExtResource("4_m2okw")])
+metadata/_custom_type_script = "uid://j2msqkkluvfq"

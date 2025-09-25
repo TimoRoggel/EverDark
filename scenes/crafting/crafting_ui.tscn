@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccsvhx5s8yx0t"]
+
+[ext_resource type="Script" uid="uid://dricqlote5fbh" path="res://Crafting/crafting_ui.gd" id="1_jp7wa"]
+[ext_resource type="PackedScene" uid="uid://chgdmhkgaavft" path="res://scenes/crafting/inventory_slot.tscn" id="2_w7jay"]
+[ext_resource type="Script" uid="uid://j2msqkkluvfq" path="res://Crafting/recipes/ItemRecipes.gd" id="3_kplwc"]
+[ext_resource type="Resource" uid="uid://ddm1pcbdn1t64" path="res://Crafting/recipes/LightRecipe.tres" id="4_a3l8g"]
+[ext_resource type="Resource" uid="uid://dqagwkx3shqqm" path="res://Crafting/recipes/LumenRecipe.tres" id="5_a3l8g"]
+[ext_resource type="Resource" uid="uid://dv8v14cms8a8x" path="res://Crafting/recipes/CoreRecipe.tres" id="6_5tqky"]
+[ext_resource type="Texture2D" uid="uid://bn28364ot1veb" path="res://graphics/monster.png" id="7_5tqky"]
+
+[node name="CraftingUI" type="PanelContainer"]
+custom_minimum_size = Vector2(640, 360)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.849)
+script = ExtResource("1_jp7wa")
+recipe_array = Array[ExtResource("3_kplwc")]([ExtResource("5_a3l8g"), ExtResource("6_5tqky"), ExtResource("4_a3l8g")])
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Tree" type="Tree" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ITEM NAME"
+horizontal_alignment = 1
+
+[node name="ItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("7_5tqky")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="InventorySlot" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="CraftButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Craft"
+
+[connection signal="cell_selected" from="MarginContainer/HBoxContainer/Tree" to="." method="_on_tree_cell_selected"]

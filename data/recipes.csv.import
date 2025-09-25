@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cs77k6173l88v"
+valid=false
+
+[deps]
+
+source_file="res://data/recipes.csv"
+
+[params]
+
+compress=true
+delimiter=0

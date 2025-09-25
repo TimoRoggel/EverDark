@@ -10,6 +10,10 @@ func _ready() -> void:
 	resources["items"] = []
 	for item: Dictionary in data["items"]:
 		resources["items"].append(Item.from_data(item))
+	load_data("recipes")
+	resources["recipes"] = []
+	for recipe: Dictionary in data["recipes"]:
+		resources["recipes"].append(Recipe.from_data(recipe))
 	#load_data("biomes")
 	#resources["biomes"] = []
 	#for item: Dictionary in data["biomes"]:
@@ -41,13 +45,21 @@ func load_data(key: String) -> void:
 			#k += 1
 			#new_values.append(v)
 		for j: int in keys.size():
-			var value: Variant = str_to_var(new_values[j])
+			var value: Variant = str_to_var(new_values[j].replace(";", ","))
 			if value is String:
 				if value.is_valid_int():
 					value = value.to_int()
 				elif value.is_valid_float():
 					value = value.to_float()
-				#elif JSON.parse_string(value):
-					#value = JSON.parse_string(value)
+				elif JSON.new().parse(value) == OK:
+					value = JSON.parse_string(value)
 			info[keys[j]] = value
 		data[key].append(info)
+
+func get_resource_by_id(key: String, id: int) -> Resource:
+	for r: Resource in resources[key]:
+		if !("id" in r):
+			return null
+		if r.id == id:
+			return r
+	return null

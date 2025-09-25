@@ -3,8 +3,8 @@ extends Panel
 
 @onready var texture_rect : TextureRect = %TextureRect
 
-var item_data : ItemData = null
+var item_data : Item = null
 
-func set_item_data(new_item : ItemData) -> void:
+func set_item_data(new_item : Item) -> void:
 	item_data = new_item
-	texture_rect.texture = item_data.item_texture
+	texture_rect.texture = item_data.icon

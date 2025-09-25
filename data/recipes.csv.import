@@ -3,11 +3,13 @@
 importer="csv_translation"
 type="Translation"
 uid="uid://cs77k6173l88v"
-valid=false
 
 [deps]
 
+files=["res://data/recipes.name.translation", "res://data/recipes.rewards.translation", "res://data/recipes.costs.translation"]
+
 source_file="res://data/recipes.csv"
+dest_files=["res://data/recipes.name.translation", "res://data/recipes.rewards.translation", "res://data/recipes.costs.translation"]
 
 [params]
 

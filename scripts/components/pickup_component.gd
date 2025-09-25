@@ -42,7 +42,7 @@ func _update(delta: float) -> void:
 			continue
 		var d: float = body.global_position.distance_to(global_position)
 		if d <= pickup_distance:
-			if inventory.add_item(body.item, body.amount) == 0:
+			if inventory.add(body.item.id, body.amount) == 0:
 				body.queue_free()
 			else:
 				body.timeout()

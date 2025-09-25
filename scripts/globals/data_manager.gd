@@ -51,3 +51,11 @@ func load_data(key: String) -> void:
 					#value = JSON.parse_string(value)
 			info[keys[j]] = value
 		data[key].append(info)
+
+func get_resource_by_id(key: String, id: int) -> Resource:
+	for r: Resource in resources[key]:
+		if !("id" in r):
+			return null
+		if r.id == id:
+			return r
+	return null

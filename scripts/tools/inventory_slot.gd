@@ -173,6 +173,11 @@ func remove_amount(amount: int = 0) -> void:
 	if inventory_item.quantity < 1:
 		inventory_item = null
 
+func is_full() -> bool:
+	if !inventory_item:
+		return false
+	return inventory_item.is_full()
+
 func merge(other: InventoryItem, custom_amount: int = -1) -> Dictionary[String, int]:
 	var status: int = OK
 	var remainder: int = 0

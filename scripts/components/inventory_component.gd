@@ -24,11 +24,23 @@ func _on_item_dropped(item: InventoryItem) -> void:
 	pickup.timeout()
 	pickup.global_position = global_position
 
-func add_item(item: Item, quantity: int = 1) -> int:
-	return container.add_item(item, quantity)
+func add(item_id: int, quantity: int = 1) -> int:
+	return container.add(item_id, quantity)
 
-func remove(item_name: String, quantity: int = 1) -> int:
-	return container.remove(item_name, quantity)
+func remove(item_id: int, quantity: int = 1) -> int:
+	return container.remove(item_id, quantity)
 
-func has(item_name: String, quantity: int = 1) -> bool:
-	return container.has(item_name, quantity)
+func has(item_id: int, quantity: int = 1) -> bool:
+	return container.has(item_id, quantity)
+
+func count(item_id: int) -> int:
+	return container.count(item_id)
+
+func list() -> Array[InventoryItem]:
+	return container.get_items()
+
+func is_empty() -> bool:
+	return list().is_empty()
+
+func is_full() -> bool:
+	return container.is_full()

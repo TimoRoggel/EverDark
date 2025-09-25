@@ -29,12 +29,12 @@ func _redraw() -> void:
 		slot.output_only = output_only
 		add_child(slot)
 
-func add_item(item: Item, quantity: int = 1) -> int:
+func add(item_id: int, quantity: int = 1) -> int:
 	var inventory: Array[InventorySlot] = get_slots()
 	for i: int in slots:
 		if inventory[i].inventory_item == null:
 			continue
-		if inventory[i].inventory_item.item != item:
+		if inventory[i].inventory_item.item.id != item_id:
 			continue
 		if inventory[i].inventory_item.is_full():
 			continue
@@ -47,17 +47,17 @@ func add_item(item: Item, quantity: int = 1) -> int:
 		return 0
 	for i: int in slots:
 		if inventory[i].inventory_item == null:
-			inventory[i].inventory_item = InventoryItem.new(item, quantity)
+			inventory[i].inventory_item = InventoryItem.new(DataManager.get_resource_by_id("items", item_id), quantity)
 			inventory[i]._setup_item()
 			return 0
 	return quantity
 
-func remove(item_name: String, quantity: int = 1) -> int:
+func remove(item_id: int, quantity: int = 1) -> int:
 	var inventory: Array[InventorySlot] = get_slots()
 	for i: int in slots:
 		if inventory[i].inventory_item == null:
 			continue
-		if inventory[i].inventory_item.item.display_name != item_name:
+		if inventory[i].inventory_item.item.id != item_id:
 			continue
 		if inventory[i].inventory_item.quantity > quantity:
 			inventory[i].inventory_item.quantity -= quantity
@@ -67,18 +67,26 @@ func remove(item_name: String, quantity: int = 1) -> int:
 			inventory[i].inventory_item = null
 	return quantity
 
-func has(item_name: String, quantity: int = 1) -> bool:
-	var count: int = 0
+func has(item_id: int, quantity: int = 1) -> bool:
+	return count(item_id) >= quantity
+
+func count(item_id: int) -> int:
+	var item_count: int = 0
 	var inventory: Array[InventorySlot] = get_slots()
 	for i: int in slots:
 		if inventory[i].inventory_item == null:
 			continue
-		if inventory[i].inventory_item.item.display_name != item_name:
+		if inventory[i].inventory_item.item.id != item_id:
 			continue
-		count += inventory[i].inventory_item.quantity
-		if count >= quantity:
-			return true
-	return false
+		item_count += inventory[i].inventory_item.quantity
+	return item_count
+
+func is_full() -> bool:
+	var inventory: Array[InventorySlot] = get_slots()
+	for i: int in slots:
+		if !inventory[i].is_full():
+			return false
+	return true
 
 func sort() -> void:
 	var items: Array[InventoryItem] = get_items()
@@ -107,13 +115,13 @@ func get_items() -> Array[InventoryItem]:
 	for slot: InventorySlot in get_slots():
 		if slot.inventory_item == null:
 			continue
-		var has: bool = false
+		var has_: bool = false
 		for item: InventoryItem in items:
 			if item.item == slot.inventory_item.item:
 				item.quantity += slot.inventory_item.quantity
-				has = true
+				has_ = true
 				break
-		if !has:
+		if !has_:
 			items.append(slot.inventory_item.duplicate())
 	return items
 

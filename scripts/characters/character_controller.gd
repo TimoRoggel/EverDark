@@ -1,5 +1,7 @@
 class_name CharacterController extends CharacterBody2D
 
+const SHADER: Shader = preload("uid://bgun8c6p8w1no")
+
 enum CharacterFlags {
 	None,
 	Player,
@@ -28,6 +30,9 @@ static func get_flag_properties(property: String) -> Array[Dictionary]:
 	return properties
 
 func _ready() -> void:
+	material = ShaderMaterial.new()
+	material.shader = SHADER
+	set_damage_color(Color("FBF5EF"))
 	load_components()
 	bump_player = GameManager.create_audio_player(&"sounds", bump_sounds)
 	add_child(bump_player)

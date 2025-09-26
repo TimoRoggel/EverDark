@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=12 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://dqan6upx40ywc" path="res://scripts/components/pickup_component.gd" id="6_kqtwu"]
 [ext_resource type="Script" uid="uid://bgrlfbkgtg7lx" path="res://scripts/components/inventory_component.gd" id="7_6eyoc"]
 [ext_resource type="Script" uid="uid://bp2m4dafooblw" path="res://scripts/tools/inventory_container.gd" id="8_eojnx"]
+[ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="8_qgnko"]
+[ext_resource type="Script" uid="uid://cg11ngqsst5ti" path="res://scripts/components/hitbox_component.gd" id="9_7vyk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
@@ -56,6 +58,14 @@ position = Vector2(0, -4)
 script = ExtResource("6_kqtwu")
 pickup_radius = 32.0
 metadata/_custom_type_script = "uid://dqan6upx40ywc"
+
+[node name="health" type="Node2D" parent="components"]
+script = ExtResource("8_qgnko")
+metadata/_custom_type_script = "uid://cdmb82h3irdnt"
+
+[node name="hitbox" type="Node2D" parent="components"]
+script = ExtResource("9_7vyk4")
+metadata/_custom_type_script = "uid://cg11ngqsst5ti"
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)

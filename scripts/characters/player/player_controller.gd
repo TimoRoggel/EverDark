@@ -8,6 +8,8 @@ var animation: AnimationComponent = null
 var dash: DashComponent = null
 var camera: CameraComponent = null
 var inventory: InventoryComponent = null
+var health: HealthComponent = null
+var hitbox: HitboxComponent = null
 
 func _init() -> void:
 	flags = CharacterFlags.Player
@@ -23,6 +25,8 @@ func _ready() -> void:
 	dash = get_component(DashComponent)
 	camera = get_component(CameraComponent)
 	inventory = get_component(InventoryComponent)
+	health = get_component(HealthComponent)
+	hitbox = get_component(HitboxComponent)
 	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:

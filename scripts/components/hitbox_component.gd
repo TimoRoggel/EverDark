@@ -1,15 +1,16 @@
 class_name HitboxComponent extends Component
 
-@export var health_component : HealthComponent
 @export var is_active: bool = true
 @export var attack_cooldown_time: float = 1.0
 @export var collision_radius: float = 1.0
 
+var health_component : HealthComponent
 var hitbox_area: Area2D = Area2D.new()
 var hitbox_collision: CollisionShape2D = CollisionShape2D.new()
 var already_hit = false
 
 func _enter() -> void:	
+	health_component = controller.get_component(HealthComponent)
 	if hitbox_area && hitbox_collision:
 		# setup area2d
 		add_child(hitbox_area)
@@ -27,7 +28,7 @@ func _exit() -> void:
 func _on_body_entered(body: Node2D):
 	if not is_active:
 		return
-	if !already_hit && controller.get_component(HealthComponent) && body is ProjectileController:
+	if !already_hit && body is ProjectileController:
 		take_damage(body)
 		cooldown()
 		

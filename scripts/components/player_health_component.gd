@@ -6,4 +6,5 @@ func _enter() -> void:
 	super()
 
 func death() -> void:
+	print("died, resetting health to max")
 	current_health = max_health

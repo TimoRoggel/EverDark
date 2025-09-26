@@ -1,4 +1,4 @@
-class_name Projectile extends Resource
+class_name Attack extends Resource
 
 @export_group("Info")
 @export var texture: Texture2D = null
@@ -24,7 +24,7 @@ class_name Projectile extends Resource
 @export var hurtbox: Rect2i = Rect2i()
 @export var can_hit_owner: bool = false
 @export_group("Flair")
-@export var shoot_sound: AudioStream = null
+@export var attack_sound: AudioStream = null
 @export_subgroup("Particles", "particle_")
 @export var particle_material: ParticleProcessMaterial = null
 @export var particle_texture: Texture2D = null
@@ -44,7 +44,7 @@ class_name Projectile extends Resource
 @export_range(0, 10000) var slowdown_duration_ms: int = 100
 @export var color_over_time: GradientTexture1D = null
 @export var alpha_over_time: CurveTexture = null
-@export var death_projectile: Projectile = null
+@export var death_attack: Attack = null
 
 func rand_range(base: float, randomness: float) -> float:
 	var rand: float = base * randomness

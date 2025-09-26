@@ -15,8 +15,6 @@ func _enter() -> void:
 	controller.should_bounce_conditions.append(func() -> bool: return abs(knockback.length()) > 0.0)
 
 func _update(delta: float) -> void:
-	if UIManager.paused:
-		return
 	var desired_speed: Vector2 = desired_movement * speed
 	if abs(knockback.length()) > 0.0:
 		if knockback.normalized().dot(desired_speed.normalized()) < 0.5 && abs(knockback.length()) > abs(desired_speed.length()):

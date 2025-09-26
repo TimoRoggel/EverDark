@@ -18,12 +18,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 DataManager="*res://scripts/globals/data_manager.gd"
-UIManager="*res://scripts/globals/ui_manager.gd"
+SaveSystem="*res://scripts/globals/save_system.gd"
 GameManager="*res://scripts/globals/game_manager.gd"
-ScoreManager="*res://scripts/globals/score_manager.gd"
 SettingsManager="*res://scripts/globals/settings_manager.gd"
 Debug="*res://scripts/globals/debug.gd"
-SaveManager="*res://scripts/globals/save_manager.gd"
 Generator="*res://scripts/globals/generator.gd"
 
 [display]

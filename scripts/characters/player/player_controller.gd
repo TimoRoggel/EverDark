@@ -13,6 +13,7 @@ func _init() -> void:
 	flags = CharacterFlags.Player
 
 func _ready() -> void:
+	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
 	super()
 	await get_tree().process_frame
 	input = get_component(InputComponent)

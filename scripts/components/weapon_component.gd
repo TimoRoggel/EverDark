@@ -15,8 +15,6 @@ func _enter() -> void:
 	base_offset = weapon_sprite.offset
 
 func _update(delta: float) -> void:
-	if UIManager.paused:
-		return
 	var new_rotation: float = desired_rotation
 	weapon_sprite.rotation = lerp_angle(weapon_sprite.rotation, new_rotation, delta * ROTATION_SPEED)
 	flipped = should_flip()

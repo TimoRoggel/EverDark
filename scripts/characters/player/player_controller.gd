@@ -16,6 +16,7 @@ func _init() -> void:
 	flags = CharacterFlags.Player
 
 func _ready() -> void:
+	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
 	super()
 	await get_tree().process_frame
 	input = get_component(InputComponent)
@@ -47,6 +48,9 @@ func _custom_physics_process(delta: float) -> void:
 	if dash:
 		dash.dashing = input.dashing
 		dash.default_dash = Vector2.from_angle(input.angle_to_cursor)
+	if animation:
+		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
+		animation.should_flip = should_flip || input.movement.x < 0
 
 func on_bounce(bounce_amount: float) -> void:
 	camera.shake(bounce_amount * 0.02, 0.1)

@@ -42,8 +42,6 @@ func _exit() -> void:
 	pass
 
 func step_sound() -> void:
-	if UIManager.paused:
-		return
 	if walk_sounds.size() < 1:
 		return
 	if animated_sprite.animation != ANIMS[1]:

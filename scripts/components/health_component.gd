@@ -75,7 +75,6 @@ func death() -> void:
 	if !alive:
 		return
 	alive = false
-	ScoreManager.spawn_score_particle(randi_range(85, 115), global_position)
 	controller.visible = false
 	if death_player:
 		death_player.play_randomized()

@@ -19,9 +19,7 @@ func _enter() -> void:
 
 func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
-		UIManager.toggle_pause()
-	if UIManager.paused:
-		return
+		get_tree().paused = !get_tree().paused
 	if Input.is_action_just_pressed("attack"):
 		started_attacking.emit()
 		if can_spawn:

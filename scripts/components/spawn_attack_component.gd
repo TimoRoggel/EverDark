@@ -29,8 +29,6 @@ func _enter() -> void:
 		add_child(sound_player)
 
 func _update(delta: float) -> void:
-	if UIManager.paused:
-		return
 	attack_timeout -= delta
 	if attacking:
 		try_attack()

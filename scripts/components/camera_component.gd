@@ -15,8 +15,6 @@ func _enter() -> void:
 	GameManager.main_camera_component = self
 
 func _update(delta: float) -> void:
-	if UIManager.paused:
-		return
 	camera.global_position = camera.global_position.lerp(get_camera_position(), delta * 25.0)
 
 func _exit() -> void:

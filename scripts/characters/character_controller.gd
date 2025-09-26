@@ -49,8 +49,6 @@ func _physics_process(delta: float) -> void:
 		if c.updates_in_physics:
 			c._update(delta)
 	_custom_physics_process(delta)
-	if UIManager.paused:
-		return
 	if should_bounce() && bounciness != 0.0 && is_on_wall() && abs(velocity.length()) > 0.0:
 		var bounce: Vector2 = 2.0 * velocity.dot(get_wall_normal()) * get_wall_normal() * bounciness
 		velocity -= bounce

@@ -27,8 +27,6 @@ func _enter() -> void:
 		add_child(sound_player)
 
 func _update(delta: float) -> void:
-	if UIManager.paused:
-		return
 	shoot_timeout -= delta
 	if shooting:
 		try_shoot()

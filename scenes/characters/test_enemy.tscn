@@ -1,0 +1,49 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgmgqctfbwgu3"]
+
+[ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_3nmv6"]
+[ext_resource type="Script" uid="uid://cnvj3qt0x6603" path="res://scripts/components/move_component.gd" id="2_ehifl"]
+[ext_resource type="Script" uid="uid://byhtuq8lov8xm" path="res://scripts/components/spawn_attack_component.gd" id="3_0lte8"]
+[ext_resource type="Script" uid="uid://bvp6jp0bat6ko" path="res://scripts/resources/attack.gd" id="4_0bfxp"]
+[ext_resource type="Texture2D" uid="uid://yr12pliky2ha" path="res://graphics/light1.png" id="5_bqtwb"]
+[ext_resource type="Texture2D" uid="uid://bn28364ot1veb" path="res://graphics/monster.png" id="6_d8qpd"]
+[ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="7_u58fu"]
+[ext_resource type="Script" uid="uid://brg24dd5ampra" path="res://scripts/components/target_component.gd" id="8_8jpgt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gs7m4"]
+radius = 7.0
+
+[sub_resource type="Resource" id="Resource_y40x4"]
+script = ExtResource("4_0bfxp")
+texture = ExtResource("5_bqtwb")
+hurtbox = Rect2i(0, 0, 8, 8)
+metadata/_custom_type_script = "uid://bvp6jp0bat6ko"
+
+[node name="test_enemy" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_3nmv6")
+metadata/_custom_type_script = "uid://bhkah5ac48rty"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gs7m4")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("6_d8qpd")
+
+[node name="move" type="Node2D" parent="."]
+script = ExtResource("2_ehifl")
+metadata/_custom_type_script = "uid://cnvj3qt0x6603"
+
+[node name="attack" type="Node2D" parent="."]
+script = ExtResource("3_0lte8")
+attack_type = SubResource("Resource_y40x4")
+damaging_flags = 3
+metadata/_custom_type_script = "uid://byhtuq8lov8xm"
+
+[node name="health" type="Node2D" parent="."]
+script = ExtResource("7_u58fu")
+metadata/_custom_type_script = "uid://cdmb82h3irdnt"
+
+[node name="target" type="Node2D" parent="."]
+script = ExtResource("8_8jpgt")
+targeting_flags = 1
+metadata/_custom_type_script = "uid://brg24dd5ampra"

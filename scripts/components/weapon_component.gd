@@ -1,5 +1,5 @@
 @tool
-class_name WeaponComponent extends SpawnProjectileComponent
+class_name WeaponComponent extends SpawnAttackComponent
 
 const HPI: float = PI / 2
 const ROTATION_SPEED: float = 25.0
@@ -22,7 +22,7 @@ func _update(delta: float) -> void:
 	weapon_sprite.flip_h = flipped
 	weapon_sprite.flip_v = flipped
 	weapon_sprite.offset = base_offset * (-1 if flipped else 1)
-	shoot_angle = weapon_sprite.rotation
+	attack_angle = weapon_sprite.rotation
 
 func _exit() -> void:
 	pass

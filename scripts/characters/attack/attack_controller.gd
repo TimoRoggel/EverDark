@@ -1,6 +1,6 @@
-class_name ProjectileController extends CharacterController
+class_name AttackController extends CharacterController
 
-@export var projectile: Projectile = null
+@export var attack: Attack = null
 @export var direction: Vector2 = Vector2.ZERO
 
 var sprite: Sprite2D = null
@@ -14,31 +14,31 @@ var speed: float = 0.0
 var damage_flags: int = 0
 var lifetime: float = 0.0
 
-func _init(_projectile: Projectile, _direction: Vector2, _spawner: CharacterController) -> void:
-	projectile = _projectile
+func _init(_attack: Attack, _direction: Vector2, _spawner: CharacterController) -> void:
+	attack = _attack
 	direction = _direction
 	spawner = _spawner
 
 func _ready() -> void:
 	# Sprite
 	sprite = Sprite2D.new()
-	sprite.texture = projectile.texture
+	sprite.texture = attack.texture
 	add_child(sprite)
 	# Shape
 	shape = CollisionShape2D.new()
-	shape.position = projectile.hurtbox.position
+	shape.position = attack.hurtbox.position
 	shape.shape = RectangleShape2D.new()
-	shape.shape.size = projectile.hurtbox.size
+	shape.shape.size = attack.hurtbox.size
 	shape.debug_color = Color(1.0, 0.2, 0.1, 0.4)
 	add_child(shape)
 	# Timer
 	timer = Timer.new()
 	add_child(timer)
 	timer.timeout.connect(func() -> void: queue_free())
-	lifetime = projectile.get_lifetime()
+	lifetime = attack.get_lifetime()
 	timer.start(lifetime)
 	# Flair
-	if projectile.particle_material:
+	if attack.particle_material:
 		add_particles()
 	# Settings
 	z_as_relative = false
@@ -47,12 +47,12 @@ func _ready() -> void:
 	collision_layer = 2
 	collision_mask = 0
 	# Other
-	direction = (direction + Vector2(randf_range(-projectile.spread, projectile.spread), randf_range(-projectile.spread, projectile.spread))).normalized()
+	direction = (direction + Vector2(randf_range(-attack.spread, attack.spread), randf_range(-attack.spread, attack.spread))).normalized()
 	#position += direction * 8
 	spawn_speed = spawner.get_real_velocity() * 0.1
-	spawn_speed += spawner.get_real_velocity() * projectile.inheritance
-	speed = projectile.get_speed()
-	if projectile.align_rotation:
+	spawn_speed += spawner.get_real_velocity() * attack.inheritance
+	speed = attack.get_speed()
+	if attack.align_rotation:
 		rotation = direction.angle()
 	super()
 
@@ -61,29 +61,29 @@ func _custom_process(delta: float) -> void:
 	desired_velocity += spawn_speed
 	desired_velocity.x = abs(desired_velocity.x) * sign(direction.x)
 	desired_velocity.y = abs(desired_velocity.y) * sign(direction.y)
-	if projectile.velocity_overtime:
-		desired_velocity *= projectile.velocity_overtime.sample(lifetime_position())
+	if attack.velocity_overtime:
+		desired_velocity *= attack.velocity_overtime.sample(lifetime_position())
 	velocity = desired_velocity
-	if projectile.color_over_time:
-		modulate = projectile.color_over_time.gradient.sample((lifetime - timer.time_left) / lifetime)
-	if projectile.alpha_over_time:
-		modulate.a = projectile.alpha_over_time.curve.sample((lifetime - timer.time_left) / lifetime)
+	if attack.color_over_time:
+		modulate = attack.color_over_time.gradient.sample((lifetime - timer.time_left) / lifetime)
+	if attack.alpha_over_time:
+		modulate.a = attack.alpha_over_time.curve.sample((lifetime - timer.time_left) / lifetime)
 		scale = Vector2(1.0, min(modulate.a * 4.0, 1.0))
 		shape.disabled = modulate.a < 0.95
 	super(delta)
 
 func add_particles() -> void:
 	particles = GPUParticles2D.new()
-	particles.process_material = projectile.particle_material
-	particles.texture = projectile.particle_texture
-	particles.amount = projectile.particle_amount
-	particles.amount_ratio = projectile.particle_amount_ratio
-	particles.lifetime = projectile.particle_lifetime
-	particles.one_shot = projectile.particle_oneshot
-	particles.preprocess = projectile.particle_preprocess
-	particles.speed_scale = projectile.particle_speed_scale
-	particles.explosiveness = projectile.particle_explosiveness
-	particles.randomness = projectile.particle_randomness
+	particles.process_material = attack.particle_material
+	particles.texture = attack.particle_texture
+	particles.amount = attack.particle_amount
+	particles.amount_ratio = attack.particle_amount_ratio
+	particles.lifetime = attack.particle_lifetime
+	particles.one_shot = attack.particle_oneshot
+	particles.preprocess = attack.particle_preprocess
+	particles.speed_scale = attack.particle_speed_scale
+	particles.explosiveness = attack.particle_explosiveness
+	particles.randomness = attack.particle_randomness
 	particles.local_coords = true
 	add_child(particles)
 
@@ -99,10 +99,10 @@ func play_sound(sound: AudioStream) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
-		if projectile.death_projectile:
-			play_sound(projectile.death_projectile.shoot_sound)
-			for i: int in range(projectile.death_projectile.count):
-				var bullet: ProjectileController = ProjectileController.new(projectile.death_projectile, direction, spawner)
+		if attack.death_attack:
+			play_sound(attack.death_attack.attack_sound)
+			for i: int in range(attack.death_attack.count):
+				var bullet: AttackController = AttackController.new(attack.death_attack, direction, spawner)
 				bullet.global_position = global_position
 				bullet.damage_flags = damage_flags
 				spawner.add_sibling(bullet)

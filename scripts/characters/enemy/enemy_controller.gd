@@ -2,11 +2,11 @@ class_name EnemyController extends CharacterController
 
 @export var charge_time: float = 0.25
 @export var min_distance_to_target: float = 8.0
-@export var shoot_distance: float = 48.0
-@export var predictive_shooting: bool = false
+@export var attack_distance: float = 48.0
+@export var predictive_attacking: bool = false
 
 var target: TargetComponent = null
-var projectile: SpawnProjectileComponent = null
+var attack: SpawnAttackComponent = null
 var movement: MoveComponent = null
 var health: HealthComponent = null
 var animation: AnimationComponent = null
@@ -20,7 +20,7 @@ func _ready() -> void:
 	super()
 	#set_damage_color(Color("8b7d9c"))
 	target = get_component(TargetComponent)
-	projectile = get_component(SpawnProjectileComponent)
+	attack = get_component(SpawnAttackComponent)
 	movement = get_component(MoveComponent)
 	health = get_component(HealthComponent)
 	health.damage_taken.connect(on_damage_taken)
@@ -33,20 +33,20 @@ func _custom_process(delta: float) -> void:
 	if current_target:
 		var intercept_angle: float = prediction_angle()
 		var angle_to_target: float = 0.0
-		if intercept_angle != 0.0 && predictive_shooting:
+		if intercept_angle != 0.0 && predictive_attacking:
 			angle_to_target = intercept_angle
 		else:
 			angle_to_target = global_position.angle_to_point(current_target.global_position)
 		var distance: float = distance_to_target()
 		if !charging:
-			projectile.shoot_angle = angle_to_target
+			attack.attack_angle = angle_to_target
 			movement.desired_movement = Vector2.from_angle(angle_to_target)
 		else:
 			movement.desired_movement = Vector2.ZERO
-		if !charging && projectile.can_shoot() && distance <= shoot_distance:
+		if !charging && attack.can_attack() && distance <= attack_distance:
 			charging = true
 			await get_tree().create_timer(charge_time).timeout
-			projectile.shoot()
+			attack.attack()
 			charging = false
 		if distance <= min_distance_to_target:
 			movement.desired_movement = Vector2.ZERO
@@ -54,14 +54,15 @@ func _custom_process(delta: float) -> void:
 				movement.desired_movement = -Vector2.from_angle(angle_to_target)
 	else:
 		movement.desired_movement = Vector2.ZERO
-	animation.should_flip = movement.desired_movement.x < 0
-	animation.charging = charging
+	if animation:
+		animation.should_flip = movement.desired_movement.x < 0
+		animation.charging = charging
 	super(delta)
 
 func get_target() -> CharacterController:
 	return target.target
 
-func on_damage_taken(from: ProjectileController) -> void:
+func on_damage_taken(from: AttackController) -> void:
 	target.try_add_target(from.spawner)
 
 func distance_to_target() -> float:
@@ -71,9 +72,9 @@ func distance_to_target() -> float:
 	return current_target.global_position.distance_to(global_position)
 
 func prediction_angle() -> float:
-	if !projectile:
+	if !attack:
 		return 0.0
-	if !projectile.bullet_type:
+	if !attack.attack_type:
 		return 0.0
 	var current_target: CharacterController = get_target()
 	if !current_target:
@@ -84,7 +85,7 @@ func prediction_angle() -> float:
 	return global_position.angle_to_point(possible_intercept)
 
 func calc_intercept(t: CharacterController) -> Vector2:
-	var speed: float = projectile.bullet_type.speed
+	var speed: float = attack.attack_type.speed
 	var target_speed: Vector2 = t.get_real_velocity()
 	var target_position: Vector2 = t.global_position + target_speed
 	var dist_x: float = target_position.x - global_position.x

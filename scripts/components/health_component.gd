@@ -11,19 +11,14 @@ class_name HealthComponent extends Component
 
 var healthbar: TextureProgressBar = null
 var healthbar_delta: TextureProgressBar = null
-var area: Area2D = null
-var shape: CollisionShape2D = null
-
 var current_health: float = max_health
-var invulnerabilities: Dictionary[Projectile, float] = {}
-var invulnerable: bool = false
 var alive: bool = true
 var hit_player: RandomAudioStreamPlayer2D = null
 var death_player: RandomAudioStreamPlayer2D = null
 var healthbar_delta_timer: Timer = null
 var screen_shake_amount: float = 0.5
 
-signal damage_taken(from: ProjectileController)
+signal damage_taken(from: AttackController)
 
 func _enter() -> void:
 	# Healthbar
@@ -53,15 +48,6 @@ func _enter() -> void:
 		healthbar_delta.visible = false
 	add_child(healthbar)
 	add_child(healthbar_delta)
-	# Hit Detection
-	area = Area2D.new()
-	area.collision_mask = 2
-	add_child(area)
-	area.body_entered.connect(on_hit_detected)
-	shape = CollisionShape2D.new()
-	shape.shape = RectangleShape2D.new()
-	shape.shape.size = Vector2.ONE * 8
-	area.add_child(shape)
 	# Audio
 	if hit_sounds.size() > 0:
 		hit_player = GameManager.create_audio_player(&"sounds", hit_sounds)
@@ -70,15 +56,9 @@ func _enter() -> void:
 		death_player = GameManager.create_audio_player(&"sounds", death_sounds)
 		add_child(death_player)
 
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	if current_health <= 0:
 		death()
-	var new_invulnerabilities: Dictionary[Projectile, float] = {}
-	for key: Projectile in invulnerabilities.keys():
-		var new_time: float = invulnerabilities[key] - delta
-		if new_time > 0.0:
-			new_invulnerabilities[key] = new_time
-	invulnerabilities = new_invulnerabilities
 
 func _exit() -> void:
 	pass
@@ -102,27 +82,23 @@ func death() -> void:
 	controller.process_mode = Node.PROCESS_MODE_DISABLED
 	controller.queue_free()
 
-func can_get_damaged(projectile: ProjectileController) -> bool:
-	return (controller.flags & projectile.damage_flags) == controller.flags
+func can_get_damaged(attack: AttackController) -> bool:
+	return (controller.flags & attack.damage_flags) == controller.flags
 
-func take_damage(projectile: ProjectileController) -> void:
-	if !can_get_damaged(projectile):
+func take_damage(attack: AttackController) -> void:
+	if !can_get_damaged(attack):
 		return
-	var proj: Projectile = projectile.projectile
-	if invulnerabilities.has(proj):
-		if invulnerabilities[proj] > 0.0:
-			return
-	damage_taken.emit(projectile)
+	var proj: Attack = attack.attack
+	damage_taken.emit(attack)
 	current_health -= proj.power
 	GameManager.camera_shake(screen_shake_amount * proj.power * 8.0 * proj.shake_amount, proj.shake_duration, proj.shake_addative)
 	if current_health <= 0:
 		return
 	if hit_player:
 		hit_player.play_randomized()
-	calc_knockback(projectile)
+	calc_knockback(attack)
 	update_healthbar()
 	var invulnerability: float = proj.invulnerability
-	invulnerabilities[proj] = invulnerability
 	controller.set_damaged(true)
 	GameManager.slowdown(proj.slowdown, proj.slowdown_duration_ms)
 	await get_tree().create_timer(max(invulnerability, 0.15)).timeout
@@ -130,22 +106,12 @@ func take_damage(projectile: ProjectileController) -> void:
 	if !controller || is_queued_for_deletion():
 		return
 	await get_tree().create_timer(2.0).timeout
-	if !projectile || is_queued_for_deletion():
+	if !attack || is_queued_for_deletion():
 		return
 
-func calc_knockback(projectile: ProjectileController) -> void:
-	if projectile.projectile.knockback == 0.0:
+func calc_knockback(attack: AttackController) -> void:
+	if attack.attack.knockback == 0.0:
 		return
 	if !"movement" in controller:
 		return
-	controller.movement.take_knockback(projectile.get_real_velocity() * projectile.projectile.knockback, projectile.projectile.knockback * 0.1)
-
-func on_hit_detected(body: Node) -> void:
-	if invulnerable:
-		return
-	if is_instance_of(body, ProjectileController):
-		if invulnerabilities.has(body.projectile):
-			if invulnerabilities[body.projectile] > 0.0:
-				return
-		if body.spawner != controller || body.projectile.can_hit_owner:
-			take_damage(body as ProjectileController)
+	controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)

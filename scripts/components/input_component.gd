@@ -1,14 +1,14 @@
 class_name InputComponent extends Component
 
 var movement: Vector2 = Vector2.ZERO
-var shooting: bool = false
-var secondary_shooting: bool = false
+var attacking: bool = false
+var secondary_attacking: bool = false
 var angle_to_cursor: float = 0.0
 var dashing: bool = false
 
 var can_spawn: bool = true
 
-signal started_shooting
+signal started_attacking
 signal inventory_toggled
 
 func _init() -> void:
@@ -20,8 +20,8 @@ func _enter() -> void:
 func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
-	if Input.is_action_just_pressed("shoot"):
-		started_shooting.emit()
+	if Input.is_action_just_pressed("attack"):
+		started_attacking.emit()
 		if can_spawn:
 			var item: ItemPickup2D = ItemPickup2D.new()
 			item.item = DataManager.resources["items"].pick_random()
@@ -31,9 +31,9 @@ func _update(_delta: float) -> void:
 		can_spawn = !can_spawn
 		inventory_toggled.emit()
 	movement = Input.get_vector("left", "right", "up", "down")
-	shooting = Input.is_action_pressed("shoot")
+	attacking = Input.is_action_pressed("attack")
 	dashing = Input.is_action_pressed("dash")
-	secondary_shooting = Input.is_action_pressed("secondary_shoot") && !shooting
+	secondary_attacking = Input.is_action_pressed("secondary_attack") && !attacking
 	angle_to_cursor = get_angle_to(get_global_mouse_position())
 
 func _exit() -> void:

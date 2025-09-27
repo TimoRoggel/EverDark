@@ -1,4 +1,7 @@
-class_name ItemPickup2D extends Area2D
+@tool
+class_name DroppedItem2D extends Interactable2D
+
+const ITEM_PICKUP_RUNNABLE: GDScript = preload("uid://jxi2b1l6t8j3")
 
 @export var item: Item = null
 @export var amount: int = 1
@@ -6,10 +9,6 @@ class_name ItemPickup2D extends Area2D
 var timeout_timer: Timer = Timer.new()
 
 func _ready() -> void:
-	var shape: CollisionShape2D = CollisionShape2D.new()
-	shape.shape = RectangleShape2D.new()
-	shape.shape.size = Vector2i.ONE * 16
-	add_child(shape)
 	z_as_relative = false
 	y_sort_enabled = true
 	var sprite: Sprite2D = Sprite2D.new()
@@ -17,9 +16,13 @@ func _ready() -> void:
 	add_child(sprite)
 	timeout_timer.one_shot = true
 	add_child(timeout_timer)
+	interact_script = ITEM_PICKUP_RUNNABLE
+	active = true
+	custom_parameter = str("{\"item\": ", item.id, ", \"quantity\": ", amount, "}")
+	super()
 
 func timeout(count: float = 2.0) -> void:
+	active = false
 	timeout_timer.start(count)
-
-func can_pickup() -> bool:
-	return timeout_timer.time_left <= 0.0
+	await timeout_timer.timeout
+	active = true

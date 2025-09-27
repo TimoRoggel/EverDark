@@ -16,4 +16,4 @@ func _update(_delta: float) -> void:
 	# If moving transition to walk.
 	if _controller().input.movement.length() >= 0.1:
 		# Change state.
-		transition.emit(self, "walk")
+		_transition("walk")

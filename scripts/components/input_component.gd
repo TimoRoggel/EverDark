@@ -10,6 +10,7 @@ var can_spawn: bool = true
 
 signal started_attacking
 signal inventory_toggled
+signal interact
 
 func _init() -> void:
 	updates_in_physics = false
@@ -20,10 +21,12 @@ func _enter() -> void:
 func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
+	if Input.is_action_just_pressed("interact"):
+		interact.emit()
 	if Input.is_action_just_pressed("attack"):
 		started_attacking.emit()
 		if can_spawn:
-			var item: ItemPickup2D = ItemPickup2D.new()
+			var item: DroppedItem2D = DroppedItem2D.new()
 			item.item = DataManager.resources["items"].pick_random()
 			controller.add_sibling(item)
 			item.global_position = get_global_mouse_position()

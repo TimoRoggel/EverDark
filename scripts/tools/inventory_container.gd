@@ -88,6 +88,25 @@ func is_full() -> bool:
 			return false
 	return true
 
+func can_add(item_id: int, quantity: int = 1) -> bool:
+	var inventory: Array[InventorySlot] = get_slots()
+	for i: int in slots:
+		if inventory[i].inventory_item == null:
+			continue
+		if inventory[i].inventory_item.item.id != item_id:
+			continue
+		if inventory[i].inventory_item.is_full():
+			continue
+		quantity -= inventory[i].inventory_item.item.stack_size - inventory[i].inventory_item.quantity
+		if quantity <= 0:
+			return true
+	if quantity <= 0:
+		return true
+	for i: int in slots:
+		if inventory[i].inventory_item == null:
+			return true
+	return false
+
 func sort() -> void:
 	var items: Array[InventoryItem] = get_items()
 	items.sort_custom(func(a: InventoryItem, b: InventoryItem) -> bool: return a.item.display_name < b.item.display_name)

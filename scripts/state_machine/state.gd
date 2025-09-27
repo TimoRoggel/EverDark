@@ -24,6 +24,10 @@ func initialize() -> void:
 func _controller() -> CharacterController:
 	return state_machine.controller
 
+## Emits the [signal transition] signal with the current and new state.
+func _transition(new_state: String) -> void:
+	transition.emit(self, new_state)
+
 ## Base function that is called when the state is entered.
 func enter(enter_parameter: Variant = null) -> void:
 	state_entered.emit()

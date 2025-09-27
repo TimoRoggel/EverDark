@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=20 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
@@ -7,15 +7,16 @@
 [ext_resource type="Script" uid="uid://cnvj3qt0x6603" path="res://scripts/components/move_component.gd" id="4_kqtwu"]
 [ext_resource type="Script" uid="uid://b86jl8d8bnv68" path="res://scripts/components/camera_component.gd" id="5_6eyoc"]
 [ext_resource type="Script" uid="uid://cqprce2ews2bs" path="res://scripts/state_machine/player_states/player_walk_state.gd" id="5_jk2m4"]
-[ext_resource type="Script" uid="uid://dqan6upx40ywc" path="res://scripts/components/pickup_component.gd" id="6_kqtwu"]
+[ext_resource type="Script" uid="uid://dqan6upx40ywc" path="res://scripts/components/interaction_component.gd" id="6_kqtwu"]
 [ext_resource type="Script" uid="uid://bgrlfbkgtg7lx" path="res://scripts/components/inventory_component.gd" id="7_6eyoc"]
 [ext_resource type="Script" uid="uid://bp2m4dafooblw" path="res://scripts/tools/inventory_container.gd" id="8_eojnx"]
+[ext_resource type="Script" uid="uid://b1k2xvlafqnnw" path="res://scripts/state_machine/state_machine.gd" id="8_qgnko"]
 [ext_resource type="Script" uid="uid://b02oesl53ud3y" path="res://scripts/components/player_health_component.gd" id="8_xhtjm"]
 [ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="10_2l4js"]
 [ext_resource type="Script" uid="uid://byhtuq8lov8xm" path="res://scripts/components/spawn_attack_component.gd" id="10_xhtjm"]
+[ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
 [ext_resource type="Script" uid="uid://bvp6jp0bat6ko" path="res://scripts/resources/attack.gd" id="12_xrqxk"]
-[ext_resource type="Script" uid="uid://b1k2xvlafqnnw" path="res://scripts/state_machine/state_machine.gd" id="8_qgnko"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
@@ -80,10 +81,10 @@ script = ExtResource("7_6eyoc")
 container = NodePath("../../CanvasLayer/inventory")
 metadata/_custom_type_script = "uid://bgrlfbkgtg7lx"
 
-[node name="pickup" type="Node2D" parent="components"]
+[node name="interaction" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("6_kqtwu")
-pickup_radius = 32.0
+interact_texture = ExtResource("11_rpnd8")
 metadata/_custom_type_script = "uid://dqan6upx40ywc"
 
 [node name="health" type="Node2D" parent="components"]

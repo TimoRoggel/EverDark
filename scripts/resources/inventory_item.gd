@@ -1,7 +1,13 @@
 class_name InventoryItem extends Resource
 
-@export var item: Item = null
-@export var quantity: int = 1
+@export var item: Item = null:
+	set(value):
+		item = value
+		changed.emit()
+@export var quantity: int = 1:
+	set(value):
+		quantity = value
+		changed.emit()
 
 func _init(_item: Item = null, _quantity: int = 1) -> void:
 	if _item:

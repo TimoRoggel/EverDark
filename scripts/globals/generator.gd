@@ -103,7 +103,6 @@ func swap_dimension(new_dimension: int = 0) -> void:
 	dimension = new_dimension
 	layer.clear_tiles()
 	GameManager.player.last_generate_position = Vector2.INF
-	UIManager.loading_overlay.start_loading()
 
 func get_chunk(pos: Vector2, is_mapped: bool = false) -> Vector2i:
 	if !is_mapped:

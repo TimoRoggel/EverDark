@@ -1,5 +1,7 @@
 class_name CharacterController extends CharacterBody2D
 
+const SHADER: Shader = preload("uid://bgun8c6p8w1no")
+
 enum CharacterFlags {
 	None,
 	Player,
@@ -28,6 +30,9 @@ static func get_flag_properties(property: String) -> Array[Dictionary]:
 	return properties
 
 func _ready() -> void:
+	material = ShaderMaterial.new()
+	material.shader = SHADER
+	set_damage_color(Color("FBF5EF"))
 	load_components()
 	bump_player = GameManager.create_audio_player(&"sounds", bump_sounds)
 	add_child(bump_player)
@@ -49,8 +54,6 @@ func _physics_process(delta: float) -> void:
 		if c.updates_in_physics:
 			c._update(delta)
 	_custom_physics_process(delta)
-	if UIManager.paused:
-		return
 	if should_bounce() && bounciness != 0.0 && is_on_wall() && abs(velocity.length()) > 0.0:
 		var bounce: Vector2 = 2.0 * velocity.dot(get_wall_normal()) * get_wall_normal() * bounciness
 		velocity -= bounce

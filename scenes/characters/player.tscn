@@ -1,16 +1,33 @@
-[gd_scene load_steps=10 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=20 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
 [ext_resource type="Script" uid="uid://1ymurug5rwwb" path="res://scripts/components/input_component.gd" id="3_atpat"]
+[ext_resource type="Script" uid="uid://bi8mqyt32ti68" path="res://scripts/state_machine/player_states/player_idle_state.gd" id="4_2l4js"]
 [ext_resource type="Script" uid="uid://cnvj3qt0x6603" path="res://scripts/components/move_component.gd" id="4_kqtwu"]
 [ext_resource type="Script" uid="uid://b86jl8d8bnv68" path="res://scripts/components/camera_component.gd" id="5_6eyoc"]
-[ext_resource type="Script" uid="uid://dqan6upx40ywc" path="res://scripts/components/pickup_component.gd" id="6_kqtwu"]
+[ext_resource type="Script" uid="uid://cqprce2ews2bs" path="res://scripts/state_machine/player_states/player_walk_state.gd" id="5_jk2m4"]
+[ext_resource type="Script" uid="uid://dqan6upx40ywc" path="res://scripts/components/interaction_component.gd" id="6_kqtwu"]
 [ext_resource type="Script" uid="uid://bgrlfbkgtg7lx" path="res://scripts/components/inventory_component.gd" id="7_6eyoc"]
 [ext_resource type="Script" uid="uid://bp2m4dafooblw" path="res://scripts/tools/inventory_container.gd" id="8_eojnx"]
+[ext_resource type="Script" uid="uid://b1k2xvlafqnnw" path="res://scripts/state_machine/state_machine.gd" id="8_qgnko"]
+[ext_resource type="Script" uid="uid://b02oesl53ud3y" path="res://scripts/components/player_health_component.gd" id="8_xhtjm"]
+[ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="10_2l4js"]
+[ext_resource type="Script" uid="uid://byhtuq8lov8xm" path="res://scripts/components/spawn_attack_component.gd" id="10_xhtjm"]
+[ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
+[ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
+[ext_resource type="Script" uid="uid://bvp6jp0bat6ko" path="res://scripts/resources/attack.gd" id="12_xrqxk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
+
+[sub_resource type="Resource" id="Resource_xhtjm"]
+script = ExtResource("12_xrqxk")
+texture = ExtResource("12_xhtjm")
+speed = 0.0
+align_rotation = true
+hurtbox = Rect2i(0, 0, 8, 8)
+metadata/_custom_type_script = "uid://bvp6jp0bat6ko"
 
 [node name="player" type="CharacterBody2D"]
 z_as_relative = false
@@ -30,6 +47,19 @@ z_as_relative = false
 y_sort_enabled = true
 position = Vector2(0, -7)
 texture = ExtResource("2_76oj4")
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("8_qgnko")
+current_state = NodePath("idle")
+metadata/_custom_type_script = "uid://b1k2xvlafqnnw"
+
+[node name="idle" type="Node" parent="state_machine"]
+script = ExtResource("4_2l4js")
+metadata/_custom_type_script = "uid://bi8mqyt32ti68"
+
+[node name="walk" type="Node" parent="state_machine"]
+script = ExtResource("5_jk2m4")
+metadata/_custom_type_script = "uid://cqprce2ews2bs"
 
 [node name="components" type="Node2D" parent="."]
 
@@ -51,11 +81,27 @@ script = ExtResource("7_6eyoc")
 container = NodePath("../../CanvasLayer/inventory")
 metadata/_custom_type_script = "uid://bgrlfbkgtg7lx"
 
-[node name="pickup" type="Node2D" parent="components"]
+[node name="interaction" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("6_kqtwu")
-pickup_radius = 32.0
+interact_texture = ExtResource("11_rpnd8")
 metadata/_custom_type_script = "uid://dqan6upx40ywc"
+
+[node name="health" type="Node2D" parent="components"]
+script = ExtResource("8_xhtjm")
+metadata/_custom_type_script = "uid://b02oesl53ud3y"
+
+[node name="hitbox" type="Node2D" parent="components"]
+position = Vector2(0, -4)
+script = ExtResource("10_2l4js")
+collision_radius = 6.0
+metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="main_attack" type="Node2D" parent="components"]
+script = ExtResource("10_xhtjm")
+attack_type = SubResource("Resource_xhtjm")
+damaging_flags = 3
+metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)

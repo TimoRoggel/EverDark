@@ -30,7 +30,7 @@ func _enter() -> void:
 		add_child(audio_players[possible_anim])
 	animated_sprite.frame_changed.connect(step_sound)
 
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	animated_sprite.flip_h = should_flip
 	var suitable_anim: String = get_suitable_animation()
 	if suitable_anim != animated_sprite.animation:
@@ -42,8 +42,6 @@ func _exit() -> void:
 	pass
 
 func step_sound() -> void:
-	if UIManager.paused:
-		return
 	if walk_sounds.size() < 1:
 		return
 	if animated_sprite.animation != ANIMS[1]:

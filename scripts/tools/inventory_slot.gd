@@ -3,9 +3,12 @@ class_name InventorySlot extends PanelContainer
 
 @export var inventory_item: InventoryItem = null:
 	set(value):
+		if value:
+			value.changed.connect(_update_item)
+			if inventory_item:
+				inventory_item.changed.disconnect(_update_item)
 		inventory_item = value
-		_setup_item()
-		item_changed.emit()
+		_update_item()
 
 var index: int = 0
 var icon: TextureRect = null
@@ -160,6 +163,10 @@ func _setup_item() -> void:
 		icon.texture = null
 		label.text = ""
 		tooltip_text = ""
+
+func _update_item() -> void:
+	_setup_item()
+	item_changed.emit()
 
 func add_amount(amount: int = 0) -> void:
 	if !inventory_item:

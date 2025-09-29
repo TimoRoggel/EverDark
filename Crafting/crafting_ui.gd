@@ -16,6 +16,7 @@ var current_recipe: Recipe = null
 func _ready() -> void:
 	build_recipe_tree()
 	craft_button.pressed.connect(_on_CraftButton_pressed)
+	visibility_changed.connect(_on_tree_cell_selected)
 
 func build_recipe_tree() -> void:
 	tree.hide_root = true

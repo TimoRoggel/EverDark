@@ -3,7 +3,7 @@ class_name PlayerController extends CharacterController
 var input: InputComponent = null
 var movement: MoveComponent = null
 var weapon: SpawnAttackComponent = null
-var secondary: SpawnAttackComponent = null
+var block: BlockComponent = null
 var animation: AnimationComponent = null
 var dash: DashComponent = null
 var camera: CameraComponent = null
@@ -22,7 +22,7 @@ func _ready() -> void:
 	input = get_component(InputComponent)
 	movement = get_component(MoveComponent)
 	weapon = get_component(SpawnAttackComponent)
-	secondary = get_component(SpawnAttackComponent, 1)
+	block = get_component(BlockComponent)
 	animation = get_component(AnimationComponent)
 	dash = get_component(DashComponent)
 	camera = get_component(CameraComponent)
@@ -36,15 +36,13 @@ func _custom_physics_process(delta: float) -> void:
 	if !movement:
 		return
 	movement.desired_movement = input.movement
-	if secondary:
-		secondary.attack_angle = weapon.attack_angle
+	if block:
+		block.block_angle = input.angle_to_cursor
 	if animation:
 		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
 		animation.should_flip = should_flip || input.movement.x < 0
 	if weapon:
 		weapon.attacking = input.attacking
-		if secondary:
-			secondary.attacking = input.secondary_attacking
 	if dash:
 		dash.dashing = input.dashing
 		dash.default_dash = Vector2.from_angle(input.angle_to_cursor)

@@ -4,23 +4,28 @@ class_name DroppedItem2D extends Interactable2D
 const ITEM_PICKUP_RUNNABLE: GDScript = preload("uid://jxi2b1l6t8j3")
 const MERGE_DISTANCE: float = 16.0
 
-@export var item: Item = null
-@export var amount: int = 1
+@export var item: Item = null:
+	set(value):
+		item = value
+		update_param()
+@export var amount: int = 1:
+	set(value):
+		amount = value
+		update_param()
 
 var timeout_timer: Timer = Timer.new()
 var merge_area: Area2D = Area2D.new()
+var sprite: Sprite2D = Sprite2D.new()
 
 func _ready() -> void:
 	z_as_relative = false
 	y_sort_enabled = true
-	var sprite: Sprite2D = Sprite2D.new()
 	sprite.texture = item.icon
 	add_child(sprite)
 	timeout_timer.one_shot = true
 	add_child(timeout_timer)
 	interact_script = ITEM_PICKUP_RUNNABLE
 	active = true
-	custom_parameter = str("{\"item\": ", item.id, ", \"quantity\": ", amount, "}")
 	super()
 	merge_area.collision_layer = 0
 	merge_area.collision_mask = 4
@@ -51,7 +56,10 @@ func _physics_process(_delta: float) -> void:
 	for d: DroppedItem2D in nearby_items:
 		amount += d.amount
 		d.queue_free()
+
+func update_param() -> void:
 	custom_parameter = str("{\"item\": ", item.id, ", \"quantity\": ", amount, "}")
+	sprite.texture = item.icon
 
 func timeout(count: float = 0.25) -> void:
 	active = false

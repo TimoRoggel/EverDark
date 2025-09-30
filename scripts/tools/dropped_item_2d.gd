@@ -15,11 +15,11 @@ const MERGE_DISTANCE: float = 16.0
 
 var timeout_timer: Timer = Timer.new()
 var merge_area: Area2D = Area2D.new()
+var sprite: Sprite2D = Sprite2D.new()
 
 func _ready() -> void:
 	z_as_relative = false
 	y_sort_enabled = true
-	var sprite: Sprite2D = Sprite2D.new()
 	sprite.texture = item.icon
 	add_child(sprite)
 	timeout_timer.one_shot = true
@@ -59,6 +59,7 @@ func _physics_process(_delta: float) -> void:
 
 func update_param() -> void:
 	custom_parameter = str("{\"item\": ", item.id, ", \"quantity\": ", amount, "}")
+	sprite.texture = item.icon
 
 func timeout(count: float = 0.25) -> void:
 	active = false

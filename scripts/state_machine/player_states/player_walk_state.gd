@@ -19,4 +19,4 @@ func _update(_delta: float) -> void:
 	# If we are no longer moving, change to idle state.
 	if _controller().input.movement.length() < 0.1:
 		# Change state.
-		transition.emit(self, "idle")
+		_transition("idle")

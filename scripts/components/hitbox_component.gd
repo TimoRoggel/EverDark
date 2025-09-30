@@ -9,6 +9,7 @@ class_name HitboxComponent extends Component
 		queue_redraw()
 
 var health_component: HealthComponent = null
+var block_component: BlockComponent = null
 var hurtbox_area: Area2D = Area2D.new()
 var hurtbox_collision: CollisionShape2D = CollisionShape2D.new()
 
@@ -22,6 +23,7 @@ func _draw() -> void:
 
 func _enter() -> void:
 	health_component = controller.get_component(HealthComponent)
+	block_component = controller.get_component(BlockComponent)
 	if hurtbox_area && hurtbox_collision:
 		# setup area2d
 		hurtbox_area.collision_mask = 2
@@ -62,6 +64,9 @@ func _on_body_entered(body: Node2D) -> void:
 func receive_hit(from: AttackController) -> void:
 	if !health_component:
 		return
+	if block_component:
+		if block_component.did_block(global_position.angle_to(from.global_position)):
+			return
 	print("taken damage: ", from.attack.power)
 	health_component.take_damage(from)
 	cooldown()

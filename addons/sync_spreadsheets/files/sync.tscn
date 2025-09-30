@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c175dpomx5ru4"]
 
-[ext_resource type="Script" path="res://addons/sync_spreadsheets/files/sync.gd" id="1_bjlf8"]
-[ext_resource type="Script" path="res://addons/sync_spreadsheets/files/http.gd" id="2_3wys5"]
+[ext_resource type="Script" uid="uid://g05r58jnnx3i" path="res://addons/sync_spreadsheets/files/sync.gd" id="1_bjlf8"]
+[ext_resource type="Script" uid="uid://b4xqbkxts57jr" path="res://addons/sync_spreadsheets/files/http.gd" id="2_3wys5"]
 
 [node name="Sync" type="VBoxContainer"]
 anchors_preset = 15

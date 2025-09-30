@@ -17,7 +17,7 @@ func _exit() -> void:
 	pass
 
 func _on_item_dropped(item: InventoryItem) -> void:
-	var pickup: ItemPickup2D = ItemPickup2D.new()
+	var pickup: DroppedItem2D = DroppedItem2D.new()
 	pickup.item = item.item
 	pickup.amount = item.quantity
 	controller.add_sibling(pickup)
@@ -44,3 +44,9 @@ func is_empty() -> bool:
 
 func is_full() -> bool:
 	return container.is_full()
+
+func can_add(item_id: int, quantity: int = 1) -> bool:
+	return container.can_add(item_id, quantity)
+
+func available_space(item_id: int) -> int:
+	return container.available_space(item_id)

@@ -27,6 +27,11 @@ func add(amount: int) -> int:
 func is_full() -> bool:
 	return quantity >= item.stack_size
 
+func available_space() -> int:
+	if !item:
+		return -1
+	return item.stack_size - quantity
+
 func _to_string() -> String:
 	if !item:
 		return "InventoryItem<>"

@@ -47,3 +47,6 @@ func is_full() -> bool:
 
 func can_add(item_id: int, quantity: int = 1) -> bool:
 	return container.can_add(item_id, quantity)
+
+func available_space(item_id: int) -> int:
+	return container.available_space(item_id)

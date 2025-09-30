@@ -2,9 +2,9 @@ class_name InputComponent extends Component
 
 var movement: Vector2 = Vector2.ZERO
 var attacking: bool = false
-var secondary_attacking: bool = false
 var angle_to_cursor: float = 0.0
 var dashing: bool = false
+var blocking: bool = false
 
 var can_spawn: bool = true
 
@@ -33,8 +33,8 @@ func _update(_delta: float) -> void:
 		inventory_toggled.emit()
 	movement = Input.get_vector("left", "right", "up", "down")
 	attacking = Input.is_action_pressed("attack")
+	blocking = Input.is_action_pressed("block")
 	dashing = Input.is_action_pressed("dash")
-	secondary_attacking = Input.is_action_pressed("secondary_attack") && !attacking
 	angle_to_cursor = get_angle_to(get_global_mouse_position())
 
 func _exit() -> void:

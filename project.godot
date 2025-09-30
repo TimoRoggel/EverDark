@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Everdark-Prototype"
+config/name="Everdark"
 run/main_scene="uid://dgp8wphrgdusy"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://dohxaqpdlgg4q"
 
 [autoload]
 

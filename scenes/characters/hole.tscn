@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl655ix05mcka"]
+
+[ext_resource type="Script" uid="uid://baqo7v8egwrlj" path="res://scripts/characters/hole.gd" id="1_iyxdx"]
+[ext_resource type="Texture2D" uid="uid://cv4qc07qxbf4g" path="res://graphics/hole.png" id="1_vkllq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ghnae"]
+radius = 32.0
+
+[node name="hole" type="Sprite2D"]
+z_index = -1
+z_as_relative = false
+texture = ExtResource("1_vkllq")
+script = ExtResource("1_iyxdx")
+
+[node name="area" type="Area2D" parent="."]
+z_index = -1
+z_as_relative = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="collision" type="CollisionShape2D" parent="area"]
+z_index = -1
+z_as_relative = false
+position = Vector2(0.5, -2)
+shape = SubResource("CircleShape2D_ghnae")
+
+[connection signal="area_entered" from="area" to="." method="_on_area_2d_area_entered"]

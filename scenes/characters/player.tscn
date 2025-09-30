@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
 [ext_resource type="Script" uid="uid://bvp6jp0bat6ko" path="res://scripts/resources/attack.gd" id="12_xrqxk"]
+[ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/pause_menu.tscn" id="18_d6tgn"]
 [ext_resource type="Script" uid="uid://c0jl7340jmrnc" path="res://scripts/components/block_component.gd" id="17_d6tgn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
@@ -127,3 +128,6 @@ offset_bottom = 352.0
 columns = 10
 script = ExtResource("8_eojnx")
 metadata/_custom_type_script = "uid://bp2m4dafooblw"
+
+[node name="pause_screen" parent="CanvasLayer" instance=ExtResource("18_d6tgn")]
+process_mode = 3

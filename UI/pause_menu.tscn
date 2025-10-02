@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bn1esnd74d0hh"]
+[gd_scene load_steps=5 format=3 uid="uid://bn1esnd74d0hh"]
 
 [ext_resource type="Script" uid="uid://b0thq0tp2rp14" path="res://UI/pause_menu.gd" id="1_ltd3m"]
+[ext_resource type="Script" uid="uid://rsst28hudxbk" path="res://UI/audio_control.gd" id="2_jfm1e"]
+[ext_resource type="Script" uid="uid://cq8x5dqj6twj1" path="res://UI/check_box_2.gd" id="3_03fe5"]
+[ext_resource type="Script" uid="uid://dw6r4uth2ft6v" path="res://UI/option_button.gd" id="4_0b5ob"]
 
 [node name="Pause Menu" type="Control"]
 layout_mode = 3
@@ -11,30 +14,343 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ltd3m")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(100, 20)
+[node name="PauseMenu" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -77.0
+offset_right = 112.0
+offset_bottom = 104.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Buttons" type="VBoxContainer" parent="PauseMenu"]
 custom_minimum_size = Vector2(100, 20)
-layout_mode = 2
+layout_mode = 0
+offset_left = 61.0
+offset_top = 26.0
+offset_right = 161.0
+offset_bottom = 127.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="PauseMenu/Buttons"]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 text = "Resume"
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="PauseMenu/Buttons"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Options"
+
+[node name="Achievments" type="Button" parent="PauseMenu/Buttons"]
+layout_mode = 2
+text = "Achievments"
+
+[node name="Quit" type="Button" parent="PauseMenu/Buttons"]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 text = "Quit"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="Options" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -77.0
+offset_right = 112.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Options/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Options"
+horizontal_alignment = 1
+
+[node name="Audio" type="Button" parent="Options/VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Audio"
+
+[node name="Graphics" type="Button" parent="Options/VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Graphics"
+
+[node name="Controls" type="Button" parent="Options/VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Controls"
+
+[node name="Back" type="Button" parent="Options/VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Back"
+
+[node name="Control panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -77.0
+offset_right = 112.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="Back_c" type="Button" parent="Control panel"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = 39.5
+offset_right = 50.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[node name="Audio panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -77.0
+offset_right = 112.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Audio panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="SFX" type="Label" parent="Audio panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 25.0
+offset_right = 14.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "SFX"
+
+[node name="AudioControl" type="HSlider" parent="Audio panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -20.5
+offset_right = 101.5
+offset_bottom = -4.5
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("2_jfm1e")
+audio_bus_name = "Music"
+
+[node name="Music" type="Label" parent="Audio panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 56.0
+offset_right = 14.0
+offset_bottom = 84.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Music"
+
+[node name="AudioControl2" type="HSlider" parent="Audio panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -51.5
+offset_right = 101.5
+offset_bottom = -35.5
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("2_jfm1e")
+audio_bus_name = "Music"
+
+[node name="Music2" type="Label" parent="Audio panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 87.0
+offset_right = 14.0
+offset_bottom = 115.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Mute"
+
+[node name="Back_c" type="Button" parent="Audio panel"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = 39.5
+offset_right = 50.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[node name="Mute" type="CheckBox" parent="Audio panel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 40.0
+offset_bottom = 124.0
+script = ExtResource("3_03fe5")
+
+[node name="Graphics panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -77.0
+offset_right = 112.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resolutions" type="Label" parent="Graphics panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 25.0
+offset_right = 14.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Resolutions"
+
+[node name="Label" type="Label" parent="Graphics panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="Resolutions2" type="OptionButton" parent="Graphics panel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 39.0
+offset_right = 47.0
+offset_bottom = 59.0
+selected = 3
+item_count = 4
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1600x900"
+popup/item_1/id = 1
+popup/item_2/text = "1280x720"
+popup/item_2/id = 2
+popup/item_3/text = "640x360"
+popup/item_3/id = 3
+script = ExtResource("4_0b5ob")
+
+[node name="Back_c" type="Button" parent="Graphics panel"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = 39.5
+offset_right = 50.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[connection signal="pressed" from="PauseMenu/Buttons/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="PauseMenu/Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Options/VBoxContainer/Audio" to="." method="_on_audio_pressed"]
+[connection signal="pressed" from="Options/VBoxContainer/Graphics" to="." method="_on_graphics_pressed"]
+[connection signal="pressed" from="Options/VBoxContainer/Controls" to="." method="_on_controls_pressed"]
+[connection signal="pressed" from="Options/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Control panel/Back_c" to="." method="_on_back_c_pressed"]
+[connection signal="value_changed" from="Audio panel/AudioControl" to="Audio panel/AudioControl" method="_on_value_changed"]
+[connection signal="value_changed" from="Audio panel/AudioControl2" to="Audio panel/AudioControl2" method="_on_value_changed"]
+[connection signal="pressed" from="Audio panel/Back_c" to="." method="_on_back_c_pressed"]
+[connection signal="toggled" from="Audio panel/Mute" to="Audio panel/Mute" method="_on_toggled"]
+[connection signal="item_selected" from="Graphics panel/Resolutions2" to="Graphics panel/Resolutions2" method="_on_item_selected"]
+[connection signal="pressed" from="Graphics panel/Back_c" to="." method="_on_back_c_pressed"]

@@ -28,6 +28,7 @@ func _update(_delta: float) -> void:
 			item.item = DataManager.resources["items"].pick_random()
 			controller.add_sibling(item)
 			item.global_position = get_global_mouse_position()
+			Generator.generate(get_global_mouse_position() * Generator.SIZE)
 	if Input.is_action_just_pressed("toggle_inventory"):
 		can_spawn = !can_spawn
 		inventory_toggled.emit()

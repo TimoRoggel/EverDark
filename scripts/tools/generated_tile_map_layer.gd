@@ -45,38 +45,18 @@ func clear_tiles() -> void:
 	toppings_layer.clear()
 
 func generate_around(where: Vector2, amount: int = 1) -> void:
-	var processing_dimension: int = Generator.dimension
-	await SequenceHelper.spiral_t(Vector2i.ZERO, amount + 1, func(pos: Vector2i, _i: int) -> bool:
-		if processing_dimension != Generator.dimension:
-			return true
-		if generated_chunks.has(where + Vector2(pos)):
-			return false
-		await generate(where + Vector2(pos))
-		return false
-	)
-	#for o: Vector2 in [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]:
-		#var gen_pos: Vector2 = where + o * 3
-		#if generated_chunks.has(gen_pos):
-			#continue
-		#var everdark: Everdark = Everdark.new()
-		#everdark.generate_position = where + o * 5
-		#everdark.size = Vector2.ONE + Vector2(abs(o.y) * 160.0, abs(o.x) * 160.0)
-		#add_child(everdark)
-		#everdark.global_position = global_position + gen_pos * 16.0
+	for x: int in range(-Generator.SIZE * amount, Generator.SIZE * amount + 1):
+		for y: int in range(-Generator.SIZE * amount, Generator.SIZE * amount + 1):
+			var pos: Vector2 = where + Vector2(x, y)
+			if pos.distance_squared_to(where) >= pow(Generator.SIZE, 2.0):
+				continue
+			generate(pos)
 
 func generate(where: Vector2) -> void:
 	if generated_chunks.has(where):
 		return
-	var processing_dimension: int = Generator.dimension
 	generated_chunks.append(where)
-	await SequenceHelper.spiral_t(Vector2i.ZERO, Generator.HSIZE, func(pos: Vector2i, i: int) -> bool:
-		if processing_dimension != Generator.dimension:
-			return true
-		find_and_place_tile(where * Generator.SIZE + Vector2(pos))
-		if i % 32 == 0:
-			await get_tree().process_frame
-		return false
-	)
+	find_and_place_tile(where)
 	process_terrain_queue(where)
 
 func find_and_place_tile(at: Vector2) -> void:
@@ -91,12 +71,13 @@ func place_tile(at: Vector2, tile: BiomeTile, topping: bool = false) -> void:
 		var flip_v: bool = tile.flippable_v && Generator.get_noise(Generator.toppings_map, at.x + 1, at.y) > 0.5
 		var transpose: bool = tile.flippable_v && tile.flippable_h && Generator.get_noise(Generator.toppings_map, at.x + 1, at.y + 1) > 0.5
 		layer.set_tile_flip(at, flip_h, flip_v, transpose)
-	if tile.terrain < 0:
-		layer.set_cell(at, tile.source, tile.coordinates)
-	else:
-		var chunk: Vector2i = Generator.get_chunk(at, true)
-		var dchunk: Vector3i = Vector3i(chunk.x, chunk.y, Generator.dimension)
-		if !terrain_queue.has(dchunk):
-			terrain_queue[dchunk] = []
-		terrain_queue[dchunk].append([topping, tile.source, tile.terrain, at, true])
+	layer.set_cell(at, tile.source, tile.coordinates)
 	layer.notify_runtime_tile_data_update()
+	#if tile.terrain < 0:
+		#layer.set_cell(at, tile.source, tile.coordinates)
+	#else:
+		#var chunk: Vector2i = Generator.get_chunk(at, true)
+		#var dchunk: Vector3i = Vector3i(chunk.x, chunk.y, Generator.dimension)
+		#if !terrain_queue.has(dchunk):
+			#terrain_queue[dchunk] = []
+		#terrain_queue[dchunk].append([topping, tile.source, tile.terrain, at, true])

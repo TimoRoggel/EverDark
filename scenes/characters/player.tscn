@@ -47,6 +47,7 @@ shape = SubResource("RectangleShape2D_dyp2m")
 [node name="sprite" type="Sprite2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
+use_parent_material = true
 position = Vector2(0, -7)
 texture = ExtResource("2_76oj4")
 

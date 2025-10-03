@@ -116,7 +116,6 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
-metadata/_custom_type_script = "uid://chbvt1cpvl4ve"
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)

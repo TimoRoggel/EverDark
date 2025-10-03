@@ -45,12 +45,16 @@ func clear_tiles() -> void:
 	toppings_layer.clear()
 
 func generate_around(where: Vector2, amount: int = 1) -> void:
-	for x: int in range(-Generator.SIZE * amount, Generator.SIZE * amount + 1):
-		for y: int in range(-Generator.SIZE * amount, Generator.SIZE * amount + 1):
+	for r: int in Generator.SIZE * amount:
+		for t: int in 40:
+			var p: float = t * TAU / 40.0
+			var x: int = roundi(sin(p) * r)
+			var y: int = roundi(cos(p) * r)
 			var pos: Vector2 = where + Vector2(x, y)
 			if pos.distance_squared_to(where) >= pow(Generator.SIZE, 2.0):
 				continue
 			generate(pos)
+		await get_tree().physics_frame
 
 func generate(where: Vector2) -> void:
 	if generated_chunks.has(where):

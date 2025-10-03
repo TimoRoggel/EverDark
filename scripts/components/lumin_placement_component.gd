@@ -20,11 +20,11 @@ func _exit() -> void:
 	pass
 
 func place(at: Vector2) -> void:
-	if !inventory.has(0):
-		return
+	#if !inventory.has(0):
+		#return
 	for coords: Vector2 in current_lumin_positions:
 		if coords.distance_squared_to(at) < MIN_DISTANCE:
 			return
 	Generator.generate(at * Generator.SIZE)
 	current_lumin_positions.append(at)
-	inventory.remove(0)
+	#inventory.remove(0)

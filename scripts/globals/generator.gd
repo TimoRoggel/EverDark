@@ -1,7 +1,7 @@
 extends Node
 
 const BASE_FREQUENCY: float = 0.05
-const SIZE: int = 8
+const SIZE: int = 7
 const HSIZE: int = int(round(SIZE / 2.0))
 const BIOME_SIZE: float = 1.0
 const RIVER_SIZE: float = 0.15

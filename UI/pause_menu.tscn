@@ -157,7 +157,7 @@ size_flags_horizontal = 3
 [node name="InputButton" parent="Control panel/MarginContainer/VBoxContainer/ScrollContainer/ActionList" instance=ExtResource("2_pqlge")]
 layout_mode = 2
 
-[node name="ResetButton" type="Button" parent="Control panel/MarginContainer/VBoxContainer/ScrollContainer/ActionList"]
+[node name="ResetButton" type="Button" parent="Control panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Reset to default"
@@ -367,7 +367,7 @@ text = "Back"
 [connection signal="pressed" from="Options/VBoxContainer/Controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="Options/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Control panel/MarginContainer/VBoxContainer/ScrollContainer/ActionList/InputButton" to="Control panel" method="_on_input_button_pressed"]
-[connection signal="pressed" from="Control panel/MarginContainer/VBoxContainer/ScrollContainer/ActionList/ResetButton" to="Control panel" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Control panel/MarginContainer/VBoxContainer/ResetButton" to="Control panel" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Control panel/MarginContainer/VBoxContainer/Back_c" to="." method="_on_back_c_pressed"]
 [connection signal="value_changed" from="Audio panel/AudioControl" to="Audio panel/AudioControl" method="_on_value_changed"]
 [connection signal="value_changed" from="Audio panel/AudioControl2" to="Audio panel/AudioControl2" method="_on_value_changed"]

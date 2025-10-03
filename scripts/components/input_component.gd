@@ -11,6 +11,7 @@ var can_spawn: bool = true
 signal started_attacking
 signal inventory_toggled
 signal interact
+signal position_pressed(pos: Vector2)
 
 func _init() -> void:
 	updates_in_physics = false
@@ -28,7 +29,7 @@ func _update(_delta: float) -> void:
 			item.item = DataManager.resources["items"].pick_random()
 			controller.add_sibling(item)
 			item.global_position = get_global_mouse_position()
-			Generator.generate(get_global_mouse_position() * Generator.SIZE)
+			position_pressed.emit(get_global_mouse_position())
 	if Input.is_action_just_pressed("toggle_inventory"):
 		can_spawn = !can_spawn
 		inventory_toggled.emit()

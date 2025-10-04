@@ -8,7 +8,7 @@ var is_active = true
 
 func _ready() -> void:
 	if inventory:
-		slots_per_row = inventory.slots/inventory.rows
+		slots_per_row = roundi(inventory.slots / float(inventory.rows))
 		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop_item") and is_active:
@@ -17,8 +17,16 @@ func _input(event: InputEvent) -> void:
 			print("Dropped: ", inventory.get_slots()[currently_selected_slot].inventory_item)
 		else:
 			print("Empty slot")
+	elif is_instance_of(event, InputEventMouseButton):
+		if event.is_pressed():
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				currently_selected_slot = posmod(currently_selected_slot - 1, slots_per_row)
+				select_slot(currently_selected_slot)
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				currently_selected_slot = posmod(currently_selected_slot + 1, slots_per_row)
+				select_slot(currently_selected_slot)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	add_slots()
 	update_hotbar()
 	update_currently_selected_slot()
@@ -51,7 +59,7 @@ func create_item_texture() -> TextureRect:
 	
 func create_amount_label() -> Label:
 	var amount_label = Label.new()
-	amount_label.text = str(0) + "x"
+	amount_label.text = ""
 	amount_label.anchor_left = 0.0
 	amount_label.anchor_top = 0.0
 	amount_label.anchor_right = 1.0
@@ -73,7 +81,7 @@ func update_hotbar():
 					current_slot.get_child(0).texture = item_icon
 					scale_texture_rect(current_slot.get_child(0), current_slot.size*.8)
 				else:
-					current_slot.get_child(1).text = str(0) + "x"
+					current_slot.get_child(1).text = ""
 					current_slot.get_child(0).texture = null
 		
 func select_slot(slot_number):
@@ -82,8 +90,8 @@ func select_slot(slot_number):
 
 func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2):
 	var tex_size = texture_rect.texture.get_size()
-	var scale = min(parent_size.x / tex_size.x, parent_size.y / tex_size.y)
-	texture_rect.scale = Vector2(scale, scale)
+	var tex_scale = min(roundi(parent_size.x / tex_size.x), roundi(parent_size.y / tex_size.y))
+	texture_rect.scale = Vector2(tex_scale, tex_scale)
 	
 func update_currently_selected_slot():
 	for child in self.get_children():

@@ -144,3 +144,7 @@ grow_vertical = 0
 alignment = 1
 script = ExtResource("20_eir2k")
 inventory = NodePath("../inventory")
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0

@@ -24,6 +24,7 @@ func _update(_delta: float) -> void:
 		interact.emit()
 	if Input.is_action_just_pressed("attack"):
 		started_attacking.emit()
+	if Input.is_key_pressed(KEY_B):
 		if can_spawn:
 			var item: DroppedItem2D = DroppedItem2D.new()
 			item.item = DataManager.resources["items"].pick_random()

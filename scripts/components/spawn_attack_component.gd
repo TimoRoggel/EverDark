@@ -54,6 +54,10 @@ func attack() -> void:
 
 func spawn_bullet() -> void:
 	var bullet: AttackController = AttackController.new(attack_type, Vector2.from_angle(attack_angle), controller)
-	bullet.global_position = controller.global_position + Vector2(0, -4)
 	bullet.damage_flags = damaging_flags
-	controller.add_sibling(bullet)
+	if attack_type.attached_to_owner:
+		controller.add_child(bullet)
+	else:
+		bullet.global_position = controller.global_position
+		controller.add_sibling(bullet)
+	bullet.position += Vector2(0, -4)

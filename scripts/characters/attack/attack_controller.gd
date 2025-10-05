@@ -48,7 +48,7 @@ func _ready() -> void:
 	collision_mask = 0
 	# Other
 	direction = (direction + Vector2(randf_range(-attack.spread, attack.spread), randf_range(-attack.spread, attack.spread))).normalized()
-	#position += direction * 8
+	position += direction * attack.spawn_distance
 	spawn_speed = spawner.get_real_velocity() * 0.1
 	spawn_speed += spawner.get_real_velocity() * attack.inheritance
 	speed = attack.get_speed()

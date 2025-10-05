@@ -7,8 +7,11 @@ const GENERATED_PER_FRAME: int = 2
 var generated_chunks: Array[Vector2] = []
 var terrain_queue: Dictionary[Vector3i, Array] = {}
 var processed_terrains: Array[Vector2i] = []
+var everdark_queue: Array[Vector2] = []
+var queueing: bool = false
 
 signal chunk_generated(chunk: Vector2i)
+signal everdark_queue_done
 
 func _ready() -> void:
 	Generator.layer = self
@@ -38,6 +41,18 @@ func place_terrain(key: Vector3i, terrains: Dictionary[Vector3i, Array]) -> void
 	var layer: FlippableTileMapLayer = toppings_layer if key.x == 1 else self
 	layer.set_cells_terrain_connect(terrains[key], key.y, key.z)
 
+func queue_everdark() -> void:
+	queueing = true
+	var i: int = 0
+	for coords: Vector2 in everdark_queue:
+		place_everdark(coords)
+		if i % 3 == 0:
+			await get_tree().process_frame
+		i += 1
+	everdark_queue.clear()
+	queueing = false
+	everdark_queue_done.emit()
+
 func clear_tiles() -> void:
 	generated_chunks.clear()
 	processed_terrains.clear()
@@ -45,16 +60,26 @@ func clear_tiles() -> void:
 	toppings_layer.clear()
 
 func generate_around(where: Vector2, amount: int = 1) -> void:
-	for r: int in Generator.SIZE * amount:
-		for t: int in 40:
-			var p: float = t * TAU / 40.0
+	var max_radius: int = Generator.SIZE * amount
+	for r: int in max_radius + 1:
+		var steps: int = 80
+		for t: int in steps:
+			var p: float = t * TAU / steps
 			var x: int = roundi(sin(p) * r)
 			var y: int = roundi(cos(p) * r)
 			var pos: Vector2 = where + Vector2(x, y)
-			if pos.distance_squared_to(where) >= pow(Generator.SIZE, 2.0):
+			if pos.distance_squared_to(where) >= pow(max_radius + 1, 2.0):
 				continue
-			generate(pos)
+			var e_x: int = roundi(sin(p) * (r + 1))
+			var e_y: int = roundi(cos(p) * (r + 1))
+			if r >= max_radius:
+				if queueing:
+					await everdark_queue_done
+				everdark_queue.append(where + Vector2(e_x, e_y))
+			if r <= max_radius:
+				generate(pos)
 		await get_tree().physics_frame
+	queue_everdark()
 
 func generate(where: Vector2) -> void:
 	if generated_chunks.has(where):
@@ -85,3 +110,8 @@ func place_tile(at: Vector2, tile: BiomeTile, topping: bool = false) -> void:
 		#if !terrain_queue.has(dchunk):
 			#terrain_queue[dchunk] = []
 		#terrain_queue[dchunk].append([topping, tile.source, tile.terrain, at, true])
+
+func place_everdark(at: Vector2) -> void:
+	if generated_chunks.has(at):
+		return
+	set_cell(at, 4, Vector2i.ZERO, 1)

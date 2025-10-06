@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://2sk6w6jiy3ng"]
+[gd_scene load_steps=7 format=3 uid="uid://2sk6w6jiy3ng"]
 
 [ext_resource type="Script" uid="uid://ddvwga4h802ko" path="res://Crafting/crafting.gd" id="1_hwda8"]
 [ext_resource type="Texture2D" uid="uid://c3jgcwc5lwenq" path="res://graphics/crafting.png" id="1_rj1pl"]
 [ext_resource type="PackedScene" uid="uid://ccsvhx5s8yx0t" path="res://scenes/crafting/crafting_ui.tscn" id="3_xl5xf"]
+[ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="4_xkjm0"]
+[ext_resource type="Script" uid="uid://ej8osgevep81" path="res://scripts/tools/runnables/craftingtable_runnable.gd" id="5_cascu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hwda8"]
 
 [node name="Crafting" type="Area2D" node_paths=PackedStringArray("crafting_ui")]
 script = ExtResource("1_hwda8")
 crafting_ui = NodePath("CanvasLayer/CraftingUI")
+crafting_table_item_id = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.24, 1.24)
@@ -23,6 +26,15 @@ texture = ExtResource("1_rj1pl")
 
 [node name="CraftingUI" parent="CanvasLayer" instance=ExtResource("3_xl5xf")]
 visible = false
+
+[node name="Interactable2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_xkjm0")
+interact_script = ExtResource("5_cascu")
+custom_parameter = "{}"
+metadata/_custom_type_script = "uid://kibtonceriu1"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://kp8jku03lrxp"]
+
+[ext_resource type="Script" uid="uid://bqsa1lysj06sl" path="res://Chest/chest.gd" id="1_gj4rf"]
+[ext_resource type="Texture2D" uid="uid://dh0rj8oyd78hu" path="res://graphics/chest_closed.png" id="1_vbo4i"]
+[ext_resource type="PackedScene" uid="uid://cow17ljb5qgg" path="res://Chest/chest_inventory.tscn" id="2_urnrk"]
+[ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="3_urnrk"]
+[ext_resource type="Script" uid="uid://bfn8ymysbnhu7" path="res://scripts/tools/runnables/chest_runnable.gd" id="5_07ty7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gj4rf"]
+
+[node name="Chest" type="Area2D" node_paths=PackedStringArray("chest_inventory", "sprite_chest")]
+script = ExtResource("1_gj4rf")
+chest_inventory = NodePath("CanvasLayer/Chest_Inventory")
+chest_item_id = 4
+sprite_chest = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.375, 1.375)
+shape = SubResource("CircleShape2D_gj4rf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vbo4i")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Chest_Inventory" parent="CanvasLayer" instance=ExtResource("2_urnrk")]
+visible = false
+
+[node name="Interactable2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_urnrk")
+interact_script = ExtResource("5_07ty7")
+custom_parameter = "{}"
+metadata/_custom_type_script = "uid://kibtonceriu1"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

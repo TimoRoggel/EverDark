@@ -42,6 +42,7 @@ func _custom_physics_process(delta: float) -> void:
 		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
 		animation.should_flip = should_flip || input.movement.x < 0
 	if weapon:
+		weapon.attack_angle = input.angle_to_cursor
 		weapon.attacking = input.attacking
 	if dash:
 		dash.dashing = input.dashing

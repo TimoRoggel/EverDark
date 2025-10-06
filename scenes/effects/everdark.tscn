@@ -10,7 +10,9 @@ colors = PackedColorArray(1, 1, 1, 1)
 gradient = SubResource("Gradient_58ra6")
 
 [node name="everdark" type="GPUParticles2D"]
-amount = 20
+z_index = 5
+z_as_relative = false
+amount = 6
 texture = SubResource("GradientTexture2D_edv26")
 lifetime = 5.0
 preprocess = 20.0

@@ -1,6 +1,9 @@
 @tool
 extends Control
 
+const SYNC_LOCATION: String = ""#"res://addons/sync_spreadsheets/_sync_csv_spreadsheets.res"
+const CONFIG_LOCATION: String = ""#"res://addons/sync_spreadsheets/_sync_csv_spreadsheets.cfg"
+
 @onready var http : HTTP = $HTTP
 
 var sheets_resource : Resource
@@ -16,7 +19,10 @@ var config = ConfigFile.new()
 
 
 func _ready():
-	sheets_resource = SheetsResource.new()
+	sheets_resource = SheetsResource.new([
+		SheetResource.new("res://data/items.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Items"),
+		SheetResource.new("res://data/recipes.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Recipes")
+	])
 	_load_config()
 	_sync_csv_files()
 	_save_config()
@@ -24,7 +30,7 @@ func _ready():
 
 func _sync_csv_files():
 	var csv_paths = _get_all_file_paths("res://", ".csv")
-	
+	print(sheets_resource.sheets)
 	for csv_path in csv_paths:
 		var exist = sheets_resource.sheets.filter(func(s): return s.csv_path == csv_path)
 		if not exist:
@@ -37,12 +43,13 @@ func _sync_csv_files():
 
 
 func _load_config():
-	var err = config.load("user://_sync_csv_spreadsheets.cfg")
+	var err = config.load(CONFIG_LOCATION)
 	if err == OK:
 		config.get_value("Options", "options", options)
 	
-	if ResourceLoader.exists("user://_sync_csv_spreadsheets.res"):
-		var new_sheets_resource = ResourceLoader.load("user://_sync_csv_spreadsheets.res")
+	if ResourceLoader.exists(SYNC_LOCATION):
+		var new_sheets_resource = ResourceLoader.load(SYNC_LOCATION)
+		print(", ".join(new_sheets_resource.sheets.map(func(sheet): return sheet.sheet_name)))
 		if new_sheets_resource is SheetsResource:
 			sheets_resource = new_sheets_resource
 	
@@ -50,9 +57,11 @@ func _load_config():
 
 
 func _save_config():
-	ResourceSaver.save(sheets_resource, "user://_sync_csv_spreadsheets.res")
+	if !ResourceLoader.exists(SYNC_LOCATION):
+		return
+	ResourceSaver.save(sheets_resource, SYNC_LOCATION)
 	config.set_value("Options", "options", options)
-	config.save("user://_sync_csv_spreadsheets.cfg")
+	config.save(CONFIG_LOCATION)
 	#print("Sync CSV Spreadsheets configurations saved!")
 
 
@@ -97,7 +106,7 @@ func _get_all_file_paths(path: String, file_extension: String = "") -> Array[Str
 
 func _on_open_sheets_resource_pressed():
 	#printt("Showing", sheets_resource)
-	EditorInterface.get_inspector().resource_selected.emit(sheets_resource, "user://_sync_csv_spreadsheets.res")
+	EditorInterface.get_inspector().resource_selected.emit(sheets_resource, SYNC_LOCATION)
 	
 
 func _on_save_sheets_resource_pressed():

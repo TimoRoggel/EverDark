@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=24 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
@@ -16,21 +16,14 @@
 [ext_resource type="Script" uid="uid://byhtuq8lov8xm" path="res://scripts/components/spawn_attack_component.gd" id="10_xhtjm"]
 [ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
-[ext_resource type="Script" uid="uid://bvp6jp0bat6ko" path="res://scripts/resources/attack.gd" id="12_xrqxk"]
 [ext_resource type="Script" uid="uid://c0jl7340jmrnc" path="res://scripts/components/block_component.gd" id="17_d6tgn"]
+[ext_resource type="Resource" uid="uid://bbtl2icahexun" path="res://resources/attacks/player_default_attack.tres" id="17_kmyvj"]
 [ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/pause_menu.tscn" id="18_d6tgn"]
 [ext_resource type="Script" uid="uid://c54jhhrackwfy" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
+[ext_resource type="Script" uid="uid://chbvt1cpvl4ve" path="res://scripts/components/lumin_placement_component.gd" id="18_kmyvj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
-
-[sub_resource type="Resource" id="Resource_xhtjm"]
-script = ExtResource("12_xrqxk")
-texture = ExtResource("12_xhtjm")
-speed = 0.0
-align_rotation = true
-hurtbox = Rect2i(0, 0, 8, 8)
-metadata/_custom_type_script = "uid://bvp6jp0bat6ko"
 
 [node name="player" type="CharacterBody2D"]
 z_as_relative = false
@@ -48,6 +41,7 @@ shape = SubResource("RectangleShape2D_dyp2m")
 [node name="sprite" type="Sprite2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
+use_parent_material = true
 position = Vector2(0, -7)
 texture = ExtResource("2_76oj4")
 
@@ -109,9 +103,12 @@ metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 [node name="main_attack" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("10_xhtjm")
-attack_type = SubResource("Resource_xhtjm")
+attack_type = ExtResource("17_kmyvj")
 damaging_flags = 3
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
+
+[node name="lumin_placement" type="Node2D" parent="components"]
+script = ExtResource("18_kmyvj")
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)

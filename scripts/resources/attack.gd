@@ -20,6 +20,8 @@ class_name Attack extends Resource
 @export_range(0, 1, 0.001) var lifetime_randomness: float = 0.0
 @export var spread: float = 0.1
 @export var count: int = 1
+@export var spawn_distance: float = 0.0
+@export var attached_to_owner: bool = false
 @export_group("Hurtbox")
 @export var hurtbox: Rect2i = Rect2i()
 @export var can_hit_owner: bool = false

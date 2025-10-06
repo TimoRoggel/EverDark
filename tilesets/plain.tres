@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=16 format=3 uid="uid://c3hjqyut0k11j"]
+[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://c3hjqyut0k11j"]
 
 [ext_resource type="Shader" uid="uid://bdf60x3r60ycu" path="res://shaders/tile_sheet.gdshader" id="1_18qun"]
 [ext_resource type="Texture2D" uid="uid://4xkrt23q65k" path="res://graphics/tilesets/plain.png" id="1_e2yji"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cd4wns84u4ik4" path="res://graphics/tile_sheets/water_sheet.png" id="4_nbwmk"]
 [ext_resource type="Texture2D" uid="uid://b8xd1msmlcyk1" path="res://graphics/tile_sheets/sand_sheet.png" id="5_oyymg"]
 [ext_resource type="Texture2D" uid="uid://crelg8okpejqd" path="res://graphics/tilesets/cave.png" id="7_6awwt"]
+[ext_resource type="PackedScene" uid="uid://b70g3twmfbvvh" path="res://scenes/effects/everdark.tscn" id="9_2blx5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ieuw8"]
 shader = ExtResource("1_18qun")
@@ -2225,6 +2226,9 @@ texture = ExtResource("7_6awwt")
 11:7/0/terrains_peering_bit/top_left_corner = 1
 11:7/0/terrains_peering_bit/top_side = 1
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_f337j"]
+scenes/1/scene = ExtResource("9_2blx5")
+
 [resource]
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
@@ -2247,3 +2251,4 @@ sources/0 = SubResource("TileSetAtlasSource_7k8c1")
 sources/1 = SubResource("TileSetAtlasSource_w2tqh")
 sources/2 = SubResource("TileSetAtlasSource_foqb0")
 sources/3 = SubResource("TileSetAtlasSource_nbwmk")
+sources/4 = SubResource("TileSetScenesCollectionSource_f337j")

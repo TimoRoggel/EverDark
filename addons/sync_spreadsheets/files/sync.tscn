@@ -18,10 +18,12 @@ script = ExtResource("2_3wys5")
 layout_mode = 2
 
 [node name="OpenSheetsResource" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Edit CSV Spreadsheets"
 
 [node name="SaveSheetsResource" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Save on disk"
 

@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 				if leftover > 0:
 					var dropped_item: DroppedItem2D = DroppedItem2D.new()
 					dropped_item.item = item.item
-					get_parent().add_child(dropped_item)
+					get_parent().add_child(dropped_item, leftover)
 					dropped_item.global_position = player_ref.global_position
 
 			for slot in chest_inventory.get_slots():

@@ -24,13 +24,12 @@ func _update(_delta: float) -> void:
 		interact.emit()
 	if Input.is_action_just_pressed("attack"):
 		started_attacking.emit()
-	if Input.is_key_pressed(KEY_B):
-		if can_spawn:
-			var item: DroppedItem2D = DroppedItem2D.new()
-			item.item = DataManager.resources["items"].pick_random()
-			controller.add_sibling(item)
-			item.global_position = get_global_mouse_position()
-			position_pressed.emit(get_global_mouse_position())
+		position_pressed.emit(get_global_mouse_position())
+	if Input.is_action_just_pressed("debug"):
+		var item: DroppedItem2D = DroppedItem2D.new()
+		item.item = DataManager.get_resource_by_id("items", 1)
+		controller.add_sibling(item)
+		item.global_position = get_global_mouse_position()
 	if Input.is_action_just_pressed("toggle_inventory"):
 		can_spawn = !can_spawn
 		inventory_toggled.emit()

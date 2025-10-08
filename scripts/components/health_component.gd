@@ -112,6 +112,8 @@ func take_damage(attack: AttackController) -> void:
 func calc_knockback(attack: AttackController) -> void:
 	if attack.attack.knockback == 0.0:
 		return
-	if !"movement" in controller:
+	if !"knockback" in controller:
 		return
-	controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)
+		
+	var dir := attack.get_real_velocity().normalized()
+	controller.knockback.apply_knockback(dir * attack.attack.knockback)

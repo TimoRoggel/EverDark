@@ -63,6 +63,16 @@ func _physics_process(delta: float) -> void:
 			bump_player.play_randomized()
 		on_bounce(bounce_amount)
 	move_and_slide()
+#func _physics_process(delta: float) -> void:
+	#for c: Component in components:
+		#if c.updates_in_physics:
+			#c._update(delta)
+#
+	#if should_bounce() and bounciness != 0.0 and is_on_wall() and velocity.length() > 0.0:
+		#var bounce: Vector2 = 2.0 * velocity.dot(get_wall_normal()) * get_wall_normal() * bounciness
+		#velocity -= bounce
+#
+	#move_and_slide()
 
 func _exit_tree() -> void:
 	for c: Component in components:

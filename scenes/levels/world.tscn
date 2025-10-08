@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=11 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://2sk6w6jiy3ng" path="res://scenes/crafting/crafting.tscn" id="6_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://cgmgqctfbwgu3" path="res://scenes/characters/test_enemy.tscn" id="7_0lift"]
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
+[ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -47,3 +48,6 @@ position = Vector2(-24, -51)
 
 [node name="hole" parent="." instance=ExtResource("8_dp8al")]
 position = Vector2(15, 9)
+
+[node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
+position = Vector2(17, 42)

@@ -108,6 +108,31 @@ func take_damage(attack: AttackController) -> void:
 	await get_tree().create_timer(2.0).timeout
 	if !attack || is_queued_for_deletion():
 		return
+		
+func apply_environmental_damage() -> void:
+	var power = 10
+	var shake_amount = 3
+	var shake_duration = .5
+	var shake_addative = .2
+	var cur_invulnerability = .4
+	var slowdown = .5
+	var slowdown_duration_ms = 1.0
+	damage_taken.emit(null)
+	current_health -= power
+	GameManager.camera_shake(screen_shake_amount * power * 8.0 * shake_amount, shake_duration, shake_addative)
+	if current_health <= 0:
+		return
+	if hit_player:
+		hit_player.play_randomized()
+	update_healthbar()
+	var invulnerability: float = cur_invulnerability
+	controller.set_damaged(true)
+	GameManager.slowdown(slowdown, slowdown_duration_ms)
+	await get_tree().create_timer(max(invulnerability, 0.15)).timeout
+	controller.set_damaged(false)
+	if !controller || is_queued_for_deletion():
+		return
+	await get_tree().create_timer(2.0).timeout
 
 func calc_knockback(attack: AttackController) -> void:
 	if attack.attack.knockback == 0.0:

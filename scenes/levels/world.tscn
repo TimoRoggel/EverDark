@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=10 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -51,3 +51,4 @@ position = Vector2(15, 9)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 position = Vector2(17, 42)
+chest_item_id = 1

@@ -2,6 +2,7 @@ class_name InventoryComponent extends Component
 
 @export var slots: int = 30
 @export var container: InventoryContainer = null
+var held_item: int = 0
 
 func _enter() -> void:
 	for slot: InventorySlot in container.get_slots():
@@ -50,3 +51,9 @@ func can_add(item_id: int, quantity: int = 1) -> bool:
 
 func available_space(item_id: int) -> int:
 	return container.available_space(item_id)
+
+func get_held_item_id() -> int:
+	return held_item
+
+func set_held_item_id(item_id: int) -> void:
+	held_item = item_id

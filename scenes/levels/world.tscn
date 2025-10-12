@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=12 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://2sk6w6jiy3ng" path="res://scenes/crafting/crafting.tscn" id="6_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://cgmgqctfbwgu3" path="res://scenes/characters/test_enemy.tscn" id="7_0lift"]
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
+[ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
+[ext_resource type="Script" uid="uid://cv5imdu7bgt7s" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -51,3 +53,15 @@ position = Vector2(15, 9)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 position = Vector2(17, 42)
+
+[node name="shrub_harvestable" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(42, -65)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+metadata/_custom_type_script = "uid://dkt222qwdgnfh"

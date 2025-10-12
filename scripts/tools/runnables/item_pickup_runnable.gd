@@ -13,4 +13,6 @@ func run(param: Dictionary) -> void:
 func can_run(param: Dictionary) -> bool:
 	if !param.has("item"):
 		return false
+	if !param["controller"].inventory:
+		return false
 	return param["controller"].inventory.available_space(param["item"]) > 0

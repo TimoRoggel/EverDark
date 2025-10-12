@@ -1,6 +1,5 @@
-class_name Recipe extends Resource
+class_name Recipe extends DataDrivenResource
 
-@export var id: int = -1
 @export var recipe_name: String = ""
 @export var reward_ids: PackedInt32Array = []
 @export var cost_ids: PackedInt32Array = []

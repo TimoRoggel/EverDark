@@ -6,18 +6,15 @@ extends Node
 }
 
 func _ready() -> void:
-	load_data("items")
-	resources["items"] = []
-	for item: Dictionary in data["items"]:
-		resources["items"].append(Item.from_data(item))
-	load_data("recipes")
-	resources["recipes"] = []
-	for recipe: Dictionary in data["recipes"]:
-		resources["recipes"].append(Recipe.from_data(recipe))
-	#load_data("biomes")
-	#resources["biomes"] = []
-	#for item: Dictionary in data["biomes"]:
-		#resources["biomes"].append(Biome.from_data(item))
+	initialize_data("items", Item)
+	initialize_data("recipes", Recipe)
+	initialize_data("harvestables", Harvestable)
+
+func initialize_data(key: String, type: Variant) -> void:
+	load_data(key)
+	resources[key] = []
+	for d: Dictionary in data[key]:
+		resources[key].append(type.from_data(d))
 
 func load_data(key: String) -> void:
 	data[key] = []

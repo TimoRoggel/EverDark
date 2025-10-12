@@ -8,7 +8,8 @@ var sheets_resource: SheetsResource = null
 func _ready() -> void:
 	sheets_resource = SheetsResource.new([
 		SheetResource.new("res://data/items.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Items"),
-		SheetResource.new("res://data/recipes.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Recipes")
+		SheetResource.new("res://data/recipes.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Recipes"),
+		SheetResource.new("res://data/harvestables.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Harvestables")
 	])
 	_sync_csv_files()
 

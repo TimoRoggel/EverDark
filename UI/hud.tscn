@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://beguyjw3ooy0v"]
+[gd_scene load_steps=4 format=3 uid="uid://beguyjw3ooy0v"]
 
+[ext_resource type="Script" uid="uid://b0d0063dp6gts" path="res://UI/hud.gd" id="1_2o5uh"]
 [ext_resource type="Script" uid="uid://cd3a88w0gqwch" path="res://UI/health_bar.gd" id="1_ne75i"]
+[ext_resource type="Script" uid="uid://cqo0pxm0osp37" path="res://UI/virus_bar.gd" id="2_bytes"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_2o5uh")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 1
@@ -23,3 +26,23 @@ layout_mode = 0
 offset_right = 52.0
 offset_bottom = 23.0
 text = "Health"
+
+[node name="VirusBar" type="ProgressBar" parent="."]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = 56.0
+offset_top = 30.0
+offset_right = 296.0
+offset_bottom = 43.7
+show_percentage = false
+script = ExtResource("2_bytes")
+
+[node name="VirusLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 28.0
+offset_right = 52.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 13
+text = "Virus"

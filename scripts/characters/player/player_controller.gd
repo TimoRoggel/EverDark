@@ -11,6 +11,9 @@ var inventory: InventoryComponent = null
 var health: HealthComponent = null
 var hitbox: HitboxComponent = null
 var hurtbox: HitboxComponent = null
+var everdark_damage: EverdarkDamageComponent = null
+
+@onready var hud: Control = $CanvasLayer/HUD
 
 func _init() -> void:
 	flags = CharacterFlags.Player
@@ -29,6 +32,7 @@ func _ready() -> void:
 	inventory = get_component(InventoryComponent)
 	health = get_component(HealthComponent)
 	hitbox = get_component(HitboxComponent)
+	everdark_damage = get_component(EverdarkDamageComponent)
 	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:

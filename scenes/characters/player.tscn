@@ -112,7 +112,7 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
 
-[node name="EverdarkDamageComponent" type="Node2D" parent="components"]
+[node name="everdark_damage" type="Node2D" parent="components"]
 script = ExtResource("19_inhyd")
 metadata/_custom_type_script = "uid://ckc36i68yr744"
 

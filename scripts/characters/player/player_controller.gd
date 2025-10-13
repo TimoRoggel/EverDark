@@ -33,6 +33,11 @@ func _ready() -> void:
 	health = get_component(HealthComponent)
 	hitbox = get_component(HitboxComponent)
 	everdark_damage = get_component(EverdarkDamageComponent)
+	if everdark_damage and hud:
+		everdark_damage.virusbar_setup.connect(hud._on_setup_virusbar)
+		everdark_damage.virus_effect.connect(hud._on_virus_effect)
+		everdark_damage.everdark_entered.connect(hud.toggle_virus_view)
+		everdark_damage.create_virus_timer()
 	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:

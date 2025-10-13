@@ -13,7 +13,7 @@ class_name EverdarkDamageComponent extends Component
 @export var shake_addative := .2
 @export var cur_invulnerability := .4
 @export var slowdown := .5
-@export var slowdown_duration_ms := 1.0
+@export var slowdown_duration_ms := 1
 
 signal virus_effect(value: float)
 signal everdark_entered(yes: bool)
@@ -63,8 +63,8 @@ func on_virus_timer_timeout():
 		virus_timer.stop()
 		if controller.health:
 			while (curr_tile == null): # blijft wws doorgaan na dood gaan
-				await get_tree().create_timer(1.0).timeout
 				controller.health.apply_environmental_damage(self)
+				await get_tree().create_timer(1.0).timeout
 		else: print("No health component attached!")
 		
 	# hide virusbar if virusbar reaches zero

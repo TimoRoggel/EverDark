@@ -16,8 +16,6 @@ func _update(delta: float) -> void:
 		if knockback_velocity.length_squared() < 1.0:
 			is_being_knocked_back = false
 			knockback_velocity = Vector2.ZERO
-	
-	queue_redraw()
 
 func _exit() -> void:
 	pass
@@ -30,16 +28,4 @@ func apply_knockback(direction: Vector2, force: float, duration: float = 0.1) ->
 	get_tree().create_timer(duration).timeout.connect(func(): 
 		is_being_knocked_back = false
 		knockback_velocity = Vector2.ZERO
-		print("KAchoww")
 	)
-
-func _draw() -> void:
-	if Engine.is_editor_hint() || !is_being_knocked_back:
-		return
-	
-	var line_length: float = knockback_velocity.length() * 0.1
-	if line_length > 0:
-		var direction: Vector2 = knockback_velocity.normalized()
-		var end_point: Vector2 = direction * line_length
-		draw_line(Vector2.ZERO, end_point, Color.RED, 2.0)
-		draw_circle(end_point, 3.0, Color.RED)

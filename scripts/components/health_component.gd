@@ -112,6 +112,11 @@ func take_damage(attack: AttackController) -> void:
 func calc_knockback(attack: AttackController) -> void:
 	if attack.attack.knockback == 0.0:
 		return
-	if !"movement" in controller:
-		return
-	controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)
+	
+	var knockback_component: KnockbackComponent = controller.get_component(KnockbackComponent)
+	if knockback_component:
+		var direction: Vector2 = attack.get_real_velocity().normalized()
+		var force: float = attack.attack.knockback
+		knockback_component.apply_knockback(direction, force)
+	elif "movement" in controller:
+		controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)

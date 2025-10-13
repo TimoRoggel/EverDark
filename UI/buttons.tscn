@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://1uloniry51cp"]
+
+[node name="Buttons" type="VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+offset_left = 61.0
+offset_top = 26.0
+offset_right = 161.0
+offset_bottom = 127.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Resume" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Options"
+
+[node name="Achievements" type="Button" parent="."]
+layout_mode = 2
+text = "Achievements"
+
+[node name="Quit" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Quit"

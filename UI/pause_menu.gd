@@ -4,7 +4,6 @@ class_name PauseMenu extends Control
 @onready var control_panel: Panel = $"Control panel"
 @onready var audio_panel: Panel = $"Audio panel"
 @onready var graphics_panel: Panel = $"Graphics panel"
-
 var paused: bool = false
 
 func _ready() -> void:
@@ -37,7 +36,7 @@ func _resume() -> void:
 	paused = false
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
+	pass
 
 func _on_resume_pressed() -> void:
 	_resume()

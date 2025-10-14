@@ -9,6 +9,7 @@ func _ready() -> void:
 	initialize_data("items", Item)
 	initialize_data("recipes", Recipe)
 	initialize_data("harvestables", Harvestable)
+	initialize_data("notes", Note)
 
 func initialize_data(key: String, type: Variant) -> void:
 	load_data(key)

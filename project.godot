@@ -23,6 +23,7 @@ GameManager="*res://scripts/globals/game_manager.gd"
 SettingsManager="*res://scripts/globals/settings_manager.gd"
 Debug="*res://scripts/globals/debug.gd"
 Generator="*res://scripts/globals/generator.gd"
+LoreSystem="*res://scripts/globals/lore_system.gd"
 
 [display]
 

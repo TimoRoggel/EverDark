@@ -1,7 +1,7 @@
 @tool
 class_name HarvestableBody2D extends Interactable2D
 
-const HARVESTABLE_RUNNABLE: GDScript = preload("uid://cv5imdu7bgt7s")
+const HARVESTABLE_RUNNABLE: GDScript = preload("uid://b3b33abitpj2t")
 
 @export var harvestable_id: int = -1
 @export var harvestable: Harvestable = null:
@@ -13,6 +13,8 @@ var recover_timer: Timer = Timer.new()
 var sprite: Sprite2D = Sprite2D.new()
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	harvestable = DataManager.get_resource_by_id("harvestables", harvestable_id)
 	z_as_relative = false
 	y_sort_enabled = true

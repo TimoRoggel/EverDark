@@ -1,0 +1,3 @@
+"id","name","texture","weapon_sprite","power","invulnerability","inheritance","speed","velocity_overtime","knockback","speed_randomness","align_rotation","kickback","firerate","lifetime","lifetime_randomness","spread","count","spawn_distance","attached_to_owner","hurtbox_width","hurtbox_height","can_hit_owner","alpha_over_time"
+"0","player_base_attack","uid://dqn4xm5578d84","","1","50","0","1","","0.5","0","TRUE","0","0.1","0.25","0","0.1","1","8","TRUE","8","8","FALSE","uid://dludk4tktlsdc"
+"1","enemy_base_shoot","uid://cqjwqvliyrbnj","","1","","0.5","16","","0.5","0","FALSE","0","1","2","0","0.1","1","0","FALSE","8","8","FALSE",""

@@ -1,7 +1,7 @@
 @tool
 class_name HarvestableBody2D extends Interactable2D
 
-const HARVESTABLE_RUNNABLE: GDScript = preload("uid://b3b33abitpj2t")
+const HARVESTABLE_RUNNABLE: GDScript = preload("res://scripts/tools/runnables/harvestable_runnable.gd")
 
 @export var harvestable_id: int = -1
 @export var harvestable: Harvestable = null:

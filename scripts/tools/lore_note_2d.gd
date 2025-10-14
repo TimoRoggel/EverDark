@@ -2,7 +2,7 @@
 class_name LoreNote2D extends Interactable2D
 
 const TEXTURE: Texture2D = preload("uid://o224qgp07gvy")
-const LORE_NOTE_RUNNABLE: GDScript = preload("uid://k2h8hdh738wa")
+const LORE_NOTE_RUNNABLE: GDScript = preload("res://scripts/tools/runnables/lore_note_runnable.gd")
 
 @export var note_id: int = 0
 

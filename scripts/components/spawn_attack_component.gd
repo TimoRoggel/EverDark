@@ -1,13 +1,9 @@
 @tool
 class_name SpawnAttackComponent extends Component
 
-@export var attack_type: Attack = null:
-	set(value):
-		attack_type = value
-		if attack_type.attack_sound:
-			if sound_player:
-				sound_player.samples = [attack_type.attack_sound]
+@export var attack_id: int = 0
 
+var attack_type: Attack = null
 var damaging_flags: int = 2 ** (CharacterController.CharacterFlags.size() - 1) - 1:
 	set(value):
 		damaging_flags = value
@@ -22,6 +18,7 @@ func _get_property_list():
 	return CharacterController.get_flag_properties("damaging_flags")
 
 func _enter() -> void:
+	attack_type = DataManager.get_resource_by_id("attacks", attack_id)
 	if !attack_type:
 		return
 	if attack_type.attack_sound:

@@ -21,5 +21,9 @@ func _on_body_exited(body: Node2D) -> void:
 func _process(_delta: float) -> void:
 	if is_interactable and player_ref:
 		if Input.is_action_just_pressed("ui"): 
-			crafting_ui.inventory = player_ref.get_component(InventoryComponent)
-			crafting_ui.visible = !crafting_ui.visible
+			toggle_ui(player_ref)
+
+func toggle_ui(controller: PlayerController) -> void:
+	if controller:
+		crafting_ui.inventory = controller.get_component(InventoryComponent)
+	crafting_ui.visible = !crafting_ui.visible

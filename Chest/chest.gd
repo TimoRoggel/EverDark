@@ -11,10 +11,10 @@ const CHEST_OPEN = preload("uid://bt5l56duf4ya0")
 var is_interactable: bool = false
 var player_ref: PlayerController = null
 var player_ref_inventory: InventoryComponent = null
-var chest_input: InputComponent2 = null
+var chest_input: InputComponent = null
 
 func _ready() -> void:
-	chest_input = InputComponent2.new()
+	chest_input = InputComponent.new()
 	add_child(chest_input)
 	chest_input.ui.connect(_on_ui)
 	chest_input.pickup.connect(_on_pickup)

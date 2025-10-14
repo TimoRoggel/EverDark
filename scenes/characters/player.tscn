@@ -138,6 +138,7 @@ script = ExtResource("19_inhyd")
 metadata/_custom_type_script = "uid://xmaoi8lc7blu"
 
 [node name="everdark_compute" type="Node2D" parent="components"]
+position = Vector2(0, -4)
 script = ExtResource("19_o6auj")
 metadata/_custom_type_script = "uid://mx2o6js1ifk6"
 

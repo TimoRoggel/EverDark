@@ -24,7 +24,7 @@ var layer: GeneratedTileMapLayer = null:
 		layer = value
 		layer_assigned.emit()
 var dimension: int = 0
-var lumin_positions: PackedVector2Array = [Vector2.ZERO]
+var lumin_positions: PackedVector2Array = [Vector2(8,8)]
 
 signal layer_assigned
 

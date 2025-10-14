@@ -1,14 +1,8 @@
-[gd_resource type="Resource" script_class="Attack" load_steps=5 format=3 uid="uid://bbtl2icahexun"]
+[gd_resource type="Resource" script_class="Attack" load_steps=4 format=3 uid="uid://bbtl2icahexun"]
 
-[ext_resource type="Script" uid="uid://bvp6jp0bat6ko" path="res://scripts/resources/attack.gd" id="1_hx41i"]
+[ext_resource type="Script" uid="uid://bvp6jp0bat6ko" path="res://scripts/resources/data_driven_resources/attack.gd" id="1_hx41i"]
+[ext_resource type="Texture2D" uid="uid://dludk4tktlsdc" path="res://resources/curves/player_attack_alpha_over_time.tres" id="1_uu0xm"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="2_uu0xm"]
-
-[sub_resource type="Curve" id="Curve_hx41i"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.06287426, 1), 0.0, 0.0, 0, 0, Vector2(0.7544911, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_uu0xm"]
-curve = SubResource("Curve_hx41i")
 
 [resource]
 script = ExtResource("1_hx41i")
@@ -20,5 +14,5 @@ lifetime = 0.25
 spawn_distance = 8.0
 attached_to_owner = true
 hurtbox = Rect2i(0, 0, 8, 8)
-alpha_over_time = SubResource("CurveTexture_uu0xm")
+alpha_over_time = ExtResource("1_uu0xm")
 metadata/_custom_type_script = "uid://bvp6jp0bat6ko"

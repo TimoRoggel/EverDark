@@ -62,9 +62,13 @@ func on_virus_timer_timeout():
 	if elapsed_time >= total_time:
 		virus_timer.stop()
 		if controller.health:
+			var just_hurt = false
 			while (curr_tile == null): # blijft wws doorgaan na dood gaan
-				controller.health.apply_environmental_damage(self)
+				if not just_hurt:
+					controller.health.apply_environmental_damage(self)
+					just_hurt = true
 				await get_tree().create_timer(1.0).timeout
+				just_hurt = false
 		else: print("No health component attached!")
 		
 	# hide virusbar if virusbar reaches zero

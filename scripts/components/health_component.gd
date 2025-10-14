@@ -111,10 +111,33 @@ func take_damage(attack: AttackController) -> void:
 	await get_tree().create_timer(2.0).timeout
 	if !attack || is_queued_for_deletion():
 		return
+		
+func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
+	damage_taken.emit(null)
+	current_health -= env.power
+	GameManager.camera_shake(screen_shake_amount * env.power * 8.0 * env.shake_amount, env.shake_duration, env.shake_addative)
+	if current_health <= 0:
+		return
+	if hit_player:
+		hit_player.play_randomized()
+	update_healthbar()
+	var invulnerability: float = env.cur_invulnerability
+	controller.set_damaged(true)
+	GameManager.slowdown(env.slowdown, env.slowdown_duration_ms)
+	await get_tree().create_timer(max(invulnerability, 0.15)).timeout
+	controller.set_damaged(false)
+	if !controller || is_queued_for_deletion():
+		return
+	await get_tree().create_timer(2.0).timeout
 
 func calc_knockback(attack: AttackController) -> void:
 	if attack.attack.knockback == 0.0:
 		return
-	if !"movement" in controller:
-		return
-	controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)
+	
+	var knockback_component: KnockbackComponent = controller.get_component(KnockbackComponent)
+	if knockback_component:
+		var direction: Vector2 = attack.get_real_velocity().normalized()
+		var force: float = attack.attack.knockback
+		knockback_component.apply_knockback(direction, force)
+	elif "movement" in controller:
+		controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)

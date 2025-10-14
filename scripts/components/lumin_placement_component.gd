@@ -26,5 +26,6 @@ func place(at: Vector2) -> void:
 		if coords.distance_squared_to(at) < MIN_DISTANCE:
 			return
 	Generator.generate(at * Generator.SIZE)
+	Generator.lumin_positions.append(at)
 	current_lumin_positions.append(at)
 	inventory.remove(0)

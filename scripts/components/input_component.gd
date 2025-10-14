@@ -34,6 +34,8 @@ func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
 		can_spawn = !can_spawn
 		inventory_toggled.emit()
+	if Input.is_action_just_pressed("dash"):
+		LoreSystem.open_screen()
 	movement = Input.get_vector("left", "right", "up", "down")
 	attacking = Input.is_action_pressed("attack")
 	blocking = Input.is_action_pressed("block")

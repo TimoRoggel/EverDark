@@ -6,6 +6,7 @@ var targeting_flags: int = 0:
 	set(value):
 		targeting_flags = value
 		notify_property_list_changed()
+		queue_redraw()
 
 var target: CharacterController = null:
 	set(value):
@@ -20,6 +21,11 @@ signal target_changed
 
 func _get_property_list():
 	return CharacterController.get_flag_properties("targeting_flags")
+
+func _draw() -> void:
+	if !Engine.is_editor_hint():
+		return
+	draw_circle(Vector2.ZERO, radius, Color(0.305, 0.87, 0.646, 0.502))
 
 func _enter() -> void:
 	area = Area2D.new()

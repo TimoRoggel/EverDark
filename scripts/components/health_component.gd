@@ -8,6 +8,7 @@ class_name HealthComponent extends Component
 @export var hit_sounds: Array[AudioStream] = []
 @export var death_sounds: Array[AudioStream] = []
 @export var persistent: bool = false
+@export var death_drops: PackedInt32Array = []
 
 var healthbar: TextureProgressBar = null
 var healthbar_delta: TextureProgressBar = null
@@ -81,6 +82,8 @@ func death() -> void:
 		await death_player.finished
 	controller.process_mode = Node.PROCESS_MODE_DISABLED
 	controller.queue_free()
+	for item_id: int in death_drops:
+		DroppedItem2D.drop(item_id, 1, global_position)
 
 func can_get_damaged(attack: AttackController) -> bool:
 	return (controller.flags & attack.damage_flags) == controller.flags
@@ -130,6 +133,11 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 func calc_knockback(attack: AttackController) -> void:
 	if attack.attack.knockback == 0.0:
 		return
-	if !"movement" in controller:
-		return
-	controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)
+	
+	var knockback_component: KnockbackComponent = controller.get_component(KnockbackComponent)
+	if knockback_component:
+		var direction: Vector2 = attack.get_real_velocity().normalized()
+		var force: float = attack.attack.knockback
+		knockback_component.apply_knockback(direction, force)
+	elif "movement" in controller:
+		controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)

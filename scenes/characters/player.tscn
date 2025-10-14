@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=29 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
@@ -20,6 +20,7 @@
 [ext_resource type="Resource" uid="uid://bbtl2icahexun" path="res://resources/attacks/player_default_attack.tres" id="17_kmyvj"]
 [ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/pause_menu.tscn" id="18_d6tgn"]
 [ext_resource type="Script" uid="uid://chbvt1cpvl4ve" path="res://scripts/components/lumin_placement_component.gd" id="18_kmyvj"]
+[ext_resource type="Script" uid="uid://xmaoi8lc7blu" path="res://scripts/components/knockback_component.gd" id="19_inhyd"]
 [ext_resource type="Script" uid="uid://mx2o6js1ifk6" path="res://scripts/components/everdark_compute_component.gd" id="19_o6auj"]
 [ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="20_dm10o"]
 [ext_resource type="Script" uid="uid://c54jhhrackwfy" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
@@ -115,6 +116,10 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
+
+[node name="knockback" type="Node2D" parent="components"]
+script = ExtResource("19_inhyd")
+metadata/_custom_type_script = "uid://xmaoi8lc7blu"
 
 [node name="everdark_compute" type="Node2D" parent="components" node_paths=PackedStringArray("affected_sprite")]
 script = ExtResource("19_o6auj")

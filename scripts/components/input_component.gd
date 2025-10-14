@@ -22,6 +22,7 @@ func _enter() -> void:
 func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
+		print(controller.get_tile())
 	if Input.is_action_just_pressed("attack"):
 		started_attacking.emit()
 		position_pressed.emit(get_global_mouse_position())

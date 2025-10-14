@@ -19,14 +19,13 @@
 [ext_resource type="Script" uid="uid://c0jl7340jmrnc" path="res://scripts/components/block_component.gd" id="17_d6tgn"]
 [ext_resource type="Resource" uid="uid://bbtl2icahexun" path="res://resources/attacks/player_default_attack.tres" id="17_kmyvj"]
 [ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/pause_menu.tscn" id="18_d6tgn"]
-[ext_resource type="Script" uid="uid://ckc36i68yr744" path="res://scripts/components/everdark_damage_component.gd" id="19_inhyd"]
-[ext_resource type="Script" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
 [ext_resource type="Script" uid="uid://chbvt1cpvl4ve" path="res://scripts/components/lumin_placement_component.gd" id="18_kmyvj"]
 [ext_resource type="Script" uid="uid://xmaoi8lc7blu" path="res://scripts/components/knockback_component.gd" id="19_inhyd"]
 [ext_resource type="Script" uid="uid://mx2o6js1ifk6" path="res://scripts/components/everdark_compute_component.gd" id="19_o6auj"]
 [ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="20_dm10o"]
 [ext_resource type="Script" uid="uid://c54jhhrackwfy" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
 [ext_resource type="PackedScene" uid="uid://beguyjw3ooy0v" path="res://UI/hud.tscn" id="20_kmyvj"]
+[ext_resource type="Script" uid="uid://ckc36i68yr744" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
 [ext_resource type="PackedScene" uid="uid://bcg10wp7uqawx" path="res://scenes/lore_system/lore_note_screen.tscn" id="23_inhyd"]
 [ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="24_wqk1x"]
 
@@ -119,10 +118,6 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
 
-[node name="everdark_damage" type="Node2D" parent="components"]
-script = ExtResource("19_inhyd")
-metadata/_custom_type_script = "uid://ckc36i68yr744"
-
 [node name="knockback" type="Node2D" parent="components"]
 script = ExtResource("19_inhyd")
 metadata/_custom_type_script = "uid://xmaoi8lc7blu"
@@ -131,6 +126,10 @@ metadata/_custom_type_script = "uid://xmaoi8lc7blu"
 script = ExtResource("19_o6auj")
 affected_sprite = NodePath("../../sprite")
 metadata/_custom_type_script = "uid://mx2o6js1ifk6"
+
+[node name="everdark_damage" type="Node2D" parent="components"]
+script = ExtResource("21_tswxa")
+metadata/_custom_type_script = "uid://ckc36i68yr744"
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)

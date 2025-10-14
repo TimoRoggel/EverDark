@@ -69,7 +69,6 @@ func spawn_entity() -> void:
 
 func restart_timer() -> void:
 	spawn_timer.start(GameManager.get_randomized_value(get_spawn_rate(), randomness))
-	print(get_spawn_rate())
 
 func get_spawn_rate() -> float:
 	return pow(0.001, global_position.length() / max_spawn_distance) * min_spawn_rate

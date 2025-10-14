@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=13 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
 [ext_resource type="Script" uid="uid://bjl66vmgiycyi" path="res://scripts/tools/generated_tile_map_layer.gd" id="3_7xgas"]
 [ext_resource type="Script" uid="uid://cuoyob352u88i" path="res://scripts/tools/flippable_tile_map_layer.gd" id="4_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://2sk6w6jiy3ng" path="res://scenes/crafting/crafting.tscn" id="6_gy5pc"]
-[ext_resource type="PackedScene" uid="uid://cgmgqctfbwgu3" path="res://scenes/characters/test_enemy.tscn" id="7_0lift"]
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
 [ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
@@ -46,9 +45,6 @@ environment = SubResource("Environment_w2p53")
 
 [node name="Crafting" parent="." instance=ExtResource("6_gy5pc")]
 position = Vector2(-12, 8)
-
-[node name="test_enemy" parent="." instance=ExtResource("7_0lift")]
-position = Vector2(-24, -51)
 
 [node name="hole" parent="." instance=ExtResource("8_dp8al")]
 position = Vector2(15, 9)
@@ -95,7 +91,7 @@ metadata/_custom_type_script = "uid://c75e74dnbg0do"
 [node name="note_2" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(131, -58)
+position = Vector2(106, -5)
 collision_layer = 4
 collision_mask = 0
 monitoring = false

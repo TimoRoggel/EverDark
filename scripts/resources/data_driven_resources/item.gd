@@ -1,6 +1,5 @@
-class_name Item extends Resource
+class_name Item extends DataDrivenResource
 
-@export var id: int = -1
 @export var display_name: String = ""
 @export var icon: Texture2D = null
 @export var stack_size: int = 64

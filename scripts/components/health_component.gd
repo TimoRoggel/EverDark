@@ -8,6 +8,7 @@ class_name HealthComponent extends Component
 @export var hit_sounds: Array[AudioStream] = []
 @export var death_sounds: Array[AudioStream] = []
 @export var persistent: bool = false
+@export var death_drops: PackedInt32Array = []
 
 var healthbar: TextureProgressBar = null
 var healthbar_delta: TextureProgressBar = null
@@ -81,6 +82,8 @@ func death() -> void:
 		await death_player.finished
 	controller.process_mode = Node.PROCESS_MODE_DISABLED
 	controller.queue_free()
+	for item_id: int in death_drops:
+		DroppedItem2D.drop(item_id, 1, global_position)
 
 func can_get_damaged(attack: AttackController) -> bool:
 	return (controller.flags & attack.damage_flags) == controller.flags

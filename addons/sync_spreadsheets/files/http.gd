@@ -2,50 +2,43 @@
 extends Node
 class_name HTTP
 
-const HEADER = ["Content-Type: application/json; charset=UTF-8"]
-
+const HEADER: PackedStringArray = ["Content-Type: application/json; charset=UTF-8"]
 
 func req(url: String, ## url ended in /
-		callback: Callable, ## callback(response : Dictionary)
-		method : HTTPClient.Method = HTTPClient.METHOD_GET,
+		callback: Callable, ## callback(response: Variant)
+		method: HTTPClient.Method = HTTPClient.METHOD_GET,
 		query: Dictionary = {},
 		body: Dictionary = {},
-		headers : Array = HEADER,
-		path : String = ""):
+		headers: PackedStringArray = HEADER,
+		path: String = "") -> void:
 	
-	var http_request = HTTPRequest.new()
+	var http_request: HTTPRequest = HTTPRequest.new()
 	add_child(http_request)
-	http_request.request_completed.connect(func(r,c,h,b): _req_completed(r,c,h,b, callback))
+	http_request.request_completed.connect(func(r: int, c: int, h: PackedStringArray, b: PackedByteArray): _req_completed(r, c, h, b, callback))
 	
-	var QUERY = "?" + "&".join(query.keys().map(func(k): return k.uri_encode() + "=" + str(query[k]).uri_encode()))
-	var error: Error
-	var body_str = JSON.new().stringify(body) if body else ""
+	var QUERY: String = "?" + "&".join(query.keys().map(func(k): return k.uri_encode() + "=" + str(query[k]).uri_encode()))
+	var error: Error = 0
+	var body_str: String = JSON.new().stringify(body) if body else ""
 	
 	if path != "":
 		http_request.set_download_file(path)
 	error = http_request.request(url + QUERY, headers, method, body_str)
 	if error != OK:
 		push_error("An error occurred in the HTTP request. This should be not happened, is a code error!")
-	else:
-		pass # print("New HTTP request!")
 
-
-func _req_completed(result, response_code, headers, body, callback: Callable):
-	#print("REQ COMPLETED. result: " + str(result) + " response_code: " + str(response_code))
-	var err = OK
+func _req_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, callback: Callable) -> void:
+	var err: Error = OK
 	if result != HTTPRequest.RESULT_SUCCESS:
 		printerr("ERROR: You are OFFLINE")
 		err = result
 	elif response_code >= 400:
 		printerr("ERROR: Request INVALID")
 		err = response_code
-	else:
-		pass # printt("ONLINE")
 
-	var json = JSON.new()
+	var json: JSON = JSON.new()
 	json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
-	callback.call(response, err)
+	var response: Variant = json.get_data()
+	callback.call(response)
 	
 	if err != OK:
 		printerr("ERROR response: ", response)

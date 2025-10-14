@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=28 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
@@ -20,13 +20,18 @@
 [ext_resource type="Resource" uid="uid://bbtl2icahexun" path="res://resources/attacks/player_default_attack.tres" id="17_kmyvj"]
 [ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/pause_menu.tscn" id="18_d6tgn"]
 [ext_resource type="Script" uid="uid://chbvt1cpvl4ve" path="res://scripts/components/lumin_placement_component.gd" id="18_kmyvj"]
-[ext_resource type="Script" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
+[ext_resource type="Script" uid="uid://mx2o6js1ifk6" path="res://scripts/components/everdark_compute_component.gd" id="19_o6auj"]
+[ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="20_dm10o"]
+[ext_resource type="Script" uid="uid://c54jhhrackwfy" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
 [ext_resource type="PackedScene" uid="uid://beguyjw3ooy0v" path="res://UI/hud.tscn" id="20_kmyvj"]
+[ext_resource type="PackedScene" uid="uid://bcg10wp7uqawx" path="res://scenes/lore_system/lore_note_screen.tscn" id="23_inhyd"]
+[ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="24_wqk1x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
 
 [node name="player" type="CharacterBody2D"]
+z_index = -1
 z_as_relative = false
 y_sort_enabled = true
 motion_mode = 1
@@ -111,10 +116,22 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
 
+[node name="everdark_compute" type="Node2D" parent="components" node_paths=PackedStringArray("affected_sprite")]
+script = ExtResource("19_o6auj")
+affected_sprite = NodePath("../../sprite")
+metadata/_custom_type_script = "uid://mx2o6js1ifk6"
+
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="random_entity_spawner" type="Node2D" parent="."]
+script = ExtResource("24_wqk1x")
+entity = ExtResource("20_dm10o")
+min_spawn_rate = 80.0
+randomness = 0.25
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -148,3 +165,6 @@ inventory = NodePath("../inventory")
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
+visible = false

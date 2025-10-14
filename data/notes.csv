@@ -1,0 +1,4 @@
+"id","name","text","image"
+"0","test_text","This is a test note with only textual content.",""
+"1","test_image","","uid://kskpiltajdfq"
+"2","test_both","This is a test note with both text and an image.","uid://b6gfa0grw3kwg"

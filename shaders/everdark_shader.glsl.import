@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://c8qixv7npp02w"
+path="res://.godot/imported/everdark_shader.glsl-6470d323cb198b64a7405298d6fbcd18.res"
+
+[deps]
+
+source_file="res://shaders/everdark_shader.glsl"
+dest_files=["res://.godot/imported/everdark_shader.glsl-6470d323cb198b64a7405298d6fbcd18.res"]
+
+[params]
+

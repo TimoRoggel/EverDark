@@ -1,0 +1,18 @@
+shader_type canvas_item;
+
+uniform vec2[64] lumin_positions;
+uniform int lumin_count;
+
+void fragment() {
+	vec2 current_pos = UV * vec2(textureSize(TEXTURE, 0));
+	float min_distance = 9999.0;
+	for (int i = 0; i < lumin_count; i++) {
+		vec2 pos = lumin_positions[i];
+		float current_distance = distance(current_pos, pos);
+		if (current_distance < min_distance) {
+			min_distance = current_distance;
+		}
+	}
+	float alpha = smoothstep(80.0, 128.0, min_distance);
+	COLOR = vec4(0.0, 0.0, 0.0, alpha);
+}

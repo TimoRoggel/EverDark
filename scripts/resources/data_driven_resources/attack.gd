@@ -1,4 +1,4 @@
-class_name Attack extends Resource
+class_name Attack extends DataDrivenResource
 
 @export_group("Info")
 @export var texture: Texture2D = null
@@ -47,6 +47,31 @@ class_name Attack extends Resource
 @export var color_over_time: GradientTexture1D = null
 @export var alpha_over_time: CurveTexture = null
 @export var death_attack: Attack = null
+
+static func from_data(data: Dictionary) -> Attack:
+	var attack: Attack = Attack.new()
+	attack.id = data["id"]
+	attack.texture = DataDrivenResource.get_loaded(data, "texture")
+	attack.weapon_sprite = DataDrivenResource.get_loaded(data, "weapon_sprite")
+	attack.power = data["power"]
+	attack.invulnerability = int(data["invulnerability"]) * 0.001
+	attack.inheritance = data["inheritance"]
+	attack.speed = data["speed"]
+	attack.velocity_overtime = DataDrivenResource.get_loaded(data, "velocity_overtime")
+	attack.knockback = data["knockback"]
+	attack.speed_randomness = data["speed_randomness"]
+	attack.align_rotation = data["align_rotation"] == "TRUE"
+	attack.kickback = data["kickback"]
+	attack.firerate = data["firerate"]
+	attack.lifetime = data["lifetime"]
+	attack.lifetime_randomness = data["lifetime_randomness"]
+	attack.spread = data["spread"]
+	attack.spawn_distance = data["spawn_distance"]
+	attack.attached_to_owner = data["attached_to_owner"] == "TRUE"
+	attack.hurtbox = Rect2i(0, 0, data["hurtbox_width"], data["hurtbox_height"])
+	attack.can_hit_owner = data["can_hit_owner"] == "TRUE"
+	attack.alpha_over_time = DataDrivenResource.get_loaded(data, "alpha_over_time")
+	return attack
 
 func rand_range(base: float, randomness: float) -> float:
 	var rand: float = base * randomness

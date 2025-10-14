@@ -11,6 +11,7 @@ func _ready() -> void:
 		SheetResource.new("res://data/recipes.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Recipes"),
 		SheetResource.new("res://data/harvestables.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Harvestables"),
 		SheetResource.new("res://data/notes.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Notes"),
+		SheetResource.new("res://data/attacks.csv", "1625O4iMQZqi9_kXD7bO6tz-KfY_-GNBzAe-nHMraaSU", "Attacks"),
 	])
 	_sync_csv_files()
 

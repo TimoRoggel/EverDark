@@ -1,4 +1,5 @@
 class_name MainMenu  extends Control
+
 @onready var margin_container: MarginContainer = $MarginContainer
 @onready var start: Button = $MarginContainer/HBoxContainer/VBoxContainer/Start
 @onready var settings: Button = $MarginContainer/HBoxContainer/VBoxContainer/Settings

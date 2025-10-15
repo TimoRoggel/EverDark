@@ -15,11 +15,10 @@ signal loaded_data
 func _ready() -> void:
 	save_manager = SaveManager.new()
 	initialize_save_objects()
-	start_or_load_game()
 	add_child(save_timer)
 	save_timer.timeout.connect(autosave)
-	await get_tree().create_timer(AUTOSAVE_TIME).timeout
-	autosave()
+	await get_tree().scene_changed
+	SaveSystem.start_or_load_game()
 
 func autosave() -> void:
 	SaveSystem.save_data()
@@ -41,6 +40,8 @@ func start_or_load_game() -> void:
 	else:
 		save_manager.clean_data()
 		loaded_data.emit()
+	await get_tree().create_timer(AUTOSAVE_TIME).timeout
+	autosave()
 
 func save_data() -> void:
 	save_manager.save_game(FILE_PATH)

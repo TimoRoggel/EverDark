@@ -12,9 +12,12 @@ class_name MainMenu  extends Control
 func _on_start_pressed() -> void:
 	new_game_confirmation.popup_centered()
 
+func start_game() -> void:
+	get_tree().change_scene_to_packed(start_level)
+
 func _on_new_game_confirmation_confirmed() -> void:
-	pass
-	#get_tree().change_scene_to_packed(start_level)
+	SaveSystem.delete_data()
+	start_game()
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
@@ -31,4 +34,4 @@ func _on_settings_menu_exit_settings_menu() -> void:
 	settings_menu.visible = false 
 
 func _on_continue__playing_pressed() -> void:
-	pass 
+	start_game()

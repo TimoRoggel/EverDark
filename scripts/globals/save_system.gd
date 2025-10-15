@@ -62,3 +62,7 @@ func open_savedata_folder() -> void:
 		OS.shell_show_in_file_manager(ProjectSettings.globalize_path(FILE_PATH))
 	else:
 		OS.shell_show_in_file_manager(ProjectSettings.globalize_path("user://"))
+
+func delete_data() -> void:
+	save_manager.clean_data()
+	save_data()

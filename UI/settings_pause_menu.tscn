@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv3ukf3px2kp3"]
+
+[ext_resource type="PackedScene" uid="uid://bb4j8ic5yq7w6" path="res://UI/settings_menu.tscn" id="1_r3w7h"]
+
+[node name="SettingsPauseMenu" instance=ExtResource("1_r3w7h")]
+
+[node name="Exit" parent="MarginContainer/VBoxContainer" index="2"]
+text = "Back"

@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfo35y24syp7t"]
+[gd_scene load_steps=7 format=3 uid="uid://bfo35y24syp7t"]
 
 [ext_resource type="Script" uid="uid://do6phc3fxdxvq" path="res://UI/settings_tab_container.gd" id="1_br2k3"]
 [ext_resource type="PackedScene" uid="uid://c05b5nqv7pwqh" path="res://UI/input_button.tscn" id="2_br2k3"]
+[ext_resource type="PackedScene" uid="uid://wvfmbpqnxjlq" path="res://UI/window_mode_button.tscn" id="2_dq1ek"]
+[ext_resource type="PackedScene" uid="uid://bubk665qv0ser" path="res://UI/audio_slider_settings.tscn" id="2_envro"]
 [ext_resource type="Script" uid="uid://d0rqtukk47lp8" path="res://UI/controls.gd" id="2_toxin"]
+[ext_resource type="PackedScene" uid="uid://q2qsu8vf1i6q" path="res://UI/resolution_mode_button.tscn" id="3_hnxiq"]
 
 [node name="Settings_Tab_Container" type="Control"]
 layout_mode = 3
@@ -25,10 +28,9 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 2
+current_tab = 0
 
 [node name="Audio" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -44,22 +46,23 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Audio/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 64
-alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Audio/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio/MarginContainer/ScrollContainer"]
 layout_mode = 2
-text = "121314"
+theme_override_constants/separation = 60
 
-[node name="Label2" type="Label" parent="TabContainer/Audio/MarginContainer/VBoxContainer"]
+[node name="Audio_Slider_Settings" parent="TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_envro")]
 layout_mode = 2
-text = "121314"
 
-[node name="Label3" type="Label" parent="TabContainer/Audio/MarginContainer/VBoxContainer"]
+[node name="Audio_Slider_Settings2" parent="TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_envro")]
 layout_mode = 2
-text = "121314"
+bus_name = "Music"
+
+[node name="Audio_Slider_Settings3" parent="TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_envro")]
+layout_mode = 2
+bus_name = "SFX"
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
 visible = false
@@ -78,24 +81,34 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Graphics/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 64
-alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics/MarginContainer/ScrollContainer"]
 layout_mode = 2
-text = "121314"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="Label2" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-text = "121314"
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 60
 
-[node name="Label3" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+[node name="Window_Mode_Button" parent="TabContainer/Graphics/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_dq1ek")]
 layout_mode = 2
-text = "121314"
+size_flags_vertical = 0
+
+[node name="Resolution_Mode_Button" parent="TabContainer/Graphics/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_hnxiq")]
+layout_mode = 2
+size_flags_vertical = 8
 
 [node name="Controls" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("2_toxin")
 metadata/_tab_index = 2

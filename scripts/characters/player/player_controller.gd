@@ -12,6 +12,7 @@ var health: HealthComponent = null
 var hitbox: HitboxComponent = null
 var hurtbox: HitboxComponent = null
 var everdark_damage: EverdarkDamageComponent = null
+var death: DeathComponent = null
 
 @onready var hud: Control = $CanvasLayer/HUD
 
@@ -38,6 +39,7 @@ func _ready() -> void:
 		everdark_damage.virus_effect.connect(hud._on_virus_effect)
 		everdark_damage.everdark_entered.connect(hud.toggle_virus_view)
 		everdark_damage.create_virus_timer()
+	death = get_component(DeathComponent)
 	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:

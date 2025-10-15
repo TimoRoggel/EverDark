@@ -7,4 +7,5 @@ func _enter() -> void:
 
 func death() -> void:
 	print("died, resetting health to max")
-	current_health = max_health
+	if controller.death:
+		controller.death.entity_died()

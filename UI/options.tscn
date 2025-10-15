@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://bfcvhqlfe5m2j"]
-
-[node name="Options" type="Button"]
-custom_minimum_size = Vector2(100, 20)
-text = "Options"

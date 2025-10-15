@@ -1,6 +1,6 @@
-extends Panel
-@onready var input_button_scene =preload("res://UI/input_button.tscn")
-@onready var action_list: VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/ActionList
+extends TabBar
+@onready var input_button_scene =preload("res://UI/Settings/input_button.tscn")
+@onready var action_list: VBoxContainer = $MarginContainer/ScrollContainer/ActionList
 
 
 var is_remapping = false 
@@ -74,6 +74,5 @@ func _input(event):
 func _update_action_list(button, event):
 	button.find_child("LabelInput").text = event.as_text().trim_suffix(" (Physical)")
 
-
-func _on_reset_button_pressed() -> void:
+func _on_back_to_def_pressed() -> void:
 	_create_action_list()

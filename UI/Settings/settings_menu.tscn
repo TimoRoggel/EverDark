@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb4j8ic5yq7w6"]
 
-[ext_resource type="Script" uid="uid://do3wmmnrrti5p" path="res://UI/setting_menu.gd" id="1_jkv84"]
-[ext_resource type="PackedScene" uid="uid://bfo35y24syp7t" path="res://UI/settings_tab_container.tscn" id="2_0adsa"]
+[ext_resource type="Script" uid="uid://do3wmmnrrti5p" path="res://UI/Settings/setting_menu.gd" id="1_jkv84"]
+[ext_resource type="PackedScene" uid="uid://bfo35y24syp7t" path="res://UI/Settings/settings_tab_container.tscn" id="2_0adsa"]
 
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3

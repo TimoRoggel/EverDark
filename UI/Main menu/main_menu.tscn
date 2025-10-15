@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5x7ph6tqdf08"]
 
-[ext_resource type="Script" uid="uid://da3mii20clos5" path="res://UI/main_menu.gd" id="1_tk8dj"]
-[ext_resource type="Texture2D" uid="uid://c4dbe1eli6gml" path="res://UI/image.png" id="2_d8nwk"]
-[ext_resource type="PackedScene" uid="uid://bb4j8ic5yq7w6" path="res://UI/settings_menu.tscn" id="2_tk8dj"]
+[ext_resource type="Script" uid="uid://da3mii20clos5" path="res://UI/Main menu/main_menu.gd" id="1_sf1lb"]
+[ext_resource type="Texture2D" uid="uid://c4dbe1eli6gml" path="res://UI/Main menu/image.png" id="2_ty6hc"]
+[ext_resource type="PackedScene" uid="uid://bb4j8ic5yq7w6" path="res://UI/Settings/settings_menu.tscn" id="3_cxei2"]
 
 [node name="Main menu" type="Control"]
 layout_mode = 3
@@ -11,14 +11,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_tk8dj")
+script = ExtResource("1_sf1lb")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 offset_top = -184.0
 offset_right = 732.0
 offset_bottom = 364.0
-texture = ExtResource("2_d8nwk")
+texture = ExtResource("2_ty6hc")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -59,12 +59,16 @@ alignment = 1
 [node name="Start" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Play game"
+text = "Start a new game"
 
-[node name="Achievements" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="NewGameConfirmation" type="ConfirmationDialog" parent="MarginContainer/HBoxContainer/VBoxContainer/Start"]
+dialog_text = "Are you sure you want to start a new game?
+Your previous game data will be lost."
+
+[node name="Continue  Playing" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Achievements"
+text = "Continue  Playing"
 
 [node name="Settings" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -76,12 +80,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Exit"
 
-[node name="SettingsMenu" parent="." instance=ExtResource("2_tk8dj")]
+[node name="SettingsMenu" parent="." instance=ExtResource("3_cxei2")]
 visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Achievements" to="." method="_on_achievements_pressed"]
+[connection signal="confirmed" from="MarginContainer/HBoxContainer/VBoxContainer/Start/NewGameConfirmation" to="." method="_on_new_game_confirmation_confirmed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Continue  Playing" to="." method="_on_continue__playing_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="exit_settings_menu" from="SettingsMenu" to="." method="_on_settings_menu_exit_settings_menu"]

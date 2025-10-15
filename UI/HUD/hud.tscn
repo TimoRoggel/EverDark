@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://beguyjw3ooy0v"]
 
-[ext_resource type="Script" uid="uid://b0d0063dp6gts" path="res://UI/hud.gd" id="1_2o5uh"]
-[ext_resource type="Script" uid="uid://cd3a88w0gqwch" path="res://UI/health_bar.gd" id="1_ne75i"]
+[ext_resource type="Script" uid="uid://b0d0063dp6gts" path="res://UI/HUD/hud.gd" id="1_ing8j"]
+[ext_resource type="Script" uid="uid://cd3a88w0gqwch" path="res://UI/HUD/health_bar.gd" id="2_te8l2"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_2o5uh")
+script = ExtResource("1_ing8j")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 1
@@ -18,7 +18,7 @@ layout_mode = 0
 offset_left = 56.0
 offset_right = 296.0
 offset_bottom = 20.0
-script = ExtResource("1_ne75i")
+script = ExtResource("2_te8l2")
 
 [node name="HealthLabel" type="Label" parent="."]
 layout_mode = 0

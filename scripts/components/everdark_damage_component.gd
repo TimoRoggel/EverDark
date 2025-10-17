@@ -28,7 +28,6 @@ func _enter():
 
 func _update(_delta: float) -> void:
 	if Generator.layer and controller.death:
-		print("dead "+str(controller.death.is_dead))
 		if curr_tile != controller.get_tile() and !controller.death.is_dead:
 			if controller.get_tile()==null:
 				everdark_entered.emit(true)

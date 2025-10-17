@@ -5,6 +5,7 @@ class_name DeathComponent extends Component
 
 var entity: CharacterController
 var inventory: InventoryComponent
+
 var is_dead := false
 
 func _enter():
@@ -35,7 +36,7 @@ func respawn():
 	print(entity.name + " respawning...")
 	await get_tree().create_timer(.5).timeout
 	is_dead = false
-	entity.global_position = Vector2.ZERO
+	entity.global_position = respawn_point
 	controller.hitbox.is_active = true
 	controller.set_physics_process(true)
 	entity.show()

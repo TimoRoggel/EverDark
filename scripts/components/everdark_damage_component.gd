@@ -27,8 +27,9 @@ func _enter():
 	pass
 
 func _update(_delta: float) -> void:
-	if Generator.layer:
-		if curr_tile != controller.get_tile():
+	if Generator.layer and controller.death:
+		print("dead "+str(controller.death.is_dead))
+		if curr_tile != controller.get_tile() and !controller.death.is_dead:
 			if controller.get_tile()==null:
 				everdark_entered.emit(true)
 				virus_timer.start()
@@ -63,7 +64,7 @@ func on_virus_timer_timeout():
 		virus_timer.stop()
 		if controller.health:
 			var just_hurt = false
-			while (curr_tile == null): # blijft wws doorgaan na dood gaan
+			while (curr_tile == null and !controller.death.is_dead): # blijft wws doorgaan na dood gaan
 				if not just_hurt:
 					controller.health.apply_environmental_damage(self)
 					just_hurt = true

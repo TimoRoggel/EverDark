@@ -9,7 +9,6 @@ var inventory: InventoryComponent
 
 func _enter():
 	entity = controller
-	inventory = controller.inventory
 
 func _update(_delta: float) -> void:
 	pass
@@ -18,9 +17,16 @@ func _exit() -> void:
 	pass
 
 func entity_died():
+	# resetting health right away, otherwise an loop will be caused
+	entity.health.reset()
+	inventory = controller.inventory
+	print("inventory exists: " + str(inventory))
 	if inventory:
-		#inventory.drop_all()
-		print("count" + "items dropped")
+		inventory.drop_all()
+	if controller.hotbar:
+		controller.hotbar.update_hotbar()
+	# display screen respawn or menu?
+	# ref menu later
 	if can_respawn:
 		# disable entity here
 		controller.hitbox.is_active = false
@@ -34,6 +40,5 @@ func respawn(location: Vector2):
 	print(entity.name + " respawning...")
 	await get_tree().create_timer(1.5).timeout
 	entity.global_position = location
-	entity.health.reset()
 	controller.hitbox.is_active = true
 	entity.show()

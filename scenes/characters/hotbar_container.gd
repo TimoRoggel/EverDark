@@ -5,6 +5,7 @@ extends HBoxContainer
 var slots_per_row: int
 var currently_selected_slot: int = 0
 var is_active = true
+var hotbar_just_emptied = false
 
 func _ready() -> void:
 	if inventory:
@@ -83,6 +84,15 @@ func update_hotbar():
 				else:
 					current_slot.get_child(1).text = ""
 					current_slot.get_child(0).texture = null
+			hotbar_just_emptied = false
+		else:
+			if !hotbar_just_emptied:
+				print("emptying hotbar...")
+				for slot in self.get_children():
+					if slot is TextureButton:
+						slot.get_child(0).texture = null
+						slot.get_child(1).text = ""
+				hotbar_just_emptied = true
 		
 func select_slot(slot_number):
 	var slot_node = self.get_child(slot_number)

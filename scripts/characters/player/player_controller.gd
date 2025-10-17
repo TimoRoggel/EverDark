@@ -16,6 +16,8 @@ var death: DeathComponent = null
 
 @onready var hud: Control = $CanvasLayer/HUD
 
+@onready var hotbar: HBoxContainer = $CanvasLayer/hotbar
+
 func _init() -> void:
 	flags = CharacterFlags.Player
 

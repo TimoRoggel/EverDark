@@ -118,7 +118,7 @@ func _update_drag_preview() -> void:
 	drag_icon.add_child(drag_label)
 	set_drag_preview(drag_icon)
 
-func _can_drop_data(_pos: Vector2, data: Variant):
+func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
 	if output_only:
 		return false
 	if typeof(data) != TYPE_DICTIONARY:

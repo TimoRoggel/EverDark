@@ -24,7 +24,7 @@
 [ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="20_dm10o"]
 [ext_resource type="Script" uid="uid://c54jhhrackwfy" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
 [ext_resource type="PackedScene" uid="uid://beguyjw3ooy0v" path="res://UI/hud.tscn" id="20_kmyvj"]
-[ext_resource type="Script" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
+[ext_resource type="Script" uid="uid://ckc36i68yr744" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
 [ext_resource type="PackedScene" uid="uid://bcg10wp7uqawx" path="res://scenes/lore_system/lore_note_screen.tscn" id="23_inhyd"]
 [ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="24_wqk1x"]
 [ext_resource type="Material" uid="uid://dpfoqgjxxik6t" path="res://shaders/materials/everdark_overlay_material.tres" id="28_tswxa"]
@@ -128,7 +128,6 @@ metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 [node name="main_attack" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("10_xhtjm")
-damaging_flags = 3
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="lumin_placement" type="Node2D" parent="components"]

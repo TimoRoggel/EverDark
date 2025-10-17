@@ -25,7 +25,7 @@ func _enter() -> void:
 		ANIMS[2]: charge_sounds
 	}
 	possible_anims = ANIMS.filter(func(anim: String) -> bool: return animated_sprite.sprite_frames.get_animation_names().has(anim))
-	for possible_anim in possible_anims:
+	for possible_anim: String in possible_anims:
 		audio_players[possible_anim] = GameManager.create_audio_player(&"sounds", anim_sounds[possible_anim])
 		add_child(audio_players[possible_anim])
 	animated_sprite.frame_changed.connect(step_sound)

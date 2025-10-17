@@ -8,16 +8,16 @@ var action_to_remap: StringName = &""
 var remapping_button: Button = null 
 
 var input_actions: Dictionary[String, String] = {
-	"up" : "Move up",
-	"down" : "Move down",
-	"left" : "Move left",
-	"right" : "Move right",
-	"pause" : "Pause menu",
-	"attack" : "Attack",
-	"block" : "Block",
-	"dash" : "Dash",
-	"toggle_inventory" : "Open inventory",
-	"interact" : "Interact",
+	"up": "Move up",
+	"down": "Move down",
+	"left": "Move left",
+	"right": "Move right",
+	"pause": "Pause menu",
+	"attack": "Attack",
+	"block": "Block",
+	"dash": "Dash",
+	"toggle_inventory": "Open inventory",
+	"interact": "Interact",
 }
 
 func _ready() -> void:
@@ -25,10 +25,10 @@ func _ready() -> void:
 
 func _create_action_list() -> void: 
 	InputMap.load_from_project_settings()
-	for item in action_list.get_children():
+	for item: Node in action_list.get_children():
 		item.queue_free()
 	
-	for action in input_actions:
+	for action: String in input_actions:
 		var button: Button = input_button_scene.instantiate()
 		var action_label: Label = button.find_child("LabelAction")
 		var input_label: Label = button.find_child("LabelInput")
@@ -44,14 +44,14 @@ func _create_action_list() -> void:
 		action_list.add_child(button)
 		button.pressed.connect(_on_input_button_pressed.bind(button, action))
 
-func _on_input_button_pressed(button, action):
+func _on_input_button_pressed(button: Button, action: String) -> void:
 	if !is_remapping: 
 		is_remapping = true 
 		action_to_remap = action 
 		remapping_button = button
 		button.find_child("LabelInput").text = "Press key to bind..."
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if is_remapping:
 		if(
 			event is InputEventKey || 
@@ -71,7 +71,7 @@ func _input(event):
 			
 			accept_event()
 
-func _update_action_list(button, event):
+func _update_action_list(button: Button, event: InputEvent) -> void:
 	button.find_child("LabelInput").text = event.as_text().trim_suffix(" (Physical)")
 
 

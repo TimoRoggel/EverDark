@@ -20,19 +20,19 @@ func load_data(data: Dictionary) -> void:
 	
 	if file_id == SaveSystem.options.active_save_file:
 		await Engine.get_main_loop().current_scene.ready
-		for key in trackers.keys():
+		for key: String in trackers.keys():
 			var stored_value: String = data.get(key, "")
 			var stored_data: Variant = trackers[key]["default"] if stored_value.is_empty() else bytes_to_var(str_to_var(stored_value))
 			trackers[key]["setter"].call(stored_data)
 
 func clean_data() -> void:
 	if file_id == SaveSystem.options.active_save_file:
-		for key in trackers.keys():
+		for key: String in trackers.keys():
 			trackers[key]["setter"].call(trackers[key]["default"])
 
 func get_all_values() -> Dictionary:
 	var data: Dictionary = {"file_id": file_id}
-	for key in trackers.keys():
+	for key: String in trackers.keys():
 		data[key] = var_to_bytes(trackers[key]["getter"].call())
 	return data
 

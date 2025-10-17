@@ -28,9 +28,9 @@ func _input(event: InputEvent) -> void:
 				currently_selected_slot = posmod(currently_selected_slot + 1, slots_per_row)
 				select_slot(currently_selected_slot)
 
-func add_slots():
+func add_slots() -> void:
 	if inventory && self.get_child_count() == 0:
-		for i in slots_per_row:
+		for i: int in slots_per_row:
 			var slot_texture: TextureButton = create_slot()
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()
@@ -65,10 +65,10 @@ func create_amount_label() -> Label:
 	amount_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	return amount_label
 		
-func update_hotbar():
+func update_hotbar() -> void:
 	if inventory:
 		var inventory_slots: Array[InventorySlot] = inventory.get_slots()
-		for i in slots_per_row:
+		for i: int in slots_per_row:
 			var current_slot: TextureButton = self.get_child(i)
 			var item_slot: InventorySlot = inventory_slots[i]
 			if item_slot.is_empty():
@@ -81,18 +81,18 @@ func update_hotbar():
 				current_slot.get_child(0).texture = item_icon
 				scale_texture_rect(current_slot.get_child(0), current_slot.size*.8)
 		
-func select_slot(slot_number):
+func select_slot(slot_number) -> void:
 	var slot_node: TextureButton = self.get_child(slot_number)
 	slot_node.grab_focus()
 	update_currently_selected_slot()
 
-func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2):
+func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2) -> void:
 	var tex_size: Vector2 = texture_rect.texture.get_size()
 	var tex_scale: int = min(roundi(parent_size.x / tex_size.x), roundi(parent_size.y / tex_size.y))
 	texture_rect.scale = Vector2(tex_scale, tex_scale)
 	
-func update_currently_selected_slot():
-	for child in self.get_children():
+func update_currently_selected_slot() -> void:
+	for child: Node in self.get_children():
 		if child.has_focus():
 			if currently_selected_slot != child.get_index():
 				currently_selected_slot = child.get_index()

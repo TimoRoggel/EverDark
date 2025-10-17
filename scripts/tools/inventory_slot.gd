@@ -185,6 +185,11 @@ func is_full() -> bool:
 		return false
 	return inventory_item.is_full()
 
+func is_empty() -> bool:
+	if !inventory_item:
+		return true
+	return inventory_item.quantity <= 0
+
 func merge(other: InventoryItem, custom_amount: int = -1) -> Dictionary[String, int]:
 	var status: int = OK
 	var remainder: int = 0

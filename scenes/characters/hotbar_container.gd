@@ -9,7 +9,9 @@ var is_active = true
 func _ready() -> void:
 	if inventory:
 		slots_per_row = roundi(inventory.slots / float(inventory.rows))
-		
+		add_slots()
+		inventory.updated.connect(update_hotbar)
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop_item") and is_active:
 		var current_item = inventory.get_slots()[currently_selected_slot].inventory_item
@@ -25,12 +27,7 @@ func _input(event: InputEvent) -> void:
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				currently_selected_slot = posmod(currently_selected_slot + 1, slots_per_row)
 				select_slot(currently_selected_slot)
-	
-func _process(_delta: float) -> void:
-	add_slots()
-	update_hotbar()
-	update_currently_selected_slot()
-	
+
 func add_slots():
 	if inventory && self.get_child_count() == 0:
 		for i in slots_per_row:
@@ -70,23 +67,24 @@ func create_amount_label() -> Label:
 		
 func update_hotbar():
 	if inventory:
-		if inventory.get_items():
-			var inventory_slots = inventory.get_slots()
-			for i in slots_per_row:
-				var current_slot = self.get_child(i)
-				if inventory_slots[i].inventory_item:
-					var item_icon = inventory.get_slots()[i].inventory_item.item.icon
-					var quantity = inventory.get_slots()[i].inventory_item.quantity
-					current_slot.get_child(1).text = str(quantity) + "x"
-					current_slot.get_child(0).texture = item_icon
-					scale_texture_rect(current_slot.get_child(0), current_slot.size*.8)
-				else:
-					current_slot.get_child(1).text = ""
-					current_slot.get_child(0).texture = null
+		var inventory_slots = inventory.get_slots()
+		for i in slots_per_row:
+			var current_slot = self.get_child(i)
+			var item_slot: InventorySlot = inventory_slots[i]
+			if item_slot.is_empty():
+				current_slot.get_child(1).text = ""
+				current_slot.get_child(0).texture = null
+			else:
+				var item_icon = inventory.get_slots()[i].inventory_item.item.icon
+				var quantity = inventory.get_slots()[i].inventory_item.quantity
+				current_slot.get_child(1).text = str(quantity) + "x"
+				current_slot.get_child(0).texture = item_icon
+				scale_texture_rect(current_slot.get_child(0), current_slot.size*.8)
 		
 func select_slot(slot_number):
 	var slot_node = self.get_child(slot_number)
 	slot_node.grab_focus()
+	update_currently_selected_slot()
 
 func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2):
 	var tex_size = texture_rect.texture.get_size()

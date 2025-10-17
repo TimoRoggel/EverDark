@@ -12,6 +12,8 @@ class_name InventoryContainer extends GridContainer
 @export var input_only: bool = false
 @export var output_only: bool = false
 
+signal updated
+
 func _ready() -> void:
 	_redraw()
 
@@ -27,6 +29,7 @@ func _redraw() -> void:
 		slot.index = i
 		slot.input_only = input_only
 		slot.output_only = output_only
+		slot.item_changed.connect(updated.emit)
 		add_child(slot)
 
 func add(item_id: int, quantity: int = 1) -> int:

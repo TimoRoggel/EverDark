@@ -31,7 +31,7 @@ func clean_data() -> void:
 			trackers[key]["setter"].call(trackers[key]["default"])
 
 func get_all_values() -> Dictionary:
-	var data = {"file_id": file_id}
+	var data: Dictionary = {"file_id": file_id}
 	for key in trackers.keys():
 		data[key] = var_to_bytes(trackers[key]["getter"].call())
 	return data

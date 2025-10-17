@@ -76,13 +76,13 @@ func _on_CraftButton_pressed() -> void:
 			required_materials[item_id] = 1
 
 	for item_id in required_materials.keys():
-		var needed = required_materials[item_id]
+		var needed: int = required_materials[item_id]
 		if not inventory.has(item_id, needed):
 			#printerr("No inventory found")
 			return
 
 	for item_id in required_materials.keys():
-		var needed = required_materials[item_id]
+		var needed: int = required_materials[item_id]
 		inventory.remove(item_id, needed)
 
 	for reward_id in current_recipe.reward_ids:

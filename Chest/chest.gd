@@ -32,16 +32,16 @@ func _process(_delta: float) -> void:
 			player_ref_inventory.container.visible = chest_inventory.visible
 
 		if Input.is_action_just_pressed("interact"):
-			var items_to_drop = chest_inventory.get_items()
-			for item in items_to_drop:
-				var leftover = player_ref_inventory.container.add(item.item.id, item.quantity)
+			var items_to_drop: Array[InventoryItem] = chest_inventory.get_items()
+			for item: InventoryItem in items_to_drop:
+				var leftover: int = player_ref_inventory.container.add(item.item.id, item.quantity)
 				if leftover > 0:
 					var dropped_item: DroppedItem2D = DroppedItem2D.new()
 					dropped_item.item = item.item
 					get_parent().add_child(dropped_item)
 					dropped_item.global_position = player_ref.global_position
 
-			for slot in chest_inventory.get_slots():
+			for slot: InventorySlot in chest_inventory.get_slots():
 				slot.inventory_item = null
 			chest_inventory.visible = false
 

@@ -3,11 +3,11 @@ extends Panel
 @onready var action_list: VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/ActionList
 
 
-var is_remapping = false 
-var action_to_remap = null
-var remapping_button = null 
+var is_remapping: bool = false 
+var action_to_remap: StringName = &""
+var remapping_button: Button = null 
 
-var input_actions = {
+var input_actions: Dictionary[String, String] = {
 	"up" : "Move up",
 	"down" : "Move down",
 	"left" : "Move left",
@@ -29,13 +29,13 @@ func _create_action_list() -> void:
 		item.queue_free()
 	
 	for action in input_actions:
-		var button = input_button_scene.instantiate()
-		var action_label = button.find_child("LabelAction")
-		var input_label = button.find_child("LabelInput")
+		var button: Button = input_button_scene.instantiate()
+		var action_label: Label = button.find_child("LabelAction")
+		var input_label: Label = button.find_child("LabelInput")
 		
 		action_label.text = input_actions[action]
 		
-		var events = InputMap.action_get_events(action)
+		var events: Array[InputEvent] = InputMap.action_get_events(action)
 		if events.size() > 0:
 			input_label.text = events[0].as_text().trim_suffix(" (Physical)")
 		else:
@@ -66,7 +66,7 @@ func _input(event):
 			_update_action_list(remapping_button, event)
 			
 			is_remapping = false
-			action_to_remap = null
+			action_to_remap = &""
 			remapping_button = null 
 			
 			accept_event()

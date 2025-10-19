@@ -51,4 +51,3 @@ position = Vector2(15, 9)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 position = Vector2(17, 42)
-chest_item_id = 1

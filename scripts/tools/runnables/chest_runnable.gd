@@ -8,7 +8,6 @@ func run(param: Dictionary) -> void:
 	var interactable = param["self"]         
 	var chest = interactable.get_parent()    
 	var input = controller.get_component(InputComponent)
-
 	if input and input.is_pickup_pressed():
 		_pickup(controller, chest)
 	else:

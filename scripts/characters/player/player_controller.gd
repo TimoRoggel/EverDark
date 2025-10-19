@@ -11,6 +11,7 @@ var inventory: InventoryComponent = null
 var health: HealthComponent = null
 var hitbox: HitboxComponent = null
 var hurtbox: HitboxComponent = null
+var build: BuildComponent = null
 
 func _init() -> void:
 	flags = CharacterFlags.Player
@@ -18,6 +19,7 @@ func _init() -> void:
 func _ready() -> void:
 	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
 	super()
+	GameManager.player = self
 	await get_tree().process_frame
 	input = get_component(InputComponent)
 	movement = get_component(MoveComponent)
@@ -29,6 +31,7 @@ func _ready() -> void:
 	inventory = get_component(InventoryComponent)
 	health = get_component(HealthComponent)
 	hitbox = get_component(HitboxComponent)
+	build = get_component(BuildComponent)
 	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:

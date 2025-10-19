@@ -5,7 +5,7 @@ const CHEST_CLOSED = preload("uid://dh0rj8oyd78hu")
 const CHEST_OPEN = preload("uid://bt5l56duf4ya0")
 
 @export var chest_inventory: InventoryContainer = null
-@export var chest_item_id: int = 1
+@export var chest_item_id: int = 4
 @export var sprite_chest: Sprite2D
 
 var is_interactable: bool = false
@@ -14,11 +14,8 @@ var player_ref_inventory: InventoryComponent = null
 var chest_input: InputComponent = null
 
 func _ready() -> void:
-	chest_input = InputComponent.new()
-	add_child(chest_input)
-	chest_input.ui.connect(_on_ui)
+	chest_input = GameManager.player.get_component(InputComponent)
 	chest_input.pickup.connect(_on_pickup)
-	chest_input.place.connect(_on_place)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is PlayerController:
@@ -48,31 +45,32 @@ func _on_ui() -> void:
 func _on_pickup() -> void:
 	if not is_interactable or not player_ref:
 		return
-	var items_to_drop = chest_inventory.get_items()
-	for item in items_to_drop:
+
+	for item in chest_inventory.get_items():
 		var leftover = player_ref_inventory.container.add(item.item.id, item.quantity)
 		if leftover > 0:
 			var dropped_item: DroppedItem2D = DroppedItem2D.new()
 			dropped_item.item = item.item
-			dropped_item.quantity = leftover
+			dropped_item.amount = leftover
 			get_parent().add_child(dropped_item)
 			dropped_item.global_position = player_ref.global_position
+			dropped_item.timeout()
+
+	var chest_item = DataManager.get_resource_by_id("items", chest_item_id)
+	var leftover_chest = player_ref_inventory.add(chest_item.id, 1)
+	player_ref_inventory.set_held_item_id(chest_item.id)
+
+	if leftover_chest > 0:
+		var dropped_chest: DroppedItem2D = DroppedItem2D.new()
+		dropped_chest.item = chest_item
+		dropped_chest.amount = leftover_chest
+		get_parent().add_child(dropped_chest)
+		dropped_chest.global_position = player_ref.global_position
+		dropped_chest.timeout()
+
 	for slot in chest_inventory.get_slots():
 		slot.inventory_item = null
 	chest_inventory.visible = false
 	player_ref_inventory.container.visible = false
-	player_ref_inventory.set_held_item_id(chest_item_id)
-	queue_free()
 
-func _on_place(mouse_pos: Vector2) -> void:
-	if not player_ref or not player_ref_inventory:
-		return
-	if player_ref_inventory.get_held_item_id() != chest_item_id:
-		return
-	var new_chest: Chest = Chest.new()
-	get_parent().add_child(new_chest)
-	new_chest.global_position = mouse_pos
-	new_chest.chest_inventory = chest_inventory.duplicate()
-	new_chest.sprite_chest = sprite_chest.duplicate()
-	new_chest.chest_item_id = chest_item_id
-	player_ref_inventory.set_held_item_id(0)
+	queue_free()

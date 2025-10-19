@@ -16,10 +16,10 @@ func save_game(file_path: String) -> void:
 
 func load_game(file_path: String) -> void:
 	var file: FileAccess = FileAccess.open_encrypted_with_pass(file_path, FileAccess.READ,ENCRYPTION_KEY)
-    if !file:
-        # Save data is corrupted
-        clean_data()
-        return
+	if !file:
+		# Save data is corrupted
+		clean_data()
+		return
 	var save_data: Dictionary = JSON.parse_string(file.get_as_text())
 	for obj: SaveObject in save_objects:
 		if (save_data.has(obj.name)):

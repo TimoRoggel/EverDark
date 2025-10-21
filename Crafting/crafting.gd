@@ -36,6 +36,7 @@ func _on_pickup() -> void:
 	player_ref.get_component(InventoryComponent).set_held_item_id(crafting_item.id)
 	crafting_ui.visible = false
 	queue_free()
+	player_ref.get_component(BuildComponent).refresh_held_item()
 
 func toggle_ui(controller: PlayerController) -> void:
 	if controller:

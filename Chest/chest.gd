@@ -74,3 +74,4 @@ func _on_pickup() -> void:
 	player_ref_inventory.container.visible = false
 
 	queue_free()
+	player_ref.get_component(BuildComponent).refresh_held_item()

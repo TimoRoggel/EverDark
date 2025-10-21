@@ -112,8 +112,9 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
 
-[node name="BuildComponent" type="Node2D" parent="components"]
+[node name="BuildComponent" type="Node2D" parent="components" node_paths=PackedStringArray("hotbar_container")]
 script = ExtResource("19_inhyd")
+hotbar_container = NodePath("../../CanvasLayer/hotbar")
 metadata/_custom_type_script = "uid://6a33mecj0khi"
 
 [node name="camera" type="Camera2D" parent="."]
@@ -139,7 +140,7 @@ columns = 10
 script = ExtResource("8_eojnx")
 metadata/_custom_type_script = "uid://bp2m4dafooblw"
 
-[node name="hotbar" type="HBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("inventory")]
+[node name="hotbar" type="HBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("inventory", "inventory_component")]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -149,6 +150,7 @@ grow_vertical = 0
 alignment = 1
 script = ExtResource("20_eir2k")
 inventory = NodePath("../inventory")
+inventory_component = NodePath("../../components/inventory")
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
 offset_right = 40.0

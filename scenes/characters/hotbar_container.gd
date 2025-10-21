@@ -94,8 +94,17 @@ func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2):
 		texture_rect.scale = Vector2(tex_scale, tex_scale)
 
 func select_slot(slot_number: int):
+	print("Selecting slot:", slot_number)
 	if slot_number >= 0 and slot_number < get_child_count():
 		var slot_node = get_child(slot_number)
 		slot_node.grab_focus()
 		currently_selected_slot = slot_number
+		if inventory_component and inventory:
+			var selected_slot = inventory.get_slots()[currently_selected_slot]
+			var selected_item = selected_slot.inventory_item
+			if selected_item and selected_item.item:
+				inventory_component.held_item = selected_item.item.id
+			else:
+				inventory_component.held_item = 0
+
 	print(inventory.get_slots()[currently_selected_slot].inventory_item)

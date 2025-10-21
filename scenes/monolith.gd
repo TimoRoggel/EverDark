@@ -14,8 +14,17 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		return
 	
 	if is_instance_of(area, DroppedItem2D) && area.item.id == 0: 
-		lumin += 1
-		area.queue_free() 
+		var needed_lumin = required_lumin_count - lumin
+		
+		if area.amount >= needed_lumin:
+			lumin += needed_lumin
+			area.amount -= needed_lumin
+			
+			if area.amount <= 0:
+				area.queue_free()
+		else:
+			lumin += area.amount
+			area.queue_free()
 		
 		print("aantal lumin: ", lumin, "/", required_lumin_count)
 		

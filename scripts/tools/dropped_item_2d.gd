@@ -13,15 +13,20 @@ const MERGE_DISTANCE: float = 16.0
 		amount = value
 		update_param()
 
+@export var float_hieght: float = 5.0
+@export var float_speed: float = 2.0
 var timeout_timer: Timer = Timer.new()
 var merge_area: Area2D = Area2D.new()
 var sprite: Sprite2D = Sprite2D.new()
+var base_y: float
+var time: float = 0.0
 
 func _ready() -> void:
 	z_as_relative = false
 	y_sort_enabled = true
 	sprite.texture = item.icon
 	add_child(sprite)
+	base_y = sprite.position.y
 	timeout_timer.one_shot = true
 	add_child(timeout_timer)
 	interact_script = ITEM_PICKUP_RUNNABLE
@@ -37,9 +42,14 @@ func _ready() -> void:
 	merge_shape.shape.radius = MERGE_DISTANCE
 	merge_area.add_child(merge_shape)
 
+func _process(delta: float) -> void:
+	time += delta * float_speed
+	sprite.position.y = base_y + sin(time) * float_hieght
+
 func _physics_process(_delta: float) -> void:
 	if !active:
 		return
+
 	var nearby_items: Array = merge_area.get_overlapping_areas().filter(
 		func(n: Area2D) -> bool:
 			return n != self && is_instance_of(n, DroppedItem2D) && n.item.id == item.id && n.amount + amount <= item.stack_size

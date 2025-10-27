@@ -78,4 +78,3 @@ func random_spread_pos(entity_location, item_spread_radius) -> Vector2:
 	var rand_y = randf_range(entity_location.y + item_spread_radius, entity_location.y - item_spread_radius)
 	var random_vector = Vector2(rand_x, rand_y)
 	return random_vector
-

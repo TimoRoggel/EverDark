@@ -34,7 +34,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sync_spreadsheets/plugin.cfg")
+enabled=PackedStringArray("res://addons/YATI/plugin.cfg", "res://addons/sync_spreadsheets/plugin.cfg")
 
 [input]
 

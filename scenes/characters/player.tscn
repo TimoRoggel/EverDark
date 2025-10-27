@@ -36,8 +36,8 @@ size = Vector2(6, 8)
 frequency = 0.0175
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhyq5"]
-width = 640
-height = 360
+width = 960
+height = 680
 noise = SubResource("FastNoiseLite_aqa0x")
 seamless = true
 seamless_blend_skirt = 1.0
@@ -128,6 +128,7 @@ metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 [node name="main_attack" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("10_xhtjm")
+damaging_flags = 3
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="lumin_placement" type="Node2D" parent="components"]
@@ -154,10 +155,10 @@ material = ExtResource("28_tswxa")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -320.0
-offset_top = -184.0
-offset_right = 320.0
-offset_bottom = 176.0
+offset_left = -480.0
+offset_top = -344.0
+offset_right = 480.0
+offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("NoiseTexture2D_yhyq5")

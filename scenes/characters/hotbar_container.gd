@@ -7,10 +7,14 @@ var hotbar_slots: int = 10
 var currently_selected_slot: int = 0
 var is_active: bool = true
 var hotbar_just_emptied: bool = false
+var slots_per_row: int = 0
 
 func _ready() -> void:
+	if inventory:
+		slots_per_row = roundi(inventory.slots / float(inventory.rows))
 	add_slots()
-	select_slot(currently_selected_slot)
+	update_hotbar()
+	update_currently_selected_slot()
 
 func _input(event: InputEvent) -> void:
 	if not is_active:
@@ -73,6 +77,8 @@ func create_amount_label() -> Label:
 func update_hotbar() -> void:
 	if !inventory:
 		return
+	
+	var items: Array[InventoryItem] = inventory.get_items()
 
 	var inventory_slots: Array[InventorySlot] = inventory.get_slots()
 	for i: int in hotbar_slots:
@@ -84,7 +90,7 @@ func update_hotbar() -> void:
 			slot_node.get_child(0).texture = item_icon
 			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
 			hotbar_just_emptied = false
-		else:
+		elif !items:
 			if !hotbar_just_emptied:
 				print("emptying hotbar...")
 				for slot: Node in get_children():

@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn1esnd74d0hh"]
+
+[ext_resource type="Script" uid="uid://b0thq0tp2rp14" path="res://UI/Pause Menu/pause_menu.gd" id="1_ltd3m"]
+[ext_resource type="PackedScene" uid="uid://cv3ukf3px2kp3" path="res://UI/Settings/settings_pause_menu.tscn" id="2_jfm1e"]
+
+[node name="Pause Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ltd3m")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Resume" type="Button" parent="MarginContainer/Buttons"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="MarginContainer/Buttons"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Settings"
+
+[node name="Back to main menu" type="Button" parent="MarginContainer/Buttons"]
+layout_mode = 2
+text = "Main menu"
+
+[node name="Quit" type="Button" parent="MarginContainer/Buttons"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Quit game"
+
+[node name="SettingsPauseMenu" parent="." instance=ExtResource("2_jfm1e")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MarginContainer/Buttons/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/Buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/Buttons/Back to main menu" to="." method="_on_back_to_main_menu_pressed"]
+[connection signal="pressed" from="MarginContainer/Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="exit_settings_pause_menu" from="SettingsPauseMenu" to="." method="_on_settings_pause_menu_exit_settings_pause_menu"]

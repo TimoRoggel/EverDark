@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://2sk6w6jiy3ng"]
 
 [ext_resource type="Script" uid="uid://ddvwga4h802ko" path="res://Crafting/crafting.gd" id="1_hwda8"]
-[ext_resource type="Texture2D" uid="uid://c3jgcwc5lwenq" path="res://graphics/crafting.png" id="1_rj1pl"]
+[ext_resource type="Texture2D" uid="uid://cai400q5hbpoj" path="res://map/Art Assets/Map Objects (colision)/placeables/32x16_workbench_01.png" id="2_cascu"]
 [ext_resource type="PackedScene" uid="uid://ccsvhx5s8yx0t" path="res://scenes/crafting/crafting_ui.tscn" id="3_xl5xf"]
 [ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="4_xkjm0"]
 [ext_resource type="Script" uid="uid://ej8osgevep81" path="res://scripts/tools/runnables/craftingtable_runnable.gd" id="5_cascu"]
@@ -18,7 +18,7 @@ shape = SubResource("CircleShape2D_hwda8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-0.24999994, 0.24999994)
-texture = ExtResource("1_rj1pl")
+texture = ExtResource("2_cascu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -14,7 +14,7 @@ var attack_angle: float = 0.0
 var attacking: bool = false
 var attack_timeout: float = 0.0
 
-func _get_property_list():
+func _get_property_list() -> Array[Dictionary]:
 	return CharacterController.get_flag_properties("damaging_flags")
 
 func _enter() -> void:

@@ -36,14 +36,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
 
-[sub_resource type="Gradient" id="Gradient_tswxa"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aqa0x"]
+frequency = 0.0175
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_aqa0x"]
-gradient = SubResource("Gradient_tswxa")
-width = 640
-height = 360
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhyq5"]
+width = 960
+height = 680
+noise = SubResource("FastNoiseLite_aqa0x")
+seamless = true
+seamless_blend_skirt = 1.0
 
 [node name="player" type="CharacterBody2D"]
 z_index = -1
@@ -146,8 +147,8 @@ metadata/_custom_type_script = "uid://6a33mecj0khi"
 script = ExtResource("19_inhyd")
 
 [node name="everdark_compute" type="Node2D" parent="components"]
+position = Vector2(0, -4)
 script = ExtResource("19_o6auj")
-metadata/_custom_type_script = "uid://mx2o6js1ifk6"
 
 [node name="everdark_damage" type="Node2D" parent="components"]
 script = ExtResource("21_tswxa")
@@ -167,13 +168,13 @@ material = ExtResource("28_tswxa")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
+offset_left = -480.0
+offset_top = -344.0
+offset_right = 480.0
+offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_aqa0x")
+texture = SubResource("NoiseTexture2D_yhyq5")
 
 [node name="random_entity_spawner" type="Node2D" parent="."]
 script = ExtResource("24_wqk1x")

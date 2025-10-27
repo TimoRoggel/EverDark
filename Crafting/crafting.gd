@@ -4,8 +4,8 @@ extends Area2D
 @export var crafting_ui: Crafting_UI = null
 @export var crafting_table_item_id: int = 3
 
-var is_interactable : bool = false
-var player_ref : PlayerController = null
+var is_interactable: bool = false
+var player_ref: PlayerController = null
 var crafting_input: InputComponent = null
 
 func _ready() -> void:

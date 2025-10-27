@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Cutscene" load_steps=9 format=3 uid="uid://dptbamp0ib2ib"]
+
+[ext_resource type="Script" uid="uid://cigghrhljfb3i" path="res://scripts/resources/cutscenes/cutscene_frame.gd" id="1_45cxg"]
+[ext_resource type="Script" uid="uid://uc3cowu6nk4c" path="res://scripts/resources/cutscenes/cutscene.gd" id="2_62bid"]
+[ext_resource type="Texture2D" uid="uid://b6gfa0grw3kwg" path="res://icon.svg" id="2_a58a0"]
+[ext_resource type="Texture2D" uid="uid://b8xd1msmlcyk1" path="res://graphics/tile_sheets/sand_sheet.png" id="3_8ffjd"]
+[ext_resource type="Texture2D" uid="uid://cd4wns84u4ik4" path="res://graphics/tile_sheets/water_sheet.png" id="4_a58a0"]
+
+[sub_resource type="Resource" id="Resource_wegge"]
+script = ExtResource("1_45cxg")
+image = ExtResource("2_a58a0")
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[sub_resource type="Resource" id="Resource_0gb7x"]
+script = ExtResource("1_45cxg")
+image = ExtResource("3_8ffjd")
+end_zoom = 2.0
+duration = 3.0
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[sub_resource type="Resource" id="Resource_ippr1"]
+script = ExtResource("1_45cxg")
+image = ExtResource("4_a58a0")
+end_position = Vector2(512, 512)
+duration = 4.0
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[resource]
+script = ExtResource("2_62bid")
+skipable = true
+frames = Array[ExtResource("1_45cxg")]([SubResource("Resource_wegge"), SubResource("Resource_0gb7x"), SubResource("Resource_ippr1")])
+metadata/_custom_type_script = "uid://uc3cowu6nk4c"

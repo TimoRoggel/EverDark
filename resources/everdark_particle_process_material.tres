@@ -3,7 +3,7 @@
 [sub_resource type="Gradient" id="Gradient_lhhvk"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.78985506, 0.92753625)
-colors = PackedColorArray(0, 0, 0, 1, 0.017981203, 0.027389618, 0.16056699, 1, 0.101344764, 0.015514249, 0.23524225, 1)
+colors = PackedColorArray(0.022457877, 0.0044509233, 0.05194843, 1, 0, 0.0038757233, 0.0587371, 1, 0.03529412, 0, 0.07450981, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_tl52k"]
 gradient = SubResource("Gradient_lhhvk")
@@ -31,3 +31,8 @@ scale_min = 0.099999994
 scale_max = 0.19999999
 scale_curve = SubResource("CurveTexture_7j07l")
 color_initial_ramp = SubResource("GradientTexture1D_tl52k")
+turbulence_enabled = true
+turbulence_noise_scale = 0.42
+turbulence_noise_speed = Vector3(0, 0.1, 0)
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.020000001

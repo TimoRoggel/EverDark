@@ -24,7 +24,19 @@ func _on_item_dropped(item: InventoryItem) -> void:
 	controller.add_sibling(pickup)
 	pickup.timeout()
 	pickup.global_position = global_position
-
+	
+func drop_all():
+	print("dropping...")
+	if not is_empty():
+		for slot in container.get_slots():
+			var random_vector = random_spread_pos(controller.global_position, 20)
+			print("slot")
+			if slot.inventory_item:
+				print("item")
+				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
+	container.clear_all()
+	
+	
 func add(item_id: int, quantity: int = 1) -> int:
 	return container.add(item_id, quantity)
 
@@ -60,3 +72,10 @@ func set_held_item_id(item_id: int) -> void:
 
 func is_placeable(item_id: int) -> bool:
 	return item_id in [3, 4]
+
+func random_spread_pos(entity_location, item_spread_radius) -> Vector2:
+	var rand_x = randf_range(entity_location.x - item_spread_radius, entity_location.x + item_spread_radius) 
+	var rand_y = randf_range(entity_location.y + item_spread_radius, entity_location.y - item_spread_radius)
+	var random_vector = Vector2(rand_x, rand_y)
+	return random_vector
+

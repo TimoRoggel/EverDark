@@ -6,6 +6,7 @@ extends HBoxContainer
 var hotbar_slots: int = 10 
 var currently_selected_slot: int = 0
 var is_active: bool = true
+var hotbar_just_emptied = false
 
 func _ready() -> void:
 	add_slots()
@@ -83,9 +84,19 @@ func update_hotbar():
 			slot_node.get_child(1).text = str(quantity) + "x"
 			slot_node.get_child(0).texture = item_icon
 			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
+			hotbar_just_emptied = false
 		else:
-			slot_node.get_child(1).text = ""
-			slot_node.get_child(0).texture = null
+			if !hotbar_just_emptied:
+				print("emptying hotbar...")
+				for slot in self.get_children():
+					if slot is TextureButton:
+						slot.get_child(0).texture = null
+						slot.get_child(1).text = ""
+				hotbar_just_emptied = true
+		
+func select_slot(slot_number):
+	var slot_node = self.get_child(slot_number)
+	slot_node.grab_focus()
 
 func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2):
 	if texture_rect.texture:

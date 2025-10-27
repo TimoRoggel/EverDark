@@ -17,9 +17,8 @@ func save_data() -> Dictionary:
 
 func load_data(data: Dictionary) -> void:
 	file_id = data.get("file_id", -1)
-	
+
 	if file_id == SaveSystem.options.active_save_file:
-		await Engine.get_main_loop().current_scene.ready
 		for key in trackers.keys():
 			var stored_value: String = data.get(key, "")
 			var stored_data: Variant = trackers[key]["default"] if stored_value.is_empty() else bytes_to_var(str_to_var(stored_value))

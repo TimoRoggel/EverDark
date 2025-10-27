@@ -1,4 +1,4 @@
-@abstract class_name Runnable extends Object
+@abstract class_name Runnable extends RefCounted
 
 @abstract func run(param: Dictionary) -> void
 

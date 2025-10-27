@@ -21,6 +21,13 @@ var sprite: Sprite2D = Sprite2D.new()
 var base_y: float
 var time: float = 0.0
 
+static func drop(item_id: int, count: int, pos: Vector2) -> void:
+	var dropped_item: DroppedItem2D = DroppedItem2D.new()
+	dropped_item.item = DataManager.get_resource_by_id("items", item_id)
+	dropped_item.amount = count
+	Engine.get_main_loop().current_scene.add_child(dropped_item)
+	dropped_item.global_position = pos
+
 func _ready() -> void:
 	z_as_relative = false
 	y_sort_enabled = true

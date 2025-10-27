@@ -12,7 +12,7 @@ var states: Dictionary = {}
 
 ## Shows warnings in the inspector if node configuration is wrong.
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings = []
+	var warnings: PackedStringArray = []
 	if !is_instance_of(get_parent(), CharacterController):
 		warnings.append("Parent of this node needs to be of type CharacterController.")
 	return warnings

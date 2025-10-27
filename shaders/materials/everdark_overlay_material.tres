@@ -1,8 +1,43 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dpfoqgjxxik6t"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://dpfoqgjxxik6t"]
 
 [ext_resource type="Shader" uid="uid://b5aj87om8515x" path="res://shaders/everdark_overlay.gdshader" id="1_vfxjc"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vfxjc"]
+noise_type = 2
+frequency = 0.0009
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3ocii"]
+width = 160
+height = 90
+noise = SubResource("FastNoiseLite_vfxjc")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="Gradient" id="Gradient_vfxjc"]
+offsets = PackedFloat32Array(0, 0.5277778, 1)
+colors = PackedColorArray(0.043296885, 0, 0.07843137, 1, 0.0067288163, 0, 0.058737088, 1, 0.03749276, 0.0014713476, 0.077361226, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ocii"]
+gradient = SubResource("Gradient_vfxjc")
+
 [resource]
 shader = ExtResource("1_vfxjc")
-shader_parameter/lumin_positions = PackedVector2Array(320, 180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/amplitude = 0.175
+shader_parameter/frequency = 5.0
+shader_parameter/speed = 0.05
+shader_parameter/amplitude_vertical = 0.0
+shader_parameter/frequency_vertical = 0.0
+shader_parameter/speed_vertical = 0.0
+shader_parameter/scroll_direction = Vector2(1, 0)
+shader_parameter/scrolling_speed = 0.001
+shader_parameter/palette = SubResource("GradientTexture1D_3ocii")
+shader_parameter/palette_speed = 0.01
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_3ocii")
+shader_parameter/lumin_positions = PackedVector2Array(480, 340, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/player_position = Vector2(0, 0)
 shader_parameter/lumin_count = 1
+shader_parameter/player_circle_start = 8.0
+shader_parameter/player_circle_end = 16.0
+shader_parameter/lumin_circle_start = 132.0
+shader_parameter/lumin_circle_end = 148.0
+shader_parameter/everdark_scroll_speed = 0.01

@@ -23,7 +23,7 @@ var curr_tile: TileData
 var virus_timer: Timer = null
 var elapsed_time := 0.0
 
-func _enter():
+func _enter() -> void:
 	pass
 
 func _update(_delta: float) -> void:
@@ -39,7 +39,7 @@ func _update(_delta: float) -> void:
 func _exit() -> void:
 	pass
 	
-func create_virus_timer():
+func create_virus_timer() -> void:
 	virusbar_setup.emit(total_time)
 	
 	# create timer
@@ -50,7 +50,7 @@ func create_virus_timer():
 	virus_timer.timeout.connect(on_virus_timer_timeout)
 	self.add_child(virus_timer)
 	
-func on_virus_timer_timeout():
+func on_virus_timer_timeout() -> void:
 	# increasing or decreasing virusbar based on players postition
 	if curr_tile == null:
 		elapsed_time += virus_timer.wait_time

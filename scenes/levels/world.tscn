@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=14 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -6,11 +6,12 @@
 [ext_resource type="Script" uid="uid://cuoyob352u88i" path="res://scripts/tools/flippable_tile_map_layer.gd" id="4_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://2sk6w6jiy3ng" path="res://scenes/crafting/crafting.tscn" id="6_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
-[ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
+[ext_resource type="Script" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
 [ext_resource type="Script" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
-[ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
+[ext_resource type="Script" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -24,7 +25,74 @@ glow_bloom = 1.0
 [node name="player" parent="." instance=ExtResource("2_7k8c1")]
 position = Vector2(10, 11)
 
+[node name="everdark_" parent="." instance=ExtResource("12_de0io")]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-763, -827)
+
+[node name="map" parent="everdark_" index="0"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="map layer 2" parent="everdark_" index="1"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="the hole" parent="everdark_" index="2"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="extra mushroom" parent="everdark_" index="3"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="plants&trees layer 1" parent="everdark_" index="4"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="ruin" parent="everdark_" index="5"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="small rocks" parent="everdark_" index="6"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="monolith" parent="everdark_" index="7"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="plants&trees layer 2" parent="everdark_" index="8"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="plants&trees layer 3" parent="everdark_" index="9"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="plants&trees layer 4" parent="everdark_" index="10"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="plants&trees layer 5" parent="everdark_" index="11"]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+
 [node name="generated" type="TileMapLayer" parent="." node_paths=PackedStringArray("toppings_layer")]
+visible = false
 z_index = -1
 z_as_relative = false
 y_sort_enabled = true
@@ -34,6 +102,7 @@ toppings_layer = NodePath("../toppings")
 metadata/_custom_type_script = "uid://bjl66vmgiycyi"
 
 [node name="toppings" type="TileMapLayer" parent="."]
+visible = false
 z_as_relative = false
 y_sort_enabled = true
 tile_set = ExtResource("2_w2p53")
@@ -47,10 +116,10 @@ environment = SubResource("Environment_w2p53")
 position = Vector2(-12, 8)
 
 [node name="hole" parent="." instance=ExtResource("8_dp8al")]
-position = Vector2(15, 9)
+position = Vector2(37, 37)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
-position = Vector2(17, 42)
+position = Vector2(-41, 17)
 
 [node name="shrub_harvestable" type="Area2D" parent="."]
 z_as_relative = false
@@ -73,7 +142,6 @@ monitoring = false
 script = ExtResource("11_de0io")
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 0}"
-metadata/_custom_type_script = "uid://c75e74dnbg0do"
 
 [node name="note_1" type="Area2D" parent="."]
 z_as_relative = false
@@ -86,7 +154,6 @@ script = ExtResource("11_de0io")
 note_id = 1
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 1}"
-metadata/_custom_type_script = "uid://c75e74dnbg0do"
 
 [node name="note_2" type="Area2D" parent="."]
 z_as_relative = false
@@ -99,4 +166,7 @@ script = ExtResource("11_de0io")
 note_id = 2
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 2}"
-metadata/_custom_type_script = "uid://c75e74dnbg0do"
+
+[editable path="everdark_"]
+
+[node name="Monolith" parent="." instance=ExtResource("12_de0io")]

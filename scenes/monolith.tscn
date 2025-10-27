@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://crldfontpnyvr"]
 
-[ext_resource type="Script" uid="uid://dic0q4sfobcxm" path="res://scenes/monolith.gd" id="1_n6xs4"]
-[ext_resource type="Texture2D" uid="uid://d4elvlxqr6qbt" path="res://resources/jungle_tree_5.png" id="1_uudca"]
+[ext_resource type="Script" path="res://scenes/monolith.gd" id="1_n6xs4"]
 [ext_resource type="Texture2D" uid="uid://nexmlr57a5x2" path="res://resources/jungle_tree_4.png" id="2_picja"]
+[ext_resource type="Texture2D" uid="uid://dicsafc0tyspr" path="res://map/map assets/image-1.png (3) 1 2.png" id="3_picja"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uudca"]
 size = Vector2(56, 116)
@@ -12,9 +12,8 @@ script = ExtResource("1_n6xs4")
 activated_sprite = ExtResource("2_picja")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(3, 2)
-scale = Vector2(0.6332044, 0.5146366)
-texture = ExtResource("1_uudca")
+position = Vector2(0, -33)
+texture = ExtResource("3_picja")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

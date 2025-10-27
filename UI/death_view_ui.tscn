@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqs6qujeopigy"]
+
+[ext_resource type="Script" uid="uid://b3cuygy01tmjd" path="res://UI/death_view_ui.gd" id="1_s0mhm"]
+
+[node name="DeathView" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_s0mhm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25882354, 0.25882354, 0.25882354, 0.5647059)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -29.0
+offset_right = 89.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeathLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "You dead, what now?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="RespawnBtn" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Respawn"
+
+[node name="MenuBtn" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RespawnBtn" to="." method="_on_respawn_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuBtn" to="." method="_on_menu_btn_pressed"]

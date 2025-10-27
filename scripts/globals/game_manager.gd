@@ -4,6 +4,7 @@ var stored_values: Dictionary[Node, Variant] = {}
 var fetched_types: Dictionary[Variant, Array] = {}
 var slowdown_timer: int = 0
 var main_camera_component: CameraComponent = null
+var player: PlayerController = null
 
 func _process(_delta: float) -> void:
 	if slowdown_timer <= Time.get_ticks_msec():
@@ -28,7 +29,7 @@ func store_property_on_all_of_type(type: Variant, property: StringName) -> void:
 	run_on_all_of_type(type, func(t) -> void: stored_values[t] = t.get(property))
 
 func run_on_all_of_type(type: Variant, method: Callable) -> void:
-	for t in get_all_of_type(type):
+	for t: Variant in get_all_of_type(type):
 		method.call(t)
 
 func get_all_of_type(type: Variant, parent: Node = get_tree().root, top_level: bool = true) -> Array:

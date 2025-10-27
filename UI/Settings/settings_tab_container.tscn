@@ -1,0 +1,167 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfo35y24syp7t"]
+
+[ext_resource type="Script" uid="uid://do6phc3fxdxvq" path="res://UI/Settings/settings_tab_container.gd" id="1_vysk0"]
+[ext_resource type="PackedScene" uid="uid://bubk665qv0ser" path="res://UI/Settings/audio_slider_settings.tscn" id="2_4286n"]
+[ext_resource type="PackedScene" uid="uid://wvfmbpqnxjlq" path="res://UI/Settings/window_mode_button.tscn" id="3_aroon"]
+[ext_resource type="PackedScene" uid="uid://q2qsu8vf1i6q" path="res://UI/Settings/resolution_mode_button.tscn" id="4_hseaq"]
+[ext_resource type="Script" uid="uid://d0rqtukk47lp8" path="res://UI/Settings/controls.gd" id="5_jh3jm"]
+[ext_resource type="PackedScene" uid="uid://c05b5nqv7pwqh" path="res://UI/Settings/input_button.tscn" id="6_0doo3"]
+
+[node name="Settings_Tab_Container" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vysk0")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 2
+
+[node name="Audio" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio/MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Audio_Slider_Settings" parent="TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4286n")]
+layout_mode = 2
+
+[node name="Audio_Slider_Settings2" parent="TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4286n")]
+layout_mode = 2
+bus_name = "Music"
+
+[node name="Audio_Slider_Settings3" parent="TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4286n")]
+layout_mode = 2
+bus_name = "SFX"
+
+[node name="Graphics" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Graphics/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics/MarginContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 60
+
+[node name="Window_Mode_Button" parent="TabContainer/Graphics/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_aroon")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Resolution_Mode_Button" parent="TabContainer/Graphics/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_hseaq")]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Controls" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+script = ExtResource("5_jh3jm")
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Controls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 50
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Controls/MarginContainer"]
+layout_mode = 2
+
+[node name="ActionList" type="VBoxContainer" parent="TabContainer/Controls/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="InputButton" parent="TabContainer/Controls/MarginContainer/ScrollContainer/ActionList" instance=ExtResource("6_0doo3")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/Controls"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -65.5
+offset_top = -40.0
+offset_right = 65.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Controls/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="back to def" type="Button" parent="TabContainer/Controls/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(392, 30)
+layout_mode = 2
+size_flags_vertical = 8
+text = "Reset to default"
+
+[connection signal="pressed" from="TabContainer/Controls/MarginContainer2/HBoxContainer/back to def" to="TabContainer/Controls" method="_on_back_to_def_pressed"]

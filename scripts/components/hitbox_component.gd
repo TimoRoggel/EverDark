@@ -14,7 +14,7 @@ var hurtbox_area: Area2D = Area2D.new()
 var hurtbox_collision: CollisionShape2D = CollisionShape2D.new()
 
 var invulnerabilities: Dictionary[Attack, float] = {}
-var invulnerable = false
+var invulnerable: bool = false
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():

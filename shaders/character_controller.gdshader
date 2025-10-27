@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec3 damage_color : source_color;
+uniform vec3 damage_color: source_color;
 uniform bool damaged = false;
 
 void vertex() {

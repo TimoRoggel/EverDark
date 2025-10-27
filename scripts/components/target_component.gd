@@ -19,7 +19,7 @@ var shape: CollisionShape2D = null
 
 signal target_changed
 
-func _get_property_list():
+func _get_property_list() -> Array[Dictionary]:
 	return CharacterController.get_flag_properties("targeting_flags")
 
 func _draw() -> void:

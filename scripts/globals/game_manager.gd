@@ -29,7 +29,7 @@ func store_property_on_all_of_type(type: Variant, property: StringName) -> void:
 	run_on_all_of_type(type, func(t) -> void: stored_values[t] = t.get(property))
 
 func run_on_all_of_type(type: Variant, method: Callable) -> void:
-	for t in get_all_of_type(type):
+	for t: Variant in get_all_of_type(type):
 		method.call(t)
 
 func get_all_of_type(type: Variant, parent: Node = get_tree().root, top_level: bool = true) -> Array:

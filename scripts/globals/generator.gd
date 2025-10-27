@@ -24,7 +24,7 @@ var layer: GeneratedTileMapLayer = null:
 		layer = value
 		layer_assigned.emit()
 var dimension: int = 0
-var lumin_positions: PackedVector2Array = [Vector2.ZERO]
+var lumin_positions: PackedVector2Array = [Vector2(8,8)]
 
 signal layer_assigned
 
@@ -63,8 +63,8 @@ func get_tile(x: float, y: float) -> BiomeTile:
 	if biome == null:
 		return null
 	if biome.river_enabled || biome.lake_enabled:
-		var river_noise = get_noise(river_map, x, y)
-		var lake_noise = get_noise(lake_map, x, y)
+		var river_noise: float = get_noise(river_map, x, y)
+		var lake_noise: float = get_noise(lake_map, x, y)
 		if biome.river_enabled && river_noise > 1.0 - RIVER_SIZE:
 			return biome.river_tile
 		if biome.lake_enabled && lake_noise > 1.0 - biome.lake_size:

@@ -22,7 +22,7 @@ func build_recipe_tree() -> void:
 	tree.hide_root = true
 	var tree_root: TreeItem = tree.create_item()
 
-	for recipe in DataManager.resources["recipes"]:
+	for recipe: Recipe in DataManager.resources["recipes"]:
 		var new_recipe_slot: TreeItem = tree.create_item(tree_root)
 		new_recipe_slot.set_icon(0, recipe.rewards[0].icon)
 		new_recipe_slot.set_text(0, recipe.rewards[0].display_name)
@@ -32,7 +32,7 @@ func build_recipe_tree() -> void:
 func _on_tree_cell_selected() -> void:
 	var cell_recipe_name: String = tree.get_selected().get_text(0)
 
-	for recipe in DataManager.resources["recipes"]:
+	for recipe: Recipe in DataManager.resources["recipes"]:
 		if recipe.rewards[0].display_name == cell_recipe_name:
 			build_recipe_material_window(recipe)
 			return
@@ -61,7 +61,7 @@ func build_recipe_material_window(selected_recipe: Recipe) -> void:
 
 func clean_material_window() -> void:
 	recipe_material_dict.clear()
-	for child in grid_container.get_children():
+	for child: Node in grid_container.get_children():
 		child.queue_free()
 
 func _on_CraftButton_pressed() -> void:
@@ -69,23 +69,23 @@ func _on_CraftButton_pressed() -> void:
 		return
 
 	var required_materials: Dictionary[int, int] = {}
-	for item_id in current_recipe.cost_ids:
+	for item_id: int in current_recipe.cost_ids:
 		if required_materials.has(item_id):
 			required_materials[item_id] += 1
 		else:
 			required_materials[item_id] = 1
 
-	for item_id in required_materials.keys():
-		var needed = required_materials[item_id]
+	for item_id: int in required_materials.keys():
+		var needed: int = required_materials[item_id]
 		if not inventory.has(item_id, needed):
 			#printerr("No inventory found")
 			return
 
-	for item_id in required_materials.keys():
-		var needed = required_materials[item_id]
+	for item_id: int in required_materials.keys():
+		var needed: int = required_materials[item_id]
 		inventory.remove(item_id, needed)
 
-	for reward_id in current_recipe.reward_ids:
+	for reward_id: int in current_recipe.reward_ids:
 		inventory.add(reward_id, 1)
 
 	build_recipe_material_window(current_recipe)

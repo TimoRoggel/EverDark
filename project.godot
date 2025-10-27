@@ -24,6 +24,7 @@ SettingsManager="*res://scripts/globals/settings_manager.gd"
 Debug="*res://scripts/globals/debug.gd"
 Generator="*res://scripts/globals/generator.gd"
 LoreSystem="*res://scripts/globals/lore_system.gd"
+CutsceneManager="*res://scripts/globals/cutscene_manager.gd"
 
 [display]
 
@@ -33,7 +34,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sync_spreadsheets/plugin.cfg")
+enabled=PackedStringArray("res://addons/YATI/plugin.cfg", "res://addons/sync_spreadsheets/plugin.cfg")
 
 [input]
 
@@ -144,5 +145,5 @@ textures/canvas_textures/default_texture_filter=0
 textures/default_filters/anisotropic_filtering_level=0
 textures/decals/filter=0
 textures/light_projectors/filter=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.03529412, 0, 0.07450981, 1)
 2d/snap/snap_2d_vertices_to_pixel=true

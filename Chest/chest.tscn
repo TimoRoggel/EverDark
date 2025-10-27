@@ -11,7 +11,6 @@
 [node name="Chest" type="Area2D" node_paths=PackedStringArray("chest_inventory", "sprite_chest")]
 script = ExtResource("1_gj4rf")
 chest_inventory = NodePath("CanvasLayer/Chest_Inventory")
-chest_item_id = 4
 sprite_chest = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

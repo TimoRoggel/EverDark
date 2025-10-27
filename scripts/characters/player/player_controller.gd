@@ -11,6 +11,8 @@ var inventory: InventoryComponent = null
 var health: HealthComponent = null
 var hitbox: HitboxComponent = null
 var hurtbox: HitboxComponent = null
+var build: BuildComponent = null
+
 var everdark_damage: EverdarkDamageComponent = null
 var death: DeathComponent = null
 
@@ -25,6 +27,7 @@ func _init() -> void:
 func _ready() -> void:
 	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
 	super()
+	GameManager.player = self
 	await get_tree().process_frame
 	input = get_component(InputComponent)
 	movement = get_component(MoveComponent)
@@ -36,6 +39,7 @@ func _ready() -> void:
 	inventory = get_component(InventoryComponent)
 	health = get_component(HealthComponent)
 	hitbox = get_component(HitboxComponent)
+	build = get_component(BuildComponent)
 	everdark_damage = get_component(EverdarkDamageComponent)
 	if everdark_damage and hud:
 		everdark_damage.virusbar_setup.connect(hud._on_setup_virusbar)

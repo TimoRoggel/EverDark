@@ -12,12 +12,18 @@ signal started_attacking
 signal inventory_toggled
 signal interact
 signal position_pressed(pos: Vector2)
+signal ui
+signal pickup
+signal place(pos: Vector2)
 
 func _init() -> void:
 	updates_in_physics = false
 
 func _enter() -> void:
 	pass
+	
+func is_pickup_pressed() -> bool:
+	return Input.is_action_just_pressed("pickup")
 
 func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
@@ -34,6 +40,12 @@ func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
 		can_spawn = !can_spawn
 		inventory_toggled.emit()
+	if Input.is_action_just_pressed("ui"):
+		ui.emit()
+	if Input.is_action_just_pressed("pickup"):
+		pickup.emit()
+	if Input.is_action_just_pressed("place"):
+		place.emit(get_global_mouse_position())
 	if Input.is_action_just_pressed("dash"):
 		LoreSystem.open_screen()
 	movement = Input.get_vector("left", "right", "up", "down")

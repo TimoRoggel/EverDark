@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=14 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -8,9 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
 [ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
-[ext_resource type="Script" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
+[ext_resource type="Script" uid="uid://b3b33abitpj2t" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
 [ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
-[ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
+[ext_resource type="Script" uid="uid://k2h8hdh738wa" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -100,3 +101,5 @@ note_id = 2
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 2}"
 metadata/_custom_type_script = "uid://c75e74dnbg0do"
+
+[node name="Monolith" parent="." instance=ExtResource("12_de0io")]

@@ -1,7 +1,11 @@
-[gd_scene load_steps=0 format=3 uid="uid://c05b5nqv7pwqh"]
+[gd_scene format=3 uid="uid://c05b5nqv7pwqh"]
 
 [node name="InputButton" type="Button"]
 custom_minimum_size = Vector2(0, 18)
+offset_left = 57.0
+offset_top = 1.0
+offset_right = 65.0
+offset_bottom = 19.0
 focus_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

@@ -69,6 +69,11 @@ func remove(item_id: int, quantity: int = 1) -> int:
 			quantity -= inventory[i].inventory_item.quantity
 			inventory[i].inventory_item = null
 	return quantity
+	
+func clear_all():
+	for slot in self.get_slots():
+		if slot.inventory_item:
+			slot.remove_amount(slot.inventory_item.quantity)
 
 func has(item_id: int, quantity: int = 1) -> bool:
 	return count(item_id) >= quantity

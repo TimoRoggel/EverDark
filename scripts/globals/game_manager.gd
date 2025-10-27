@@ -4,6 +4,7 @@ var stored_values: Dictionary[Node, Variant] = {}
 var fetched_types: Dictionary[Variant, Array] = {}
 var slowdown_timer: int = 0
 var main_camera_component: CameraComponent = null
+var player: PlayerController = null
 
 func _process(_delta: float) -> void:
 	if slowdown_timer <= Time.get_ticks_msec():

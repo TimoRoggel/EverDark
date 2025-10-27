@@ -17,7 +17,7 @@ func save_data() -> Dictionary:
 
 func load_data(data: Dictionary) -> void:
 	file_id = data.get("file_id", -1)
-	
+
 	if file_id == SaveSystem.options.active_save_file:
 		await Engine.get_main_loop().current_scene.ready
 		for key: String in trackers.keys():

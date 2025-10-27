@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=34 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
@@ -17,17 +17,21 @@
 [ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
 [ext_resource type="Script" uid="uid://c0jl7340jmrnc" path="res://scripts/components/block_component.gd" id="17_d6tgn"]
-[ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/pause_menu.tscn" id="18_d6tgn"]
+[ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/Pause Menu/pause_menu.tscn" id="18_d6tgn"]
 [ext_resource type="Script" uid="uid://chbvt1cpvl4ve" path="res://scripts/components/lumin_placement_component.gd" id="18_kmyvj"]
+[ext_resource type="Script" uid="uid://6a33mecj0khi" path="res://scripts/components/build_component.gd" id="19_inhyd"]
 [ext_resource type="Script" path="res://scripts/components/knockback_component.gd" id="19_inhyd"]
 [ext_resource type="Script" uid="uid://mx2o6js1ifk6" path="res://scripts/components/everdark_compute_component.gd" id="19_o6auj"]
 [ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="20_dm10o"]
 [ext_resource type="Script" uid="uid://c54jhhrackwfy" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
-[ext_resource type="PackedScene" uid="uid://beguyjw3ooy0v" path="res://UI/hud.tscn" id="20_kmyvj"]
+[ext_resource type="PackedScene" uid="uid://beguyjw3ooy0v" path="res://UI/HUD/hud.tscn" id="20_kmyvj"]
+[ext_resource type="Script" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
+[ext_resource type="Script" uid="uid://cplkjigrlfl4m" path="res://scripts/components/death_component.gd" id="21_aqa0x"]
 [ext_resource type="Script" uid="uid://ckc36i68yr744" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
 [ext_resource type="PackedScene" uid="uid://bcg10wp7uqawx" path="res://scenes/lore_system/lore_note_screen.tscn" id="23_inhyd"]
 [ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="24_wqk1x"]
 [ext_resource type="Material" uid="uid://dpfoqgjxxik6t" path="res://shaders/materials/everdark_overlay_material.tres" id="28_tswxa"]
+[ext_resource type="PackedScene" uid="uid://dqs6qujeopigy" path="res://UI/death_view_ui.tscn" id="30_yhyq5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
@@ -134,6 +138,11 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
 
+[node name="BuildComponent" type="Node2D" parent="components" node_paths=PackedStringArray("hotbar_container")]
+script = ExtResource("19_inhyd")
+hotbar_container = NodePath("../../CanvasLayer/hotbar")
+metadata/_custom_type_script = "uid://6a33mecj0khi"
+
 [node name="knockback" type="Node2D" parent="components"]
 script = ExtResource("19_inhyd")
 
@@ -143,6 +152,10 @@ script = ExtResource("19_o6auj")
 
 [node name="everdark_damage" type="Node2D" parent="components"]
 script = ExtResource("21_tswxa")
+
+[node name="death" type="Node2D" parent="components"]
+script = ExtResource("21_aqa0x")
+metadata/_custom_type_script = "uid://cplkjigrlfl4m"
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)
@@ -188,7 +201,7 @@ columns = 10
 script = ExtResource("8_eojnx")
 metadata/_custom_type_script = "uid://bp2m4dafooblw"
 
-[node name="hotbar" type="HBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("inventory")]
+[node name="hotbar" type="HBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("inventory", "inventory_component")]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -198,6 +211,7 @@ grow_vertical = 0
 alignment = 1
 script = ExtResource("20_eir2k")
 inventory = NodePath("../inventory")
+inventory_component = NodePath("../../components/inventory")
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
 offset_right = 40.0
@@ -205,3 +219,5 @@ offset_bottom = 40.0
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
 visible = false
+
+[node name="DeathView" parent="CanvasLayer" instance=ExtResource("30_yhyq5")]

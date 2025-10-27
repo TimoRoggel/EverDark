@@ -118,7 +118,7 @@ func _update_drag_preview() -> void:
 	drag_icon.add_child(drag_label)
 	set_drag_preview(drag_icon)
 
-func _can_drop_data(_pos: Vector2, data: Variant):
+func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
 	if output_only:
 		return false
 	if typeof(data) != TYPE_DICTIONARY:
@@ -184,6 +184,11 @@ func is_full() -> bool:
 	if !inventory_item:
 		return false
 	return inventory_item.is_full()
+
+func is_empty() -> bool:
+	if !inventory_item:
+		return true
+	return inventory_item.quantity <= 0
 
 func merge(other: InventoryItem, custom_amount: int = -1) -> Dictionary[String, int]:
 	var status: int = OK

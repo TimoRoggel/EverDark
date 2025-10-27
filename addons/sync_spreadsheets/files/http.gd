@@ -14,7 +14,7 @@ func req(url: String, ## url ended in /
 	
 	var http_request: HTTPRequest = HTTPRequest.new()
 	add_child(http_request)
-	http_request.request_completed.connect(func(r: int, c: int, h: PackedStringArray, b: PackedByteArray): _req_completed(r, c, h, b, callback))
+	http_request.request_completed.connect(func(r: int, c: int, h: PackedStringArray, b: PackedByteArray) -> void: _req_completed(r, c, h, b, callback))
 	
 	var QUERY: String = "?" + "&".join(query.keys().map(func(k): return k.uri_encode() + "=" + str(query[k]).uri_encode()))
 	var error: Error = 0

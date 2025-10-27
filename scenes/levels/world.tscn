@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=15 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -10,8 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
 [ext_resource type="Script" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
 [ext_resource type="Script" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
-[ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
+[ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="PackedScene" uid="uid://eb2jxnr6s5ut" path="res://map/everdark..tmx" id="13_xidr1"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -24,72 +25,6 @@ glow_bloom = 1.0
 
 [node name="player" parent="." instance=ExtResource("2_7k8c1")]
 position = Vector2(10, 11)
-
-[node name="everdark_" parent="." instance=ExtResource("12_de0io")]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-position = Vector2(-763, -827)
-
-[node name="map" parent="everdark_" index="0"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="map layer 2" parent="everdark_" index="1"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="the hole" parent="everdark_" index="2"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="extra mushroom" parent="everdark_" index="3"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="plants&trees layer 1" parent="everdark_" index="4"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="ruin" parent="everdark_" index="5"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="small rocks" parent="everdark_" index="6"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="monolith" parent="everdark_" index="7"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="plants&trees layer 2" parent="everdark_" index="8"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="plants&trees layer 3" parent="everdark_" index="9"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="plants&trees layer 4" parent="everdark_" index="10"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-
-[node name="plants&trees layer 5" parent="everdark_" index="11"]
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
 
 [node name="generated" type="TileMapLayer" parent="." node_paths=PackedStringArray("toppings_layer")]
 visible = false
@@ -167,6 +102,11 @@ note_id = 2
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 2}"
 
-[editable path="everdark_"]
-
 [node name="Monolith" parent="." instance=ExtResource("12_de0io")]
+position = Vector2(561, -663)
+
+[node name="world" parent="." instance=ExtResource("13_xidr1")]
+z_index = -1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-780.5, -820.5)

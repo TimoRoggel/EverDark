@@ -12,8 +12,12 @@ var health: HealthComponent = null
 var hitbox: HitboxComponent = null
 var hurtbox: HitboxComponent = null
 var everdark_damage: EverdarkDamageComponent = null
+var death: DeathComponent = null
 
 @onready var hud: Control = $CanvasLayer/HUD
+
+@onready var hotbar: HBoxContainer = $CanvasLayer/hotbar
+@onready var death_view: Control = $CanvasLayer/DeathView
 
 func _init() -> void:
 	flags = CharacterFlags.Player
@@ -38,6 +42,10 @@ func _ready() -> void:
 		everdark_damage.virus_effect.connect(hud._on_virus_effect)
 		everdark_damage.everdark_entered.connect(hud.toggle_virus_view)
 		everdark_damage.create_virus_timer()
+	death = get_component(DeathComponent)
+	if death_view and death:
+		print("setup connfw")
+		death_view.respawn_pressed.connect(death.respawn)
 	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:
@@ -62,3 +70,4 @@ func _custom_physics_process(delta: float) -> void:
 
 func on_bounce(bounce_amount: float) -> void:
 	camera.shake(bounce_amount * 0.02, 0.1)
+	

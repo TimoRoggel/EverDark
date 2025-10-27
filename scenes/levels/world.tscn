@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=14 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
 [ext_resource type="Script" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -97,3 +98,5 @@ script = ExtResource("11_de0io")
 note_id = 2
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 2}"
+
+[node name="Monolith" parent="." instance=ExtResource("12_de0io")]

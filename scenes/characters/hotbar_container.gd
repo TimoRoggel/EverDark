@@ -83,6 +83,7 @@ func update_hotbar() -> void:
 	var inventory_slots: Array[InventorySlot] = inventory.get_slots()
 	for i: int in hotbar_slots:
 		var slot_node: TextureButton = get_child(i)
+		# is slot has an item
 		if i < inventory_slots.size() && inventory_slots[i].inventory_item:
 			var item_icon: Texture2D = inventory_slots[i].inventory_item.item.icon
 			var quantity: int = inventory_slots[i].inventory_item.quantity
@@ -90,7 +91,7 @@ func update_hotbar() -> void:
 			slot_node.get_child(0).texture = item_icon
 			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
 			hotbar_just_emptied = false
-		elif !items:
+		if !items:
 			if !hotbar_just_emptied:
 				print("emptying hotbar...")
 				for slot: Node in get_children():
@@ -98,6 +99,9 @@ func update_hotbar() -> void:
 						slot.get_child(0).texture = null
 						slot.get_child(1).text = ""
 				hotbar_just_emptied = true
+		elif !inventory_slots[i].inventory_item:
+				slot_node.get_child(0).texture = null
+				slot_node.get_child(1).text = ""
 	
 func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2) -> void:
 	if texture_rect.texture:

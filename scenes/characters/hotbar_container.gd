@@ -83,7 +83,7 @@ func update_hotbar() -> void:
 	var inventory_slots: Array[InventorySlot] = inventory.get_slots()
 	for i: int in hotbar_slots:
 		var slot_node: TextureButton = get_child(i)
-		# is slot has an item
+		#var inventory_pos = (inventory_slots.size()-(slots_per_row))+i
 		if i < inventory_slots.size() && inventory_slots[i].inventory_item:
 			var item_icon: Texture2D = inventory_slots[i].inventory_item.item.icon
 			var quantity: int = inventory_slots[i].inventory_item.quantity

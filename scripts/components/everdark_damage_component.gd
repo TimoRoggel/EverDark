@@ -57,6 +57,7 @@ func on_virus_timer_timeout() -> void:
 	else:
 		elapsed_time -= virus_timer.wait_time
 	virus_effect.emit(elapsed_time)
+	controller.hud.update_virusbar_color(Color(.4,0,.4), elapsed_time/total_time)
 
 	# damage player if virusbar is full
 	if elapsed_time >= total_time:

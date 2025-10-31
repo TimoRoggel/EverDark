@@ -17,7 +17,11 @@ func toggle_virus_view(open: bool) -> void:
 	else:
 		virus_view.hide()
 
-func animate_color_change(color: Color):
+func animate_healthbar_color_change(color: Color):
 	var tween = create_tween()
 	tween.tween_property(health_bar, "modulate", color, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(health_bar, "modulate", Color(1,1,1), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
+func update_virusbar_color(color: Color, value: float):
+	var white = Color(1, 1, 1)
+	virus_bar.modulate = white.lerp(color, value)

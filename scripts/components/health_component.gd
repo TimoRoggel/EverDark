@@ -120,7 +120,7 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 		return
 	if hit_player:
 		hit_player.play_randomized()
-	controller.hud.animate_color_change(Color(.7,0,0))
+	controller.hud.animate_healthbar_color_change(Color(.7,0,0))
 	await get_tree().create_timer(.5).timeout
 	update_healthbar()
 	var invulnerability: float = env.cur_invulnerability
@@ -136,7 +136,7 @@ func heal():
 	current_health += max_health/10
 	if current_health == max_health:
 		return
-	controller.hud.animate_color_change(Color(0,.7,0))
+	controller.hud.animate_healthbar_color_change(Color(0,.7,0))
 	await get_tree().create_timer(.5).timeout
 	update_healthbar()
 

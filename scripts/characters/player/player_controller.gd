@@ -12,9 +12,9 @@ var health: HealthComponent = null
 var hitbox: HitboxComponent = null
 var hurtbox: HitboxComponent = null
 var build: BuildComponent = null
-
 var everdark_damage: EverdarkDamageComponent = null
 var death: DeathComponent = null
+var eat: EatComponent = null
 
 @onready var hud: Control = $CanvasLayer/HUD
 
@@ -50,6 +50,7 @@ func _ready() -> void:
 	if death_view and death:
 		print("setup connfw")
 		death_view.respawn_pressed.connect(death.respawn)
+	eat = get_component(EatComponent)
 	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:

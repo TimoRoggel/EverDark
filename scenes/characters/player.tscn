@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=35 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://beguyjw3ooy0v" path="res://UI/HUD/hud.tscn" id="20_kmyvj"]
 [ext_resource type="Script" uid="uid://cplkjigrlfl4m" path="res://scripts/components/death_component.gd" id="21_aqa0x"]
 [ext_resource type="Script" uid="uid://ckc36i68yr744" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
+[ext_resource type="Script" uid="uid://cjgnvaeld4mww" path="res://scripts/components/eat_component.gd" id="22_5jukt"]
 [ext_resource type="PackedScene" uid="uid://bcg10wp7uqawx" path="res://scenes/lore_system/lore_note_screen.tscn" id="23_inhyd"]
 [ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="24_wqk1x"]
 [ext_resource type="Material" uid="uid://dpfoqgjxxik6t" path="res://shaders/materials/everdark_overlay_material.tres" id="28_tswxa"]
@@ -152,6 +153,10 @@ script = ExtResource("21_tswxa")
 
 [node name="death" type="Node2D" parent="components"]
 script = ExtResource("21_aqa0x")
+
+[node name="eat" type="Node2D" parent="components"]
+script = ExtResource("22_5jukt")
+metadata/_custom_type_script = "uid://cjgnvaeld4mww"
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -4)

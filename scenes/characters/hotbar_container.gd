@@ -15,6 +15,7 @@ func _ready() -> void:
 	add_slots()
 	update_hotbar()
 	update_currently_selected_slot()
+	select_slot(currently_selected_slot)
 
 func _input(event: InputEvent) -> void:
 	if not is_active:
@@ -52,6 +53,7 @@ func create_slot() -> TextureButton:
 	var slot_texture: TextureButton = TextureButton.new()
 	slot_texture.texture_normal = preload("res://graphics/ui_icons/hotbar_slot_normal.png")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
+	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return slot_texture
 
 func create_item_texture() -> TextureRect:
@@ -122,9 +124,21 @@ func select_slot(slot_number: int) -> void:
 				inventory_component.held_item = selected_item.item.id
 			else:
 				inventory_component.held_item = 0
-
+				
 	update_currently_selected_slot()
 	print(inventory.get_slots()[currently_selected_slot].inventory_item)
+	
+func substract_item():
+	if inventory_component && inventory:
+		var selected_slot: InventorySlot = inventory.get_slots()[currently_selected_slot]
+		var selected_item: InventoryItem = selected_slot.inventory_item
+		inventory.remove(selected_item.item.id, 1)
+				
+func get_selected_item_name():
+	var selected_slot: InventorySlot = inventory.get_slots()[currently_selected_slot]
+	var selected_item: InventoryItem = selected_slot.inventory_item
+	if selected_item:
+		return selected_item.item.display_name
 
 func update_currently_selected_slot() -> void:
 	for child: Node in self.get_children():

@@ -120,6 +120,8 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 		return
 	if hit_player:
 		hit_player.play_randomized()
+	controller.hud.animate_color_change(Color(.7,0,0))
+	await get_tree().create_timer(.5).timeout
 	update_healthbar()
 	var invulnerability: float = env.cur_invulnerability
 	controller.set_damaged(true)
@@ -129,6 +131,14 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 	if !controller || is_queued_for_deletion():
 		return
 	await get_tree().create_timer(2.0).timeout
+	
+func heal():
+	current_health += max_health/10
+	if current_health == max_health:
+		return
+	controller.hud.animate_color_change(Color(0,.7,0))
+	await get_tree().create_timer(.5).timeout
+	update_healthbar()
 
 func calc_knockback(attack: AttackController) -> void:
 	if attack.attack.knockback == 0.0:

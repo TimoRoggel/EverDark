@@ -51,7 +51,7 @@ func add_slots() -> void:
 
 func create_slot() -> TextureButton:
 	var slot_texture: TextureButton = TextureButton.new()
-	slot_texture.texture_normal = preload("res://graphics/ui_icons/hotbar_slot_normal.png")
+	slot_texture.texture_normal = preload("res://graphics/32x32_inventory_HUD_01_transp.png")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
 	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return slot_texture

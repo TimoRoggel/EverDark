@@ -52,8 +52,8 @@ func _update(_delta: float) -> void:
 		#LoreSystem.open_screen()
 		#CutsceneManager.play(TEST_CUTSCENE)
 	movement = Input.get_vector("left", "right", "up", "down")
-	attacking = Input.is_action_pressed("attack")
-	blocking = Input.is_action_pressed("block")
+	attacking = Input.is_action_pressed("attack") && !GameManager.is_ui_open()
+	blocking = Input.is_action_pressed("block") && !GameManager.is_ui_open()
 	dashing = Input.is_action_pressed("dash")
 	angle_to_cursor = get_angle_to(get_global_mouse_position())
 

@@ -10,6 +10,7 @@ enum CharacterFlags {
 
 @export var bounciness: float = 1.0
 @export var bump_sounds: Array[AudioStream] = []
+@export var sprite: Sprite2D = null
 
 var components: Array[Component] = []
 var flags: int = 0

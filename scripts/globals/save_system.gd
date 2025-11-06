@@ -17,6 +17,8 @@ func _ready() -> void:
 	initialize_save_objects()
 	add_child(save_timer)
 	save_timer.timeout.connect(autosave)
+	GameManager.ui_opened_conditions = []
+	player().trackers = {}
 	await get_tree().scene_changed
 	SaveSystem.start_or_load_game()
 
@@ -34,7 +36,6 @@ func initialize_save_objects() -> void:
 		save_manager.register_save_data(files[i])
 
 func start_or_load_game() -> void:
-	GameManager.ui_opened_conditions = []
 	if save_manager.save_file_exists(FILE_PATH):
 		save_manager.load_game(FILE_PATH)
 		loaded_data.emit()

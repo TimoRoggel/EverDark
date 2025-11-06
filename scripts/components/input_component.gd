@@ -17,6 +17,7 @@ signal position_pressed(pos: Vector2)
 signal ui
 signal pickup
 signal place(pos: Vector2)
+signal eat
 
 func _init() -> void:
 	updates_in_physics = false
@@ -42,6 +43,8 @@ func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
 		can_spawn = !can_spawn
 		inventory_toggled.emit()
+	if Input.is_action_just_pressed("eat"):
+		eat.emit()
 	if Input.is_action_just_pressed("ui"):
 		ui.emit()
 	if Input.is_action_just_pressed("pickup"):

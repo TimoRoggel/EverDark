@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://idte6a6k7l0k"]
+
+[ext_resource type="PackedScene" uid="uid://vm13npqeqxdf" path="res://Transitions/fade.tscn" id="1_r6ayl"]
+
+[node name="FadeLayer" type="CanvasLayer"]
+layer = 100
+
+[node name="Fade" parent="." instance=ExtResource("1_r6ayl")]

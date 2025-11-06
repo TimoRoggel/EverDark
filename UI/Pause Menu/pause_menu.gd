@@ -4,6 +4,7 @@ class_name PauseMenu extends Control
 var paused: bool = false
 
 func _ready() -> void:
+	GameManager.ui_opened_conditions.append(func() -> bool: return visible)
 	visible = false
 	get_tree().paused = false
 	buttons.visible = true

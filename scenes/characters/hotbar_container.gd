@@ -15,6 +15,7 @@ func _ready() -> void:
 	add_slots()
 	update_hotbar()
 	update_currently_selected_slot()
+	select_slot(currently_selected_slot)
 
 func _input(event: InputEvent) -> void:
 	if not is_active:
@@ -52,6 +53,7 @@ func create_slot() -> TextureButton:
 	var slot_texture: TextureButton = TextureButton.new()
 	slot_texture.texture_normal = preload("res://graphics/ui_icons/hotbar_slot_normal.png")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
+	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return slot_texture
 
 func create_item_texture() -> TextureRect:
@@ -83,6 +85,7 @@ func update_hotbar() -> void:
 	var inventory_slots: Array[InventorySlot] = inventory.get_slots()
 	for i: int in hotbar_slots:
 		var slot_node: TextureButton = get_child(i)
+		#var inventory_pos = (inventory_slots.size()-(slots_per_row))+i
 		if i < inventory_slots.size() && inventory_slots[i].inventory_item:
 			var item_icon: Texture2D = inventory_slots[i].inventory_item.item.icon
 			var quantity: int = inventory_slots[i].inventory_item.quantity
@@ -90,7 +93,7 @@ func update_hotbar() -> void:
 			slot_node.get_child(0).texture = item_icon
 			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
 			hotbar_just_emptied = false
-		elif !items:
+		if !items:
 			if !hotbar_just_emptied:
 				print("emptying hotbar...")
 				for slot: Node in get_children():
@@ -98,6 +101,9 @@ func update_hotbar() -> void:
 						slot.get_child(0).texture = null
 						slot.get_child(1).text = ""
 				hotbar_just_emptied = true
+		elif !inventory_slots[i].inventory_item:
+				slot_node.get_child(0).texture = null
+				slot_node.get_child(1).text = ""
 	
 func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2) -> void:
 	if texture_rect.texture:
@@ -118,9 +124,21 @@ func select_slot(slot_number: int) -> void:
 				inventory_component.held_item = selected_item.item.id
 			else:
 				inventory_component.held_item = 0
-
+				
 	update_currently_selected_slot()
 	print(inventory.get_slots()[currently_selected_slot].inventory_item)
+	
+func substract_item():
+	if inventory_component && inventory:
+		var selected_slot: InventorySlot = inventory.get_slots()[currently_selected_slot]
+		var selected_item: InventoryItem = selected_slot.inventory_item
+		inventory.remove(selected_item.item.id, 1)
+				
+func get_selected_item_name():
+	var selected_slot: InventorySlot = inventory.get_slots()[currently_selected_slot]
+	var selected_item: InventoryItem = selected_slot.inventory_item
+	if selected_item:
+		return selected_item.item.display_name
 
 func update_currently_selected_slot() -> void:
 	for child: Node in self.get_children():

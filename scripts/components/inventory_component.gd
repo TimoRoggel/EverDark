@@ -9,6 +9,8 @@ func _enter() -> void:
 		slot.item_dropped.connect(_on_item_dropped)
 	controller.get_component(InputComponent).inventory_toggled.connect(func() -> void:
 		container.visible = !container.visible
+		if controller.hotbar:
+			controller.hotbar.visible = !container.visible
 	)
 
 func _update(_delta: float) -> void:

@@ -15,6 +15,7 @@ class_name InventoryContainer extends GridContainer
 signal updated
 
 func _ready() -> void:
+	GameManager.ui_opened_conditions.append(func() -> bool: return visible)
 	_redraw()
 
 func _clear() -> void:

@@ -18,8 +18,13 @@ func start_game() -> void:
 
 func _on_new_game_confirmation_confirmed() -> void:
 	SaveSystem.delete_data()
-	start_game()
-
+	var target_scene_path = start_level.resource_path
+	SceneTransitionController.change_scene(target_scene_path, "fade_layer", 1.0)
+	
+func _on_continue__playing_pressed() -> void:
+	var target_scene_path = start_level.resource_path
+	SceneTransitionController.change_scene(target_scene_path, "fade_layer", 1.0)
+	
 func _on_exit_pressed() -> void:
 	get_tree().quit()
 
@@ -33,6 +38,3 @@ func _on_settings_menu_exit_settings_menu() -> void:
 	margin_container_2.visible = true
 	margin_container.visible = true
 	settings_menu.visible = false 
-
-func _on_continue__playing_pressed() -> void:
-	start_game()

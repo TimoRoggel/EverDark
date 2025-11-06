@@ -1,9 +1,12 @@
-[gd_scene load_steps=35 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=49 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
-[ext_resource type="Texture2D" uid="uid://d2sbubwoh7lbc" path="res://graphics/player.png" id="2_76oj4"]
+[ext_resource type="Texture2D" uid="uid://cs50q0envqdi1" path="res://graphics/characters/player/player_fight.png" id="2_dg40j"]
+[ext_resource type="Texture2D" uid="uid://bu0hknhqkw88o" path="res://graphics/characters/player/player_idle.png" id="2_vwwfy"]
 [ext_resource type="Script" uid="uid://1ymurug5rwwb" path="res://scripts/components/input_component.gd" id="3_atpat"]
+[ext_resource type="Texture2D" uid="uid://ci2ctx3xlkmin" path="res://graphics/characters/player/player_movement.png" id="3_dg40j"]
 [ext_resource type="Script" uid="uid://bi8mqyt32ti68" path="res://scripts/state_machine/player_states/player_idle_state.gd" id="4_2l4js"]
+[ext_resource type="Script" uid="uid://dcnc78dwrlvs6" path="res://scripts/tools/cloned_animated_sprite_2d.gd" id="4_7xgtv"]
 [ext_resource type="Script" uid="uid://cnvj3qt0x6603" path="res://scripts/components/move_component.gd" id="4_kqtwu"]
 [ext_resource type="Script" uid="uid://b86jl8d8bnv68" path="res://scripts/components/camera_component.gd" id="5_6eyoc"]
 [ext_resource type="Script" uid="uid://cqprce2ews2bs" path="res://scripts/state_machine/player_states/player_walk_state.gd" id="5_jk2m4"]
@@ -14,6 +17,7 @@
 [ext_resource type="Script" uid="uid://b02oesl53ud3y" path="res://scripts/components/player_health_component.gd" id="8_xhtjm"]
 [ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="10_2l4js"]
 [ext_resource type="Script" uid="uid://byhtuq8lov8xm" path="res://scripts/components/spawn_attack_component.gd" id="10_xhtjm"]
+[ext_resource type="Script" uid="uid://crgr2naugp36e" path="res://scripts/components/animation_component.gd" id="11_7xgtv"]
 [ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
 [ext_resource type="Script" uid="uid://c0jl7340jmrnc" path="res://scripts/components/block_component.gd" id="17_d6tgn"]
@@ -35,6 +39,166 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkt2s"]
+atlas = ExtResource("2_dg40j")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ux5t"]
+atlas = ExtResource("2_dg40j")
+region = Rect2(240, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvr6b"]
+atlas = ExtResource("2_dg40j")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nktl3"]
+atlas = ExtResource("2_dg40j")
+region = Rect2(336, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rclf"]
+atlas = ExtResource("2_vwwfy")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0anf"]
+atlas = ExtResource("2_vwwfy")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1x7u"]
+atlas = ExtResource("2_vwwfy")
+region = Rect2(144, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3kfx"]
+atlas = ExtResource("3_dg40j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdner"]
+atlas = ExtResource("3_dg40j")
+region = Rect2(48, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m38kj"]
+atlas = ExtResource("3_dg40j")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v1y1o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkt2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ux5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvr6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nktl3")
+}],
+"loop": false,
+"name": &"attack_down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkt2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ux5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvr6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nktl3")
+}],
+"loop": false,
+"name": &"attack_right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkt2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ux5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvr6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nktl3")
+}],
+"loop": false,
+"name": &"attack_up",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rclf")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0anf")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1x7u")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3kfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdner")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m38kj")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3kfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdner")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m38kj")
+}],
+"loop": true,
+"name": &"move_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3kfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdner")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m38kj")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_aqa0x"]
 frequency = 0.0175
 
@@ -45,12 +209,13 @@ noise = SubResource("FastNoiseLite_aqa0x")
 seamless = true
 seamless_blend_skirt = 1.0
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 z_index = -1
 z_as_relative = false
 y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_yewv4")
+target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bdg3j7sgmdj0n"
 
 [node name="collision" type="CollisionShape2D" parent="."]
@@ -59,19 +224,21 @@ y_sort_enabled = true
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_dyp2m")
 
-[node name="sprite" type="Sprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
 use_parent_material = true
-position = Vector2(0, -7)
-texture = ExtResource("2_76oj4")
+position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_v1y1o")
+animation = &"attack_up"
 
-[node name="always_visible" type="Sprite2D" parent="sprite"]
+[node name="always_visible" type="AnimatedSprite2D" parent="sprite" node_paths=PackedStringArray("target")]
 modulate = Color(1, 1, 1, 0.2509804)
 z_index = 101
 z_as_relative = false
-texture = ExtResource("2_76oj4")
-region_rect = Rect2(5, 4, 6, 2)
+script = ExtResource("4_7xgtv")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://dcnc78dwrlvs6"
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("8_qgnko")
@@ -95,6 +262,11 @@ metadata/_custom_type_script = "uid://1ymurug5rwwb"
 [node name="movement" type="Node2D" parent="components"]
 script = ExtResource("4_kqtwu")
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
+
+[node name="animation" type="Node2D" parent="components" node_paths=PackedStringArray("animated_sprite")]
+script = ExtResource("11_7xgtv")
+animated_sprite = NodePath("../../sprite")
+metadata/_custom_type_script = "uid://crgr2naugp36e"
 
 [node name="camera" type="Node2D" parent="components" node_paths=PackedStringArray("camera")]
 script = ExtResource("5_6eyoc")

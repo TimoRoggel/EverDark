@@ -11,12 +11,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_gs7m4"]
 radius = 7.0
 
-[node name="test_enemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+[node name="test_enemy" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_3nmv6")
 min_distance_to_target = 4.0
 attack_distance = 512.0
-sprite = NodePath("sprite")
+target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bhkah5ac48rty"
 
 [node name="collision" type="CollisionShape2D" parent="."]

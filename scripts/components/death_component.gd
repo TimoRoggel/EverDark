@@ -28,7 +28,7 @@ func entity_died():
 		controller.hotbar.update_hotbar()
 	controller.hitbox.is_active = false
 	controller.set_physics_process(false)
-	entity.sprite.hide()
+	entity.target_sprite.hide()
 	controller.death_view.show()
 	
 func respawn():

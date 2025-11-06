@@ -28,7 +28,6 @@ var spawned_entities: Array[Node2D] = []
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	return
 	spawn_timer = Timer.new()
 	spawn_timer.one_shot = true
 	add_child(spawn_timer)

@@ -32,7 +32,7 @@ func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
 		print(controller.get_tile())
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") && !GameManager.is_ui_open():
 		started_attacking.emit()
 		position_pressed.emit(get_global_mouse_position())
 	if Input.is_action_just_pressed("debug"):
@@ -49,14 +49,14 @@ func _update(_delta: float) -> void:
 		ui.emit()
 	if Input.is_action_just_pressed("pickup"):
 		pickup.emit()
-	if Input.is_action_just_pressed("place"):
+	if Input.is_action_just_pressed("place") && !GameManager.is_ui_open():
 		place.emit(get_global_mouse_position())
-	if Input.is_action_just_pressed("dash"):
+	#if Input.is_action_just_pressed("dash"):
 		#LoreSystem.open_screen()
-		CutsceneManager.play(TEST_CUTSCENE)
+		#CutsceneManager.play(TEST_CUTSCENE)
 	movement = Input.get_vector("left", "right", "up", "down")
-	attacking = Input.is_action_pressed("attack")
-	blocking = Input.is_action_pressed("block")
+	attacking = Input.is_action_pressed("attack") && !GameManager.is_ui_open()
+	blocking = Input.is_action_pressed("block") && !GameManager.is_ui_open()
 	dashing = Input.is_action_pressed("dash")
 	angle_to_cursor = get_angle_to(get_global_mouse_position())
 

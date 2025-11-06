@@ -33,6 +33,8 @@ func clean_data() -> void:
 func get_all_values() -> Dictionary:
 	var data: Dictionary = {"file_id": file_id}
 	for key: String in trackers.keys():
+		if !trackers.has(key):
+			continue
 		data[key] = var_to_bytes(trackers[key]["getter"].call())
 	return data
 

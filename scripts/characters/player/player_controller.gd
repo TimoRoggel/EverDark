@@ -60,9 +60,6 @@ func _custom_physics_process(delta: float) -> void:
 	movement.desired_movement = input.movement
 	if block:
 		block.block_angle = input.angle_to_cursor
-	if animation:
-		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
-		animation.should_flip = should_flip || input.movement.x < 0
 	if weapon:
 		weapon.attack_angle = input.angle_to_cursor
 		weapon.attacking = input.attacking
@@ -72,6 +69,8 @@ func _custom_physics_process(delta: float) -> void:
 	if animation:
 		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
 		animation.should_flip = should_flip || input.movement.x < 0
+		animation.direction = Vector2.from_angle(input.angle_to_cursor) if movement.desired_movement.length() < 1.0 else movement.desired_movement
+		animation.attacking = input.attacking
 
 func on_bounce(bounce_amount: float) -> void:
 	camera.shake(bounce_amount * 0.02, 0.1)

@@ -14,6 +14,7 @@ var inventory: InventoryComponent = null
 var current_recipe: Recipe = null
 
 func _ready() -> void:
+	GameManager.ui_opened_conditions.append(func() -> bool: return visible)
 	build_recipe_tree()
 	craft_button.pressed.connect(_on_CraftButton_pressed)
 	visibility_changed.connect(_on_tree_cell_selected)

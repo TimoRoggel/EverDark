@@ -99,6 +99,8 @@ func take_damage(attack: AttackController) -> void:
 		return
 	if hit_player:
 		hit_player.play_randomized()
+	if controller is PlayerController:
+		controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	calc_knockback(attack)
 	update_healthbar()
 	var invulnerability: float = proj.invulnerability
@@ -120,7 +122,7 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 		return
 	if hit_player:
 		hit_player.play_randomized()
-	controller.hud.animate_healthbar_color_change(Color(.7,0,0))
+	controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	await get_tree().create_timer(.5).timeout
 	update_healthbar()
 	var invulnerability: float = env.cur_invulnerability

@@ -15,6 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_ing8j")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.85430586, 0, 0, 1)
 z_index = 1
 layout_mode = 1
 offset_left = 38.0

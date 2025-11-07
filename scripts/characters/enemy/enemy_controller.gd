@@ -30,9 +30,9 @@ func _custom_process(delta: float) -> void:
 	if !health.alive:
 		return
 	var current_target: CharacterController = get_target()
+	var angle_to_target: float = 0.0
 	if current_target:
 		var intercept_angle: float = prediction_angle()
-		var angle_to_target: float = 0.0
 		if intercept_angle != 0.0 && predictive_attacking:
 			angle_to_target = intercept_angle
 		else:
@@ -55,8 +55,15 @@ func _custom_process(delta: float) -> void:
 	else:
 		movement.desired_movement = Vector2.ZERO
 	if animation:
-		animation.should_flip = movement.desired_movement.x < 0
-		animation.charging = charging
+		var vel: Vector2 = get_real_velocity()
+		var target_direction: Vector2 = animation.direction
+		if vel.length() > 1.0:
+			target_direction = vel
+		elif charging:
+			target_direction = Vector2.from_angle(angle_to_target)
+		animation.direction = target_direction
+		animation.should_flip = target_direction.x < 0.0
+		animation.attacking = charging
 	super(delta)
 
 func get_target() -> CharacterController:

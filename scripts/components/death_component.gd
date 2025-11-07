@@ -5,11 +5,13 @@ class_name DeathComponent extends Component
 
 var entity: CharacterController
 var inventory: InventoryComponent
+var animation: AnimationComponent
 
 var is_dead := false
 
 func _enter():
 	entity = controller
+	animation = controller.get_component(AnimationComponent)
 
 func _update(_delta: float) -> void:
 	pass
@@ -28,6 +30,7 @@ func entity_died():
 		controller.hotbar.update_hotbar()
 	controller.hitbox.is_active = false
 	controller.set_physics_process(false)
+	await animation.play("death")
 	entity.target_sprite.hide()
 	controller.death_view.show()
 	
@@ -39,4 +42,4 @@ func respawn():
 	entity.global_position = respawn_point
 	controller.hitbox.is_active = true
 	controller.set_physics_process(true)
-	entity.show()
+	entity.target_sprite.show()

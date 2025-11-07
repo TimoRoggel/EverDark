@@ -58,6 +58,7 @@ func _custom_physics_process(delta: float) -> void:
 	if !movement:
 		return
 	movement.desired_movement = input.movement
+	var vel: Vector2 = get_real_velocity()
 	if block:
 		block.block_angle = input.angle_to_cursor
 	if weapon:
@@ -69,7 +70,12 @@ func _custom_physics_process(delta: float) -> void:
 	if animation:
 		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
 		animation.should_flip = should_flip || input.movement.x < 0
-		animation.direction = Vector2.from_angle(input.angle_to_cursor) if movement.desired_movement.length() < 1.0 else movement.desired_movement
+		var target_direction: Vector2 = animation.direction
+		if vel.length() > 1.0:
+			target_direction = vel
+		elif input.attacking:
+			target_direction = Vector2.from_angle(input.angle_to_cursor)
+		animation.direction = target_direction
 		animation.attacking = input.attacking
 
 func on_bounce(bounce_amount: float) -> void:

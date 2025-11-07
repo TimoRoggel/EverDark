@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=50 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://cs50q0envqdi1" path="res://graphics/characters/player/player_fight.png" id="2_dg40j"]
@@ -352,8 +352,9 @@ texture = SubResource("NoiseTexture2D_yhyq5")
 [node name="random_entity_spawner" type="Node2D" parent="."]
 script = ExtResource("24_wqk1x")
 entity = ExtResource("20_dm10o")
-min_spawn_rate = 80.0
-randomness = 0.25
+capacity = 1
+min_spawn_rate = 95.0
+randomness = 0.35
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

@@ -29,12 +29,13 @@ func _input(event: InputEvent) -> void:
 		else:
 			print("Empty slot")
 	elif is_instance_of(event, InputEventMouseButton):
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			currently_selected_slot = posmod(currently_selected_slot - 1, hotbar_slots)
-			select_slot(currently_selected_slot)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			currently_selected_slot = posmod(currently_selected_slot + 1, hotbar_slots)
-			select_slot(currently_selected_slot)
+		if event.is_pressed():
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				currently_selected_slot = posmod(currently_selected_slot - 1, hotbar_slots)
+				select_slot(currently_selected_slot)
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				currently_selected_slot = posmod(currently_selected_slot + 1, hotbar_slots)
+				select_slot(currently_selected_slot)
 
 func _process(_delta: float) -> void:
 	update_hotbar()
@@ -54,6 +55,7 @@ func create_slot() -> TextureButton:
 	slot_texture.texture_normal = preload("res://graphics/ui_icons/hotbar_slot_normal.png")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
 	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot_texture.focus_mode = Control.FOCUS_CLICK
 	return slot_texture
 
 func create_item_texture() -> TextureRect:

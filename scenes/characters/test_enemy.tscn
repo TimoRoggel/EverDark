@@ -322,6 +322,7 @@ metadata/_custom_type_script = "uid://bhkah5ac48rty"
 shape = SubResource("CircleShape2D_gs7m4")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_k34kf")
 animation = &"idle_down"

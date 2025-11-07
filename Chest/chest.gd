@@ -32,10 +32,6 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _process(_delta: float) -> void:
 	if is_interactable and player_ref:
-		if Input.is_action_just_pressed("open"): 
-			chest_inventory.visible = !chest_inventory.visible
-			player_ref_inventory.container.visible = chest_inventory.visible
-
 		if Input.is_action_just_pressed("interact"):
 			var items_to_drop: Array[InventoryItem] = chest_inventory.get_items()
 			for item: InventoryItem in items_to_drop:
@@ -48,7 +44,6 @@ func _process(_delta: float) -> void:
 
 			for slot: InventorySlot in chest_inventory.get_slots():
 				slot.inventory_item = null
-			chest_inventory.visible = false
 	if chest_inventory.visible:
 		sprite_chest.texture = CHEST_OPEN
 	else:

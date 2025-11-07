@@ -21,6 +21,7 @@ shape = SubResource("CircleShape2D_gj4rf")
 texture = ExtResource("1_vbo4i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="Chest_Inventory" parent="CanvasLayer" instance=ExtResource("2_urnrk")]
 visible = false

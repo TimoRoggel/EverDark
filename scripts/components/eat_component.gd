@@ -4,9 +4,7 @@ var edibles: Array = ["VOID Core"]
 
 func _enter() -> void:
 	controller.get_component(InputComponent).eat.connect(func() -> void:
-		print("eating")
 		if controller.hotbar:
-			print("eat item on slot: " + str(controller.hotbar.currently_selected_slot))
 			if controller.health:
 				if controller.health.current_health < controller.health.max_health:
 					var selected_item_name = controller.hotbar.get_selected_item_name()
@@ -15,11 +13,14 @@ func _enter() -> void:
 							controller.hotbar.substract_item()
 							controller.health.heal()
 						else:
-							print("item not edible!")
+							#item not edible!
+							pass
 					else:
-						print("selected slot is empty!")
+						#selected slot is empty!
+						pass
 				else:
-					print("cant eat, health is full!")
+					#cant eat, health is full!
+					pass
 	)
 	
 func _update(_delta: float) -> void:

@@ -8,10 +8,11 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gj4rf"]
 
-[node name="Chest" type="Area2D" node_paths=PackedStringArray("chest_inventory", "sprite_chest")]
+[node name="Chest" type="Area2D" node_paths=PackedStringArray("chest_inventory", "sprite_chest", "open_close_sound")]
 script = ExtResource("1_gj4rf")
 chest_inventory = NodePath("CanvasLayer/Chest_Inventory")
 sprite_chest = NodePath("Sprite2D")
+open_close_sound = NodePath("open_close_sound")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.375, 1.375)
@@ -21,7 +22,7 @@ shape = SubResource("CircleShape2D_gj4rf")
 texture = ExtResource("1_vbo4i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 0
+layer = 2
 
 [node name="Chest_Inventory" parent="CanvasLayer" instance=ExtResource("2_urnrk")]
 visible = false
@@ -34,6 +35,9 @@ script = ExtResource("3_urnrk")
 interact_script = ExtResource("5_07ty7")
 custom_parameter = "{}"
 metadata/_custom_type_script = "uid://kibtonceriu1"
+
+[node name="open_close_sound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

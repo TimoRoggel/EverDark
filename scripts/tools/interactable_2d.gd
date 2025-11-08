@@ -41,10 +41,9 @@ func can_interact(controller: CharacterController) -> bool:
 func interact(controller: CharacterController) -> void:
 	if !active:
 		return
-	interact_player.play()
+	if interact_sound:
+		interact_player.play()
 	instance.run(merge_param(controller))
-	await interact_player.finished
-	queue_free()
 
 func set_active(timeout: float) -> void:
 	active = false

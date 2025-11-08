@@ -6,6 +6,7 @@ func _enter() -> void:
 	super()
 
 func death() -> void:
-	print("died, resetting health to max")
 	if controller.death:
 		controller.death.entity_died()
+	if death_player:
+		death_player.play_randomized()

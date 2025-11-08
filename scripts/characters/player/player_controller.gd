@@ -48,7 +48,6 @@ func _ready() -> void:
 		everdark_damage.create_virus_timer()
 	death = get_component(DeathComponent)
 	if death_view and death:
-		print("setup connfw")
 		death_view.respawn_pressed.connect(death.respawn)
 	eat = get_component(EatComponent)
 	await Generator.generate(Vector2.ZERO)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=17 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -6,13 +6,14 @@
 [ext_resource type="Script" uid="uid://cuoyob352u88i" path="res://scripts/tools/flippable_tile_map_layer.gd" id="4_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://2sk6w6jiy3ng" path="res://scenes/crafting/crafting.tscn" id="6_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
-[ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
+[ext_resource type="Script" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
 [ext_resource type="Script" uid="uid://b3b33abitpj2t" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
-[ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
+[ext_resource type="Script" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
-[ext_resource type="Script" uid="uid://k2h8hdh738wa" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="PackedScene" uid="uid://eb2jxnr6s5ut" path="res://map/everdark..tmx" id="13_xidr1"]
+[ext_resource type="AudioStream" uid="uid://dyklopfm0j5up" path="res://audio/ambience/forest_ambience_0.wav" id="14_8c33x"]
 
 [sub_resource type="GDScript" id="GDScript_xidr1"]
 
@@ -113,3 +114,8 @@ z_index = -1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-780.5, -820.5)
+
+[node name="ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_8c33x")
+autoplay = true
+bus = &"Ambience"

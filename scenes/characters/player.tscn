@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=114 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://tdl3a63l1y2y" path="res://graphics/characters/player/player_fight_down.png" id="2_m38kj"]
@@ -25,21 +25,32 @@
 [ext_resource type="Script" uid="uid://crgr2naugp36e" path="res://scripts/components/animation_component.gd" id="11_7xgtv"]
 [ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
+[ext_resource type="AudioStream" uid="uid://bf5jo5ad5qwsu" path="res://audio/sounds/player/footstep_0.wav" id="16_yyjep"]
+[ext_resource type="AudioStream" uid="uid://c2fcwwwc5bq55" path="res://audio/sounds/player/footstep_1.wav" id="17_6aj6e"]
 [ext_resource type="Script" uid="uid://c0jl7340jmrnc" path="res://scripts/components/block_component.gd" id="17_d6tgn"]
 [ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/Pause Menu/pause_menu.tscn" id="18_d6tgn"]
 [ext_resource type="Script" uid="uid://chbvt1cpvl4ve" path="res://scripts/components/lumin_placement_component.gd" id="18_kmyvj"]
+[ext_resource type="AudioStream" uid="uid://b0tn0m1wkqfie" path="res://audio/sounds/player/footstep_2.wav" id="18_n7k00"]
 [ext_resource type="Script" path="res://scripts/components/knockback_component.gd" id="19_inhyd"]
+[ext_resource type="AudioStream" uid="uid://honhvb0mlhjk" path="res://audio/sounds/player/footstep_3.wav" id="19_lnpl6"]
 [ext_resource type="Script" uid="uid://mx2o6js1ifk6" path="res://scripts/components/everdark_compute_component.gd" id="19_o6auj"]
+[ext_resource type="AudioStream" uid="uid://d1n7a7pdg15lk" path="res://audio/sounds/player/footstep_4.wav" id="20_5bn3a"]
 [ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="20_dm10o"]
 [ext_resource type="Script" uid="uid://c54jhhrackwfy" path="res://scenes/characters/hotbar_container.gd" id="20_eir2k"]
 [ext_resource type="PackedScene" uid="uid://beguyjw3ooy0v" path="res://UI/HUD/hud.tscn" id="20_kmyvj"]
 [ext_resource type="Script" uid="uid://cplkjigrlfl4m" path="res://scripts/components/death_component.gd" id="21_aqa0x"]
+[ext_resource type="AudioStream" uid="uid://crp6n5kbiq0fl" path="res://audio/sounds/player/footstep_5.wav" id="21_tnye5"]
 [ext_resource type="Script" uid="uid://ckc36i68yr744" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
 [ext_resource type="Script" uid="uid://cjgnvaeld4mww" path="res://scripts/components/eat_component.gd" id="22_5jukt"]
 [ext_resource type="PackedScene" uid="uid://bcg10wp7uqawx" path="res://scenes/lore_system/lore_note_screen.tscn" id="23_inhyd"]
 [ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="24_wqk1x"]
+[ext_resource type="AudioStream" uid="uid://cuuwo68me0x7" path="res://audio/sounds/player/death.wav" id="28_lnpl6"]
 [ext_resource type="Material" uid="uid://dpfoqgjxxik6t" path="res://shaders/materials/everdark_overlay_material.tres" id="28_tswxa"]
 [ext_resource type="PackedScene" uid="uid://dqs6qujeopigy" path="res://UI/death_view_ui.tscn" id="30_yhyq5"]
+[ext_resource type="AudioStream" uid="uid://dcmre2g8xjn5" path="res://audio/sounds/player/hurt.wav" id="31_6aj6e"]
+[ext_resource type="AudioStream" uid="uid://bxlm1pdy80psk" path="res://audio/ambience/ambience_0.mp3" id="35_hnvwh"]
+[ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
+[ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
@@ -540,6 +551,10 @@ noise = SubResource("FastNoiseLite_aqa0x")
 seamless = true
 seamless_blend_skirt = 1.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vkt2s"]
+streams_count = 1
+stream_0/stream = ExtResource("35_hnvwh")
+
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 z_index = -1
 z_as_relative = false
@@ -569,6 +584,7 @@ frame_progress = 1.0
 modulate = Color(1, 1, 1, 0.2509804)
 z_index = 101
 z_as_relative = false
+use_parent_material = true
 script = ExtResource("4_7xgtv")
 target = NodePath("..")
 metadata/_custom_type_script = "uid://dcnc78dwrlvs6"
@@ -594,6 +610,8 @@ metadata/_custom_type_script = "uid://1ymurug5rwwb"
 
 [node name="movement" type="Node2D" parent="components"]
 script = ExtResource("4_kqtwu")
+step_sounds = Array[AudioStream]([ExtResource("16_yyjep"), ExtResource("17_6aj6e"), ExtResource("18_n7k00"), ExtResource("19_lnpl6"), ExtResource("20_5bn3a"), ExtResource("21_tnye5")])
+step_cooldown = 0.02
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
 [node name="animation" type="Node2D" parent="components" node_paths=PackedStringArray("animated_sprite")]
@@ -619,6 +637,7 @@ metadata/_custom_type_script = "uid://dqan6upx40ywc"
 
 [node name="health" type="Node2D" parent="components"]
 script = ExtResource("8_xhtjm")
+death_sounds = Array[AudioStream]([ExtResource("28_lnpl6")])
 metadata/_custom_type_script = "uid://b02oesl53ud3y"
 
 [node name="block_component" type="Node2D" parent="components"]
@@ -631,6 +650,7 @@ metadata/_custom_type_script = "uid://c0jl7340jmrnc"
 position = Vector2(0, -4)
 script = ExtResource("10_2l4js")
 collision_radius = 6.0
+damage_sounds = Array[AudioStream]([ExtResource("31_6aj6e")])
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 
 [node name="main_attack" type="Node2D" parent="components"]
@@ -655,6 +675,7 @@ script = ExtResource("19_o6auj")
 
 [node name="everdark_damage" type="Node2D" parent="components"]
 script = ExtResource("21_tswxa")
+damage_sounds = Array[AudioStream]([ExtResource("37_n7k00")])
 
 [node name="death" type="Node2D" parent="components"]
 script = ExtResource("21_aqa0x")
@@ -689,6 +710,12 @@ min_spawn_rate = 80.0
 randomness = 0.25
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
+[node name="ambience" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_vkt2s")
+bus = &"Ambience"
+script = ExtResource("36_rfou0")
+metadata/_custom_type_script = "uid://c44mah042f13w"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("20_kmyvj")]
@@ -718,10 +745,6 @@ alignment = 1
 script = ExtResource("20_eir2k")
 inventory = NodePath("../inventory")
 inventory_component = NodePath("../../components/inventory")
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
 visible = false

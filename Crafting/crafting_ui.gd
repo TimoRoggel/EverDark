@@ -8,6 +8,7 @@ const INVENTORY_SLOT: PackedScene = preload("uid://chgdmhkgaavft")
 @onready var grid_container: GridContainer = %GridContainer
 @onready var item_texture: TextureRect = %ItemTexture
 @onready var craft_button: Button = %CraftButton 
+@onready var audio_stream_player: AudioStreamPlayer = %AudioStreamPlayer
 
 var recipe_material_dict: Dictionary[Item, int] = {}
 var inventory: InventoryComponent = null
@@ -88,6 +89,8 @@ func _on_CraftButton_pressed() -> void:
 
 	for reward_id: int in current_recipe.reward_ids:
 		inventory.add(reward_id, 1)
+	
+	audio_stream_player.play()
 
 	build_recipe_material_window(current_recipe)
 	#printerr("Crafting is bugged")

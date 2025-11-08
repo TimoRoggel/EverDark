@@ -36,7 +36,6 @@ func entity_died():
 	
 func respawn():
 	controller.death_view.hide()
-	print(entity.name + " respawning...")
 	await get_tree().create_timer(.5).timeout
 	is_dead = false
 	entity.global_position = respawn_point

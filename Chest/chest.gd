@@ -7,6 +7,7 @@ const CHEST_OPEN = preload("uid://bt5l56duf4ya0")
 @export var chest_inventory: InventoryContainer = null
 @export var chest_item_id: int = 4
 @export var sprite_chest: Sprite2D
+@export var open_close_sound: AudioStreamPlayer2D = null
 
 var is_interactable: bool = false
 var player_ref: PlayerController = null
@@ -34,27 +35,15 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _process(_delta: float) -> void:
 	if is_interactable and player_ref:
-		if Input.is_action_just_pressed("open"): 
-			chest_inventory.visible = !chest_inventory.visible
-			player_ref_inventory.container.visible = chest_inventory.visible
-			if player_ref.hotbar:
-				player_ref.hotbar.visible = !chest_inventory.visible
-
 		if Input.is_action_just_pressed("interact"):
+			player_ref.hotbar.visible = !chest_inventory.visible
 			var items_to_drop: Array[InventoryItem] = chest_inventory.get_items()
 			for item: InventoryItem in items_to_drop:
 				var leftover: int = player_ref_inventory.container.add(item.item.id, item.quantity)
 				if leftover > 0:
-					var dropped_item: DroppedItem2D = DroppedItem2D.new()
-					dropped_item.item = item.item
-					get_parent().add_child(dropped_item)
-					dropped_item.global_position = player_ref.global_position
-
+					DroppedItem2D.drop(item.item.id, item.quantity, player_ref.global_position)
 			for slot: InventorySlot in chest_inventory.get_slots():
 				slot.inventory_item = null
-			chest_inventory.visible = false
-			if player_ref.hotbar:
-				player_ref.hotbar.visible = false
 	if chest_inventory.visible:
 		sprite_chest.texture = CHEST_OPEN
 	else:
@@ -75,24 +64,14 @@ func _on_pickup() -> void:
 	for item in chest_inventory.get_items():
 		var leftover = player_ref_inventory.container.add(item.item.id, item.quantity)
 		if leftover > 0:
-			var dropped_item: DroppedItem2D = DroppedItem2D.new()
-			dropped_item.item = item.item
-			dropped_item.amount = leftover
-			get_parent().add_child(dropped_item)
-			dropped_item.global_position = player_ref.global_position
-			dropped_item.timeout()
+			DroppedItem2D.drop(item.item.id, leftover, player_ref.global_position)
 
 	var chest_item = DataManager.get_resource_by_id("items", chest_item_id)
 	var leftover_chest = player_ref_inventory.add(chest_item.id, 1)
 	player_ref_inventory.set_held_item_id(chest_item.id)
 
 	if leftover_chest > 0:
-		var dropped_chest: DroppedItem2D = DroppedItem2D.new()
-		dropped_chest.item = chest_item
-		dropped_chest.amount = leftover_chest
-		get_parent().add_child(dropped_chest)
-		dropped_chest.global_position = player_ref.global_position
-		dropped_chest.timeout()
+		DroppedItem2D.drop(chest_item_id, leftover_chest, player_ref.global_position)
 
 	for slot in chest_inventory.get_slots():
 		slot.inventory_item = null

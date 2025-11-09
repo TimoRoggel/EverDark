@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5x7ph6tqdf08"]
+[gd_scene load_steps=5 format=3 uid="uid://c5x7ph6tqdf08"]
 
 [ext_resource type="Script" uid="uid://da3mii20clos5" path="res://UI/Main menu/main_menu.gd" id="1_sf1lb"]
 [ext_resource type="Texture2D" uid="uid://c4dbe1eli6gml" path="res://UI/Main menu/image.png" id="2_ty6hc"]
 [ext_resource type="PackedScene" uid="uid://bb4j8ic5yq7w6" path="res://UI/Settings/settings_menu.tscn" id="3_cxei2"]
+[ext_resource type="AudioStream" uid="uid://d4npl8kgc8374" path="res://audio/music/title.mp3" id="4_ty6hc"]
 
 [node name="Main menu" type="Control"]
 layout_mode = 3
@@ -83,6 +84,11 @@ text = "Exit"
 [node name="SettingsMenu" parent="." instance=ExtResource("3_cxei2")]
 visible = false
 layout_mode = 1
+
+[node name="background_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ty6hc")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="confirmed" from="MarginContainer/HBoxContainer/VBoxContainer/Start/NewGameConfirmation" to="." method="_on_new_game_confirmation_confirmed"]

@@ -1,6 +1,9 @@
 class_name Chest_runnable
 extends Runnable
 
+const CLOSE_SOUND = preload("uid://wy072etgvvd1")
+const OPEN_SOUND = preload("uid://cs5o8fl5xusr1")
+
 @export var chest_item_id: int = 4
 
 func run(param: Dictionary) -> void:
@@ -26,16 +29,14 @@ func _toggle_ui(controller: PlayerController, chest: Chest) -> void:
 	var new_visible = !chest.chest_inventory.visible
 	chest.chest_inventory.visible = new_visible
 	controller.inventory.container.visible = new_visible
+	chest.open_close_sound.stream = OPEN_SOUND if chest.chest_inventory.visible else CLOSE_SOUND
+	chest.open_close_sound.play()
 
 func _pickup(controller: PlayerController, chest: Chest) -> void:
 	for item: InventoryItem in chest.chest_inventory.get_items():
 		var leftover: int = controller.inventory.add(item.item.id, item.quantity)
 		if leftover > 0:
-			var dropped_item: DroppedItem2D = DroppedItem2D.new()
-			dropped_item.item = item.item
-			dropped_item.quantity = leftover
-			chest.get_parent().add_child(dropped_item)
-			dropped_item.global_position = chest.global_position
+			DroppedItem2D.drop(item.item.id, leftover, chest.global_position)
 
 	var remainder: int = controller.inventory.add(chest_item_id, 1)
 	if remainder == 0:

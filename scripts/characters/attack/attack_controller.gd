@@ -14,8 +14,10 @@ var speed: float = 0.0
 var damage_flags: int = 0
 var lifetime: float = 0.0
 
+signal death
+
 func _init(_attack: Attack, _direction: Vector2, _spawner: CharacterController) -> void:
-	attack = _attack
+	attack = DataManager.get_resource_by_id("attacks", _attack.id)
 	direction = _direction
 	spawner = _spawner
 
@@ -43,7 +45,7 @@ func _ready() -> void:
 	# Settings
 	z_as_relative = false
 	y_sort_enabled = false
-	z_index = 100
+	z_index = 10
 	collision_layer = 2
 	collision_mask = 0
 	# Other
@@ -106,3 +108,4 @@ func _notification(what: int) -> void:
 				bullet.global_position = global_position
 				bullet.damage_flags = damage_flags
 				spawner.add_sibling(bullet)
+		death.emit()

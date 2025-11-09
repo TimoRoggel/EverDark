@@ -24,8 +24,7 @@ func _enter() -> void:
 	if !attack_type:
 		return
 	if attack_type.attack_sound:
-		sound_player = GameManager.create_audio_player(&"sounds", [attack_type.attack_sound])
-		add_child(sound_player)
+		sound_player = GameManager.create_audio_player(&"SFX", [attack_type.attack_sound], self)
 
 func _update(delta: float) -> void:
 	attack_timeout -= delta

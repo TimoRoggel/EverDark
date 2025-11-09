@@ -15,8 +15,8 @@ static func from_data(data: Dictionary) -> Harvestable:
 	
 	harvestable.id = data["id"]
 	harvestable.harvestable_name = data["name"]
-	harvestable.ready_texture = load(data["ready_texture"])
-	harvestable.depleted_texture = load(data["depleted_texture"])
+	harvestable.ready_texture = DataDrivenResource.get_loaded(data, "ready_texture")
+	harvestable.depleted_texture = DataDrivenResource.get_loaded(data, "depleted_texture")
 	harvestable.reward_ids = data["rewards"]
 	harvestable.reward_odds = data["reward_odds"]
 	harvestable.min_recover_time = data["min_recover_time"]

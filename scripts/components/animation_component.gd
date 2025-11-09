@@ -17,11 +17,14 @@ const MOVEMENT_THRESHOLD: float = 4.0
 var attacking: bool = false
 var should_flip: bool = false
 var direction: Vector2 = Vector2.ZERO
+var forced_animation_playing: bool = false
 
 func _enter() -> void:
 	pass
 
 func _update(_delta: float) -> void:
+	if forced_animation_playing:
+		return
 	if animated_sprite.animation.begins_with(ANIMS[2]) && animated_sprite.is_playing():
 		return
 	animated_sprite.flip_h = should_flip
@@ -50,3 +53,12 @@ func get_suitable_animation() -> String:
 			anim = ANIMS[1]
 	anim += "_" + direction_suffix()
 	return anim
+
+func play(animation: String) -> void:
+	var target_animation_name: String = animation + "_" + direction_suffix()
+	if !animated_sprite.sprite_frames.has_animation(target_animation_name):
+		return
+	forced_animation_playing = true
+	animated_sprite.play(target_animation_name)
+	await animated_sprite.animation_finished
+	forced_animation_playing = false

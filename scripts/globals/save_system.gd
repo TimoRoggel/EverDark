@@ -17,10 +17,13 @@ func _ready() -> void:
 	initialize_save_objects()
 	add_child(save_timer)
 	save_timer.timeout.connect(autosave)
-	GameManager.ui_opened_conditions = []
-	player().trackers = {}
+	reset()
 	await get_tree().scene_changed
 	SaveSystem.start_or_load_game()
+
+func reset() -> void:
+	GameManager.ui_opened_conditions = []
+	player().trackers = {}
 
 func autosave() -> void:
 	SaveSystem.save_data()

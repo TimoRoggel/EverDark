@@ -22,19 +22,20 @@ func _input(event: InputEvent) -> void:
 		return
 
 	# Drop item
-	if event.is_action_pressed("drop_item"):
-		var current_item = inventory.get_slots()[currently_selected_slot].inventory_item
-		if current_item:
-			print("Dropped: ", current_item)
-		else:
-			print("Empty slot")
-	elif is_instance_of(event, InputEventMouseButton):
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			currently_selected_slot = posmod(currently_selected_slot - 1, hotbar_slots)
-			select_slot(currently_selected_slot)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			currently_selected_slot = posmod(currently_selected_slot + 1, hotbar_slots)
-			select_slot(currently_selected_slot)
+	#if event.is_action_pressed("drop_item"):
+		#var current_item = inventory.get_slots()[currently_selected_slot].inventory_item
+		#if current_item:
+			#print("Dropped: ", current_item)
+		#else:
+			#print("Empty slot")
+	if is_instance_of(event, InputEventMouseButton):
+		if event.is_pressed():
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				currently_selected_slot = posmod(currently_selected_slot - 1, hotbar_slots)
+				select_slot(currently_selected_slot)
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				currently_selected_slot = posmod(currently_selected_slot + 1, hotbar_slots)
+				select_slot(currently_selected_slot)
 
 func _process(_delta: float) -> void:
 	update_hotbar()
@@ -54,6 +55,7 @@ func create_slot() -> TextureButton:
 	slot_texture.texture_normal = preload("res://graphics/32x32_inventory_HUD_01_transp.png")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
 	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot_texture.focus_mode = Control.FOCUS_CLICK
 	return slot_texture
 
 func create_item_texture() -> TextureRect:
@@ -95,7 +97,6 @@ func update_hotbar() -> void:
 			hotbar_just_emptied = false
 		if !items:
 			if !hotbar_just_emptied:
-				print("emptying hotbar...")
 				for slot: Node in get_children():
 					if is_instance_of(slot, TextureButton):
 						slot.get_child(0).texture = null
@@ -112,7 +113,6 @@ func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2) -> void
 		texture_rect.scale = Vector2(tex_scale, tex_scale)
 
 func select_slot(slot_number: int) -> void:
-	print("Selecting slot:", slot_number)
 	if slot_number >= 0 && slot_number < get_child_count():
 		var slot_node: Node = get_child(slot_number)
 		slot_node.grab_focus()
@@ -126,7 +126,6 @@ func select_slot(slot_number: int) -> void:
 				inventory_component.held_item = 0
 				
 	update_currently_selected_slot()
-	print(inventory.get_slots()[currently_selected_slot].inventory_item)
 	
 func substract_item():
 	if inventory_component && inventory:

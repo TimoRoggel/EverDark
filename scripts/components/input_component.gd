@@ -31,15 +31,11 @@ func is_pickup_pressed() -> bool:
 func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
-		print(controller.get_tile())
 	if Input.is_action_just_pressed("attack") && !GameManager.is_ui_open():
 		started_attacking.emit()
 		position_pressed.emit(get_global_mouse_position())
 	if Input.is_action_just_pressed("debug"):
-		var item: DroppedItem2D = DroppedItem2D.new()
-		item.item = DataManager.get_resource_by_id("items", 1)
-		controller.add_sibling(item)
-		item.global_position = get_global_mouse_position()
+		DroppedItem2D.drop(1, 1, get_global_mouse_position())
 	if Input.is_action_just_pressed("toggle_inventory"):
 		can_spawn = !can_spawn
 		inventory_toggled.emit()

@@ -45,10 +45,17 @@ func get_all_of_type(type: Variant, parent: Node = get_tree().root, top_level: b
 		fetched_types[type] = ret
 	return ret
 
-func create_audio_player(bus: StringName, samples: Array[AudioStream]) -> RandomAudioStreamPlayer2D:
+func create_audio_player(bus: StringName, samples: Array[AudioStream], parent: Node = null) -> RandomAudioStreamPlayer2D:
+	if samples.is_empty():
+		return null
 	var audio_player: RandomAudioStreamPlayer2D = RandomAudioStreamPlayer2D.new()
+	audio_player.attenuation = 6.0
+	audio_player.max_distance = 512.0
+	audio_player.panning_strength = 2.0
 	audio_player.samples = samples
 	audio_player.bus = bus
+	if parent:
+		parent.add_child(audio_player)
 	return audio_player
 
 func get_randomized_value(input: float, randomness: float) -> float:

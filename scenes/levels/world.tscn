@@ -8,14 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
 [ext_resource type="Script" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
+[ext_resource type="PackedScene" uid="uid://dw3msgvb1ai4b" path="res://scenes/characters/stone.tscn" id="9_y40x4"]
 [ext_resource type="Script" uid="uid://b3b33abitpj2t" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
 [ext_resource type="Script" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
 [ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="PackedScene" uid="uid://eb2jxnr6s5ut" path="res://map/everdark..tmx" id="13_xidr1"]
 [ext_resource type="AudioStream" uid="uid://dyklopfm0j5up" path="res://audio/ambience/forest_ambience_0.wav" id="14_8c33x"]
-
-[sub_resource type="GDScript" id="GDScript_xidr1"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -25,9 +24,9 @@ glow_enabled = true
 glow_bloom = 1.0
 
 [node name="world" type="Node2D"]
-script = SubResource("GDScript_xidr1")
 
 [node name="player" parent="." instance=ExtResource("2_7k8c1")]
+visible = false
 position = Vector2(10, 11)
 
 [node name="generated" type="TileMapLayer" parent="." node_paths=PackedStringArray("toppings_layer")]
@@ -57,13 +56,12 @@ position = Vector2(-12, 8)
 [node name="hole" parent="." instance=ExtResource("8_dp8al")]
 position = Vector2(37, 37)
 
-[node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
-position = Vector2(-41, 17)
+[node name="shrubs" type="Node2D" parent="."]
 
-[node name="shrub_harvestable" type="Area2D" parent="."]
+[node name="shrub_harvestable" type="Area2D" parent="shrubs"]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(42, -65)
+position = Vector2(-198, -230)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -71,10 +69,1364 @@ script = ExtResource("9_csbb7")
 harvestable_id = 0
 interact_script = ExtResource("10_mmplq")
 
+[node name="shrub_harvestable2" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-112, 56)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable3" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(87, -13)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable4" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(89, 88)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable5" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(226, -50)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable6" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(190, 71)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable7" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(143, -102)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable8" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(63, -184)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable9" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-107, -137)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable10" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-226, -89)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable11" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-191, 46)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable12" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-137, -52)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable13" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-134, 167)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable14" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-42, 258)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable15" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(82, 180)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable16" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(174, 268)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable17" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(265, 139)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable18" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(356, 58)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable19" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(292, -100)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable20" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(237, -155)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable21" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(190, -203)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable22" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(240, -332)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable23" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-66, -385)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable24" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-32, -419)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable25" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-297, -352)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable26" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-296, -220)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable27" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-163, -301)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable28" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-138, -304)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable29" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-137, -449)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable30" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-74, -458)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable31" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(354, -350)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable32" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-85, -234)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable33" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-303, -152)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable34" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-403, -121)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable35" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-513, -98)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable36" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-387, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable37" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-349, 25)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable38" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-400, 218)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable39" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-473, 274)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable40" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-192, 271)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable41" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-114, 270)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable42" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-206, 408)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable43" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-212, 171)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable44" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-253, 80)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable45" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(251, 253)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable46" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(291, 180)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable47" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(369, 152)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable48" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(430, 235)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable49" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(418, 171)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable50" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(329, 383)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable51" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(401, 317)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable52" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(419, 455)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable53" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(483, 398)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable54" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(281, 467)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable55" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(217, 406)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable56" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(47, 508)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable57" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(16, 575)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable58" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-127, 358)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable59" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(425, -87)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable60" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(444, 14)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable61" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(541, -84)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable62" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(491, -216)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable63" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(488, -283)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable64" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(374, -299)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable65" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(482, -401)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable66" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(416, -373)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable67" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(119, -546)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable68" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(78, -577)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable69" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(41, -491)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable70" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-92, -535)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable71" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-250, -491)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable72" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-442, -367)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable73" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-501, -267)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable74" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(266, -605)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable75" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(300, -516)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="shrub_harvestable76" type="Area2D" parent="shrubs"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-44, -353)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berries" type="Node2D" parent="."]
+
+[node name="berry_harvestable" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-59, -46)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable2" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-158, 21)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable3" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-173, 182)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable4" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(309, -237)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable5" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(133, -254)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable6" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(295, -289)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable7" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(326, -306)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable8" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(34, -556)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable9" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-94, -492)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable10" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-122, -512)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable11" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(22, -140)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable12" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(593, 135)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable13" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(182, 503)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable14" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(146, 524)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable15" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-228, 437)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable16" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-255, 460)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable17" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-273, 437)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable18" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-413, 335)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="berry_harvestable19" type="Area2D" parent="berries"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-398, 323)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_csbb7")
+harvestable_id = 1
+radius = 12.0
+interact_script = ExtResource("10_mmplq")
+
+[node name="stone" type="Node2D" parent="."]
+
+[node name="stone" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(0, -32)
+
+[node name="stone2" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(81, -47)
+
+[node name="stone3" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(95, 39)
+
+[node name="stone4" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-22, -87)
+
+[node name="stone5" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-95, -102)
+
+[node name="stone6" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-121, 5)
+
+[node name="stone7" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-47, 179)
+
+[node name="stone8" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-87, 203)
+
+[node name="stone9" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-98, 178)
+
+[node name="stone10" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-234, -18)
+
+[node name="stone11" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-258, -61)
+
+[node name="stone12" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-396, 26)
+
+[node name="stone13" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-356, 109)
+
+[node name="stone14" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-407, 89)
+
+[node name="stone15" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-262, 164)
+
+[node name="stone16" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-207, 113)
+
+[node name="stone17" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-193, 323)
+
+[node name="stone18" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-246, 271)
+
+[node name="stone19" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-299, 359)
+
+[node name="stone20" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-419, 173)
+
+[node name="stone21" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-473, 186)
+
+[node name="stone22" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-437, 209)
+
+[node name="stone23" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-456, 204)
+
+[node name="stone24" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-421, 192)
+
+[node name="stone25" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-382, 256)
+
+[node name="stone26" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-456, 320)
+
+[node name="stone27" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-512, 289)
+
+[node name="stone28" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-495, 323)
+
+[node name="stone29" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-558, 183)
+
+[node name="stone30" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-542, 119)
+
+[node name="stone31" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-584, 66)
+
+[node name="stone32" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-564, 8)
+
+[node name="stone33" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-604, -52)
+
+[node name="stone34" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-495, -193)
+
+[node name="stone35" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-372, -227)
+
+[node name="stone36" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-408, -218)
+
+[node name="stone37" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-224, -189)
+
+[node name="stone38" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-300, -400)
+
+[node name="stone39" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-276, -431)
+
+[node name="stone40" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-168, -391)
+
+[node name="stone41" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-129, -355)
+
+[node name="stone42" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-174, -346)
+
+[node name="stone43" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-42, -514)
+
+[node name="stone44" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-96, -563)
+
+[node name="stone45" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(99, -521)
+
+[node name="stone46" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(141, -511)
+
+[node name="stone47" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(115, -471)
+
+[node name="stone48" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(49, -393)
+
+[node name="stone49" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(134, -327)
+
+[node name="stone50" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(32, -274)
+
+[node name="stone51" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(263, -344)
+
+[node name="stone52" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(373, -380)
+
+[node name="stone53" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(313, -413)
+
+[node name="stone54" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(403, -594)
+
+[node name="stone55" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(478, -605)
+
+[node name="stone56" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(471, -580)
+
+[node name="stone57" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(448, -604)
+
+[node name="stone58" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(568, -457)
+
+[node name="stone59" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(576, -358)
+
+[node name="stone60" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(554, -381)
+
+[node name="stone61" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(455, -320)
+
+[node name="stone62" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(412, -223)
+
+[node name="stone63" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(423, -210)
+
+[node name="stone64" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(348, -60)
+
+[node name="stone65" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(394, -76)
+
+[node name="stone66" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(609, -57)
+
+[node name="stone67" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(633, -21)
+
+[node name="stone68" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(465, 357)
+
+[node name="stone69" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(498, 378)
+
+[node name="stone70" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(451, 415)
+
+[node name="stone71" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(392, 380)
+
+[node name="stone72" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(148, 325)
+
+[node name="stone73" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(53, 389)
+
+[node name="stone74" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(86, 328)
+
+[node name="stone75" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(18, 280)
+
+[node name="stone76" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-96, 333)
+
+[node name="stone77" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-30, 297)
+
+[node name="stone78" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-75, 473)
+
+[node name="stone79" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-153, 441)
+
+[node name="stone80" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-316, 447)
+
+[node name="stone81" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-309, 478)
+
+[node name="stone82" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(-111, 525)
+
+[node name="stone83" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(128, 592)
+
+[node name="stone84" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(182, 578)
+
+[node name="stone85" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(114, 494)
+
+[node name="stone86" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(0, 527)
+
+[node name="stone87" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(218, 434)
+
+[node name="stone88" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(274, 520)
+
+[node name="stone89" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(384, 458)
+
+[node name="stone90" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(261, 362)
+
+[node name="stone91" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(198, 169)
+
+[node name="stone92" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(233, 180)
+
+[node name="stone93" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(354, 103)
+
+[node name="stone94" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(395, 226)
+
+[node name="stone95" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(380, -20)
+
+[node name="stone96" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(508, -44)
+
+[node name="stone97" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(592, -168)
+
+[node name="stone98" parent="stone" instance=ExtResource("9_y40x4")]
+position = Vector2(527, -219)
+
+[node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
+position = Vector2(-939, -190)
+
 [node name="note_0" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(73, -43)
+position = Vector2(-946, -138)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -85,7 +1437,7 @@ custom_parameter = "{\"note\": 0}"
 [node name="note_1" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(111, -34)
+position = Vector2(-908, -129)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -97,7 +1449,7 @@ custom_parameter = "{\"note\": 1}"
 [node name="note_2" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(106, -5)
+position = Vector2(-913, -100)
 collision_layer = 4
 collision_mask = 0
 monitoring = false

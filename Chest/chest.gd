@@ -36,7 +36,7 @@ func _on_body_exited(body: Node2D) -> void:
 func _process(_delta: float) -> void:
 	if is_interactable and player_ref:
 		if Input.is_action_just_pressed("interact"):
-      player_ref.hotbar.visible = !chest_inventory.visible
+			player_ref.hotbar.visible = !chest_inventory.visible
 			var items_to_drop: Array[InventoryItem] = chest_inventory.get_items()
 			for item: InventoryItem in items_to_drop:
 				var leftover: int = player_ref_inventory.container.add(item.item.id, item.quantity)

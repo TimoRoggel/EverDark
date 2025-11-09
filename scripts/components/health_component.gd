@@ -7,7 +7,7 @@ class_name HealthComponent extends Component
 @export var max_health: float = 10.0
 @export var death_sounds: Array[AudioStream] = []
 @export var persistent: bool = false
-@export var death_drops: PackedInt32Array = []
+@export var death_drops: Array[int] = []
 
 var healthbar: TextureProgressBar = null
 var healthbar_delta: TextureProgressBar = null
@@ -71,13 +71,13 @@ func death() -> void:
 		return
 	alive = false
 	controller.visible = false
+	for item_id: int in death_drops:
+		DroppedItem2D.drop(item_id, 1, global_position)
 	if death_player:
 		death_player.play_randomized()
 		await death_player.finished
 	controller.process_mode = Node.PROCESS_MODE_DISABLED
 	controller.queue_free()
-	for item_id: int in death_drops:
-		DroppedItem2D.drop(item_id, 1, global_position)
 
 func can_get_damaged(attack: AttackController) -> bool:
 	return (controller.flags & attack.damage_flags) == controller.flags
@@ -124,8 +124,8 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 		return
 	await get_tree().create_timer(2.0).timeout
 	
-func heal():
-	current_health += max_health/10
+func heal(amount: int = 1):
+	current_health += amount
 	if current_health == max_health:
 		return
 	controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))

@@ -34,6 +34,8 @@ func merge_param(controller: CharacterController) -> Dictionary:
 	return { "controller": controller, "self": self }.merged(p_exp.execute())
 
 func can_interact(controller: CharacterController) -> bool:
+	if !is_visible_in_tree():
+		return false
 	if !active:
 		return false
 	return instance.can_run(merge_param(controller))

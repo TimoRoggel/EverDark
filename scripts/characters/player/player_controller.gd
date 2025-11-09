@@ -25,6 +25,7 @@ func _init() -> void:
 	flags = CharacterFlags.Player
 
 func _ready() -> void:
+	show()
 	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
 	super()
 	GameManager.player = self
@@ -48,7 +49,6 @@ func _ready() -> void:
 		everdark_damage.create_virus_timer()
 	death = get_component(DeathComponent)
 	if death_view and death:
-		print("setup connfw")
 		death_view.respawn_pressed.connect(death.respawn)
 	eat = get_component(EatComponent)
 	await Generator.generate(Vector2.ZERO)
@@ -58,9 +58,18 @@ func _custom_physics_process(delta: float) -> void:
 	if !movement:
 		return
 	movement.desired_movement = input.movement
+	var vel: Vector2 = get_real_velocity()
 	if block:
 		block.block_angle = input.angle_to_cursor
 	if weapon:
+		weapon.attack_id = -1
+		if inventory:
+			var held_item_id: int = inventory.get_held_item_id()
+			if held_item_id == -1:
+				weapon.attack_id = 0
+			else:
+				var held_item: Item = DataManager.get_resource_by_id("items", held_item_id)
+				weapon.attack_id = held_item.weapon_id
 		weapon.attack_angle = input.angle_to_cursor
 		weapon.attacking = input.attacking
 	if dash:
@@ -69,8 +78,13 @@ func _custom_physics_process(delta: float) -> void:
 	if animation:
 		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
 		animation.should_flip = should_flip || input.movement.x < 0
-		animation.direction = Vector2.from_angle(input.angle_to_cursor) if movement.desired_movement.length() < 1.0 else movement.desired_movement
-		animation.attacking = input.attacking
+		var target_direction: Vector2 = animation.direction
+		if vel.length() > 1.0:
+			target_direction = vel
+		elif input.attacking:
+			target_direction = Vector2.from_angle(input.angle_to_cursor)
+		animation.direction = target_direction
+		animation.attacking = weapon.attack_active
 
 func on_bounce(bounce_amount: float) -> void:
 	camera.shake(bounce_amount * 0.02, 0.1)

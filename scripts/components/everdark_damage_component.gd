@@ -14,6 +14,7 @@ class_name EverdarkDamageComponent extends Component
 @export var cur_invulnerability := .4
 @export var slowdown := .5
 @export var slowdown_duration_ms := 1
+@export var damage_sounds: Array[AudioStream] = []
 
 signal virus_effect(value: float)
 signal everdark_entered(yes: bool)
@@ -22,9 +23,10 @@ signal virusbar_setup(min)
 var curr_tile: TileData
 var virus_timer: Timer = null
 var elapsed_time := 0.0
+var damage_player: RandomAudioStreamPlayer2D = null
 
 func _enter() -> void:
-	pass
+	damage_player = GameManager.create_audio_player(&"SFX", damage_sounds, self)
 
 func _update(_delta: float) -> void:
 	if Generator.layer and controller.death:
@@ -66,11 +68,15 @@ func on_virus_timer_timeout() -> void:
 			var just_hurt = false
 			while (curr_tile == null and !controller.death.is_dead): # blijft wws doorgaan na dood gaan
 				if not just_hurt:
+					if damage_player:
+						damage_player.play_randomized()
 					controller.health.apply_environmental_damage(self)
 					just_hurt = true
 				await get_tree().create_timer(1.0).timeout
 				just_hurt = false
-		else: print("No health component attached!")
+		else:
+			# No health component attached!
+			pass
 		
 	# hide virusbar if virusbar reaches zero
 	if elapsed_time <= 0.0:

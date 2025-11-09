@@ -35,8 +35,8 @@ func _ready() -> void:
 	material.shader = SHADER
 	set_damage_color(Color("FBF5EF"))
 	load_components()
-	bump_player = GameManager.create_audio_player(&"sounds", bump_sounds)
-	add_child(bump_player)
+	#bump_player = GameManager.create_audio_player(&"sounds", bump_sounds)
+	#add_child(bump_player)
 
 func _custom_process(_delta: float) -> void:
 	pass

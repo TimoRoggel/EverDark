@@ -62,7 +62,15 @@ float get_alpha(vec2 uv, sampler2D input_texture, vec2 pixel_size) {
 	float player_alpha = smoothstep(player_circle_start, player_circle_end, player_distance + noise_val * 30.0);
 	float lumin_alpha = smoothstep(lumin_circle_start, lumin_circle_end, min_distance + noise_val * 60.0);
 
-	return min(player_alpha, lumin_alpha);
+	if (player_alpha >= 0.5 && lumin_alpha >= 0.5) {
+		return min(player_alpha, lumin_alpha);
+	}
+	
+	if (player_alpha < 0.1 || lumin_alpha < 0.1) {
+		return min(player_alpha, lumin_alpha);
+	}
+
+	return smoothstep(player_alpha, lumin_alpha, 0.9);
 }
 
 

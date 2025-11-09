@@ -34,6 +34,8 @@ func merge_param(controller: CharacterController) -> Dictionary:
 	return { "controller": controller, "self": self }.merged(p_exp.execute())
 
 func can_interact(controller: CharacterController) -> bool:
+	if !is_visible_in_tree():
+		return false
 	if !active:
 		return false
 	return instance.can_run(merge_param(controller))
@@ -41,10 +43,9 @@ func can_interact(controller: CharacterController) -> bool:
 func interact(controller: CharacterController) -> void:
 	if !active:
 		return
-	interact_player.play()
+	if interact_sound:
+		interact_player.play()
 	instance.run(merge_param(controller))
-	await interact_player.finished
-	queue_free()
 
 func set_active(timeout: float) -> void:
 	active = false

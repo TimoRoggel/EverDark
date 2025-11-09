@@ -29,12 +29,16 @@ func _on_body_exited(body: Node2D) -> void:
 		player_ref_inventory = null
 		is_interactable = false
 		chest_inventory.visible = false
+		if player_ref:
+			player_ref.hotbar.visible = false
 
 func _process(_delta: float) -> void:
 	if is_interactable and player_ref:
 		if Input.is_action_just_pressed("open"): 
 			chest_inventory.visible = !chest_inventory.visible
 			player_ref_inventory.container.visible = chest_inventory.visible
+			if player_ref.hotbar:
+				player_ref.hotbar.visible = !chest_inventory.visible
 
 		if Input.is_action_just_pressed("interact"):
 			var items_to_drop: Array[InventoryItem] = chest_inventory.get_items()
@@ -49,6 +53,8 @@ func _process(_delta: float) -> void:
 			for slot: InventorySlot in chest_inventory.get_slots():
 				slot.inventory_item = null
 			chest_inventory.visible = false
+			if player_ref.hotbar:
+				player_ref.hotbar.visible = false
 	if chest_inventory.visible:
 		sprite_chest.texture = CHEST_OPEN
 	else:
@@ -59,6 +65,8 @@ func _on_ui() -> void:
 		return
 	chest_inventory.visible = !chest_inventory.visible
 	player_ref_inventory.container.visible = chest_inventory.visible
+	if player_ref.hotbar:
+		player_ref.hotbar.visible = chest_inventory.visible
 
 func _on_pickup() -> void:
 	if not is_interactable or not player_ref:
@@ -90,6 +98,8 @@ func _on_pickup() -> void:
 		slot.inventory_item = null
 	chest_inventory.visible = false
 	player_ref_inventory.container.visible = false
+	if player_ref.hotbar:
+		player_ref.hotbar.visible = false
 
 	queue_free()
 	player_ref.get_component(BuildComponent).refresh_held_item()

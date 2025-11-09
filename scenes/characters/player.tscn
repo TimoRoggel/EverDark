@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=50 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://cs50q0envqdi1" path="res://graphics/characters/player/player_fight.png" id="2_dg40j"]

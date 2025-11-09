@@ -15,6 +15,7 @@ var player_ref_inventory: InventoryComponent = null
 var chest_input: InputComponent = null
 
 func _ready() -> void:
+	await get_tree().physics_frame
 	chest_input = GameManager.player.get_component(InputComponent)
 	chest_input.pickup.connect(_on_pickup)
 
@@ -26,12 +27,13 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is PlayerController:
+		if player_ref:
+			player_ref.hotbar.visible = true
+			player_ref.inventory.container.visible = false
 		player_ref = null
 		player_ref_inventory = null
 		is_interactable = false
 		chest_inventory.visible = false
-		if player_ref:
-			player_ref.hotbar.visible = false
 
 func _process(_delta: float) -> void:
 	if is_interactable and player_ref:
@@ -77,8 +79,6 @@ func _on_pickup() -> void:
 		slot.inventory_item = null
 	chest_inventory.visible = false
 	player_ref_inventory.container.visible = false
-	if player_ref.hotbar:
-		player_ref.hotbar.visible = false
 
 	queue_free()
 	player_ref.get_component(BuildComponent).refresh_held_item()

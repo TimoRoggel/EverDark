@@ -2,14 +2,17 @@ class_name PauseMenu extends Control
 @onready var settings_pause_menu: Control = $SettingsPauseMenu
 @onready var buttons: VBoxContainer = $MarginContainer/Buttons
 var paused: bool = false
+var unique_id: int = ResourceUID.create_id()
 
 func _ready() -> void:
-	GameManager.ui_opened_conditions.append(func() -> bool: return visible)
+	GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
 	visible = false
 	get_tree().paused = false
 	buttons.visible = true
 	settings_pause_menu.visible = false 
 
+func _exit_tree() -> void:
+	GameManager.ui_opened_conditions.erase(name + str(unique_id))
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
@@ -49,6 +52,7 @@ func _on_settings_pause_menu_exit_settings_pause_menu() -> void:
 	settings_pause_menu.visible = false 
 
 func _on_back_to_main_menu_pressed() -> void:
+	SaveSystem.reset()
 	get_tree().paused = false  
 	var target_scene_path = "res://UI/Main menu/main_menu.tscn"
 	SceneTransitionController.change_scene(target_scene_path, "fade_layer", 1.0)

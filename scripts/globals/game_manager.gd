@@ -5,7 +5,7 @@ var fetched_types: Dictionary[Variant, Array] = {}
 var slowdown_timer: int = 0
 var main_camera_component: CameraComponent = null
 var player: PlayerController = null
-var ui_opened_conditions: Array[Callable] = []
+var ui_opened_conditions: Dictionary[String, Callable] = {}
 
 func _process(_delta: float) -> void:
 	if slowdown_timer <= Time.get_ticks_msec():
@@ -69,7 +69,13 @@ func camera_shake(amount: float, duration: float = 0.1, addative: bool = false) 
 	main_camera_component.shake(amount, duration, addative)
 
 func is_ui_open() -> bool:
-	for c: Callable in ui_opened_conditions:
+	for c: Callable in ui_opened_conditions.values():
+		if !c.is_valid():
+			continue
+		if c.is_null():
+			continue
+		if c.get_object() == null:
+			continue
 		if c.call():
 			return true
 	return false

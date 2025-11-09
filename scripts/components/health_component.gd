@@ -80,7 +80,7 @@ func death() -> void:
 	controller.queue_free()
 
 func can_get_damaged(attack: AttackController) -> bool:
-	return (controller.flags & attack.damage_flags) == controller.flags
+	return alive && (controller.flags & attack.damage_flags) == controller.flags
 
 func take_damage(attack: AttackController) -> void:
 	if !can_get_damaged(attack):

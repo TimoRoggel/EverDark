@@ -68,6 +68,8 @@ func _on_body_entered(body: Node2D) -> void:
 func receive_hit(from: AttackController) -> void:
 	if !health_component:
 		return
+	if !health_component.can_get_damaged(from):
+		return
 	if from.attack.flags & damage_flag_filters != damage_flag_filters:
 		return
 	if block_component:

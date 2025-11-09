@@ -13,12 +13,16 @@ const INVENTORY_SLOT: PackedScene = preload("uid://chgdmhkgaavft")
 var recipe_material_dict: Dictionary[Item, int] = {}
 var inventory: InventoryComponent = null
 var current_recipe: Recipe = null
+var unique_id: int = ResourceUID.create_id()
 
 func _ready() -> void:
-	GameManager.ui_opened_conditions.append(func() -> bool: return visible)
+	GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
 	build_recipe_tree()
 	craft_button.pressed.connect(_on_CraftButton_pressed)
 	visibility_changed.connect(_on_tree_cell_selected)
+
+func _exit_tree() -> void:
+	GameManager.ui_opened_conditions.erase(name + str(unique_id))
 
 func build_recipe_tree() -> void:
 	tree.hide_root = true

@@ -52,6 +52,7 @@ func _on_settings_pause_menu_exit_settings_pause_menu() -> void:
 	settings_pause_menu.visible = false 
 
 func _on_back_to_main_menu_pressed() -> void:
+	SaveSystem.reset()
 	get_tree().paused = false  
 	var target_scene_path = "res://UI/Main menu/main_menu.tscn"
 	SceneTransitionController.change_scene(target_scene_path, "fade_layer", 1.0)

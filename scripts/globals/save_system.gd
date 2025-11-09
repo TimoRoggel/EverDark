@@ -24,6 +24,8 @@ func _ready() -> void:
 func reset() -> void:
 	GameManager.ui_opened_conditions = {}
 	player().trackers = {}
+	Generator.lumin_positions = [Vector2(8,8)]
+	save_timer.stop()
 
 func autosave() -> void:
 	SaveSystem.save_data()

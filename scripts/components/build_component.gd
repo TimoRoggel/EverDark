@@ -11,9 +11,6 @@ var input: InputComponent = null
 var inventory: InventoryComponent = null
 var current_positions: PackedVector2Array = []
 
-func _exit_tree() -> void:
-	print('a')
-
 func _enter() -> void:
 	input = controller.get_component(InputComponent)
 	inventory = controller.get_component(InventoryComponent)

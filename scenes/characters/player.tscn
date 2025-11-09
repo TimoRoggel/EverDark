@@ -707,8 +707,9 @@ texture = SubResource("NoiseTexture2D_yhyq5")
 [node name="random_entity_spawner" type="Node2D" parent="."]
 script = ExtResource("24_wqk1x")
 entity = ExtResource("20_dm10o")
-min_spawn_rate = 80.0
-randomness = 0.25
+capacity = 1
+min_spawn_rate = 95.0
+randomness = 0.35
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="ambience" type="AudioStreamPlayer" parent="."]

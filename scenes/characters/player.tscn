@@ -303,6 +303,7 @@ metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 [node name="main_attack" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("10_xhtjm")
+min_power = 1.0
 damaging_flags = 3
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 

@@ -4,6 +4,8 @@ class_name InventoryComponent extends Component
 @export var container: InventoryContainer = null
 var held_item: int = 0
 
+signal updated
+
 func _enter() -> void:
 	for slot: InventorySlot in container.get_slots():
 		slot.item_dropped.connect(_on_item_dropped)
@@ -12,6 +14,7 @@ func _enter() -> void:
 		if controller.hotbar:
 			controller.hotbar.visible = !container.visible
 	)
+	container.updated.connect(updated.emit)
 
 func _update(_delta: float) -> void:
 	pass
@@ -20,21 +23,13 @@ func _exit() -> void:
 	pass
 
 func _on_item_dropped(item: InventoryItem) -> void:
-	var pickup: DroppedItem2D = DroppedItem2D.new()
-	pickup.item = item.item
-	pickup.amount = item.quantity
-	controller.add_sibling(pickup)
-	pickup.timeout()
-	pickup.global_position = global_position
+	DroppedItem2D.drop(item.item.id, item.quantity, global_position)
 	
 func drop_all():
-	print("dropping...")
 	if not is_empty():
 		for slot in container.get_slots():
 			var random_vector = random_spread_pos(controller.global_position, 20)
-			print("slot")
 			if slot.inventory_item:
-				print("item")
 				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
 	container.clear_all()
 	

@@ -1,7 +1,13 @@
 @tool
 class_name SpawnAttackComponent extends Component
 
-@export var attack_id: int = 0
+@export var attack_id: int = 0:
+	set(value):
+		attack_id = value
+		if !Engine.is_editor_hint():
+			attack_type = DataManager.get_resource_by_id("attacks", attack_id)
+			if attack_type && attack_type.attack_sound:
+				sound_player = GameManager.create_audio_player(&"SFX", [attack_type.attack_sound], self)
 @export var min_power: float = 0.1
 @export var max_power: float = 1.0
 
@@ -15,17 +21,13 @@ var sound_player: RandomAudioStreamPlayer2D = null
 var attack_angle: float = 0.0
 var attacking: bool = false
 var attack_timeout: float = 0.0
+var attack_active: bool = false
 
 func _get_property_list() -> Array[Dictionary]:
 	return CharacterController.get_flag_properties("damaging_flags")
 
 func _enter() -> void:
-	attack_type = DataManager.get_resource_by_id("attacks", attack_id)
-	if !attack_type:
-		return
-	if attack_type.attack_sound:
-		sound_player = GameManager.create_audio_player(&"sounds", [attack_type.attack_sound])
-		add_child(sound_player)
+	pass
 
 func _update(delta: float) -> void:
 	attack_timeout -= delta
@@ -36,6 +38,8 @@ func _exit() -> void:
 	pass
 
 func can_attack() -> bool:
+	if attack_id < 0:
+		return false
 	return attack_timeout <= 0
 
 func try_attack() -> void:
@@ -44,12 +48,15 @@ func try_attack() -> void:
 	attack()
 
 func attack() -> void:
+	attack_active = true
 	if sound_player:
 		sound_player.play_randomized()
 	attack_timeout = attack_type.firerate
 	controller.movement.add_force(Vector2.from_angle(attack_angle) * attack_type.kickback)
-	for i: int in range(attack_type.count):
+	for i: int in attack_type.count - 1:
 		spawn_bullet()
+	await spawn_bullet()
+	attack_active = false
 
 func spawn_bullet() -> void:
 	var temp_attack_data = attack_type.duplicate()
@@ -63,3 +70,4 @@ func spawn_bullet() -> void:
 		bullet.global_position = controller.global_position
 		controller.add_sibling(bullet)
 	bullet.position += Vector2(0, -4)
+	await bullet.death

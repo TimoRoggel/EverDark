@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://dw3msgvb1ai4b"]
+
+[ext_resource type="Script" uid="uid://c0n6qqwj4c4lm" path="res://scripts/characters/character_controller.gd" id="1_hn3j5"]
+[ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_qgg5r"]
+[ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="3_1qsys"]
+[ext_resource type="AudioStream" uid="uid://b3gtbyxwlhnmq" path="res://audio/sounds/stone/death.wav" id="3_ylsqy"]
+[ext_resource type="Texture2D" uid="uid://e1qnrldsm560" path="res://map/Art Assets/Map Objects (colision)/Rocks/16x16_rocks_02.png" id="4_1qsys"]
+[ext_resource type="AudioStream" uid="uid://c66n7ga4dhoff" path="res://audio/sounds/stone/hit.wav" id="5_182mu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylsqy"]
+size = Vector2(13, 7)
+
+[node name="stone" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
+motion_mode = 1
+script = ExtResource("1_hn3j5")
+target_sprite = NodePath("sprite")
+metadata/_custom_type_script = "uid://c0n6qqwj4c4lm"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ylsqy")
+
+[node name="components" type="Node2D" parent="."]
+
+[node name="health_component" type="Node2D" parent="components"]
+script = ExtResource("2_qgg5r")
+death_sounds = Array[AudioStream]([ExtResource("3_ylsqy")])
+death_drops = [6, 6]
+metadata/_custom_type_script = "uid://cdmb82h3irdnt"
+
+[node name="hitbox" type="Node2D" parent="components"]
+script = ExtResource("3_1qsys")
+attack_cooldown_time = 0.1
+collision_radius = 10.0
+damage_sounds = Array[AudioStream]([ExtResource("5_182mu")])
+damage_flag_filters = 1
+metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="sprite" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(0, -3)
+texture = ExtResource("4_1qsys")

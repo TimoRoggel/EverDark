@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccsvhx5s8yx0t"]
+[gd_scene load_steps=4 format=3 uid="uid://ccsvhx5s8yx0t"]
 
 [ext_resource type="Script" uid="uid://dricqlote5fbh" path="res://Crafting/crafting_ui.gd" id="1_jp7wa"]
 [ext_resource type="PackedScene" uid="uid://chgdmhkgaavft" path="res://scenes/crafting/inventory_slot.tscn" id="2_w7jay"]
+[ext_resource type="AudioStream" uid="uid://buytc168e0tfc" path="res://audio/sounds/crafting_table/craft.wav" id="3_jp7wa"]
 
 [node name="CraftingUI" type="PanelContainer"]
 custom_minimum_size = Vector2(640, 360)
@@ -88,5 +89,9 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Craft"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_jp7wa")
 
 [connection signal="cell_selected" from="MarginContainer/HBoxContainer/Tree" to="." method="_on_tree_cell_selected"]

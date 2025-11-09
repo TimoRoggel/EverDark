@@ -71,6 +71,12 @@ static func from_data(data: Dictionary) -> Attack:
 	attack.hurtbox = Rect2i(0, 0, data["hurtbox_width"], data["hurtbox_height"])
 	attack.can_hit_owner = data["can_hit_owner"] == "TRUE"
 	attack.alpha_over_time = DataDrivenResource.get_loaded(data, "alpha_over_time")
+	## TODO: Change to be used in spreadsheet
+	match attack.id:
+		0:
+			attack.attack_sound = preload("uid://diejtktpb684t")
+		1:
+			attack.attack_sound = preload("uid://doh656uo5cnj5")
 	return attack
 
 func rand_range(base: float, randomness: float) -> float:

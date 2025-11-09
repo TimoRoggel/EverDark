@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dl655ix05mcka"]
+[gd_scene load_steps=5 format=3 uid="uid://dl655ix05mcka"]
 
 [ext_resource type="Script" uid="uid://baqo7v8egwrlj" path="res://scripts/characters/hole.gd" id="1_iyxdx"]
 [ext_resource type="Texture2D" uid="uid://cv4qc07qxbf4g" path="res://graphics/hole.png" id="1_vkllq"]
+[ext_resource type="AudioStream" uid="uid://bonm36v6gqqe1" path="res://audio/sounds/player/lumin_convert.wav" id="3_ghnae"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghnae"]
 radius = 32.0
@@ -23,5 +24,9 @@ z_index = -1
 z_as_relative = false
 position = Vector2(0.5, -2)
 shape = SubResource("CircleShape2D_ghnae")
+
+[node name="convert_sound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_ghnae")
 
 [connection signal="area_entered" from="area" to="." method="_on_area_2d_area_entered"]

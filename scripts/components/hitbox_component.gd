@@ -7,6 +7,7 @@ class_name HitboxComponent extends Component
 	set(value):
 		collision_radius = value
 		queue_redraw()
+@export var damage_sounds: Array[AudioStream] = []
 
 var health_component: HealthComponent = null
 var block_component: BlockComponent = null
@@ -15,6 +16,7 @@ var hurtbox_collision: CollisionShape2D = CollisionShape2D.new()
 
 var invulnerabilities: Dictionary[Attack, float] = {}
 var invulnerable: bool = false
+var damage_sound_player: RandomAudioStreamPlayer2D = null
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():
@@ -22,6 +24,7 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, collision_radius, Color(0.87, 0.305, 0.418, 0.502))
 
 func _enter() -> void:
+	damage_sound_player = GameManager.create_audio_player(&"SFX", damage_sounds, self)
 	health_component = controller.get_component(HealthComponent)
 	block_component = controller.get_component(BlockComponent)
 	if hurtbox_area && hurtbox_collision:
@@ -67,7 +70,8 @@ func receive_hit(from: AttackController) -> void:
 	if block_component:
 		if block_component.did_block(global_position.angle_to(from.global_position)):
 			return
-	print("taken damage: ", from.attack.power)
+	if damage_sound_player:
+		damage_sound_player.play_randomized()
 	health_component.take_damage(from)
 	cooldown()
 

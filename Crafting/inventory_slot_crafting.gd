@@ -14,7 +14,7 @@ func set_item_data(new_item: Item, current: int = 0, required: int = 0) -> void:
 	required_amount = required
 	texture_rect.texture = item_data.icon
 	if texture_rect.texture == null:
-		print("Item zonder icon:", item_data.name)
+		push_warning("Item without icon:", item_data.display_name)
 	count_label.text = str(current_amount, " / ", required_amount)
 
 	if current_amount < required_amount:

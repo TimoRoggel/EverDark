@@ -40,7 +40,6 @@ const CAVE_ODDS: float = 0.1
 
 static func from_data(data: Dictionary) -> Biome:
 	var biome: Biome = Biome.new()
-	print(data)
 	biome.id = data["id"]
 	biome.source = data["source"]
 	biome.dimension = data["dimension"]

@@ -5,7 +5,6 @@ class_name HealthComponent extends Component
 #const HEALTHBAR_D: CompressedTexture2D = preload("res://graphics/ui/healthbar_d.png")
 
 @export var max_health: float = 10.0
-@export var hit_sounds: Array[AudioStream] = []
 @export var death_sounds: Array[AudioStream] = []
 @export var persistent: bool = false
 @export var death_drops: PackedInt32Array = []
@@ -14,7 +13,6 @@ var healthbar: TextureProgressBar = null
 var healthbar_delta: TextureProgressBar = null
 var current_health: float = max_health
 var alive: bool = true
-var hit_player: RandomAudioStreamPlayer2D = null
 var death_player: RandomAudioStreamPlayer2D = null
 var healthbar_delta_timer: Timer = null
 var screen_shake_amount: float = 0.5
@@ -50,12 +48,8 @@ func _enter() -> void:
 	add_child(healthbar)
 	add_child(healthbar_delta)
 	# Audio
-	if hit_sounds.size() > 0:
-		hit_player = GameManager.create_audio_player(&"sounds", hit_sounds)
-		add_child(hit_player)
 	if death_sounds.size() > 0:
-		death_player = GameManager.create_audio_player(&"sounds", death_sounds)
-		add_child(death_player)
+		death_player = GameManager.create_audio_player(&"SFX", death_sounds, self)
 
 func _update(_delta: float) -> void:
 	if current_health <= 0:
@@ -97,8 +91,8 @@ func take_damage(attack: AttackController) -> void:
 	GameManager.camera_shake(screen_shake_amount * proj.power * 8.0 * proj.shake_amount, proj.shake_duration, proj.shake_addative)
 	if current_health <= 0:
 		return
-	if hit_player:
-		hit_player.play_randomized()
+	if controller is PlayerController:
+		controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	calc_knockback(attack)
 	update_healthbar()
 	var invulnerability: float = proj.invulnerability
@@ -118,13 +112,11 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 	GameManager.camera_shake(screen_shake_amount * env.power * 8.0 * env.shake_amount, env.shake_duration, env.shake_addative)
 	if current_health <= 0:
 		return
-	if hit_player:
-		hit_player.play_randomized()
 	controller.hud.animate_healthbar_color_change(Color(.7,0,0))
+	controller.set_damaged(true)
 	await get_tree().create_timer(.5).timeout
 	update_healthbar()
 	var invulnerability: float = env.cur_invulnerability
-	controller.set_damaged(true)
 	GameManager.slowdown(env.slowdown, env.slowdown_duration_ms)
 	await get_tree().create_timer(max(invulnerability, 0.15)).timeout
 	controller.set_damaged(false)
@@ -136,7 +128,7 @@ func heal():
 	current_health += max_health/10
 	if current_health == max_health:
 		return
-	controller.hud.animate_healthbar_color_change(Color(0,.7,0))
+	controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	await get_tree().create_timer(.5).timeout
 	update_healthbar()
 

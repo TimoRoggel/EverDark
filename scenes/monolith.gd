@@ -5,9 +5,6 @@ extends Node2D
 
 var lumin: int = 0
 var is_activated: bool = false
-
-func _ready():
-		$Label.text = "monolith"
 	
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if is_activated:
@@ -37,5 +34,3 @@ func activate_monolith():
 	
 	if activated_sprite:
 		$Sprite2D.texture = activated_sprite
-	
-	$Label.text = "monolith activated"

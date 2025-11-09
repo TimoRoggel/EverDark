@@ -22,7 +22,7 @@ func _ready() -> void:
 	SaveSystem.start_or_load_game()
 
 func reset() -> void:
-	GameManager.ui_opened_conditions = []
+	GameManager.ui_opened_conditions = {}
 	player().trackers = {}
 
 func autosave() -> void:

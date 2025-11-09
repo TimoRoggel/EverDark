@@ -2,14 +2,17 @@ class_name PauseMenu extends Control
 @onready var settings_pause_menu: Control = $SettingsPauseMenu
 @onready var buttons: VBoxContainer = $MarginContainer/Buttons
 var paused: bool = false
+var unique_id: int = ResourceUID.create_id()
 
 func _ready() -> void:
-	GameManager.ui_opened_conditions.append(func() -> bool: return visible)
+	GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
 	visible = false
 	get_tree().paused = false
 	buttons.visible = true
 	settings_pause_menu.visible = false 
 
+func _exit_tree() -> void:
+	GameManager.ui_opened_conditions.erase(name + str(unique_id))
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):

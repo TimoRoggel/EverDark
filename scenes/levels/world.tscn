@@ -24,10 +24,8 @@ glow_enabled = true
 glow_bloom = 1.0
 
 [node name="world" type="Node2D"]
-
-[node name="player" parent="." instance=ExtResource("2_7k8c1")]
-visible = false
-position = Vector2(10, 11)
+z_as_relative = false
+y_sort_enabled = true
 
 [node name="generated" type="TileMapLayer" parent="." node_paths=PackedStringArray("toppings_layer")]
 visible = false
@@ -50,13 +48,12 @@ metadata/_custom_type_script = "uid://cuoyob352u88i"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_w2p53")
 
-[node name="Crafting" parent="." instance=ExtResource("6_gy5pc")]
-position = Vector2(-12, 8)
-
 [node name="hole" parent="." instance=ExtResource("8_dp8al")]
 position = Vector2(37, 37)
 
 [node name="shrubs" type="Node2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 
 [node name="shrub_harvestable" type="Area2D" parent="shrubs"]
 z_as_relative = false
@@ -895,6 +892,8 @@ harvestable_id = 0
 interact_script = ExtResource("10_mmplq")
 
 [node name="berries" type="Node2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 
 [node name="berry_harvestable" type="Area2D" parent="berries"]
 z_as_relative = false
@@ -1125,6 +1124,8 @@ radius = 12.0
 interact_script = ExtResource("10_mmplq")
 
 [node name="stone" type="Node2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 
 [node name="stone" parent="stone" instance=ExtResource("9_y40x4")]
 position = Vector2(0, -32)
@@ -1420,6 +1421,9 @@ position = Vector2(592, -168)
 [node name="stone98" parent="stone" instance=ExtResource("9_y40x4")]
 position = Vector2(527, -219)
 
+[node name="Crafting" parent="." instance=ExtResource("6_gy5pc")]
+position = Vector2(-12, 8)
+
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 position = Vector2(-939, -190)
 
@@ -1467,7 +1471,12 @@ z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-780.5, -820.5)
 
+[node name="player" parent="." instance=ExtResource("2_7k8c1")]
+visible = false
+position = Vector2(10, 11)
+
 [node name="ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_8c33x")
+volume_db = -12.0
 autoplay = true
 bus = &"Ambience"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=116 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://tdl3a63l1y2y" path="res://graphics/characters/player/player_fight_down.png" id="2_m38kj"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://byhtuq8lov8xm" path="res://scripts/components/spawn_attack_component.gd" id="10_xhtjm"]
 [ext_resource type="Script" uid="uid://crgr2naugp36e" path="res://scripts/components/animation_component.gd" id="11_7xgtv"]
 [ext_resource type="Texture2D" uid="uid://cv3hkws24ehim" path="res://graphics/interact_texture.png" id="11_rpnd8"]
+[ext_resource type="Texture2D" uid="uid://yd8e8gvwxyw7" path="res://graphics/wooden_sword.png" id="11_tnye5"]
 [ext_resource type="Texture2D" uid="uid://dqn4xm5578d84" path="res://graphics/attack.png" id="12_xhtjm"]
 [ext_resource type="AudioStream" uid="uid://bf5jo5ad5qwsu" path="res://audio/sounds/player/footstep_0.wav" id="16_yyjep"]
 [ext_resource type="AudioStream" uid="uid://c2fcwwwc5bq55" path="res://audio/sounds/player/footstep_1.wav" id="17_6aj6e"]
@@ -48,6 +49,7 @@
 [ext_resource type="Material" uid="uid://dpfoqgjxxik6t" path="res://shaders/materials/everdark_overlay_material.tres" id="28_tswxa"]
 [ext_resource type="PackedScene" uid="uid://dqs6qujeopigy" path="res://UI/death_view_ui.tscn" id="30_yhyq5"]
 [ext_resource type="AudioStream" uid="uid://dcmre2g8xjn5" path="res://audio/sounds/player/hurt.wav" id="31_6aj6e"]
+[ext_resource type="Script" uid="uid://6a33mecj0khi" path="res://scripts/components/build_component.gd" id="35_5bn3a"]
 [ext_resource type="AudioStream" uid="uid://bxlm1pdy80psk" path="res://audio/ambience/ambience_0.mp3" id="35_hnvwh"]
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
@@ -555,12 +557,12 @@ seamless_blend_skirt = 1.0
 streams_count = 1
 stream_0/stream = ExtResource("35_hnvwh")
 
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
-z_index = -1
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("held_item_sprite", "target_sprite")]
 z_as_relative = false
 y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_yewv4")
+held_item_sprite = NodePath("sprite/held_item_sprite")
 target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bdg3j7sgmdj0n"
 
@@ -574,20 +576,28 @@ shape = SubResource("RectangleShape2D_dyp2m")
 z_as_relative = false
 y_sort_enabled = true
 use_parent_material = true
-position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_v1y1o")
-animation = &"death_right"
-frame = 3
-frame_progress = 1.0
+animation = &"idle_down"
+centered = false
+offset = Vector2(-16, -32)
 
 [node name="always_visible" type="AnimatedSprite2D" parent="sprite" node_paths=PackedStringArray("target")]
 modulate = Color(1, 1, 1, 0.2509804)
 z_index = 101
 z_as_relative = false
 use_parent_material = true
+centered = false
+offset = Vector2(-16, -32)
 script = ExtResource("4_7xgtv")
 target = NodePath("..")
 metadata/_custom_type_script = "uid://dcnc78dwrlvs6"
+
+[node name="held_item_sprite" type="Sprite2D" parent="sprite"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(8, 0)
+texture = ExtResource("11_tnye5")
+offset = Vector2(0, -12)
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("8_qgnko")
@@ -663,8 +673,9 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 [node name="lumin_placement" type="Node2D" parent="components"]
 script = ExtResource("18_kmyvj")
 
-[node name="BuildComponent" type="Node2D" parent="components"]
-script = ExtResource("19_inhyd")
+[node name="build_component" type="Node2D" parent="components" node_paths=PackedStringArray("hotbar_container")]
+script = ExtResource("35_5bn3a")
+hotbar_container = NodePath("../../CanvasLayer/hotbar")
 metadata/_custom_type_script = "uid://6a33mecj0khi"
 
 [node name="knockback" type="Node2D" parent="components"]
@@ -718,13 +729,16 @@ bus = &"Ambience"
 script = ExtResource("36_rfou0")
 metadata/_custom_type_script = "uid://c44mah042f13w"
 
+[node name="pause" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="pause_screen" parent="pause" instance=ExtResource("18_d6tgn")]
+process_mode = 3
+visible = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("20_kmyvj")]
-
-[node name="pause_screen" parent="CanvasLayer" instance=ExtResource("18_d6tgn")]
-process_mode = 3
-visible = false
 
 [node name="inventory" type="GridContainer" parent="CanvasLayer"]
 visible = false

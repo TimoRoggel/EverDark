@@ -1,7 +1,7 @@
 "id","name","texture","weapon_sprite","power","invulnerability","inheritance","speed","velocity_overtime","knockback","speed_randomness","align_rotation","kickback","firerate","lifetime","lifetime_randomness","spread","count","spawn_distance","attached_to_owner","hurtbox_width","hurtbox_height","can_hit_owner","alpha_over_time"
 "0","player_base_attack","uid://dqn4xm5578d84","","1","50","0","1","","0.5","0","TRUE","0","0.1","0.25","0","0.1","1","8","TRUE","8","8","FALSE","uid://dludk4tktlsdc"
 "1","enemy_base_shoot","uid://cqjwqvliyrbnj","","1","50","0.5","16","","0.5","0","FALSE","0","1","2","0","0.1","1","0","FALSE","8","8","FALSE",""
-"","wooden_sword","uid://yd8e8gwywv7","","3","40","0.6","10","1","0.6","0.1","TRUE","0.1","0.2","0.3","0.1","0.1","1","8","FALSE","8","8","FALSE",""
+"2","wooden_sword","uid://yd8e8gwywv7","","3","40","0.6","10","1","0.6","0.1","TRUE","0.1","0.2","0.3","0.1","0.1","1","8","FALSE","8","8","FALSE",""
 "3","stone_sword","uid://gd58d13siaou","","5","35","0.7","12","1","0.7","0.1","TRUE","0.1","0.2","0.4","0.1","0.1","1","8","FALSE","8","8","FALSE",""
 "4","core_sword","uid://cyl4jqoaxkyh","","8","30","0.8","14","1","0.8","0.1","TRUE","0.1","0.15","0.5","0.1","0.1","1","8","FALSE","8","8","FALSE",""
 "5","lumin_sword","uid://tduc7qynamrj","","10","25","0.9","16","1","1","0.1","TRUE","0.1","0.1","0.6","0.1","0.1","1","8","FALSE","8","8","FALSE",""

@@ -4,6 +4,8 @@ class_name InventoryComponent extends Component
 @export var container: InventoryContainer = null
 var held_item: int = 0
 
+signal updated
+
 func _enter() -> void:
 	for slot: InventorySlot in container.get_slots():
 		slot.item_dropped.connect(_on_item_dropped)
@@ -12,6 +14,7 @@ func _enter() -> void:
 		if controller.hotbar:
 			controller.hotbar.visible = !container.visible
 	)
+	container.updated.connect(updated.emit)
 
 func _update(_delta: float) -> void:
 	pass

@@ -22,7 +22,7 @@ func _exit() -> void:
 	pass
 
 func place(at: Vector2) -> void:
-	if !inventory.has(0):
+	if inventory.get_held_item_id() != 0:
 		return
 	for coords: Vector2 in current_lumin_positions:
 		if coords.distance_squared_to(at) < MIN_DISTANCE:

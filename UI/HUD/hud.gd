@@ -2,7 +2,6 @@ extends Control
 
 @onready var virus_view: Control = $VirusView
 @onready var virus_bar: ProgressBar = $VirusView/VirusBar
-@onready var virus_label: Label = $VirusView/VirusLabel
 @onready var health_bar: HealthBar = $HealthBar
 
 func _on_setup_virusbar(max_value: float) -> void:

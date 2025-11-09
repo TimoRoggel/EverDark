@@ -2,6 +2,8 @@
 class_name SpawnAttackComponent extends Component
 
 @export var attack_id: int = 0
+@export var min_power: float = 0.1
+@export var max_power: float = 1.0
 
 var attack_type: Attack = null
 var damaging_flags: int = 2 ** (CharacterController.CharacterFlags.size() - 1) - 1:
@@ -49,7 +51,10 @@ func attack() -> void:
 		spawn_bullet()
 
 func spawn_bullet() -> void:
-	var bullet: AttackController = AttackController.new(attack_type, Vector2.from_angle(attack_angle), controller)
+	var temp_attack_data = attack_type.duplicate()
+	temp_attack_data.power = randf_range(min_power, max_power)
+	var bullet: AttackController = AttackController.new(temp_attack_data, Vector2.from_angle(attack_angle), controller)
+	
 	bullet.damage_flags = damaging_flags
 	if attack_type.attached_to_owner:
 		controller.add_child(bullet)

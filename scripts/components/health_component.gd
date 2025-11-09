@@ -91,6 +91,8 @@ func take_damage(attack: AttackController) -> void:
 	GameManager.camera_shake(screen_shake_amount * proj.power * 8.0 * proj.shake_amount, proj.shake_duration, proj.shake_addative)
 	if current_health <= 0:
 		return
+	if controller is PlayerController:
+		controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	calc_knockback(attack)
 	update_healthbar()
 	var invulnerability: float = proj.invulnerability
@@ -126,7 +128,7 @@ func heal():
 	current_health += max_health/10
 	if current_health == max_health:
 		return
-	controller.hud.animate_healthbar_color_change(Color(0,.7,0))
+	controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	await get_tree().create_timer(.5).timeout
 	update_healthbar()
 

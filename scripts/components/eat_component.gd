@@ -1,6 +1,6 @@
 class_name EatComponent extends Component
 
-var edibles: Array = ["VOID Core"]
+var edibles: Array = ["Apple", "VOID Grape"]
 
 func _enter() -> void:
 	controller.get_component(InputComponent).eat.connect(func() -> void:

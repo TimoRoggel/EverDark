@@ -8,6 +8,7 @@ class_name HitboxComponent extends Component
 		collision_radius = value
 		queue_redraw()
 @export var damage_sounds: Array[AudioStream] = []
+@export_flags("Pickaxe") var damage_flag_filters: int = 0
 
 var health_component: HealthComponent = null
 var block_component: BlockComponent = null
@@ -66,6 +67,8 @@ func _on_body_entered(body: Node2D) -> void:
 
 func receive_hit(from: AttackController) -> void:
 	if !health_component:
+		return
+	if from.attack.flags & damage_flag_filters != damage_flag_filters:
 		return
 	if block_component:
 		if block_component.did_block(global_position.angle_to(from.global_position)):

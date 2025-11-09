@@ -17,7 +17,7 @@ var lifetime: float = 0.0
 signal death
 
 func _init(_attack: Attack, _direction: Vector2, _spawner: CharacterController) -> void:
-	attack = _attack
+	attack = DataManager.get_resource_by_id("attacks", _attack.id)
 	direction = _direction
 	spawner = _spawner
 

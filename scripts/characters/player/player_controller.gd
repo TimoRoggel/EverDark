@@ -25,6 +25,7 @@ func _init() -> void:
 	flags = CharacterFlags.Player
 
 func _ready() -> void:
+	show()
 	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
 	super()
 	GameManager.player = self

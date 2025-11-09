@@ -12,6 +12,7 @@ var slots_per_row: int = 0
 func _ready() -> void:
 	if inventory:
 		slots_per_row = roundi(inventory.slots / float(inventory.rows))
+		inventory.updated.connect(update_held_item)
 	add_slots()
 	update_hotbar()
 	update_currently_selected_slot()
@@ -117,13 +118,7 @@ func select_slot(slot_number: int) -> void:
 		var slot_node: Node = get_child(slot_number)
 		slot_node.grab_focus()
 		currently_selected_slot = slot_number
-		if inventory_component && inventory:
-			var selected_slot: InventorySlot = inventory.get_slots()[currently_selected_slot]
-			var selected_item: InventoryItem = selected_slot.inventory_item
-			if selected_item && selected_item.item:
-				inventory_component.held_item = selected_item.item.id
-			else:
-				inventory_component.held_item = 0
+		update_held_item()
 				
 	update_currently_selected_slot()
 	
@@ -145,3 +140,15 @@ func update_currently_selected_slot() -> void:
 			if currently_selected_slot != child.get_index():
 				currently_selected_slot = child.get_index()
 			break
+
+func update_held_item() -> void:
+	if !inventory_component:
+		return
+	if !inventory:
+		return
+	var selected_slot: InventorySlot = inventory.get_slots()[currently_selected_slot]
+	var selected_item: InventoryItem = selected_slot.inventory_item
+	if selected_item && selected_item.item:
+		inventory_component.held_item = selected_item.item.id
+	else:
+		inventory_component.held_item = -1

@@ -13,7 +13,7 @@ func _enter() -> void:
 func _update(_delta: float) -> void:
 	everdark_material.set_shader_parameter("lumin_positions", get_local_lumin_positions())
 	everdark_material.set_shader_parameter("lumin_count", min(64, Generator.lumin_positions.size()))
-	everdark_material.set_shader_parameter("player_position", Debug.to_screen(global_position))
+	everdark_material.set_shader_parameter("player_position", Debug.to_screen(global_position) + OFFSET)
 
 func _exit() -> void:
 	pass

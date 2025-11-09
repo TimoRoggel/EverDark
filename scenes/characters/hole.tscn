@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cv4qc07qxbf4g" path="res://graphics/hole.png" id="1_vkllq"]
 [ext_resource type="AudioStream" uid="uid://bonm36v6gqqe1" path="res://audio/sounds/player/lumin_convert.wav" id="3_ghnae"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ghnae"]
-radius = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghnae"]
+size = Vector2(173, 41)
 
 [node name="hole" type="Sprite2D"]
 z_index = -1
@@ -22,11 +22,19 @@ collision_mask = 4
 [node name="collision" type="CollisionShape2D" parent="area"]
 z_index = -1
 z_as_relative = false
-position = Vector2(0.5, -2)
-shape = SubResource("CircleShape2D_ghnae")
+position = Vector2(-22.5, 3.5)
+shape = SubResource("RectangleShape2D_ghnae")
 
 [node name="convert_sound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_ghnae")
+
+[node name="static_body" type="StaticBody2D" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="static_body"]
+z_index = -1
+z_as_relative = false
+position = Vector2(-22.5, 3.5)
+shape = SubResource("RectangleShape2D_ghnae")
 
 [connection signal="area_entered" from="area" to="." method="_on_area_2d_area_entered"]

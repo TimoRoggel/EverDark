@@ -25,6 +25,7 @@ func _init() -> void:
 	flags = CharacterFlags.Player
 
 func _ready() -> void:
+	show()
 	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
 	super()
 	GameManager.player = self
@@ -61,6 +62,14 @@ func _custom_physics_process(delta: float) -> void:
 	if block:
 		block.block_angle = input.angle_to_cursor
 	if weapon:
+		weapon.attack_id = -1
+		if inventory:
+			var held_item_id: int = inventory.get_held_item_id()
+			if held_item_id == -1:
+				weapon.attack_id = 0
+			else:
+				var held_item: Item = DataManager.get_resource_by_id("items", held_item_id)
+				weapon.attack_id = held_item.weapon_id
 		weapon.attack_angle = input.angle_to_cursor
 		weapon.attacking = input.attacking
 	if dash:
@@ -75,7 +84,7 @@ func _custom_physics_process(delta: float) -> void:
 		elif input.attacking:
 			target_direction = Vector2.from_angle(input.angle_to_cursor)
 		animation.direction = target_direction
-		animation.attacking = input.attacking
+		animation.attacking = weapon.attack_active
 
 func on_bounce(bounce_amount: float) -> void:
 	camera.shake(bounce_amount * 0.02, 0.1)

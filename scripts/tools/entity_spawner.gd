@@ -32,7 +32,7 @@ func _ready() -> void:
 	spawn_timer.one_shot = true
 	add_child(spawn_timer)
 	spawn_timer.timeout.connect(spawn)
-	spawn_timer.start(0.01)
+	spawn_timer.start(10.01)
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():

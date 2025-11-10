@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cuoyob352u88i" path="res://scripts/tools/flippable_tile_map_layer.gd" id="4_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://2sk6w6jiy3ng" path="res://scenes/crafting/crafting.tscn" id="6_gy5pc"]
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
-[ext_resource type="Script" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
+[ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
 [ext_resource type="PackedScene" uid="uid://dw3msgvb1ai4b" path="res://scenes/characters/stone.tscn" id="9_y40x4"]
 [ext_resource type="Script" uid="uid://b3b33abitpj2t" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]

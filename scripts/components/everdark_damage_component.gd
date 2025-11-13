@@ -20,27 +20,39 @@ signal virus_effect(value: float)
 signal everdark_entered(yes: bool)
 signal virusbar_setup(min)
 
-var curr_tile: TileData
 var virus_timer: Timer = null
 var elapsed_time := 0.0
 var damage_player: RandomAudioStreamPlayer2D = null
+var distance_to_lumin: float = 0.0
 
 func _enter() -> void:
 	damage_player = GameManager.create_audio_player(&"SFX", damage_sounds, self)
 
 func _update(_delta: float) -> void:
 	if Generator.layer and controller.death:
-		if curr_tile != controller.get_tile() and !controller.death.is_dead:
-			if controller.get_tile()==null:
-				everdark_entered.emit(true)
-				virus_timer.start()
-			if controller.get_tile() and elapsed_time >= total_time:
-				virus_timer.start()
-			curr_tile = controller.get_tile()
+		if controller.death.is_dead:
+			return
+		distance_to_lumin = get_closest_lumin_distance()
+		var in_everdark: bool = distance_to_lumin > Generator.LUMIN_SIZE
+		if in_everdark && virus_timer.is_stopped():
+			everdark_entered.emit(true)
+			virus_timer.start()
+		if in_everdark && elapsed_time >= total_time:
+			virus_timer.start()
 	
 func _exit() -> void:
 	pass
-	
+
+func get_closest_lumin_distance() -> float:
+	var positions: Array = []
+	positions.append_array(Generator.lumin_positions)
+	positions.sort_custom(func(a: Vector2, b: Vector2) -> bool:
+		return a.distance_squared_to(controller.global_position) < b.distance_squared_to(controller.global_position)
+	)
+	if positions.size() <= 0.0:
+		return 9999.9
+	return controller.global_position.distance_to(positions[0])
+
 func create_virus_timer() -> void:
 	virusbar_setup.emit(total_time)
 	
@@ -54,7 +66,8 @@ func create_virus_timer() -> void:
 	
 func on_virus_timer_timeout() -> void:
 	# increasing or decreasing virusbar based on players postition
-	if curr_tile == null:
+	var in_everdark: bool = distance_to_lumin > Generator.LUMIN_SIZE
+	if in_everdark:
 		elapsed_time += virus_timer.wait_time
 	else:
 		elapsed_time -= virus_timer.wait_time
@@ -66,8 +79,8 @@ func on_virus_timer_timeout() -> void:
 		virus_timer.stop()
 		if controller.health:
 			var just_hurt = false
-			while (curr_tile == null and !controller.death.is_dead): # blijft wws doorgaan na dood gaan
-				if not just_hurt:
+			while (distance_to_lumin > Generator.LUMIN_SIZE && !controller.death.is_dead): # blijft wws doorgaan na dood gaan
+				if !just_hurt:
 					if damage_player:
 						damage_player.play_randomized()
 					controller.health.apply_environmental_damage(self)

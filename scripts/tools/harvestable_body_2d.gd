@@ -33,6 +33,11 @@ func deplete() -> void:
 
 func update_texture() -> void:
 	sprite.texture = harvestable.ready_texture if !is_depleted() else harvestable.depleted_texture
+	if !sprite.texture:
+		return
+	sprite.centered = false
+	sprite.offset.x = -sprite.texture.get_width() / 2.0
+	sprite.offset.y = -sprite.texture.get_height()
 
 func update_param() -> void:
 	custom_parameter = str("{\"harvestable\": ", harvestable.id, "}")

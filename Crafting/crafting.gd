@@ -11,6 +11,7 @@ var player_ref: PlayerController = null
 var crafting_input: InputComponent = null
 
 func _ready() -> void:
+	await get_tree().physics_frame
 	crafting_input = GameManager.player.get_component(InputComponent)
 	crafting_input.pickup.connect(_on_pickup)
 
@@ -36,15 +37,15 @@ func _on_pickup() -> void:
 	if not is_interactable or not player_ref:
 		return
 	var crafting_item = DataManager.get_resource_by_id("items", crafting_table_item_id)
-	player_ref.get_component(InventoryComponent).add(crafting_item.id, 1)
-	player_ref.get_component(InventoryComponent).set_held_item_id(crafting_item.id)
+	player_ref.inventory.add(crafting_item.id, 1)
+	player_ref.inventory.set_held_item_id(crafting_item.id)
+	player_ref.build.refresh_held_item()
 	crafting_ui.visible = false
 	queue_free()
-	player_ref.get_component(BuildComponent).refresh_held_item()
 
 func toggle_ui(controller: PlayerController) -> void:
 	if controller:
-		crafting_ui.inventory = controller.get_component(InventoryComponent)
+		crafting_ui.inventory = controller.inventory
 	crafting_ui.visible = !crafting_ui.visible
 	if controller.hotbar:
 		hotbar = controller.hotbar

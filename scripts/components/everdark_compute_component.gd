@@ -8,6 +8,8 @@ var camera: Camera2D = null
 func _enter() -> void:
 	everdark_material = load("uid://dpfoqgjxxik6t")
 	camera = controller.get_component(CameraComponent).camera
+	everdark_material.set_shader_parameter("lumin_circle_start", Generator.LUMIN_SIZE)
+	everdark_material.set_shader_parameter("lumin_circle_end", Generator.LUMIN_SIZE + 16.0)
 	updates_in_physics = false
 
 func _update(_delta: float) -> void:

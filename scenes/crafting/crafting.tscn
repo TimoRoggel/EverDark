@@ -9,23 +9,30 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_hwda8"]
 
 [node name="Crafting" type="Area2D" node_paths=PackedStringArray("crafting_ui")]
+z_as_relative = false
+y_sort_enabled = true
 script = ExtResource("1_hwda8")
 crafting_ui = NodePath("CanvasLayer/CraftingUI")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.24999999, -7.2499995)
 scale = Vector2(1.24, 1.24)
 shape = SubResource("CircleShape2D_hwda8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.24999994, 0.24999994)
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(5.9604645e-08, -7)
 texture = ExtResource("2_cascu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
 
 [node name="CraftingUI" parent="CanvasLayer" instance=ExtResource("3_xl5xf")]
 visible = false
 
 [node name="Interactable2D" type="Area2D" parent="."]
+position = Vector2(0.25, -7.25)
 collision_layer = 4
 collision_mask = 0
 monitoring = false

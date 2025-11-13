@@ -1,5 +1,7 @@
 extends Node
 
+const LUMIN_SIZE: float = 132.0
+
 const BASE_FREQUENCY: float = 0.05
 const SIZE: int = 7
 const HSIZE: int = int(round(SIZE / 2.0))
@@ -29,9 +31,11 @@ var lumin_positions: PackedVector2Array = [Vector2(8,8)]
 signal layer_assigned
 
 func _ready() -> void:
-	initialize_maps()
+	#initialize_maps()
+	pass
 
 func _physics_process(_delta: float) -> void:
+	return
 	if GameManager.main_camera_component == null:
 		return
 	if layer == null:
@@ -56,6 +60,7 @@ func _physics_process(_delta: float) -> void:
 	#Debug.add_value("Biome", get_biome(player_pos.x, player_pos.y).id)
 
 func generate(at: Vector2, amount: int = 1) -> void:
+	return
 	await layer.generate_around(layer.local_to_map(at) / SIZE, amount)
 
 func get_tile(x: float, y: float) -> BiomeTile:

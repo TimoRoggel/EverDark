@@ -17,6 +17,14 @@ func _ready() -> void:
 	update_hotbar()
 	update_currently_selected_slot()
 	select_slot(currently_selected_slot)
+	visibility_changed.connect(_on_visibility_changed)
+
+func _on_visibility_changed() -> void:
+	if !visible:
+		return
+	update_hotbar()
+	update_currently_selected_slot()
+	select_slot(currently_selected_slot)
 
 func _input(event: InputEvent) -> void:
 	if not is_active:

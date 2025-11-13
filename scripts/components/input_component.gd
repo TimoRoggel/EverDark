@@ -37,8 +37,7 @@ func _update(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug") && false:
 		DroppedItem2D.drop(10, 1, get_global_mouse_position())
 	if Input.is_action_just_pressed("toggle_inventory"):
-		can_spawn = !can_spawn
-		inventory_toggled.emit()
+		toggle_inventory()
 	if Input.is_action_just_pressed("eat"):
 		eat.emit()
 	if Input.is_action_just_pressed("ui"):
@@ -58,3 +57,7 @@ func _update(_delta: float) -> void:
 
 func _exit() -> void:
 	pass
+
+func toggle_inventory() -> void:
+	can_spawn = !can_spawn
+	inventory_toggled.emit()

@@ -12,11 +12,17 @@ class_name InventoryContainer extends GridContainer
 @export var input_only: bool = false
 @export var output_only: bool = false
 
+var unique_id: int = ResourceUID.create_id()
+
 signal updated
 
 func _ready() -> void:
-	GameManager.ui_opened_conditions.append(func() -> bool: return visible)
+	if !Engine.is_editor_hint():
+		GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
 	_redraw()
+
+func _exit_tree() -> void:
+	GameManager.ui_opened_conditions.erase(name + str(unique_id))
 
 func _clear() -> void:
 	for c: Node in get_children():

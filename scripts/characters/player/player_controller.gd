@@ -1,5 +1,7 @@
 class_name PlayerController extends CharacterController
 
+@export var held_item_sprite: Sprite2D = null
+
 var input: InputComponent = null
 var movement: MoveComponent = null
 var weapon: SpawnAttackComponent = null
@@ -67,8 +69,10 @@ func _custom_physics_process(delta: float) -> void:
 			var held_item_id: int = inventory.get_held_item_id()
 			if held_item_id == -1:
 				weapon.attack_id = 0
+				held_item_sprite.texture = null
 			else:
 				var held_item: Item = DataManager.get_resource_by_id("items", held_item_id)
+				held_item_sprite.texture = held_item.icon
 				weapon.attack_id = held_item.weapon_id
 		weapon.attack_angle = input.angle_to_cursor
 		weapon.attacking = input.attacking
@@ -77,7 +81,10 @@ func _custom_physics_process(delta: float) -> void:
 		dash.default_dash = Vector2.from_angle(input.angle_to_cursor)
 	if animation:
 		var should_flip: bool = input.angle_to_cursor > WeaponComponent.HPI || input.angle_to_cursor < -WeaponComponent.HPI
-		animation.should_flip = should_flip || input.movement.x < 0
+		animation.should_flip = (should_flip || input.movement.x < 0.0) && input.movement.x <= 0.0
+		held_item_sprite.flip_h = animation.should_flip
+		held_item_sprite.position.x = 8.0 * (-1.0 if animation.should_flip else 1.0)
+		held_item_sprite.position.y = -2.0 if animation.is_looking_up() else (2.0 if animation.is_looking_down() else 0.0)
 		var target_direction: Vector2 = animation.direction
 		if vel.length() > 1.0:
 			target_direction = vel

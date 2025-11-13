@@ -62,3 +62,9 @@ func play(animation: String) -> void:
 	animated_sprite.play(target_animation_name)
 	await animated_sprite.animation_finished
 	forced_animation_playing = false
+
+func is_looking_up() -> bool:
+	return animated_sprite.animation.ends_with("_up")
+
+func is_looking_down() -> bool:
+	return animated_sprite.animation.ends_with("_down")

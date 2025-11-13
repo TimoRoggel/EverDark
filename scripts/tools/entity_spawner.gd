@@ -1,7 +1,7 @@
 @tool
 class_name EntitySpawner extends Node2D
 
-const TRIES: int = 100
+const TRIES: int = 300
 
 @export var entity: Entity = null
 @export_range(0, 80) var capacity: int = 4
@@ -66,6 +66,12 @@ func spawn_entity() -> void:
 	get_tree().current_scene.add_child(spawned_entity)
 	spawned_entity.tree_exiting.connect(func() -> void: spawned_entities.erase(spawned_entity))
 	spawned_entities.append(spawned_entity)
+	await get_tree().create_timer(120.0, false).timeout
+	if !spawned_entity:
+		return
+	if spawned_entity.is_queued_for_deletion():
+		return
+	spawned_entity.queue_free()
 
 func restart_timer() -> void:
 	spawn_timer.start(GameManager.get_randomized_value(get_spawn_rate(), randomness))

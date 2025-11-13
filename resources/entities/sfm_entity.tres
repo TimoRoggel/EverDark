@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=3 format=3 uid="uid://ylhc2g4awx42"]
+
+[ext_resource type="PackedScene" uid="uid://f6apyooo2n66" path="res://scenes/characters/sfm_enemy.tscn" id="1_aoxpd"]
+[ext_resource type="Script" uid="uid://bpocxgk144uxc" path="res://scripts/resources/entity.gd" id="2_rcv5o"]
+
+[resource]
+script = ExtResource("2_rcv5o")
+entity_name = "sfm"
+scene = ExtResource("1_aoxpd")
+metadata/_custom_type_script = "uid://bpocxgk144uxc"

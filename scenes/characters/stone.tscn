@@ -11,13 +11,15 @@
 size = Vector2(13, 7)
 
 [node name="stone" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
+z_as_relative = false
+y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_hn3j5")
 target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://c0n6qqwj4c4lm"
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_ylsqy")
 
 [node name="components" type="Node2D" parent="."]
@@ -25,7 +27,7 @@ shape = SubResource("RectangleShape2D_ylsqy")
 [node name="health_component" type="Node2D" parent="components"]
 script = ExtResource("2_qgg5r")
 death_sounds = Array[AudioStream]([ExtResource("3_ylsqy")])
-death_drops = [6, 6]
+death_drops = Array[int]([6, 6])
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="hitbox" type="Node2D" parent="components"]
@@ -37,6 +39,8 @@ damage_flag_filters = 1
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 
 [node name="sprite" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 use_parent_material = true
-position = Vector2(0, -3)
+position = Vector2(0, -5)
 texture = ExtResource("4_1qsys")

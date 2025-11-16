@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://rpe0gg8ku1ui"]
+
+[ext_resource type="Texture2D" uid="uid://dohxaqpdlgg4q" path="res://graphics/lumin.png" id="1_1e1ju"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+follow_viewport_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1e1ju")

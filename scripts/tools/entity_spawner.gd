@@ -11,12 +11,12 @@ const TRIES: int = 300
 ## At (0,0) this is the spawn rate (spawns 1 entity per [member min_spawn_rate] seconds), at [member max_spawn_distance] this value is 0.1%.
 @export_range(0.0, 800.0, 0.01) var min_spawn_rate: float = 1.0
 @export_range(0.0, 1.0, 0.01) var randomness: float = 0.0
-@export var min_radius: float = 160.0:
+@export var min_radius: float = 250.0:
 	set(value):
 		min_radius = value
 		if Engine.is_editor_hint():
 			queue_redraw()
-@export var max_radius: float = 320.0:
+@export var max_radius: float = 500.0:
 	set(value):
 		max_radius = value
 		if Engine.is_editor_hint():

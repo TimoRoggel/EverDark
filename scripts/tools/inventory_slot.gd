@@ -214,3 +214,15 @@ func merge(other: InventoryItem, custom_amount: int = -1) -> Dictionary[String, 
 				else:
 					inventory_item.quantity += custom_amount
 	return { "status": status, "remainder": remainder }
+
+func drop_item_manually(drop_all: bool = false) -> void:
+	if !inventory_item:
+		return
+	var amount_to_drop: int = 1
+	if drop_all:
+		amount_to_drop = inventory_item.quantity
+	var dropped_item_data = inventory_item.duplicate()
+	dropped_item_data.quantity = amount_to_drop
+	remove_amount(amount_to_drop)
+	_setup_item() 
+	item_dropped.emit(dropped_item_data)

@@ -28,12 +28,18 @@ func _toggle_pause() -> void:
 		_pause()
 
 func _pause() -> void:
-	get_tree().paused = true
+	if not GameManager.paused and not GameManager.ui_open:
+		get_tree().paused = true
+		GameManager.paused = true
+		GameManager.ui_open = true
 	visible = true
 	paused = true
 
 func _resume() -> void:
-	get_tree().paused = false
+	if GameManager.paused and not GameManager.ui_open:
+		get_tree().paused = false
+		GameManager.paused = false
+		GameManager.ui_open = false
 	visible = false
 	paused = false
 

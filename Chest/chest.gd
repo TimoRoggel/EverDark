@@ -16,6 +16,8 @@ var chest_input: InputComponent = null
 
 func _ready() -> void:
 	await get_tree().physics_frame
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	chest_inventory.process_mode = Node.PROCESS_MODE_ALWAYS
 	chest_input = GameManager.player.get_component(InputComponent)
 	chest_input.pickup.connect(_on_pickup)
 

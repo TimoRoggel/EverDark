@@ -27,10 +27,22 @@ func can_run(param: Dictionary) -> bool:
 
 func _toggle_ui(controller: PlayerController, chest: Chest) -> void:
 	var new_visible = !chest.chest_inventory.visible
-	chest.chest_inventory.visible = new_visible
-	controller.inventory.container.visible = new_visible
-	chest.open_close_sound.stream = OPEN_SOUND if chest.chest_inventory.visible else CLOSE_SOUND
-	chest.open_close_sound.play()
+	if GameManager.ui_open == !new_visible:
+		if new_visible == true:
+			GameManager.player.process_mode = Node.PROCESS_MODE_ALWAYS
+			controller.animation.animated_sprite.pause()
+		else:
+			GameManager.player.process_mode = Node.PROCESS_MODE_INHERIT
+			controller.animation.animated_sprite.play()
+		controller.hitbox.is_active = !new_visible
+		controller.set_physics_process(!new_visible)
+		GameManager.ui_open = new_visible
+		chest.chest_inventory.visible = new_visible
+		controller.inventory.container.visible = new_visible
+		chest.open_close_sound.stream = OPEN_SOUND if chest.chest_inventory.visible else CLOSE_SOUND
+		chest.open_close_sound.play()
+		controller.get_tree().paused = new_visible and not GameManager.paused
+		GameManager.paused = controller.get_tree().paused
 
 func _pickup(controller: PlayerController, chest: Chest) -> void:
 	for item: InventoryItem in chest.chest_inventory.get_items():

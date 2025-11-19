@@ -26,6 +26,8 @@ var spawn_timer: Timer = null
 var spawned_entities: Array[Node2D] = []
 var enemies_just_reset : bool = false
 
+var dead = false
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
@@ -50,14 +52,18 @@ func spawn() -> void:
 	restart_timer()
 	
 
-func _process(delta: float) -> void:
-	if GameManager.player.death:
-		if GameManager.player.death.is_dead:
-			if not enemies_just_reset:
-				reset_enemies()
-				enemies_just_reset = true
-				await get_tree().create_timer(1.0).timeout
-				enemies_just_reset = false
+func _physics_process(delta: float) -> void:
+	if GameManager.player:
+		if GameManager.player.death:
+			if dead != GameManager.player.death.is_dead:
+				dead = GameManager.player.death.is_dead
+				print(str(GameManager.player.death.is_dead))
+			if GameManager.player.death.is_dead:
+				if not enemies_just_reset:
+					reset_enemies()
+					enemies_just_reset = true
+					await get_tree().create_timer(1.0).timeout
+					enemies_just_reset = false
 
 func spawn_entity() -> void:
 	var spawn_position: Vector2 = Vector2.ZERO
@@ -86,9 +92,10 @@ func spawn_entity() -> void:
 	
 func reset_enemies():
 	var spawn_position = get_randomized_spawn_location()
-	while Generator.layer.get_cell_tile_data(Generator.layer.local_to_map(spawn_position)):
-		spawn_position = get_randomized_spawn_location()
 	for enemy in spawned_entities:
+		while Generator.layer.get_cell_tile_data(Generator.layer.local_to_map(spawn_position)):
+			spawn_position = get_randomized_spawn_location()
+		await get_tree().create_timer(1.0).timeout
 		enemy.global_position = get_randomized_spawn_location()
 
 func restart_timer() -> void:

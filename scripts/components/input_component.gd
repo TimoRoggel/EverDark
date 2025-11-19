@@ -18,6 +18,8 @@ signal ui
 signal pickup
 signal place(pos: Vector2)
 signal eat
+signal sprint
+signal walk
 
 func _init() -> void:
 	updates_in_physics = false
@@ -46,13 +48,14 @@ func _update(_delta: float) -> void:
 		pickup.emit()
 	if Input.is_action_just_pressed("place") && !GameManager.is_ui_open():
 		place.emit(get_global_mouse_position())
-	#if Input.is_action_just_pressed("dash"):
-		#LoreSystem.open_screen()
-		#CutsceneManager.play(TEST_CUTSCENE)
+	if Input.is_action_pressed("dash"):
+		sprint.emit()
+	if Input.is_action_just_released("dash"):
+		walk.emit()
 	movement = Input.get_vector("left", "right", "up", "down")
 	attacking = Input.is_action_pressed("attack") && !GameManager.is_ui_open()
 	blocking = Input.is_action_pressed("block") && !GameManager.is_ui_open()
-	dashing = Input.is_action_pressed("dash")
+	#dashing = Input.is_action_pressed("dash")
 	angle_to_cursor = get_angle_to(get_global_mouse_position())
 
 func _exit() -> void:

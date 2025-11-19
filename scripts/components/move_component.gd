@@ -1,8 +1,8 @@
 class_name MoveComponent extends Component
 
 @export var speed: float = 100.0
-@export var accelleration: float = 4.0
-@export var decelleration: float = 8.0
+@export var accelleration: float = 40.0
+@export var decelleration: float = 80.0
 @export var knockback_resistance: float = 1.0
 @export_group("Sounds")
 @export var step_sounds: Array[AudioStream] = []

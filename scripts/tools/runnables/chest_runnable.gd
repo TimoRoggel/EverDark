@@ -43,6 +43,8 @@ func _toggle_ui(controller: PlayerController, chest: Chest) -> void:
 		chest.open_close_sound.play()
 		controller.get_tree().paused = new_visible and not GameManager.paused
 		GameManager.paused = controller.get_tree().paused
+		if controller.hotbar:
+			controller.hotbar.visible = !new_visible
 
 func _pickup(controller: PlayerController, chest: Chest) -> void:
 	for item: InventoryItem in chest.chest_inventory.get_items():

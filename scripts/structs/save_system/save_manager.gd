@@ -3,6 +3,7 @@ class_name SaveManager extends RefCounted
 const ENCRYPTION_KEY: String = "20958n080pq89ca3t"
 
 var save_objects: Array[SaveObject] = []
+var loaded_data: Dictionary = {}
 
 func register_save_data(obj: SaveObject) -> void:
 	save_objects.append(obj)
@@ -13,6 +14,7 @@ func save_game(file_path: String) -> void:
 	for obj: SaveObject in save_objects:
 		save_data[obj.name] = obj.save_data()
 	file.store_string(JSON.stringify(save_data))
+	print(JSON.stringify(save_data))
 
 func load_game(file_path: String) -> void:
 	var file: FileAccess = FileAccess.open_encrypted_with_pass(file_path, FileAccess.READ,ENCRYPTION_KEY)
@@ -20,12 +22,20 @@ func load_game(file_path: String) -> void:
 		# Save data is corrupted
 		clean_data()
 		return
-	var save_data: Dictionary = JSON.parse_string(file.get_as_text())
+	loaded_data = JSON.parse_string(file.get_as_text())
 	for obj: SaveObject in save_objects:
-		if (save_data.has(obj.name)):
-			obj.load_data(save_data[obj.name])
+		if loaded_data.has(obj.name):
+			obj.load_data(loaded_data[obj.name])
 		else:
 			obj.clean_data()
+
+func load_data(key: String) -> void:
+	if !loaded_data.has(key):
+		return
+	for obj: SaveObject in save_objects:
+		if !loaded_data.has(obj.name):
+			continue
+		obj.load_data(loaded_data[key])
 
 func clean_data() -> void:
 	for obj: SaveObject in save_objects:

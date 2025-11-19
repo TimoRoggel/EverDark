@@ -14,6 +14,7 @@ func _enter() -> void:
 		if controller.hotbar:
 			controller.hotbar.visible = !container.visible
 	)
+	SaveSystem.track("inventory", get_inventory, set_inventory, [])
 	container.updated.connect(updated.emit)
 
 func _update(_delta: float) -> void:
@@ -32,8 +33,7 @@ func drop_all():
 			if slot.inventory_item:
 				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
 	container.clear_all()
-	
-	
+
 func add(item_id: int, quantity: int = 1) -> int:
 	return container.add(item_id, quantity)
 
@@ -75,3 +75,18 @@ func random_spread_pos(entity_location, item_spread_radius) -> Vector2:
 	var rand_y = randf_range(entity_location.y + item_spread_radius, entity_location.y - item_spread_radius)
 	var random_vector = Vector2(rand_x, rand_y)
 	return random_vector
+
+func get_inventory() -> Array:
+	return list().map(func(i: InventoryItem) -> Array: return [i.item.id, i.quantity])
+
+func set_inventory(new_inventory: Array) -> void:
+	var s: Array[InventoryItem] = []
+	s.resize(slots)
+	new_inventory.resize(slots)
+	for i: int in slots:
+		if new_inventory[i] == null:
+			s[i] = null
+		else:
+			var item: Array = new_inventory[i]
+			s[i] = InventoryItem.new(DataManager.get_resource_by_id("items", item[0]), item[1])
+	container.set_slots(s)

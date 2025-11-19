@@ -32,7 +32,7 @@ signal layer_assigned
 
 func _ready() -> void:
 	#initialize_maps()
-	pass
+	SaveSystem.track("lumin_positions", get_lumin_positions, set_lumin_positions, [Vector2(8,8)])
 
 func _physics_process(_delta: float) -> void:
 	return
@@ -164,3 +164,9 @@ func initialize_map(frequency: float, noise_type: FastNoiseLite.NoiseType) -> Fa
 	map.noise_type = noise_type
 	map.seed = randi()
 	return map
+
+func get_lumin_positions() -> PackedVector2Array:
+	return lumin_positions
+
+func set_lumin_positions(new_lumin_positions: PackedVector2Array) -> void:
+	lumin_positions = new_lumin_positions

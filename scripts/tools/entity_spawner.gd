@@ -24,6 +24,7 @@ const TRIES: int = 300
 
 var spawn_timer: Timer = null
 var spawned_entities: Array[Node2D] = []
+var enemies_just_reset : bool = false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -47,6 +48,16 @@ func spawn() -> void:
 		for i: int in range(min(int(ceil(GameManager.get_randomized_value(amount, randomness))), capacity - spawned_entities.size())):
 			spawn_entity()
 	restart_timer()
+	
+
+func _process(delta: float) -> void:
+	if GameManager.player.death:
+		if GameManager.player.death.is_dead:
+			if not enemies_just_reset:
+				reset_enemies()
+				enemies_just_reset = true
+				await get_tree().create_timer(1.0).timeout
+				enemies_just_reset = false
 
 func spawn_entity() -> void:
 	var spawn_position: Vector2 = Vector2.ZERO
@@ -72,6 +83,13 @@ func spawn_entity() -> void:
 	if spawned_entity.is_queued_for_deletion():
 		return
 	spawned_entity.queue_free()
+	
+func reset_enemies():
+	var spawn_position = get_randomized_spawn_location()
+	while Generator.layer.get_cell_tile_data(Generator.layer.local_to_map(spawn_position)):
+		spawn_position = get_randomized_spawn_location()
+	for enemy in spawned_entities:
+		enemy.global_position = get_randomized_spawn_location()
 
 func restart_timer() -> void:
 	spawn_timer.start(GameManager.get_randomized_value(get_spawn_rate(), randomness))

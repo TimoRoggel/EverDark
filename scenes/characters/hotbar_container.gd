@@ -7,7 +7,6 @@ var hotbar_slots: int = 3
 var currently_selected_slot: int = 0
 var is_active: bool = true
 var hotbar_just_emptied: bool = false
-var slots_per_row: int = 3
 
 func _ready() -> void:
 	if inventory:
@@ -50,7 +49,7 @@ func _process(_delta: float) -> void:
 
 func add_slots() -> void:
 	if inventory && self.get_child_count() == 0:
-		for i: int in slots_per_row:
+		for i: int in hotbar_slots:
 			var slot_texture: TextureButton = create_slot()
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()

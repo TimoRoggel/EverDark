@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=21 format=3 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="TileSet" uid="uid://c3hjqyut0k11j" path="res://tilesets/plain.tres" id="2_w2p53"]
@@ -10,7 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
 [ext_resource type="PackedScene" uid="uid://dw3msgvb1ai4b" path="res://scenes/characters/stone.tscn" id="9_y40x4"]
 [ext_resource type="Script" uid="uid://b3b33abitpj2t" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
-[ext_resource type="Script" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
+[ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="10_q418o"]
+[ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
 [ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="PackedScene" uid="uid://eb2jxnr6s5ut" path="res://map/everdark..tmx" id="13_xidr1"]
@@ -22,6 +23,18 @@ reflected_light_source = 1
 tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pj0xw"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gs7m4"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_btahq"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
 
 [node name="world" type="Node2D"]
 z_as_relative = false
@@ -1430,10 +1443,10 @@ position = Vector2(-939, -190)
 [node name="note_0" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_pj0xw")
 position = Vector2(-946, -138)
 collision_layer = 4
-collision_mask = 0
-monitoring = false
+collision_mask = 4
 script = ExtResource("11_de0io")
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 0}"
@@ -1441,10 +1454,10 @@ custom_parameter = "{\"note\": 0}"
 [node name="note_1" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_gs7m4")
 position = Vector2(-908, -129)
 collision_layer = 4
-collision_mask = 0
-monitoring = false
+collision_mask = 4
 script = ExtResource("11_de0io")
 note_id = 1
 interact_script = ExtResource("12_xidr1")
@@ -1453,10 +1466,10 @@ custom_parameter = "{\"note\": 1}"
 [node name="note_2" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_btahq")
 position = Vector2(-913, -100)
 collision_layer = 4
-collision_mask = 0
-monitoring = false
+collision_mask = 4
 script = ExtResource("11_de0io")
 note_id = 2
 interact_script = ExtResource("12_xidr1")

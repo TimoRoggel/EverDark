@@ -8,6 +8,7 @@ class_name HealthComponent extends Component
 @export var death_sounds: Array[AudioStream] = []
 @export var persistent: bool = false
 @export var death_drops: Array[int] = []
+@export var death_drop_odds: Array[int] = []
 
 var healthbar: TextureProgressBar = null
 var healthbar_delta: TextureProgressBar = null
@@ -16,8 +17,10 @@ var alive: bool = true
 var death_player: RandomAudioStreamPlayer2D = null
 var healthbar_delta_timer: Timer = null
 var screen_shake_amount: float = 0.5
+var hitbox: HitboxComponent = null
 
 signal damage_taken(from: AttackController)
+signal died
 
 func _enter() -> void:
 	# Healthbar
@@ -50,6 +53,8 @@ func _enter() -> void:
 	# Audio
 	if death_sounds.size() > 0:
 		death_player = GameManager.create_audio_player(&"SFX", death_sounds, self)
+	await get_tree().physics_frame
+	hitbox = controller.get_component(HitboxComponent)
 
 func _update(_delta: float) -> void:
 	if current_health <= 0:
@@ -70,14 +75,21 @@ func death() -> void:
 	if !alive:
 		return
 	alive = false
-	controller.visible = false
-	for item_id: int in death_drops:
+	if !persistent:
+		controller.visible = false
+	for i: int in death_drops.size():
+		var item_id: int = death_drops[i]
+		var odds: int = death_drop_odds[i] if death_drop_odds.size() > i else 100
+		if randi_range(0, 100) > odds:
+			continue
 		DroppedItem2D.drop(item_id, 1, global_position)
+	died.emit()
 	if death_player:
 		death_player.play_randomized()
 		await death_player.finished
-	controller.process_mode = Node.PROCESS_MODE_DISABLED
-	controller.queue_free()
+	if !persistent:
+		controller.process_mode = Node.PROCESS_MODE_DISABLED
+		controller.queue_free()
 
 func can_get_damaged(attack: AttackController) -> bool:
 	return alive && (controller.flags & attack.damage_flags) == controller.flags
@@ -105,7 +117,7 @@ func take_damage(attack: AttackController) -> void:
 	await get_tree().create_timer(2.0).timeout
 	if !attack || is_queued_for_deletion():
 		return
-		
+
 func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 	damage_taken.emit(null)
 	current_health -= env.power
@@ -123,11 +135,19 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 	if !controller || is_queued_for_deletion():
 		return
 	await get_tree().create_timer(2.0).timeout
-	
-func heal(amount: int = 1):
+
+func take_damage_anim() -> void:
+	controller.set_damaged(true)
+	hitbox.play_damaged()
+	await get_tree().create_timer(0.25).timeout
+	controller.set_damaged(false)
+
+func heal(amount: float = 1.0):
 	current_health += amount
 	if current_health == max_health:
 		return
+	if amount < 0:
+		take_damage_anim()
 	controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	await get_tree().create_timer(.5).timeout
 	update_healthbar()

@@ -29,7 +29,7 @@ func _enter() -> void:
 	damage_player = GameManager.create_audio_player(&"SFX", damage_sounds, self)
 
 func _update(_delta: float) -> void:
-	if Generator.layer and controller.death:
+	if controller.death:
 		if controller.death.is_dead:
 			return
 		distance_to_lumin = get_closest_lumin_distance()

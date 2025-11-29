@@ -5,7 +5,7 @@ class_name Item extends DataDrivenResource
 @export var stack_size: int = 64
 @export var flags: int = 0
 @export var weapon_id: int = -1
-@export var absorbtion: int = 0
+@export var absorbtion: float = 0.0
 
 static func from_data(data: Dictionary) -> Item:
 	var item: Item = Item.new()

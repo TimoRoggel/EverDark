@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=119 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://tdl3a63l1y2y" path="res://graphics/characters/player/player_fight_down.png" id="2_m38kj"]
@@ -53,6 +53,7 @@
 [ext_resource type="AudioStream" uid="uid://bxlm1pdy80psk" path="res://audio/ambience/ambience_0.mp3" id="35_hnvwh"]
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
+[ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
 [ext_resource type="Resource" uid="uid://ylhc2g4awx42" path="res://resources/entities/sfm_entity.tres" id="46_as8yd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
@@ -554,6 +555,10 @@ noise = SubResource("FastNoiseLite_aqa0x")
 seamless = true
 seamless_blend_skirt = 1.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i42og"]
+atlas = ExtResource("44_qmarm")
+region = Rect2(16, 193, 16, 18)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vkt2s"]
 streams_count = 1
 stream_0/stream = ExtResource("35_hnvwh")
@@ -715,6 +720,17 @@ offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("NoiseTexture2D_yhyq5")
+
+[node name="background_water" type="Parallax2D" parent="camera"]
+z_index = -2
+z_as_relative = false
+repeat_size = Vector2(16, 16)
+repeat_times = 48
+follow_viewport = false
+screen_offset = Vector2(-4, 2)
+
+[node name="water" type="Sprite2D" parent="camera/background_water"]
+texture = SubResource("AtlasTexture_i42og")
 
 [node name="random_entity_spawner" type="Node2D" parent="."]
 script = ExtResource("24_wqk1x")

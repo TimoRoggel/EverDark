@@ -14,7 +14,7 @@ func save_game(file_path: String) -> void:
 	for obj: SaveObject in save_objects:
 		save_data[obj.name] = obj.save_data()
 	file.store_string(JSON.stringify(save_data))
-	print(JSON.stringify(save_data))
+	#print(JSON.stringify(save_data))
 
 func load_game(file_path: String) -> void:
 	var file: FileAccess = FileAccess.open_encrypted_with_pass(file_path, FileAccess.READ,ENCRYPTION_KEY)

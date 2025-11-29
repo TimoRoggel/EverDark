@@ -47,6 +47,7 @@ class_name Attack extends DataDrivenResource
 @export var color_over_time: GradientTexture1D = null
 @export var alpha_over_time: CurveTexture = null
 @export var death_attack: Attack = null
+@export var harvest_level: int = 0
 @export var flags: int = 0
 
 static func from_data(data: Dictionary) -> Attack:
@@ -72,6 +73,7 @@ static func from_data(data: Dictionary) -> Attack:
 	attack.hurtbox = Rect2i(0, 0, data["hurtbox_width"], data["hurtbox_height"])
 	attack.can_hit_owner = data["can_hit_owner"] == "TRUE"
 	attack.alpha_over_time = DataDrivenResource.get_loaded(data, "alpha_over_time")
+	attack.harvest_level = data["harvest_level"]
 	attack.flags = data["flags"]
 	## TODO: Change to be used in spreadsheet
 	match attack.id:

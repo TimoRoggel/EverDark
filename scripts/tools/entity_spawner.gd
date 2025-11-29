@@ -52,8 +52,6 @@ func spawn_entity() -> void:
 	var spawn_position: Vector2 = Vector2.ZERO
 	for i: int in TRIES:
 		spawn_position = get_randomized_spawn_location()
-		if !Generator.layer.get_cell_tile_data(Generator.layer.local_to_map(spawn_position)):
-			break
 		if i == TRIES - 1:
 			return
 	if entity.spawn_particles:

@@ -53,7 +53,6 @@ func _ready() -> void:
 	if death_view and death:
 		death_view.respawn_pressed.connect(death.respawn)
 	eat = get_component(EatComponent)
-	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:
 	super(delta)

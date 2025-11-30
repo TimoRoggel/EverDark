@@ -3,6 +3,8 @@ class_name Recipe extends DataDrivenResource
 @export var recipe_name: String = ""
 @export var reward_ids: PackedInt32Array = []
 @export var cost_ids: PackedInt32Array = []
+@export var category: String = "misc"
+@export var visible: bool = true
 
 var rewards: Array[Item] = []
 var costs: Array[Item] = []
@@ -13,6 +15,8 @@ static func from_data(data: Dictionary) -> Recipe:
 	recipe.recipe_name = data["name"]
 	recipe.reward_ids = data["rewards"]
 	recipe.cost_ids = data["costs"]
+	recipe.category = data.get("category", "misc")
+	recipe.visible = data["visible"] == "TRUE"
 	
 	recipe.rewards = recipe.get_rewards()
 	recipe.costs = recipe.get_costs()

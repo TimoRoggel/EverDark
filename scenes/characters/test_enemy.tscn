@@ -335,7 +335,6 @@ autoplay = "idle_down"
 
 [node name="move" type="Node2D" parent="."]
 script = ExtResource("2_ehifl")
-speed = 25.0
 step_sounds = Array[AudioStream]([ExtResource("9_y8f4n"), ExtResource("10_4ii8p"), ExtResource("11_s54qa")])
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
@@ -347,16 +346,16 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="health" type="Node2D" parent="."]
 script = ExtResource("7_u58fu")
-death_drops = [1, 1, 5]
-death_sounds = Array[AudioStream]([ExtResource("14_s54qa")])
 max_health = 0.8
+death_sounds = Array[AudioStream]([ExtResource("14_s54qa")])
+death_drops = Array[int]([1, 1, 5])
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="target" type="Node2D" parent="."]
 z_index = -1
 z_as_relative = false
 script = ExtResource("8_8jpgt")
-radius = 320.0
+radius = 160.0
 targeting_flags = 1
 metadata/_custom_type_script = "uid://brg24dd5ampra"
 

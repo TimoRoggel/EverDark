@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cs2viwcjg8kjc"]
+
+[ext_resource type="Texture2D" uid="uid://b7nbmvh5aw3xl" path="res://map/Art Assets/Player HUD/40x15_button.png" id="1_rr8nu"]
+[ext_resource type="Texture2D" uid="uid://bgi4e4frlesu5" path="res://map/Art Assets/Player HUD/40x15_button_hover.png" id="2_sk18p"]
+[ext_resource type="FontFile" uid="uid://bde85ifgt4hjt" path="res://resources/Jersey10-Regular.ttf" id="3_k05fi"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ra07v"]
+texture = ExtResource("1_rr8nu")
+texture_margin_left = 11.0
+texture_margin_top = 8.0
+texture_margin_right = 11.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(1, 1, 1, 0.259)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ipap1"]
+texture = ExtResource("1_rr8nu")
+texture_margin_left = 11.0
+texture_margin_top = 8.0
+texture_margin_right = 11.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hnh4b"]
+texture = ExtResource("2_sk18p")
+texture_margin_left = 11.0
+texture_margin_top = 8.0
+texture_margin_right = 11.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bl4wd"]
+texture = ExtResource("1_rr8nu")
+texture_margin_left = 11.0
+texture_margin_top = 8.0
+texture_margin_right = 11.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(0.5, 0.5, 0.5, 1)
+
+[resource]
+default_font = ExtResource("3_k05fi")
+default_font_size = 19
+Button/styles/disabled = SubResource("StyleBoxTexture_ra07v")
+Button/styles/focus = SubResource("StyleBoxTexture_ipap1")
+Button/styles/hover = SubResource("StyleBoxTexture_hnh4b")
+Button/styles/normal = SubResource("StyleBoxTexture_ipap1")
+Button/styles/pressed = SubResource("StyleBoxTexture_bl4wd")

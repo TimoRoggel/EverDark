@@ -1,166 +1,72 @@
 extends Node
 
-const LUMIN_SIZE: float = 132.0
+const LUMIN_START_SIZE: float = 160.0
+const LUMIN_SIZE: float = 40.0
+const LUMIN_TORCH_SIZE: float = 70.0
+const LUMIN_LANTERN_SIZE: float = 120.0
+const OFFSET: Vector2 = Vector2(160.0, 160.0)
 
-const BASE_FREQUENCY: float = 0.05
-const SIZE: int = 7
-const HSIZE: int = int(round(SIZE / 2.0))
-const BIOME_SIZE: float = 1.0
-const RIVER_SIZE: float = 0.15
-const DIMENSIONS: int = 1
-
-# Noise Maps
-var temperature_map: FastNoiseLite = null
-var humidity_map: FastNoiseLite = null
-var height_map: FastNoiseLite = null
-var fertility_map: FastNoiseLite = null
-var weirdness_map: FastNoiseLite = null
-var cave_map: FastNoiseLite = null
-var toppings_map: FastNoiseLite = null
-var odds_map: FastNoiseLite = null
-var lake_map: FastNoiseLite = null
-var river_map: FastNoiseLite = null
-
-var layer: GeneratedTileMapLayer = null:
-	set(value):
-		layer = value
-		layer_assigned.emit()
-var dimension: int = 0
 var lumin_positions: PackedVector2Array = [Vector2(8,8)]
-
-signal layer_assigned
+var lumin_sizes: PackedFloat32Array = [LUMIN_START_SIZE]
+var game_seed: int = randi()
 
 func _ready() -> void:
-	#initialize_maps()
-	pass
+	SaveSystem.track("lumin_positions", get_lumin_positions, set_lumin_positions, [Vector2(8,8)])
+	SaveSystem.track("lumin_sizes", get_lumin_sizes, set_lumin_sizes, [LUMIN_START_SIZE])
+	SaveSystem.track("seed", get_seed, set_seed, randi())
 
-func _physics_process(_delta: float) -> void:
-	return
-	if GameManager.main_camera_component == null:
-		return
-	if layer == null:
-		return
-	var player_pos: Vector2i = layer.local_to_map(GameManager.main_camera_component.global_position)
-	var thhf: Vector4 = Vector4.ZERO
-	thhf.x = get_noise(temperature_map, player_pos.x, player_pos.y)
-	thhf.y = get_noise(humidity_map, player_pos.x, player_pos.y)
-	thhf.z = get_noise(height_map, player_pos.x, player_pos.y)
-	thhf.w = get_noise(fertility_map, player_pos.x, player_pos.y)
-	#Debug.add_value("Noise (Temp, Humid, Height, Fert)", thhf)
-	var wcto: Vector4 = Vector4.ZERO
-	wcto.x = get_noise(weirdness_map, player_pos.x, player_pos.y)
-	wcto.y = get_noise(cave_map, player_pos.x, player_pos.y)
-	wcto.z = get_noise(toppings_map, player_pos.x, player_pos.y)
-	wcto.w = get_noise(odds_map, player_pos.x, player_pos.y)
-	#Debug.add_value("Noise (Weird, Cave, Top, Odds)", wcto)
-	var lrxx: Vector4 = Vector4.ZERO
-	lrxx.x = get_noise(lake_map, player_pos.x, player_pos.y)
-	lrxx.y = get_noise(river_map, player_pos.x, player_pos.y)
-	#Debug.add_value("Noise (Lake, River, X, X)", lrxx)
-	#Debug.add_value("Biome", get_biome(player_pos.x, player_pos.y).id)
+func get_lumin_transforms() -> Array:
+	var transforms: Array = []
+	var positions: Array = []
+	var camera: Camera2D = get_viewport().get_camera_2d()
+	positions.append_array(Generator.lumin_positions)
+	
+	for i: int in positions.size():
+		var pos: Vector2 = positions[i]
+		var size: float = lumin_sizes[i]
+		transforms.append([pos, size])
+	
+	transforms.sort_custom(func(a: Array, b: Array) -> bool:
+		return a[0].distance_squared_to(camera.global_position) < b[0].distance_squared_to(camera.global_position)
+	)
+	transforms = transforms.map(func(a: Array) -> Array: return [Debug.to_screen(a[0]) + OFFSET, a[1]])
 
-func generate(at: Vector2, amount: int = 1) -> void:
-	return
-	await layer.generate_around(layer.local_to_map(at) / SIZE, amount)
+	while transforms.size() < 256:
+		transforms.append([Vector2.ZERO, 0.0])
+	transforms.resize(256)
+	
+	return transforms
 
-func get_tile(x: float, y: float) -> BiomeTile:
-	var biome: Biome = get_biome(x, y)
-	if biome == null:
-		return null
-	if biome.river_enabled || biome.lake_enabled:
-		var river_noise: float = get_noise(river_map, x, y)
-		var lake_noise: float = get_noise(lake_map, x, y)
-		if biome.river_enabled && river_noise > 1.0 - RIVER_SIZE:
-			return biome.river_tile
-		if biome.lake_enabled && lake_noise > 1.0 - biome.lake_size:
-			return biome.lake_tile
-		if biome.river_enabled && river_noise + biome.river_bank_size > 1.0 - RIVER_SIZE:
-			return biome.river_bank_tile
-		if biome.lake_enabled && lake_noise + biome.lake_bank_size > 1.0 - biome.lake_size:
-			return biome.lake_bank_tile
-	var is_cave_path: bool = get_noise(cave_map, x, y) > 0.25
-	var cave_entrance_placed: bool = false
-	if biome.cave_entrance != null:
-		if is_cave_path && get_noise(toppings_map, x, y) <= Biome.CAVE_ODDS:
-			layer.place_tile(Vector2(x, y), biome.cave_entrance, true)
-			cave_entrance_placed = true
-	if !cave_entrance_placed:
-		var topping: BiomeTile = BiomeTile.get_tile(biome.topping_tiles, get_noise(toppings_map, x, y), true)
-		if topping:
-			layer.place_tile(Vector2(x, y), topping, true)
-	if biome.has_cave_walls:
-		if !is_cave_path:
-			return BiomeTile.get_tile(biome.wall_tiles, get_noise(odds_map, x, y))
-	return BiomeTile.get_tile(biome.ground_tiles, get_noise(odds_map, x, y))
+func is_in_everdark(position: Vector2) -> bool:
+	var closest_edge: float = INF
+	
+	for i: int in Generator.lumin_positions.size():
+		var center: Vector2 = Generator.lumin_positions[i]
+		var size: float = Generator.lumin_sizes[i] + 40.0
+		if size <= 0.0:
+			continue
+		
+		var center_dist: float = position.distance_to(center)
+		var edge_dist: float = center_dist - size
+		
+		if edge_dist < closest_edge:
+			closest_edge = edge_dist
+	return closest_edge > 0.0
 
-func get_biome(x: float, y: float) -> Biome:
-	x *= BIOME_SIZE
-	y *= BIOME_SIZE
-	var biome_vector: BiomeVector = BiomeVector.new(get_noise(temperature_map, x, y), get_noise(humidity_map, x, y), get_noise(height_map, x, y), get_noise(fertility_map, x, y), get_noise(weirdness_map, x, y))
-	var biomes: Array = DataManager.resources["biomes"].duplicate()
-	biomes = biomes.filter(func(biome: Biome) -> bool: return biome.dimension == dimension)
-	biomes.sort_custom(func (a: Biome, b: Biome) -> bool: return a.distance_to(biome_vector) < b.distance_to(biome_vector))
-	return biomes[0]
+func get_lumin_positions() -> PackedVector2Array:
+	return lumin_positions
 
-func get_noise(map: FastNoiseLite, x: float, y: float) -> float:
-	return (map.get_noise_2d(x, y) + 1.0) / 2.0
+func set_lumin_positions(new_lumin_positions: PackedVector2Array) -> void:
+	lumin_positions = new_lumin_positions
 
-func swap_dimension(new_dimension: int = 0) -> void:
-	dimension = new_dimension
-	layer.clear_tiles()
-	GameManager.player.last_generate_position = Vector2.INF
+func get_lumin_sizes() -> PackedFloat32Array:
+	return lumin_sizes
 
-func get_chunk(pos: Vector2, is_mapped: bool = false) -> Vector2i:
-	if !is_mapped:
-		pos /= SIZE
-	pos /= SIZE
-	return Vector2i(round(pos))
+func set_lumin_sizes(new_lumin_sizes: PackedFloat32Array) -> void:
+	lumin_sizes = new_lumin_sizes
 
-func initialize_maps() -> void:
-	# Temperature
-	temperature_map = initialize_map(BASE_FREQUENCY * 0.04, FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH)
-	# Humidity
-	humidity_map = initialize_map(BASE_FREQUENCY * 0.02, FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH)
-	# Height
-	height_map = initialize_map(BASE_FREQUENCY * 0.01, FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH)
-	# Fertility
-	fertility_map = initialize_map(BASE_FREQUENCY * 0.7, FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH)
-	# Weirdness
-	weirdness_map = initialize_map(BASE_FREQUENCY * 0.2, FastNoiseLite.NoiseType.TYPE_PERLIN)
-	# Cave
-	cave_map = initialize_map(0.06, FastNoiseLite.NoiseType.TYPE_CELLULAR)
-	cave_map.fractal_octaves = 6
-	cave_map.fractal_lacunarity = 3.5
-	cave_map.fractal_gain = 0.1
-	# Toppings
-	toppings_map = initialize_map(1.0, FastNoiseLite.NoiseType.TYPE_VALUE)
-	# Odds
-	odds_map = initialize_map(0.05, FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH)
-	odds_map.fractal_gain = 0.05
-	odds_map.fractal_weighted_strength = 1.0
-	# Lake
-	lake_map = initialize_map(BASE_FREQUENCY * 0.5, FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH)
-	lake_map.fractal_gain = 0.05
-	lake_map.fractal_weighted_strength = 1.0
-	# River
-	river_map = initialize_map(0.0075, FastNoiseLite.NoiseType.TYPE_CELLULAR)
-	river_map.fractal_type = FastNoiseLite.FRACTAL_RIDGED
-	river_map.fractal_gain = 1.125
-	river_map.fractal_octaves = 1
-	river_map.fractal_weighted_strength = 1.0
-	river_map.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN_SQUARED
-	river_map.cellular_return_type = FastNoiseLite.RETURN_DISTANCE2_DIV
-	river_map.domain_warp_enabled = true
-	river_map.domain_warp_type = FastNoiseLite.DOMAIN_WARP_SIMPLEX_REDUCED
-	river_map.domain_warp_amplitude = 16.5
-	river_map.domain_warp_frequency = 0.03
-	river_map.domain_warp_fractal_type = FastNoiseLite.DOMAIN_WARP_FRACTAL_NONE
-	river_map.domain_warp_fractal_octaves = 6
-	river_map.domain_warp_fractal_gain = 0.0
+func get_seed() -> int:
+	return game_seed
 
-func initialize_map(frequency: float, noise_type: FastNoiseLite.NoiseType) -> FastNoiseLite:
-	var map: FastNoiseLite = FastNoiseLite.new()
-	map.frequency = frequency
-	map.noise_type = noise_type
-	map.seed = randi()
-	return map
+func set_seed(new_seed) -> void:
+	game_seed = new_seed

@@ -37,6 +37,7 @@ func _ready() -> void:
 	y_sort_enabled = true
 	z_index = 100
 	sprite.texture = item.icon
+	sprite.use_parent_material = true
 	add_child(sprite)
 	base_y = sprite.position.y
 	timeout_timer.one_shot = true

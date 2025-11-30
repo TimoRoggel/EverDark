@@ -1,0 +1,72 @@
+[gd_scene load_steps=23 format=3 uid="uid://ben57b4iih2at"]
+
+[ext_resource type="Script" uid="uid://cnjj587sudseu" path="res://scripts/characters/tree_controller.gd" id="1_i8pcy"]
+[ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_l03xu"]
+[ext_resource type="Texture2D" uid="uid://oepqwx2262y2" path="res://graphics/harvestables/64x64_tree_1.png" id="3_ar8js"]
+[ext_resource type="AudioStream" uid="uid://cyxf4c0je5cdb" path="res://audio/sounds/player/tree_fall.wav" id="3_i8pcy"]
+[ext_resource type="Texture2D" uid="uid://cehy6b1mjb28g" path="res://graphics/harvestables/64x64_tree_2.png" id="4_kce03"]
+[ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="4_rktkc"]
+[ext_resource type="AudioStream" uid="uid://isfothg2nb5m" path="res://audio/sounds/player/chop_0.wav" id="5_avehw"]
+[ext_resource type="Texture2D" uid="uid://ny6n542vadnw" path="res://graphics/harvestables/64x64_tree_3.png" id="5_juw0u"]
+[ext_resource type="Texture2D" uid="uid://cj2rlpmbnqtba" path="res://graphics/harvestables/64x64_tree_4.png" id="6_5oy71"]
+[ext_resource type="Texture2D" uid="uid://0bx62o1qsmc4" path="res://graphics/harvestables/64x64_tree_0.png" id="6_nu063"]
+[ext_resource type="Texture2D" uid="uid://daat2h8jo8ms6" path="res://graphics/harvestables/64x64_tree_5.png" id="7_ihicm"]
+[ext_resource type="Texture2D" uid="uid://dp0nrgg7uailm" path="res://graphics/harvestables/64x64_tree_6.png" id="8_ut6kp"]
+[ext_resource type="Texture2D" uid="uid://b72r50sknll4n" path="res://graphics/harvestables/64x64_tree_7.png" id="9_5u6mr"]
+[ext_resource type="Texture2D" uid="uid://camy0ikjw17ia" path="res://graphics/harvestables/64x64_tree_0_cut.png" id="10_hc0kj"]
+[ext_resource type="Texture2D" uid="uid://cmnumgabjl0vp" path="res://graphics/harvestables/64x64_tree_1_cut.png" id="11_puot0"]
+[ext_resource type="Texture2D" uid="uid://f3xufaqf18op" path="res://graphics/harvestables/64x64_tree_2_cut.png" id="12_5rhfe"]
+[ext_resource type="Texture2D" uid="uid://v6jnvjf7fbbv" path="res://graphics/harvestables/64x64_tree_3_cut.png" id="13_j2qp8"]
+[ext_resource type="Texture2D" uid="uid://bh1su53siw1uy" path="res://graphics/harvestables/64x64_tree_4_cut.png" id="14_gk5ub"]
+[ext_resource type="Texture2D" uid="uid://c3ccrxbg71f86" path="res://graphics/harvestables/64x64_tree_5_cut.png" id="15_1pumn"]
+[ext_resource type="Texture2D" uid="uid://dy2aib1s3yjxm" path="res://graphics/harvestables/64x64_tree_6_cut.png" id="16_jiam6"]
+[ext_resource type="Texture2D" uid="uid://dt5x6gtwh7b20" path="res://graphics/harvestables/64x64_tree_7_cut.png" id="17_gae32"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l03xu"]
+size = Vector2(34, 13)
+
+[node name="tree" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
+z_as_relative = false
+y_sort_enabled = true
+collision_mask = 0
+motion_mode = 1
+slide_on_ceiling = false
+floor_stop_on_slope = false
+script = ExtResource("1_i8pcy")
+uncut_textures = Array[Texture2D]([ExtResource("6_nu063"), ExtResource("3_ar8js"), ExtResource("4_kce03"), ExtResource("5_juw0u"), ExtResource("6_5oy71"), ExtResource("7_ihicm"), ExtResource("8_ut6kp"), ExtResource("9_5u6mr")])
+cut_textures = Array[Texture2D]([ExtResource("10_hc0kj"), ExtResource("11_puot0"), ExtResource("12_5rhfe"), ExtResource("13_j2qp8"), ExtResource("14_gk5ub"), ExtResource("15_1pumn"), ExtResource("16_jiam6"), ExtResource("17_gae32")])
+target_sprite = NodePath("sprite")
+metadata/_custom_type_script = "uid://cnjj587sudseu"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_l03xu")
+
+[node name="components" type="Node2D" parent="."]
+
+[node name="health_component" type="Node2D" parent="components"]
+script = ExtResource("2_l03xu")
+max_health = 20.0
+death_sounds = Array[AudioStream]([ExtResource("3_i8pcy")])
+persistent = true
+death_drops = Array[int]([5, 5, 5, 5])
+death_drop_odds = Array[int]([100, 100, 50, 50])
+metadata/_custom_type_script = "uid://cdmb82h3irdnt"
+
+[node name="hitbox" type="Node2D" parent="components"]
+position = Vector2(0, -14)
+script = ExtResource("4_rktkc")
+attack_cooldown_time = 0.1
+collision_radius = 24.0
+damage_sounds = Array[AudioStream]([ExtResource("5_avehw")])
+damage_flag_filters = 2
+metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="sprite" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+use_parent_material = true
+position = Vector2(0, -5)
+texture = ExtResource("6_nu063")
+offset = Vector2(0, -24)
+region_rect = Rect2(4, 36, 59, 58)

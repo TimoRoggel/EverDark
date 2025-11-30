@@ -21,7 +21,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if is_instance_of(body, PlayerController):
 		if body.inventory.has(0, cost):
 			body.inventory.remove(0, cost)
-			Generator.generate(generate_position)
 			queue_free()
 
 func _create_particles() -> void:

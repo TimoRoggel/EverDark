@@ -1,25 +1,28 @@
-[gd_scene load_steps=7 format=3 uid="uid://kp8jku03lrxp"]
+[gd_scene load_steps=9 format=3 uid="uid://kp8jku03lrxp"]
 
 [ext_resource type="Script" uid="uid://bqsa1lysj06sl" path="res://Chest/chest.gd" id="1_gj4rf"]
 [ext_resource type="Texture2D" uid="uid://dh0rj8oyd78hu" path="res://graphics/chest_closed.png" id="1_vbo4i"]
 [ext_resource type="PackedScene" uid="uid://cow17ljb5qgg" path="res://Chest/chest_inventory.tscn" id="2_urnrk"]
+[ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="3_h07ny"]
 [ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="3_urnrk"]
 [ext_resource type="Script" uid="uid://bfn8ymysbnhu7" path="res://scripts/tools/runnables/chest_runnable.gd" id="5_07ty7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gj4rf"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8o3n0"]
+shader = ExtResource("3_h07ny")
+shader_parameter/highlighted = false
+
 [node name="Chest" type="Area2D" node_paths=PackedStringArray("chest_inventory", "sprite_chest", "open_close_sound")]
 script = ExtResource("1_gj4rf")
 chest_inventory = NodePath("CanvasLayer/Chest_Inventory")
-sprite_chest = NodePath("Sprite2D")
+sprite_chest = NodePath("Interactable2D/Sprite2D")
 open_close_sound = NodePath("open_close_sound")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
 scale = Vector2(1.375, 1.375)
 shape = SubResource("CircleShape2D_gj4rf")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_vbo4i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -28,13 +31,22 @@ layer = 2
 visible = false
 
 [node name="Interactable2D" type="Area2D" parent="."]
+material = SubResource("ShaderMaterial_8o3n0")
+position = Vector2(0, -7)
 collision_layer = 4
-collision_mask = 0
-monitoring = false
+collision_mask = 5
 script = ExtResource("3_urnrk")
 interact_script = ExtResource("5_07ty7")
 custom_parameter = "{}"
 metadata/_custom_type_script = "uid://kibtonceriu1"
+
+[node name="Sprite2D" type="Sprite2D" parent="Interactable2D"]
+z_as_relative = false
+y_sort_enabled = true
+use_parent_material = true
+texture = ExtResource("1_vbo4i")
+centered = false
+offset = Vector2(-8, -8)
 
 [node name="open_close_sound" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"

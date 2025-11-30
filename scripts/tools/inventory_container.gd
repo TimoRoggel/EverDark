@@ -16,6 +16,8 @@ var unique_id: int = ResourceUID.create_id()
 
 signal updated
 
+signal item_dropped_on_ground(item: InventoryItem)
+
 func _ready() -> void:
 	if !Engine.is_editor_hint():
 		GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
@@ -30,14 +32,14 @@ func _clear() -> void:
 
 func _redraw() -> void:
 	_clear()
-	columns = ceili(slots / float(rows))
 	for i: int in slots:
 		var slot: InventorySlot = InventorySlot.new()
-		slot.index = i
-		slot.input_only = input_only
-		slot.output_only = output_only
 		slot.item_changed.connect(updated.emit)
+		slot.item_dropped.connect(_on_slot_drop) 
 		add_child(slot)
+
+func _on_slot_drop(item: InventoryItem):
+	item_dropped_on_ground.emit(item)
 
 func add(item_id: int, quantity: int = 1) -> int:
 	var inventory: Array[InventorySlot] = get_slots()

@@ -23,6 +23,7 @@ signal virusbar_setup(min)
 var virus_timer: Timer = null
 var elapsed_time := 0.0
 var damage_player: RandomAudioStreamPlayer2D = null
+var health: HealthComponent
 
 func _enter() -> void:
 	damage_player = GameManager.create_audio_player(&"SFX", damage_sounds, self)

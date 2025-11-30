@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c48opgvn3qtrd" path="res://graphics/items/stick.png" id="9_pkret"]
 [ext_resource type="AudioStream" uid="uid://boib6y7qn5037" path="res://audio/sounds/player/cook.wav" id="10_deqxu"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnloi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_deqxu"]
 shader = ExtResource("1_hhd8y")
 shader_parameter/highlighted = false
 
@@ -36,7 +36,7 @@ radius = 19.0
 [node name="campfire" type="Area2D"]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_bnloi")
+material = SubResource("ShaderMaterial_deqxu")
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("2_rpofv")
@@ -53,6 +53,7 @@ offset = Vector2(0, -7)
 
 [node name="campfire_layer" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="center" type="CenterContainer" parent="campfire_layer"]
 anchors_preset = 15

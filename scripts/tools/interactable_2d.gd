@@ -8,6 +8,11 @@ const SHADER: Shader = preload("uid://b0wqu3tlyguu1")
 		radius = max(0.0001, value)
 		if Engine.is_editor_hint():
 			queue_redraw()
+@export var offset: Vector2 = Vector2.ZERO:
+	set(value):
+		offset = value
+		if Engine.is_editor_hint():
+			queue_redraw()
 @export_group("interact", "interact_")
 @export var interact_sound: AudioStream = null
 @export var interact_script: GDScript = null
@@ -29,6 +34,7 @@ func _ready() -> void:
 	collision_mask = 4
 	shape.radius = radius
 	collision.shape = shape
+	collision.position = offset
 	add_child(collision)
 	interact_player.stream = interact_sound
 	add_child(interact_player)
@@ -37,9 +43,12 @@ func _ready() -> void:
 	area_exited.connect(_on_area_exited)
 
 func merge_param(controller: CharacterController) -> Dictionary:
-	var p_exp: Expression = Expression.new()
-	p_exp.parse(custom_parameter)
-	return { "controller": controller, "self": self }.merged(p_exp.execute())
+	var ex: Dictionary = { "controller": controller, "self": self }
+	if !custom_parameter.is_empty():
+		var p_exp: Expression = Expression.new()
+		p_exp.parse(custom_parameter)
+		ex = ex.merged(p_exp.execute())
+	return ex
 
 func can_interact(controller: CharacterController) -> bool:
 	if !is_visible_in_tree():
@@ -68,7 +77,7 @@ func set_active(timeout: float) -> void:
 func _draw() -> void:
 	if !Engine.is_editor_hint():
 		return
-	draw_circle(Vector2.ZERO, radius, Color.AQUA)
+	draw_circle(offset, radius, Color.AQUA)
 
 func _notification(what: int) -> void:
 	if !Engine.is_editor_hint():

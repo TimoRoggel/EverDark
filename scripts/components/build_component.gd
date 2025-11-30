@@ -6,7 +6,8 @@ const MIN_DISTANCE: float = 40.0
 
 const placeable_scenes: Dictionary = {
 	3: preload("res://scenes/crafting/crafting.tscn"),
-	4: preload("res://Chest/chest.tscn")
+	4: preload("res://Chest/chest.tscn"),
+	26: preload("uid://7cxdqearioco")
 }
 
 var input: InputComponent = null
@@ -42,7 +43,7 @@ func place_scene(at: Vector2, held_slot_item: int) -> void:
 	for coords in current_positions:
 		if coords.distance_to(at) < 1.0:
 			return
-	var scene = placeable_scenes[held_slot_item].instantiate()
+	var scene: Node2D = placeable_scenes[held_slot_item].instantiate()
 	get_tree().current_scene.add_child(scene)
 	scene.global_position = at
 	current_positions.append(at)

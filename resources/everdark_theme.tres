@@ -44,7 +44,7 @@ modulate_color = Color(0.5, 0.5, 0.5, 1)
 
 [resource]
 default_font = ExtResource("3_k05fi")
-default_font_size = 10
+default_font_size = 19
 Button/styles/disabled = SubResource("StyleBoxTexture_ra07v")
 Button/styles/focus = SubResource("StyleBoxTexture_ipap1")
 Button/styles/hover = SubResource("StyleBoxTexture_hnh4b")

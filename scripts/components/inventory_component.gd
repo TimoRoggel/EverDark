@@ -68,7 +68,7 @@ func set_held_item_id(item_id: int) -> void:
 	held_item = item_id
 
 func is_placeable(item_id: int) -> bool:
-	return item_id in [3, 4]
+	return item_id in [3, 4, 26]
 
 func random_spread_pos(entity_location, item_spread_radius) -> Vector2:
 	var rand_x = randf_range(entity_location.x - item_spread_radius, entity_location.x + item_spread_radius) 

@@ -755,6 +755,8 @@ metadata/_custom_type_script = "uid://c44mah042f13w"
 [node name="pause" type="CanvasLayer" parent="."]
 layer = 10
 
+[node name="DeathView" parent="pause" instance=ExtResource("30_yhyq5")]
+
 [node name="pause_screen" parent="pause" instance=ExtResource("18_d6tgn")]
 process_mode = 3
 visible = false
@@ -787,5 +789,3 @@ inventory_component = NodePath("../../components/inventory")
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
 visible = false
-
-[node name="DeathView" parent="CanvasLayer" instance=ExtResource("30_yhyq5")]

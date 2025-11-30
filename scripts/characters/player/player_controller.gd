@@ -21,7 +21,7 @@ var eat: EatComponent = null
 @onready var hud: Control = $CanvasLayer/HUD
 
 @onready var hotbar: HBoxContainer = $CanvasLayer/hotbar
-@onready var death_view: Control = $CanvasLayer/DeathView
+@onready var death_view: Control = $pause/DeathView
 
 func _init() -> void:
 	flags = CharacterFlags.Player

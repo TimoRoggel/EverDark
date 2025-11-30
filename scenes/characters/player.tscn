@@ -621,6 +621,7 @@ script = ExtResource("3_atpat")
 metadata/_custom_type_script = "uid://1ymurug5rwwb"
 
 [node name="movement" type="Node2D" parent="components"]
+process_mode = 1
 script = ExtResource("4_kqtwu")
 step_sounds = Array[AudioStream]([ExtResource("16_yyjep"), ExtResource("17_6aj6e"), ExtResource("18_n7k00"), ExtResource("19_lnpl6"), ExtResource("20_5bn3a"), ExtResource("21_tnye5")])
 step_cooldown = 0.02
@@ -740,7 +741,6 @@ metadata/_custom_type_script = "uid://chjcoikfv18ob"
 stream = SubResource("AudioStreamRandomizer_vkt2s")
 bus = &"Ambience"
 script = ExtResource("36_rfou0")
-metadata/_custom_type_script = "uid://c44mah042f13w"
 
 [node name="pause" type="CanvasLayer" parent="."]
 layer = 10

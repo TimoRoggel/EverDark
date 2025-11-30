@@ -6,6 +6,8 @@ var slowdown_timer: int = 0
 var main_camera_component: CameraComponent = null
 var player: PlayerController = null
 var ui_opened_conditions: Dictionary[String, Callable] = {}
+var paused : bool = false
+var ui_open : bool = false
 
 func _process(_delta: float) -> void:
 	if slowdown_timer <= Time.get_ticks_msec():

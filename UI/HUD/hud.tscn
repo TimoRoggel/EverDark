@@ -47,11 +47,13 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="VirusBar" type="ProgressBar" parent="VirusView"]
+modulate = Color(0.85430586, 0, 0, 1)
 z_index = 1
 layout_mode = 1
-offset_left = 36.999996
-offset_top = 26.0
-offset_right = 277.0
-offset_bottom = 39.700005
-scale = Vector2(0.44, 0.48000032)
+offset_left = 38.0
+offset_top = 9.0
+offset_right = 278.0
+offset_bottom = 36.0
+scale = Vector2(0.43, 0.48)
 show_percentage = false
+script = ExtResource("2_te8l2")

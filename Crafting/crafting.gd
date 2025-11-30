@@ -12,6 +12,7 @@ var crafting_input: InputComponent = null
 
 func _ready() -> void:
 	await get_tree().physics_frame
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	crafting_input = GameManager.player.get_component(InputComponent)
 	crafting_input.pickup.connect(_on_pickup)
 
@@ -46,7 +47,11 @@ func _on_pickup() -> void:
 func toggle_ui(controller: PlayerController) -> void:
 	if controller:
 		crafting_ui.inventory = controller.inventory
-	crafting_ui.visible = !crafting_ui.visible
-	if controller.hotbar:
-		hotbar = controller.hotbar
-		hotbar.visible = !crafting_ui.visible
+	if !GameManager.ui_open == !crafting_ui.visible:
+		GameManager.ui_open = !crafting_ui.visible
+		crafting_ui.visible = !crafting_ui.visible
+		get_tree().paused = crafting_ui.visible and not GameManager.paused
+		GameManager.paused = get_tree().paused
+		if controller.hotbar:
+			hotbar = controller.hotbar
+			hotbar.visible = !crafting_ui.visible

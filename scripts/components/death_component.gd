@@ -22,6 +22,8 @@ func _exit() -> void:
 func entity_died():
 	# resetting health right away, otherwise an loop will be caused
 	is_dead = true
+	await get_tree().create_timer(1.0).timeout
+	is_dead = false
 	entity.health.reset()
 	inventory = controller.inventory
 	if inventory:
@@ -37,7 +39,6 @@ func entity_died():
 func respawn():
 	controller.death_view.hide()
 	await get_tree().create_timer(.5).timeout
-	is_dead = false
 	entity.global_position = respawn_point
 	controller.hitbox.is_active = true
 	controller.set_physics_process(true)

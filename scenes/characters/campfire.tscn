@@ -1,0 +1,216 @@
+[gd_scene load_steps=16 format=3 uid="uid://7cxdqearioco"]
+
+[ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="1_hhd8y"]
+[ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="2_rpofv"]
+[ext_resource type="Script" uid="uid://bvoqmdmcxg6iv" path="res://scripts/tools/runnables/campfire_runnable.gd" id="3_bnloi"]
+[ext_resource type="Texture2D" uid="uid://br20pb2w1oq8m" path="res://map/Art Assets/Inventory Items/16x16_campfire_inv.png" id="3_rpofv"]
+[ext_resource type="Script" uid="uid://dj87dwkset43k" path="res://scripts/ui/campfire_ui.gd" id="5_bvo4n"]
+[ext_resource type="Texture2D" uid="uid://dwxyfmkp726u7" path="res://graphics/16x16_stone_inv.png" id="6_lg0jq"]
+[ext_resource type="Texture2D" uid="uid://cacifihv143uq" path="res://graphics/ui_icons/close.png" id="6_tjd1i"]
+[ext_resource type="Script" uid="uid://drux8dqpostqp" path="res://scripts/tools/inventory_slot.gd" id="7_tjd1i"]
+[ext_resource type="Texture2D" uid="uid://c48opgvn3qtrd" path="res://graphics/items/stick.png" id="9_pkret"]
+[ext_resource type="AudioStream" uid="uid://boib6y7qn5037" path="res://audio/sounds/player/cook.wav" id="10_deqxu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnloi"]
+shader = ExtResource("1_hhd8y")
+shader_parameter/highlighted = false
+
+[sub_resource type="Gradient" id="Gradient_pkret"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_deqxu"]
+gradient = SubResource("Gradient_pkret")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.84615386, 0.17521368)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tswr6"]
+random_pitch = 1.1
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("10_deqxu")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pkret"]
+radius = 19.0
+
+[node name="campfire" type="Area2D"]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_bnloi")
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_rpofv")
+radius = 12.0
+offset = Vector2(0, -6)
+interact_script = ExtResource("3_bnloi")
+metadata/_custom_type_script = "uid://kibtonceriu1"
+
+[node name="sprite" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+texture = ExtResource("3_rpofv")
+offset = Vector2(0, -7)
+
+[node name="campfire_layer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="center" type="CenterContainer" parent="campfire_layer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 318.0
+offset_top = 125.0
+offset_right = 318.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+use_top_left = true
+script = ExtResource("5_bvo4n")
+
+[node name="panel" type="PanelContainer" parent="campfire_layer/center"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="campfire_layer/center/panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin"]
+layout_mode = 2
+
+[node name="top_bar" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox"]
+layout_mode = 2
+
+[node name="campfire_label" type="Label" parent="campfire_layer/center/panel/margin/vbox/top_bar"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Campfire"
+
+[node name="close_button" type="Button" parent="campfire_layer/center/panel/margin/vbox/top_bar"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+icon = ExtResource("6_tjd1i")
+
+[node name="hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="items" type="ItemList" parent="campfire_layer/center/panel/margin/vbox/hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="preview" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="craftable_name" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cooked Stone"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="craftable_texture" type="TextureRect" parent="campfire_layer/center/panel/margin/vbox/hbox/preview"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+texture = ExtResource("6_lg0jq")
+stretch_mode = 5
+
+[node name="requirement_label" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview"]
+layout_mode = 2
+text = "Requirements:"
+
+[node name="requirements_hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox/hbox/preview"]
+layout_mode = 2
+
+[node name="requirements_name" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Stone"
+
+[node name="requirement_texture" type="TextureRect" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("6_lg0jq")
+stretch_mode = 3
+
+[node name="requirements_amount" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_hbox"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = " 1x"
+
+[node name="requirements_fuel_cost" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "25% Fuel"
+
+[node name="fuel_hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox"]
+layout_mode = 2
+
+[node name="slot_vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox"]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="fuel_label" type="Label" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/slot_vbox"]
+layout_mode = 2
+text = "Fuel"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="fuel_slot" type="PanelContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/slot_vbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("7_tjd1i")
+metadata/_custom_type_script = "uid://drux8dqpostqp"
+
+[node name="TextureRect" type="TextureRect" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/slot_vbox/fuel_slot"]
+modulate = Color(0, 0, 0, 0.15)
+layout_mode = 2
+texture = ExtResource("9_pkret")
+
+[node name="interaction_vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="craft_button" type="Button" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/interaction_vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Craft"
+
+[node name="fuel_progress" type="ProgressBar" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/interaction_vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+
+[node name="light" type="PointLight2D" parent="."]
+position = Vector2(0, -8)
+color = Color(1, 0.8383731, 0.5986477, 1)
+energy = 0.25
+texture = SubResource("GradientTexture2D_deqxu")
+
+[node name="cook_audio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_tswr6")
+bus = &"SFX"
+
+[node name="leave_area_check" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="collision" type="CollisionShape2D" parent="leave_area_check"]
+shape = SubResource("CircleShape2D_pkret")
+
+[connection signal="pressed" from="campfire_layer/center/panel/margin/vbox/top_bar/close_button" to="campfire_layer/center" method="_on_close_button_pressed"]
+[connection signal="pressed" from="campfire_layer/center/panel/margin/vbox/fuel_hbox/interaction_vbox/craft_button" to="campfire_layer/center" method="_on_craft_button_pressed"]

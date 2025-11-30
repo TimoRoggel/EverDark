@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://2sk6w6jiy3ng"]
+[gd_scene load_steps=9 format=3 uid="uid://2sk6w6jiy3ng"]
 
 [ext_resource type="Script" uid="uid://ddvwga4h802ko" path="res://Crafting/crafting.gd" id="1_hwda8"]
 [ext_resource type="Texture2D" uid="uid://cai400q5hbpoj" path="res://map/Art Assets/Map Objects (colision)/placeables/32x16_workbench_01.png" id="2_cascu"]
+[ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="3_2463p"]
 [ext_resource type="PackedScene" uid="uid://ccsvhx5s8yx0t" path="res://scenes/crafting/crafting_ui.tscn" id="3_xl5xf"]
 [ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="4_xkjm0"]
 [ext_resource type="Script" uid="uid://ej8osgevep81" path="res://scripts/tools/runnables/craftingtable_runnable.gd" id="5_cascu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hwda8"]
 radius = 16.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uhjkj"]
+shader = ExtResource("3_2463p")
+shader_parameter/highlighted = false
 
 [node name="Crafting" type="Area2D" node_paths=PackedStringArray("crafting_ui")]
 z_as_relative = false
@@ -20,12 +25,6 @@ position = Vector2(0.24999999, -7.2499995)
 scale = Vector2(1.24, 1.24)
 shape = SubResource("CircleShape2D_hwda8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_as_relative = false
-y_sort_enabled = true
-position = Vector2(5.9604645e-08, -7)
-texture = ExtResource("2_cascu")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 3
 
@@ -33,14 +32,23 @@ layer = 3
 visible = false
 
 [node name="Interactable2D" type="Area2D" parent="."]
+material = SubResource("ShaderMaterial_uhjkj")
 position = Vector2(0.25, -7.25)
 collision_layer = 4
-collision_mask = 0
-monitoring = false
+collision_mask = 5
 script = ExtResource("4_xkjm0")
 interact_script = ExtResource("5_cascu")
 custom_parameter = "{}"
 metadata/_custom_type_script = "uid://kibtonceriu1"
+
+[node name="Sprite2D" type="Sprite2D" parent="Interactable2D"]
+z_as_relative = false
+y_sort_enabled = true
+use_parent_material = true
+position = Vector2(-0.24999994, 0.25)
+texture = ExtResource("2_cascu")
+centered = false
+offset = Vector2(-16, -8)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

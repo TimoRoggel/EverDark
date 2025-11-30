@@ -30,9 +30,8 @@
 [ext_resource type="AudioStream" uid="uid://c2fcwwwc5bq55" path="res://audio/sounds/player/footstep_1.wav" id="17_6aj6e"]
 [ext_resource type="Script" uid="uid://c0jl7340jmrnc" path="res://scripts/components/block_component.gd" id="17_d6tgn"]
 [ext_resource type="PackedScene" uid="uid://bn1esnd74d0hh" path="res://UI/Pause Menu/pause_menu.tscn" id="18_d6tgn"]
-[ext_resource type="Script" uid="uid://chbvt1cpvl4ve" path="res://scripts/components/lumin_placement_component.gd" id="18_kmyvj"]
 [ext_resource type="AudioStream" uid="uid://b0tn0m1wkqfie" path="res://audio/sounds/player/footstep_2.wav" id="18_n7k00"]
-[ext_resource type="Script" uid="uid://xmaoi8lc7blu" path="res://scripts/components/knockback_component.gd" id="19_inhyd"]
+[ext_resource type="Script" path="res://scripts/components/knockback_component.gd" id="19_inhyd"]
 [ext_resource type="AudioStream" uid="uid://honhvb0mlhjk" path="res://audio/sounds/player/footstep_3.wav" id="19_lnpl6"]
 [ext_resource type="Script" uid="uid://mx2o6js1ifk6" path="res://scripts/components/everdark_compute_component.gd" id="19_o6auj"]
 [ext_resource type="AudioStream" uid="uid://d1n7a7pdg15lk" path="res://audio/sounds/player/footstep_4.wav" id="20_5bn3a"]
@@ -54,6 +53,7 @@
 [ext_resource type="PackedScene" uid="uid://rpe0gg8ku1ui" path="res://scenes/effects/LuminPreview.tscn" id="36_qmarm"]
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
+[ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
 [ext_resource type="Resource" uid="uid://ylhc2g4awx42" path="res://resources/entities/sfm_entity.tres" id="46_as8yd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
@@ -555,6 +555,10 @@ noise = SubResource("FastNoiseLite_aqa0x")
 seamless = true
 seamless_blend_skirt = 1.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i42og"]
+atlas = ExtResource("44_qmarm")
+region = Rect2(16, 193, 16, 18)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vkt2s"]
 streams_count = 1
 stream_0/stream = ExtResource("35_hnvwh")
@@ -673,10 +677,6 @@ min_power = 1.0
 damaging_flags = 3
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
-[node name="lumin_placement" type="Node2D" parent="components"]
-script = ExtResource("18_kmyvj")
-lumin_preview_scene = ExtResource("36_qmarm")
-
 [node name="build_component" type="Node2D" parent="components" node_paths=PackedStringArray("hotbar_container")]
 script = ExtResource("35_5bn3a")
 hotbar_container = NodePath("../../CanvasLayer/hotbar")
@@ -719,6 +719,17 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("NoiseTexture2D_yhyq5")
 
+[node name="background_water" type="Parallax2D" parent="camera"]
+z_index = -2
+z_as_relative = false
+repeat_size = Vector2(16, 16)
+repeat_times = 48
+follow_viewport = false
+screen_offset = Vector2(-4, 2)
+
+[node name="water" type="Sprite2D" parent="camera/background_water"]
+texture = SubResource("AtlasTexture_i42og")
+
 [node name="random_entity_spawner" type="Node2D" parent="."]
 script = ExtResource("24_wqk1x")
 entity = ExtResource("20_dm10o")
@@ -744,6 +755,8 @@ script = ExtResource("36_rfou0")
 
 [node name="pause" type="CanvasLayer" parent="."]
 layer = 10
+
+[node name="DeathView" parent="pause" instance=ExtResource("30_yhyq5")]
 
 [node name="pause_screen" parent="pause" instance=ExtResource("18_d6tgn")]
 process_mode = 3
@@ -777,5 +790,3 @@ inventory_component = NodePath("../../components/inventory")
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
 visible = false
-
-[node name="DeathView" parent="CanvasLayer" instance=ExtResource("30_yhyq5")]

@@ -8,7 +8,8 @@ class_name HitboxComponent extends Component
 		collision_radius = value
 		queue_redraw()
 @export var damage_sounds: Array[AudioStream] = []
-@export_flags("Pickaxe") var damage_flag_filters: int = 0
+@export var minimum_harvest_level_filter: int = 0
+@export_flags("Pickaxe", "Axe") var damage_flag_filters: int = 0
 
 var health_component: HealthComponent = null
 var block_component: BlockComponent = null
@@ -70,15 +71,20 @@ func receive_hit(from: AttackController) -> void:
 		return
 	if !health_component.can_get_damaged(from):
 		return
+	if from.attack.harvest_level < minimum_harvest_level_filter:
+		return
 	if from.attack.flags & damage_flag_filters != damage_flag_filters:
 		return
 	if block_component:
 		if block_component.did_block(global_position.angle_to(from.global_position)):
 			return
-	if damage_sound_player:
-		damage_sound_player.play_randomized()
+	play_damaged()
 	health_component.take_damage(from)
 	cooldown()
+
+func play_damaged() -> void:
+	if damage_sound_player:
+		damage_sound_player.play_randomized()
 
 func can_receive_damage() -> bool:
 	return is_active && !invulnerable

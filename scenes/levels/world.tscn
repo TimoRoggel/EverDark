@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=21 format=4 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="PackedScene" uid="uid://dw3msgvb1ai4b" path="res://scenes/characters/stone.tscn" id="4_xidr1"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="AudioStream" uid="uid://dyklopfm0j5up" path="res://audio/ambience/forest_ambience_0.wav" id="14_8c33x"]
 [ext_resource type="TileSet" uid="uid://cyqg6ktxfoknu" path="res://resources/tile_set.tres" id="14_q418o"]
-[ext_resource type="Shader" uid="uid://cfj62eilun6kd" path="res://shaders/test.gdshader" id="17_pj0xw"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -25,6 +24,10 @@ tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q418o"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pj0xw"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
@@ -32,42 +35,6 @@ shader_parameter/highlighted = false
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gs7m4"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_btahq"]
-shader = ExtResource("10_q418o")
-shader_parameter/highlighted = false
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_px3xn"]
-shader = ExtResource("17_pj0xw")
-shader_parameter/lumin_positions = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/lumin_radii = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/lumin_count = 0
-shader_parameter/aggression = 4
-shader_parameter/threshold = 0.5
-shader_parameter/pixel_offset = 0.515
-
-[sub_resource type="GDScript" id="GDScript_pj0xw"]
-script/source = "extends ColorRect
-
-func _physics_process(_delta: float) -> void:
-	material.set_shader_parameter(\"lumin_positions\", get_lumin_positions())
-	material.set_shader_parameter(\"lumin_radii\", get_lumin_sizes())
-	material.set_shader_parameter(\"lumin_count\", Generator.lumin_positions.size())
-
-func get_lumin_positions() -> PackedVector2Array:
-	var positions: PackedVector2Array = []
-	for pos: Vector2 in Generator.lumin_positions:
-		positions.append((pos + Vector2.ONE * 1200.0) / 2400.0)
-	return positions
-
-func get_lumin_sizes() -> PackedFloat32Array:
-	var sizes: PackedFloat32Array = [Generator.LUMIN_SIZE * 2.0]
-	for i: int in Generator.lumin_positions.size():
-		if i == 0:
-			continue
-		sizes.append(Generator.LUMIN_SIZE)
-	return sizes
-"
 
 [node name="world" type="Node2D"]
 z_as_relative = false
@@ -2488,7 +2455,7 @@ position = Vector2(-496, 123)
 position = Vector2(-539, 251)
 
 [node name="metal5" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
-position = Vector2(-254, 308)
+position = Vector2(-364, 467)
 
 [node name="metal6" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
 position = Vector2(-190, 528)
@@ -2633,7 +2600,7 @@ position = Vector2(-939, -190)
 [node name="note_0" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_pj0xw")
+material = SubResource("ShaderMaterial_q418o")
 position = Vector2(-946, -138)
 collision_layer = 4
 collision_mask = 4
@@ -2644,7 +2611,7 @@ custom_parameter = "{\"note\": 0}"
 [node name="note_1" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_gs7m4")
+material = SubResource("ShaderMaterial_pj0xw")
 position = Vector2(-908, -129)
 collision_layer = 4
 collision_mask = 4
@@ -2656,7 +2623,7 @@ custom_parameter = "{\"note\": 1}"
 [node name="note_2" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_btahq")
+material = SubResource("ShaderMaterial_gs7m4")
 position = Vector2(-913, -100)
 collision_layer = 4
 collision_mask = 4
@@ -2765,13 +2732,3 @@ stream = ExtResource("14_8c33x")
 volume_db = -12.0
 autoplay = true
 bus = &"Ambience"
-
-[node name="everdark" type="ColorRect" parent="."]
-z_index = 4096
-z_as_relative = false
-material = SubResource("ShaderMaterial_px3xn")
-offset_left = -1200.0
-offset_top = -1200.0
-offset_right = 1200.0
-offset_bottom = 1200.0
-script = SubResource("GDScript_pj0xw")

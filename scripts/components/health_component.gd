@@ -84,6 +84,8 @@ func death() -> void:
 			continue
 		DroppedItem2D.drop(item_id, 1, global_position)
 	died.emit()
+	if !persistent:
+		controller.collision_layer = 0
 	if death_player:
 		death_player.play_randomized()
 		await death_player.finished

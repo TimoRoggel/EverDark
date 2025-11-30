@@ -55,6 +55,7 @@ static func from_data(data: Dictionary) -> Attack:
 	attack.id = data["id"]
 	attack.texture = DataDrivenResource.get_loaded(data, "texture")
 	attack.weapon_sprite = DataDrivenResource.get_loaded(data, "weapon_sprite")
+	attack.attack_sound = DataDrivenResource.get_loaded(data, "attack_sound")
 	attack.power = data["power"]
 	attack.invulnerability = int(data["invulnerability"]) * 0.001
 	attack.inheritance = data["inheritance"]
@@ -75,12 +76,6 @@ static func from_data(data: Dictionary) -> Attack:
 	attack.alpha_over_time = DataDrivenResource.get_loaded(data, "alpha_over_time")
 	attack.harvest_level = data["harvest_level"]
 	attack.flags = data["flags"]
-	## TODO: Change to be used in spreadsheet
-	match attack.id:
-		0:
-			attack.attack_sound = preload("uid://diejtktpb684t")
-		1:
-			attack.attack_sound = preload("uid://doh656uo5cnj5")
 	return attack
 
 func rand_range(base: float, randomness: float) -> float:

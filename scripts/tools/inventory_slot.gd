@@ -133,9 +133,7 @@ func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
 		return false
 	if !_is_valid_item(data.get("item").item):
 		return false
-	if inventory_item && inventory_item.item && inventory_item.quantity >= inventory_item.item.stack_size:
-		return false
-	return inventory_item == null || data.get("item").item == inventory_item.item
+	return true
 
 func _drop_data(_pos: Vector2, data: Variant) -> void:
 	if !data:
@@ -149,6 +147,10 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 		if result["remainder"] > 0:
 			i_slot.inventory_item = InventoryItem.new(i_item.item, result["remainder"])
 			i_slot._setup_item()
+	else:
+		i_slot.inventory_item = inventory_item
+		i_slot._setup_item()
+		inventory_item = i_item
 	_setup_item()
 
 func _is_valid_item(item: Item) -> bool:

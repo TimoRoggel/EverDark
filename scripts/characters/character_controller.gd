@@ -79,9 +79,6 @@ func load_components(parent: Node = self) -> void:
 			c.initialize(self)
 		load_components(c)
 
-func get_tile() -> TileData:
-	return Generator.layer.get_cell_tile_data(Generator.layer.local_to_map(global_position))
-
 func get_component(type: Variant, index: int = 0) -> Component:
 	var count: int = 0
 	for c: Component in components:

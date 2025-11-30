@@ -21,7 +21,7 @@ var eat: EatComponent = null
 @onready var hud: Control = $CanvasLayer/HUD
 
 @onready var hotbar: HBoxContainer = $CanvasLayer/hotbar
-@onready var death_view: Control = $CanvasLayer/DeathView
+@onready var death_view: Control = $pause/DeathView
 
 func _init() -> void:
 	flags = CharacterFlags.Player
@@ -53,7 +53,6 @@ func _ready() -> void:
 	if death_view and death:
 		death_view.respawn_pressed.connect(death.respawn)
 	eat = get_component(EatComponent)
-	await Generator.generate(Vector2.ZERO)
 
 func _custom_physics_process(delta: float) -> void:
 	super(delta)

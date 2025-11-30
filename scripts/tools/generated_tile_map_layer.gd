@@ -13,9 +13,6 @@ var queueing: bool = false
 signal chunk_generated(chunk: Vector2i)
 signal everdark_queue_done
 
-func _ready() -> void:
-	Generator.layer = self
-
 func process_terrain_queue(chunk: Vector2i) -> void:
 	if processed_terrains.has(chunk):
 		return
@@ -88,8 +85,6 @@ func generate(where: Vector2) -> void:
 	find_and_place_tile(where)
 	process_terrain_queue(where)
 
-func find_and_place_tile(at: Vector2) -> void:
-	place_tile(at, Generator.get_tile(at.x, at.y), false)
 
 func place_tile(at: Vector2, tile: BiomeTile, topping: bool = false) -> void:
 	if !tile:

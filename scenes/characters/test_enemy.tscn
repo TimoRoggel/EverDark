@@ -335,7 +335,6 @@ autoplay = "idle_down"
 
 [node name="move" type="Node2D" parent="."]
 script = ExtResource("2_ehifl")
-speed = 25.0
 step_sounds = Array[AudioStream]([ExtResource("9_y8f4n"), ExtResource("10_4ii8p"), ExtResource("11_s54qa")])
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
@@ -356,7 +355,7 @@ metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 z_index = -1
 z_as_relative = false
 script = ExtResource("8_8jpgt")
-radius = 320.0
+radius = 160.0
 targeting_flags = 1
 metadata/_custom_type_script = "uid://brg24dd5ampra"
 

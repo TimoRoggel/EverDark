@@ -23,7 +23,6 @@ signal virusbar_setup(min)
 var virus_timer: Timer = null
 var elapsed_time := 0.0
 var damage_player: RandomAudioStreamPlayer2D = null
-var distance_to_lumin: float = 0.0
 var health: HealthComponent
 
 func _enter() -> void:
@@ -33,11 +32,10 @@ func _enter() -> void:
 		health = controller.health
 
 func _update(_delta: float) -> void:
-	if Generator.layer and controller.death:
+	if controller.death:
 		if controller.death.is_dead:
 			return
-		distance_to_lumin = get_closest_lumin_distance()
-		var in_everdark: bool = distance_to_lumin > Generator.LUMIN_SIZE
+		var in_everdark: bool = Generator.is_in_everdark(controller.global_position)
 		if in_everdark && virus_timer.is_stopped():
 			everdark_entered.emit(true)
 			virus_timer.start()
@@ -48,16 +46,6 @@ func _update(_delta: float) -> void:
 	
 func _exit() -> void:
 	pass
-
-func get_closest_lumin_distance() -> float:
-	var positions: Array = []
-	positions.append_array(Generator.lumin_positions)
-	positions.sort_custom(func(a: Vector2, b: Vector2) -> bool:
-		return a.distance_squared_to(controller.global_position) < b.distance_squared_to(controller.global_position)
-	)
-	if positions.size() <= 0.0:
-		return 9999.9
-	return controller.global_position.distance_to(positions[0])
 
 func create_virus_timer() -> void:
 	virusbar_setup.emit(total_time)
@@ -72,7 +60,7 @@ func create_virus_timer() -> void:
 	
 func on_virus_timer_timeout() -> void:
 	# increasing or decreasing virusbar based on players postition
-	var in_everdark: bool = distance_to_lumin > Generator.LUMIN_SIZE
+	var in_everdark: bool = Generator.is_in_everdark(controller.global_position)
 	if in_everdark:
 		elapsed_time += virus_timer.wait_time
 	else:
@@ -86,7 +74,7 @@ func on_virus_timer_timeout() -> void:
 		virus_timer.stop()
 		if controller.health:
 			var just_hurt = false
-			while (distance_to_lumin > Generator.LUMIN_SIZE && !controller.death.is_dead): # blijft wws doorgaan na dood gaan
+			while (Generator.is_in_everdark(controller.global_position) && !controller.death.is_dead): # blijft wws doorgaan na dood gaan
 				if !just_hurt:
 					if damage_player:
 						damage_player.play_randomized()

@@ -11,17 +11,19 @@ func _enter() -> void:
 			return
 		if !controller.health:
 			return
-		if controller.health.current_health >= controller.health.max_health:
-			return
 		var selected_item_id: int = controller.inventory.get_held_item_id()
 		if selected_item_id < 0:
 			return
 		var selected_item: Item = DataManager.get_resource_by_id("items", selected_item_id)
-		if selected_item.absorbtion <= 0:
+		if selected_item.absorbtion == 0:
 			return
+		if selected_item.absorbtion > 0:
+			if controller.health.current_health >= controller.health.max_health:
+				return
 		controller.hotbar.substract_item()
 		controller.health.heal(selected_item.absorbtion)
-		eat_player.play_randomized()
+		if selected_item.absorbtion > 0:
+			eat_player.play_randomized()
 	)
 	
 func _update(_delta: float) -> void:

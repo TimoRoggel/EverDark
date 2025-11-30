@@ -36,6 +36,7 @@ func _enter() -> void:
 	shape.shape.radius = interact_radius
 	area.add_child(shape)
 	area.collision_mask = 4
+	area.collision_layer = 4
 
 func _update(_delta: float) -> void:
 	if Engine.is_editor_hint():

@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqlhi2gteh8ql"]
+
+[ext_resource type="Script" uid="uid://bci8tkuq2rsr5" path="res://UI/HUD/inventory.gd" id="1_7ksfh"]
+[ext_resource type="Script" uid="uid://djc1aymrnspxu" path="res://UI/HUD/grid_container.gd" id="3_x3nyo"]
+[ext_resource type="Texture2D" uid="uid://dbhwtwyxq6ro2" path="res://graphics/32x32_inventory_HUD_01_transp.png" id="4_aiksn"]
+
+[node name="Inventory" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ksfh")
+
+[node name="SelectedIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+process_mode = 3
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -229.0
+offset_top = -427.0
+offset_right = 229.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 45
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 45
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+columns = 4
+script = ExtResource("3_x3nyo")
+slot_background = ExtResource("4_aiksn")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("4_aiksn")
+
+[node name="ItemDescription" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="slot_clicked" from="MarginContainer/VBoxContainer/HBoxContainer/InventoryContainer" to="." method="_on_grid_container_slot_clicked"]

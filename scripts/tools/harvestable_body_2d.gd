@@ -18,6 +18,7 @@ func _ready() -> void:
 	harvestable = DataManager.get_resource_by_id("harvestables", harvestable_id)
 	z_as_relative = false
 	y_sort_enabled = true
+	sprite.use_parent_material = true
 	add_child(sprite)
 	recover_timer.one_shot = true
 	add_child(recover_timer)

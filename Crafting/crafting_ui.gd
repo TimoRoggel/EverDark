@@ -14,6 +14,7 @@ var recipe_material_dict: Dictionary[Item, int] = {}
 var inventory: InventoryComponent = null
 var current_recipe: Recipe = null
 var unique_id: int = ResourceUID.create_id()
+var opened: Array[bool] = [false, false, false, false, false]
 
 func _ready() -> void:
 	GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
@@ -21,6 +22,13 @@ func _ready() -> void:
 	craft_button.pressed.connect(_on_CraftButton_pressed)
 	visibility_changed.connect(_on_visibility_changed)
 	tree.item_selected.connect(_on_tree_cell_selected)
+	tree.item_collapsed.connect(func(item: TreeItem) -> void:
+		if !item:
+			return
+		if !item.has_meta(&"index"):
+			return
+		opened[item.get_meta(&"index")] = !item.collapsed
+	)
 
 func _exit_tree() -> void:
 	GameManager.ui_opened_conditions.erase(name + str(unique_id))
@@ -48,14 +56,21 @@ func build_recipe_tree() -> void:
 
 	var custom_order = ["Weapons", "Tools", "Buildings", "Misc"]
 
+	var index: int = 0
 	for cat_name in custom_order:
 		var cat_item = tree.create_item(tree_root)
 		cat_item.set_text(0, cat_name)
 		cat_item.set_selectable(0, false)
-		cat_item.collapsed = true
+		cat_item.collapsed = !opened[index]
+		cat_item.set_meta(&"index", index)
 		categories[cat_name] = cat_item
+		index += 1
 
 	for recipe: Recipe in DataManager.resources["recipes"]:
+		if recipe.category == "campfire":
+			continue
+		if !recipe.visible:
+			continue
 		var raw_cat = recipe.category
 		if raw_cat == "" or raw_cat == null: raw_cat = "misc"
 		var cat_name = raw_cat.capitalize()
@@ -64,7 +79,8 @@ func build_recipe_tree() -> void:
 			var cat_item = tree.create_item(tree_root)
 			cat_item.set_text(0, cat_name)
 			cat_item.set_selectable(0, false)
-			cat_item.collapsed = true
+			cat_item.collapsed = !opened[index]
+			cat_item.set_meta(&"index", index)
 			categories[cat_name] = cat_item
 		
 		var parent_item = categories[cat_name]

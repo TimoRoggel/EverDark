@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=24 format=4 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="PackedScene" uid="uid://dw3msgvb1ai4b" path="res://scenes/characters/stone.tscn" id="4_xidr1"]
@@ -7,10 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://c3uq6e0ebj040" path="res://scenes/characters/carcas.tscn" id="6_q418o"]
 [ext_resource type="PackedScene" uid="uid://ben57b4iih2at" path="res://scenes/characters/tree.tscn" id="7_pj0xw"]
 [ext_resource type="PackedScene" uid="uid://dl655ix05mcka" path="res://scenes/characters/hole.tscn" id="8_dp8al"]
+[ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="9_btahq"]
 [ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
 [ext_resource type="Script" uid="uid://b3b33abitpj2t" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
+[ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="10_px3xn"]
 [ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="10_q418o"]
+[ext_resource type="Resource" uid="uid://ylhc2g4awx42" path="res://resources/entities/sfm_entity.tres" id="11_8cjxf"]
 [ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
 [ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
@@ -24,15 +27,15 @@ tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q418o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_btahq"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pj0xw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_px3xn"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gs7m4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cjxf"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
@@ -2591,16 +2594,120 @@ position = Vector2(-156, 301)
 [node name="Monolith" parent="world_assets" instance=ExtResource("12_de0io")]
 position = Vector2(561, -663)
 
+[node name="enemies" type="Node2D" parent="."]
+
+[node name="guardian_spawner" type="Node2D" parent="enemies"]
+position = Vector2(426, -581)
+script = ExtResource("9_btahq")
+entity = ExtResource("10_px3xn")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.35
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="guardian_spawner2" type="Node2D" parent="enemies"]
+position = Vector2(504, -434)
+script = ExtResource("9_btahq")
+entity = ExtResource("10_px3xn")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.35
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="guardian_spawner3" type="Node2D" parent="enemies"]
+position = Vector2(-464, 263)
+script = ExtResource("9_btahq")
+entity = ExtResource("10_px3xn")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.35
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="sfm_spawner" type="Node2D" parent="enemies"]
+position = Vector2(-405, -208)
+script = ExtResource("9_btahq")
+entity = ExtResource("11_8cjxf")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.2
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="sfm_spawner2" type="Node2D" parent="enemies"]
+position = Vector2(-189, -424)
+script = ExtResource("9_btahq")
+entity = ExtResource("11_8cjxf")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.2
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="sfm_spawner3" type="Node2D" parent="enemies"]
+position = Vector2(200, -408)
+script = ExtResource("9_btahq")
+entity = ExtResource("11_8cjxf")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.2
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="sfm_spawner4" type="Node2D" parent="enemies"]
+position = Vector2(0, 361)
+script = ExtResource("9_btahq")
+entity = ExtResource("11_8cjxf")
+capacity = 2
+amount = 2
+min_spawn_rate = 25.0
+randomness = 0.2
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="sfm_spawner5" type="Node2D" parent="enemies"]
+position = Vector2(541, 57)
+script = ExtResource("9_btahq")
+entity = ExtResource("11_8cjxf")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.2
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="sfm_spawner6" type="Node2D" parent="enemies"]
+position = Vector2(359, 418)
+script = ExtResource("9_btahq")
+entity = ExtResource("11_8cjxf")
+capacity = 1
+min_spawn_rate = 25.0
+randomness = 0.2
+min_radius = 80.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
 [node name="Crafting" parent="." instance=ExtResource("6_gy5pc")]
 position = Vector2(-12, 8)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
+visible = false
 position = Vector2(-939, -190)
 
 [node name="note_0" type="Area2D" parent="."]
+visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_q418o")
+material = SubResource("ShaderMaterial_btahq")
 position = Vector2(-946, -138)
 collision_layer = 4
 collision_mask = 4
@@ -2609,9 +2716,10 @@ interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 0}"
 
 [node name="note_1" type="Area2D" parent="."]
+visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_pj0xw")
+material = SubResource("ShaderMaterial_px3xn")
 position = Vector2(-908, -129)
 collision_layer = 4
 collision_mask = 4
@@ -2621,9 +2729,10 @@ interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 1}"
 
 [node name="note_2" type="Area2D" parent="."]
+visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_gs7m4")
+material = SubResource("ShaderMaterial_8cjxf")
 position = Vector2(-913, -100)
 collision_layer = 4
 collision_mask = 4
@@ -2732,9 +2841,3 @@ stream = ExtResource("14_8c33x")
 volume_db = -12.0
 autoplay = true
 bus = &"Ambience"
-
-[node name="test_enemy" parent="." instance=ExtResource("16_q418o")]
-position = Vector2(490, -597)
-
-[node name="test_enemy2" parent="." instance=ExtResource("16_q418o")]
-position = Vector2(435, -582)

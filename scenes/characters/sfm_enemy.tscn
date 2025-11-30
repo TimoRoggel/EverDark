@@ -341,7 +341,6 @@ offset = Vector2(-24, -8)
 
 [node name="move" type="Node2D" parent="."]
 script = ExtResource("8_27k00")
-speed = 80.0
 step_sounds = Array[AudioStream]([ExtResource("9_xdvh2"), ExtResource("10_2gjli"), ExtResource("11_pe0f8")])
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
@@ -362,7 +361,7 @@ metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 z_index = -1
 z_as_relative = false
 script = ExtResource("15_58syw")
-radius = 320.0
+radius = 160.0
 targeting_flags = 1
 metadata/_custom_type_script = "uid://brg24dd5ampra"
 

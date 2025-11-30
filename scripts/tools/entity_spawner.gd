@@ -1,7 +1,7 @@
 @tool
 class_name EntitySpawner extends Node2D
 
-const TRIES: int = 300
+const TRIES: int = 20
 
 @export var entity: Entity = null
 @export_range(0, 80) var capacity: int = 4
@@ -35,7 +35,7 @@ func _ready() -> void:
 	spawn_timer.one_shot = true
 	add_child(spawn_timer)
 	spawn_timer.timeout.connect(spawn)
-	spawn_timer.start(10.01)
+	spawn_timer.start(0.01)
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():
@@ -50,14 +50,14 @@ func spawn() -> void:
 		for i: int in range(min(int(ceil(GameManager.get_randomized_value(amount, randomness))), capacity - spawned_entities.size())):
 			spawn_entity()
 	restart_timer()
-	
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	if GameManager.player:
 		if GameManager.player.death:
 			if dead != GameManager.player.death.is_dead:
 				dead = GameManager.player.death.is_dead
-				print(str(GameManager.player.death.is_dead))
 			if GameManager.player.death.is_dead:
 				if not enemies_just_reset:
 					reset_enemies()
@@ -66,9 +66,13 @@ func _physics_process(delta: float) -> void:
 					enemies_just_reset = false
 
 func spawn_entity() -> void:
+	if get_tree().paused:
+		return
 	var spawn_position: Vector2 = Vector2.ZERO
 	for i: int in TRIES:
 		spawn_position = get_randomized_spawn_location()
+		if Generator.is_in_everdark(spawn_position):
+			break
 		if i == TRIES - 1:
 			return
 	if entity.spawn_particles:
@@ -100,7 +104,7 @@ func restart_timer() -> void:
 	spawn_timer.start(GameManager.get_randomized_value(get_spawn_rate(), randomness))
 
 func get_spawn_rate() -> float:
-	return pow(0.001, global_position.length() / max_spawn_distance) * min_spawn_rate
+	return min_spawn_rate
 
 func get_randomized_spawn_location() -> Vector2:
 	var theta: float = randf_range(0, TAU)

@@ -44,7 +44,7 @@ shader_parameter/lumin_radii = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 shader_parameter/lumin_count = 0
 shader_parameter/aggression = 4
 shader_parameter/threshold = 0.5
-shader_parameter/pixel_offset = 0.05
+shader_parameter/pixel_offset = 0.515
 
 [sub_resource type="GDScript" id="GDScript_pj0xw"]
 script/source = "extends ColorRect
@@ -2767,7 +2767,6 @@ autoplay = true
 bus = &"Ambience"
 
 [node name="everdark" type="ColorRect" parent="."]
-visible = false
 z_index = 4096
 z_as_relative = false
 material = SubResource("ShaderMaterial_px3xn")

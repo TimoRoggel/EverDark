@@ -38,6 +38,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/YATI/plugin.cfg", "res://addons/sync_spreadsheets/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://cs2viwcjg8kjc"
+
 [input]
 
 ui_focus_next={

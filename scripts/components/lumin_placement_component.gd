@@ -30,5 +30,6 @@ func place(at: Vector2) -> void:
 	place_player.global_position = at
 	place_player.play_randomized()
 	Generator.lumin_positions.append(at)
+	Generator.lumin_sizes.append(Generator.LUMIN_SIZE)
 	current_lumin_positions.append(at)
 	inventory.remove(0)

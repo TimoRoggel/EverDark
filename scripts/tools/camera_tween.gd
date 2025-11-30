@@ -6,7 +6,7 @@ var duration: float = 0.0
 var start_time: int = 0
 
 static func get_score(_amount: float, _remaining_time: float) -> float:
-	return _amount * 3.0 + _remaining_time
+	return _amount * 3 + _remaining_time
 
 func _init(_tween: Tween, _amount: float, _duration: float) -> void:
 	tween = _tween

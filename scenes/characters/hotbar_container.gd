@@ -3,15 +3,13 @@ extends HBoxContainer
 @export var inventory: InventoryContainer
 @export var inventory_component: InventoryComponent  
 
-var hotbar_slots: int = 10 
+var hotbar_slots: int = 3 
 var currently_selected_slot: int = 0
 var is_active: bool = true
 var hotbar_just_emptied: bool = false
-var slots_per_row: int = 0
 
 func _ready() -> void:
 	if inventory:
-		slots_per_row = roundi(inventory.slots / float(inventory.rows))
 		inventory.updated.connect(update_held_item)
 	add_slots()
 	update_hotbar()
@@ -54,7 +52,7 @@ func _process(_delta: float) -> void:
 
 func add_slots() -> void:
 	if inventory && self.get_child_count() == 0:
-		for i: int in slots_per_row:
+		for i: int in hotbar_slots:
 			var slot_texture: TextureButton = create_slot()
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()

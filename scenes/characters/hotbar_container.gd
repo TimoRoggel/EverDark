@@ -24,17 +24,20 @@ func _on_visibility_changed() -> void:
 	update_currently_selected_slot()
 	select_slot(currently_selected_slot)
 
+# Hotbar.gd
+
 func _input(event: InputEvent) -> void:
+
 	if not is_active:
 		return
+	if event.is_action_pressed("drop_item"):
+		if inventory:
+			var slots = inventory.get_slots()
+			if currently_selected_slot < slots.size():
+				var current_slot: InventorySlot = slots[currently_selected_slot]
+				current_slot.drop_item_manually(Input.is_key_pressed(KEY_CTRL))
+				update_held_item()
 
-	# Drop item
-	#if event.is_action_pressed("drop_item"):
-		#var current_item = inventory.get_slots()[currently_selected_slot].inventory_item
-		#if current_item:
-			#print("Dropped: ", current_item)
-		#else:
-			#print("Empty slot")
 	if is_instance_of(event, InputEventMouseButton):
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:

@@ -1,11 +1,16 @@
 @tool
-class_name InventoryContainer extends GridContainer
+class_name InventoryContainer1 extends GridContainer
 
-@export var slots: int = 30:
+@export var slot_background: Texture2D:
+	set(value):
+		slot_background = value
+		_redraw()
+
+@export var slots: int = 8:
 	set(value):
 		slots = value
 		_redraw()
-@export var rows: int = 3:
+@export var rows: int = 2:
 	set(value):
 		rows = value
 		_redraw()
@@ -15,7 +20,7 @@ class_name InventoryContainer extends GridContainer
 var unique_id: int = ResourceUID.create_id()
 
 signal updated
-
+signal slot_clicked(item: InventoryItem) 
 signal item_dropped_on_ground(item: InventoryItem)
 
 func _ready() -> void:
@@ -32,10 +37,25 @@ func _clear() -> void:
 
 func _redraw() -> void:
 	_clear()
+	
+	var slot_style: StyleBoxTexture = null
+	if slot_background:
+		slot_style = StyleBoxTexture.new()
+		slot_style.texture = slot_background
+
 	for i: int in slots:
 		var slot: InventorySlot = InventorySlot.new()
+		
+		if slot_style:
+			slot.add_theme_stylebox_override("panel", slot_style)
+		
+		if slot_background:
+			slot.custom_minimum_size = slot_background.get_size()
+		
 		slot.item_changed.connect(updated.emit)
 		slot.item_dropped.connect(_on_slot_drop) 
+		slot.pressed.connect(func(item): slot_clicked.emit(item))
+		
 		add_child(slot)
 
 func _on_slot_drop(item: InventoryItem):

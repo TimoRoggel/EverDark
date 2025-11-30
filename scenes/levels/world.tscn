@@ -2732,3 +2732,9 @@ stream = ExtResource("14_8c33x")
 volume_db = -12.0
 autoplay = true
 bus = &"Ambience"
+
+[node name="test_enemy" parent="." instance=ExtResource("16_q418o")]
+position = Vector2(490, -597)
+
+[node name="test_enemy2" parent="." instance=ExtResource("16_q418o")]
+position = Vector2(435, -582)

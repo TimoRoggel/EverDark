@@ -50,6 +50,7 @@
 [ext_resource type="AudioStream" uid="uid://dcmre2g8xjn5" path="res://audio/sounds/player/hurt.wav" id="31_6aj6e"]
 [ext_resource type="Script" uid="uid://6a33mecj0khi" path="res://scripts/components/build_component.gd" id="35_5bn3a"]
 [ext_resource type="AudioStream" uid="uid://bxlm1pdy80psk" path="res://audio/ambience/ambience_0.mp3" id="35_hnvwh"]
+[ext_resource type="PackedScene" uid="uid://rpe0gg8ku1ui" path="res://scenes/effects/LuminPreview.tscn" id="36_qmarm"]
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
 [ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
@@ -624,6 +625,7 @@ script = ExtResource("3_atpat")
 metadata/_custom_type_script = "uid://1ymurug5rwwb"
 
 [node name="movement" type="Node2D" parent="components"]
+process_mode = 1
 script = ExtResource("4_kqtwu")
 step_sounds = Array[AudioStream]([ExtResource("16_yyjep"), ExtResource("17_6aj6e"), ExtResource("18_n7k00"), ExtResource("19_lnpl6"), ExtResource("20_5bn3a"), ExtResource("21_tnye5")])
 step_cooldown = 0.02
@@ -750,7 +752,6 @@ metadata/_custom_type_script = "uid://chjcoikfv18ob"
 stream = SubResource("AudioStreamRandomizer_vkt2s")
 bus = &"Ambience"
 script = ExtResource("36_rfou0")
-metadata/_custom_type_script = "uid://c44mah042f13w"
 
 [node name="pause" type="CanvasLayer" parent="."]
 layer = 10

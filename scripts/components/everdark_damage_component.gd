@@ -26,6 +26,9 @@ var damage_player: RandomAudioStreamPlayer2D = null
 
 func _enter() -> void:
 	damage_player = GameManager.create_audio_player(&"SFX", damage_sounds, self)
+	await get_tree().create_timer(1.0).timeout
+	if controller.health:
+		health = controller.health
 
 func _update(_delta: float) -> void:
 	if controller.death:
@@ -37,6 +40,8 @@ func _update(_delta: float) -> void:
 			virus_timer.start()
 		if in_everdark && elapsed_time >= total_time:
 			virus_timer.start()
+			var health_percentage = health.max_health / 100 * health.current_health
+			virus_effect.emit(elapsed_time * health_percentage)
 	
 func _exit() -> void:
 	pass
@@ -59,7 +64,8 @@ func on_virus_timer_timeout() -> void:
 		elapsed_time += virus_timer.wait_time
 	else:
 		elapsed_time -= virus_timer.wait_time
-	virus_effect.emit(elapsed_time)
+	var health_percentage = controller.health.max_health / 100 * controller.health.current_health
+	virus_effect.emit(elapsed_time * health_percentage)
 	controller.hud.update_virusbar_color(Color(.4,0,.4), elapsed_time/total_time)
 
 	# damage player if virusbar is full

@@ -3,15 +3,13 @@ extends HBoxContainer
 @export var inventory: InventoryContainer
 @export var inventory_component: InventoryComponent  
 
-var hotbar_slots: int = 10 
+var hotbar_slots: int = 3 
 var currently_selected_slot: int = 0
 var is_active: bool = true
 var hotbar_just_emptied: bool = false
-var slots_per_row: int = 0
 
 func _ready() -> void:
 	if inventory:
-		slots_per_row = roundi(inventory.slots / float(inventory.rows))
 		inventory.updated.connect(update_held_item)
 	add_slots()
 	update_hotbar()
@@ -26,17 +24,20 @@ func _on_visibility_changed() -> void:
 	update_currently_selected_slot()
 	select_slot(currently_selected_slot)
 
+# Hotbar.gd
+
 func _input(event: InputEvent) -> void:
+
 	if not is_active:
 		return
+	if event.is_action_pressed("drop_item"):
+		if inventory:
+			var slots = inventory.get_slots()
+			if currently_selected_slot < slots.size():
+				var current_slot: InventorySlot = slots[currently_selected_slot]
+				current_slot.drop_item_manually(Input.is_key_pressed(KEY_CTRL))
+				update_held_item()
 
-	# Drop item
-	#if event.is_action_pressed("drop_item"):
-		#var current_item = inventory.get_slots()[currently_selected_slot].inventory_item
-		#if current_item:
-			#print("Dropped: ", current_item)
-		#else:
-			#print("Empty slot")
 	if is_instance_of(event, InputEventMouseButton):
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -51,7 +52,7 @@ func _process(_delta: float) -> void:
 
 func add_slots() -> void:
 	if inventory && self.get_child_count() == 0:
-		for i: int in slots_per_row:
+		for i: int in hotbar_slots:
 			var slot_texture: TextureButton = create_slot()
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()

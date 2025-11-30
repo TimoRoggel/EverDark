@@ -33,10 +33,10 @@ func _ready() -> void:
 	GameManager.player = self
 	await get_tree().process_frame
 	input = get_component(InputComponent)
+	animation = get_component(AnimationComponent)
 	movement = get_component(MoveComponent)
 	weapon = get_component(SpawnAttackComponent)
 	block = get_component(BlockComponent)
-	animation = get_component(AnimationComponent)
 	dash = get_component(DashComponent)
 	camera = get_component(CameraComponent)
 	inventory = get_component(InventoryComponent)

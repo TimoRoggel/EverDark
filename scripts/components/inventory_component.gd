@@ -1,6 +1,6 @@
 class_name InventoryComponent extends Component
 
-@export var slots: int = 30
+@export var slots: int = 15
 @export var container: InventoryContainer = null
 var held_item: int = 0
 

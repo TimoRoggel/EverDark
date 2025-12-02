@@ -38,7 +38,7 @@ func _exit() -> void:
 func direction_suffix() -> String:
 	if direction.is_zero_approx():
 		return DIRS[0]
-	if abs(direction.x) > abs(direction.y):
+	if abs(direction.x) >= abs(direction.y):
 		return DIRS[2]
 	if direction.y < 0.0:
 		return DIRS[1]

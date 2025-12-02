@@ -59,7 +59,6 @@ func _custom_physics_process(delta: float) -> void:
 	if !movement:
 		return
 	movement.desired_movement = input.movement
-	var vel: Vector2 = get_real_velocity()
 	if block:
 		block.block_angle = input.angle_to_cursor
 	if weapon:
@@ -85,8 +84,8 @@ func _custom_physics_process(delta: float) -> void:
 		held_item_sprite.position.x = 8.0 * (-1.0 if animation.should_flip else 1.0)
 		held_item_sprite.position.y = -2.0 if animation.is_looking_up() else (2.0 if animation.is_looking_down() else 0.0)
 		var target_direction: Vector2 = animation.direction
-		if vel.length() > 1.0:
-			target_direction = vel
+		if input.movement.length() > 0.5:
+			target_direction = input.movement
 		elif input.attacking:
 			target_direction = Vector2.from_angle(input.angle_to_cursor)
 		animation.direction = target_direction

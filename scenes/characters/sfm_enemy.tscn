@@ -182,7 +182,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w7n1s")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_down",
 "speed": 10.0
 }, {
@@ -208,7 +208,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e4o1r")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_right",
 "speed": 10.0
 }, {
@@ -228,7 +228,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_urh5l")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_up",
 "speed": 10.0
 }, {
@@ -333,9 +333,8 @@ shape = SubResource("CircleShape2D_gs7m4")
 use_parent_material = true
 position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_8710k")
-animation = &"idle_down"
+animation = &"attack_down"
 autoplay = "idle_down"
-frame_progress = 0.8656429
 centered = false
 offset = Vector2(-24, -8)
 

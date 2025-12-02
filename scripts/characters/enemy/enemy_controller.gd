@@ -55,14 +55,8 @@ func _custom_process(delta: float) -> void:
 	else:
 		movement.desired_movement = Vector2.ZERO
 	if animation:
-		var vel: Vector2 = get_real_velocity()
-		var target_direction: Vector2 = animation.direction
-		if vel.length() > 1.0:
-			target_direction = vel
-		elif charging:
-			target_direction = Vector2.from_angle(angle_to_target)
-		animation.direction = target_direction
-		animation.should_flip = target_direction.x < 0.0
+		animation.direction = movement.desired_movement
+		animation.should_flip = movement.desired_movement.x < 0.0
 		animation.attacking = charging
 	super(delta)
 

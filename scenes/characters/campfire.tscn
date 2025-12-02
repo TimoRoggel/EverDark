@@ -207,6 +207,7 @@ texture = SubResource("GradientTexture2D_deqxu")
 
 [node name="cook_audio" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
+process_mode = 3
 stream = SubResource("AudioStreamRandomizer_tswr6")
 bus = &"SFX"
 

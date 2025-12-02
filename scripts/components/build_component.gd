@@ -1,6 +1,7 @@
 class_name BuildComponent extends Component
 
 const MIN_DISTANCE: float = 40.0
+const PREVIEW_OFFSET: Vector2 = Vector2(0.0, -8.0)
 
 @export var hotbar_container : HBoxContainer
 
@@ -9,21 +10,40 @@ const placeable_scenes: Dictionary = {
 	4: preload("res://Chest/chest.tscn"),
 	26: preload("uid://7cxdqearioco")
 }
+const PREVIEWABLE_ITEMS: Array[int] = [3,4,24,25,26]
 
 var input: InputComponent = null
 var inventory: InventoryComponent = null
 var current_positions: PackedVector2Array = []
 var current_lumin_positions: PackedVector2Array = []
 var lumin_player: RandomAudioStreamPlayer2D = null
+var build_preview: Sprite2D = null
 
 func _enter() -> void:
 	input = controller.get_component(InputComponent)
 	inventory = controller.get_component(InventoryComponent)
 	input.place.connect(place)
 	lumin_player = GameManager.create_audio_player(&"SFX", [preload("uid://dr6sn17qunu")], self)
+	build_preview = Sprite2D.new()
+	build_preview.modulate.a = 0.75
+	build_preview.visible = false
+	build_preview.z_as_relative = false
+	build_preview.z_index = 999
+	add_child(build_preview)
 
 func _update(_delta: float) -> void:
-	pass
+	if build_preview.visible:
+		build_preview.visible = false
+	var held_slot_item: int = inventory.held_item
+	if held_slot_item < 0:
+		return
+	if !inventory.has(held_slot_item):
+		return
+	if !PREVIEWABLE_ITEMS.has(held_slot_item):
+		return
+	build_preview.global_position = get_global_mouse_position() + PREVIEW_OFFSET
+	build_preview.texture = DataManager.get_resource_by_id("items", held_slot_item).icon
+	build_preview.visible = true
 
 func _exit() -> void:
 	pass
@@ -52,8 +72,6 @@ func place_scene(at: Vector2, held_slot_item: int) -> void:
 
 func place_other(at: Vector2, held_slot_item: int) -> void:
 	match held_slot_item:
-		0:
-			use_lumin(at, held_slot_item, Generator.LUMIN_SIZE)
 		25:
 			use_lumin(at, held_slot_item, Generator.LUMIN_TORCH_SIZE)
 		24:

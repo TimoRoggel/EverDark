@@ -71,7 +71,7 @@ func interact(controller: CharacterController) -> void:
 
 func set_active(timeout: float) -> void:
 	active = false
-	await Engine.get_main_loop().create_timer(timeout).timeout
+	await Engine.get_main_loop().create_timer(timeout, false).timeout
 	active = true
 
 func _draw() -> void:

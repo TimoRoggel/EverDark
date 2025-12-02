@@ -5,6 +5,7 @@ func run(param: Dictionary) -> void:
 	var table = param["self"]
 	if table.has_method("toggle_ui"):
 		table.toggle_ui(param["controller"])
+	table.set_active(0.1)
 
 func can_run(_param: Dictionary) -> bool:
 	return true

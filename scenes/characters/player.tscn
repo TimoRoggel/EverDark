@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=120 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="Texture2D" uid="uid://tdl3a63l1y2y" path="res://graphics/characters/player/player_fight_down.png" id="2_m38kj"]
@@ -51,6 +51,7 @@
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
 [ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
+[ext_resource type="Texture2D" uid="uid://d27av85dvlkhi" path="res://map/Art Assets/Player HUD/30x30_inventory_HUD_slot.png" id="49_5bn3a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(6, 8)
@@ -559,6 +560,28 @@ region = Rect2(16, 193, 16, 18)
 streams_count = 1
 stream_0/stream = ExtResource("35_hnvwh")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnye5"]
+bg_color = Color(0.09411765, 0.08627451, 0.05490196, 1)
+
+[sub_resource type="GDScript" id="GDScript_lnpl6"]
+resource_name = "visibility_copy"
+script/source = "extends Panel
+
+@export var copy_visibility: Control = null
+
+func _ready() -> void:
+	copy_visibility.visibility_changed.connect(func() -> void:
+		visible = copy_visibility.visible
+	)
+	visible = copy_visibility.visible
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_as8yd"]
+texture = ExtResource("49_5bn3a")
+
+[sub_resource type="Theme" id="Theme_qmarm"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_as8yd")
+
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("held_item_sprite", "target_sprite")]
 z_as_relative = false
 y_sort_enabled = true
@@ -746,12 +769,24 @@ visible = false
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("20_kmyvj")]
 
+[node name="inventory_background_panel" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("copy_visibility")]
+visible = false
+offset_left = 371.0
+offset_top = 95.0
+offset_right = 635.0
+offset_bottom = 269.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tnye5")
+script = SubResource("GDScript_lnpl6")
+copy_visibility = NodePath("../inventory")
+
 [node name="inventory" type="GridContainer" parent="CanvasLayer"]
 visible = false
 offset_left = 375.0
 offset_top = 101.0
 offset_right = 631.0
 offset_bottom = 265.0
+theme = SubResource("Theme_qmarm")
 columns = 5
 script = ExtResource("8_eojnx")
 slots = 15

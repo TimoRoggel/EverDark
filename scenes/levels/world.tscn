@@ -2722,7 +2722,7 @@ position = Vector2(-12, 8)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 visible = false
-position = Vector2(-939, -190)
+position = Vector2(-959, -141)
 
 [node name="note_0" type="Area2D" parent="."]
 visible = false

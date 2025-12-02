@@ -361,7 +361,7 @@ metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 z_index = -1
 z_as_relative = false
 script = ExtResource("15_58syw")
-radius = 160.0
+radius = 240.0
 targeting_flags = 1
 metadata/_custom_type_script = "uid://brg24dd5ampra"
 

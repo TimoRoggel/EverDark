@@ -10,6 +10,8 @@ const TRIES: int = 20
 @export var max_spawn_distance: float = 6400.0
 ## At (0,0) this is the spawn rate (spawns 1 entity per [member min_spawn_rate] seconds), at [member max_spawn_distance] this value is 0.1%.
 @export_range(0.0, 800.0, 0.01) var min_spawn_rate: float = 1.0
+## How long until the first entity spawns when the game starts.
+@export_range(0.0, 800.0, 0.01) var initial_spawn_rate: float = 1.0
 @export_range(0.0, 1.0, 0.01) var randomness: float = 0.0
 @export var min_radius: float = 250.0:
 	set(value):
@@ -35,7 +37,7 @@ func _ready() -> void:
 	spawn_timer.one_shot = true
 	add_child(spawn_timer)
 	spawn_timer.timeout.connect(spawn)
-	spawn_timer.start(0.01)
+	spawn_timer.start(initial_spawn_rate)
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():

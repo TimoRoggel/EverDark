@@ -10,11 +10,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_hwda8"]
 radius = 16.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uhjkj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2463p"]
 shader = ExtResource("3_2463p")
 shader_parameter/highlighted = false
 
 [node name="Crafting" type="Area2D" node_paths=PackedStringArray("crafting_ui")]
+process_mode = 3
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_hwda8")
@@ -32,10 +33,11 @@ layer = 3
 visible = false
 
 [node name="Interactable2D" type="Area2D" parent="."]
-material = SubResource("ShaderMaterial_uhjkj")
+process_mode = 1
+material = SubResource("ShaderMaterial_2463p")
 position = Vector2(0.25, -7.25)
 collision_layer = 4
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("4_xkjm0")
 interact_script = ExtResource("5_cascu")
 custom_parameter = "{}"

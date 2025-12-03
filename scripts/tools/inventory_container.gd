@@ -34,13 +34,17 @@ func _clear() -> void:
 		c.queue_free()
 
 func _redraw() -> void:
+	var old_items: Array[InventoryItem] = get_items()
 	_clear()
 	for i: int in slots:
 		if has_hotbar && i == 5:
 			add_hotbar_separator()
 		var slot: InventorySlot = InventorySlot.new()
 		slot.item_changed.connect(updated.emit)
-		slot.item_dropped.connect(_on_slot_drop) 
+		slot.item_dropped.connect(_on_slot_drop)
+		if old_items.size() > i:
+			slot.inventory_item = old_items[i]
+			slot._setup_item()
 		add_child(slot)
 
 func _on_slot_drop(item: InventoryItem):

@@ -14,8 +14,8 @@ func _enter() -> void:
 		if controller.hotbar:
 			controller.hotbar.visible = !container.visible
 	)
-	SaveSystem.track("inventory", get_inventory, set_inventory, [])
 	container.updated.connect(updated.emit)
+	SaveSystem.track("inventory", get_inventory, set_inventory.call_deferred, [])
 
 func _update(_delta: float) -> void:
 	pass

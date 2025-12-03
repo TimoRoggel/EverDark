@@ -153,15 +153,31 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 func _is_valid_item(item: Item) -> bool:
 	return item.flags & filters == filters
 
+func _make_custom_tooltip(_for_text: String) -> Object:
+	if !inventory_item:
+		return Control.new()
+	var vbox: VBoxContainer = VBoxContainer.new()
+	var title_label: Label = Label.new()
+	title_label.text = inventory_item.item.display_name
+	title_label.label_settings = LabelSettings.new()
+	title_label.label_settings.font_size = 24
+	vbox.add_child(title_label)
+	if !inventory_item.item.description.is_empty():
+		vbox.custom_minimum_size.x = 256.0
+		var desc_label: Label = Label.new()
+		desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		desc_label.set_text.call_deferred(inventory_item.item.description)
+		desc_label.modulate.a = 0.75
+		vbox.add_child(desc_label)
+	return vbox
+
 func _setup_item() -> void:
 	if inventory_item:
 		icon.texture = inventory_item.item.icon
 		label.text = str(inventory_item.quantity, "x")
-		tooltip_text = inventory_item.item.display_name
 	else:
 		icon.texture = null
 		label.text = ""
-		tooltip_text = ""
 
 func _update_item() -> void:
 	_setup_item()

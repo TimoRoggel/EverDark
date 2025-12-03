@@ -348,7 +348,8 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 script = ExtResource("7_u58fu")
 max_health = 0.8
 death_sounds = Array[AudioStream]([ExtResource("14_s54qa")])
-death_drops = Array[int]([1, 1, 5])
+death_drops = Array[int]([1, 1, 1, 1, 1, 1, 1])
+death_drop_odds = Array[int]([100, 100, 100, 50, 50, 25, 10])
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="target" type="Node2D" parent="."]

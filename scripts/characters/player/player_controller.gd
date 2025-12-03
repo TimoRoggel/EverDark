@@ -72,6 +72,8 @@ func _custom_physics_process(delta: float) -> void:
 				var held_item: Item = DataManager.get_resource_by_id("items", held_item_id)
 				held_item_sprite.texture = held_item.icon
 				weapon.attack_id = held_item.weapon_id
+			held_item_sprite.visible = !animation.animated_sprite.animation.begins_with(AnimationComponent.ANIMS[2])
+			animation.held_item = held_item_id
 		weapon.attack_angle = input.angle_to_cursor
 		weapon.attacking = input.attacking
 	if dash:

@@ -89,8 +89,9 @@ func get_inventory() -> Array:
 func set_inventory(new_inventory: Array) -> void:
 	var s: Array[InventoryItem] = []
 	s.resize(slots)
+	new_inventory.resize(slots)
 	for i: int in slots:
-		if new_inventory[i].is_empty():
+		if new_inventory[i] == null || new_inventory[i].is_empty():
 			s[i] = null
 		else:
 			var item: Array = new_inventory[i]

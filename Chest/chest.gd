@@ -81,6 +81,7 @@ func _on_pickup() -> void:
 		slot.inventory_item = null
 	chest_inventory.visible = false
 	player_ref_inventory.container.visible = false
+	WorldStateSaver.placed_items.erase(name)
 
 	queue_free()
 	player_ref.get_component(BuildComponent).refresh_held_item()

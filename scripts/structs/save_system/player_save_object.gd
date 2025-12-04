@@ -38,7 +38,14 @@ func get_all_values() -> Dictionary:
 	for key: String in trackers.keys():
 		if !trackers.has(key):
 			continue
-		data[key] = var_to_bytes(trackers[key]["getter"].call())
+		var callable: Callable = trackers[key]["getter"]
+		if !callable.is_valid():
+			continue
+		if callable.is_null():
+			continue
+		if callable.get_object() == null:
+			continue
+		data[key] = var_to_bytes(callable.call())
 	return data
 
 func duplicate() -> PlayerSaveObject:

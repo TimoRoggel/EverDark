@@ -5,7 +5,7 @@ const PREVIEW_OFFSET: Vector2 = Vector2(0.0, -8.0)
 
 @export var hotbar_container : HBoxContainer
 
-const placeable_scenes: Dictionary = {
+const PLACEABLE_SCENES: Dictionary = {
 	3: preload("res://scenes/crafting/crafting.tscn"),
 	4: preload("res://Chest/chest.tscn"),
 	26: preload("uid://7cxdqearioco")
@@ -18,6 +18,12 @@ var current_positions: PackedVector2Array = []
 var current_lumin_positions: PackedVector2Array = []
 var lumin_player: RandomAudioStreamPlayer2D = null
 var build_preview: Sprite2D = null
+
+static func place_item(item: int, pos: Vector2) -> void:
+	var scene: Node2D = PLACEABLE_SCENES[item].instantiate()
+	Engine.get_main_loop().current_scene.add_child(scene)
+	scene.global_position = pos
+	WorldStateSaver.placed_items[scene.name] = [item, pos]
 
 func _enter() -> void:
 	input = controller.get_component(InputComponent)
@@ -63,9 +69,7 @@ func place_scene(at: Vector2, held_slot_item: int) -> void:
 	for coords in current_positions:
 		if coords.distance_to(at) < 1.0:
 			return
-	var scene: Node2D = placeable_scenes[held_slot_item].instantiate()
-	get_tree().current_scene.add_child(scene)
-	scene.global_position = at
+	BuildComponent.place_item(held_slot_item, at)
 	current_positions.append(at)
 	inventory.remove(held_slot_item)
 	hotbar_container.select_slot(hotbar_container.currently_selected_slot)

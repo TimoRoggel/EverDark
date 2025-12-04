@@ -34,6 +34,16 @@ func _update(_delta: float) -> void:
 func _exit() -> void:
 	pass
 
+func set_health_no_drops(new_health: float) -> void:
+	current_health = new_health
+	if current_health <= 0:
+		alive = false
+		died.emit()
+		if persistent:
+			return
+		controller.process_mode = Node.PROCESS_MODE_DISABLED
+		controller.queue_free()
+
 func death() -> void:
 	if is_queued_for_deletion():
 		return

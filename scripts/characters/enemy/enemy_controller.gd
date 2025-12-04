@@ -87,9 +87,14 @@ func get_target() -> CharacterController:
 	return target.target
 
 func on_damage_taken(from: AttackController) -> void:
-	if !target || target.is_queued_for_deletion():
+	if !target or target.is_queued_for_deletion():
+		return
+	if !is_instance_valid(from):
+		return
+	if !from.spawner or !is_instance_valid(from.spawner):
 		return
 	target.try_add_target(from.spawner)
+
 
 func distance_to_target() -> float:
 	var current_target: CharacterController = get_target()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://f6apyooo2n66"]
+[gd_scene load_steps=57 format=3 uid="uid://f6apyooo2n66"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_iin56"]
 [ext_resource type="Texture2D" uid="uid://dur74bxgmh7fr" path="res://graphics/characters/small_fast_enemy/attack_forward_sfm.png" id="2_iin56"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://crgr2naugp36e" path="res://scripts/components/animation_component.gd" id="16_lravr"]
 [ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="17_8tv53"]
 [ext_resource type="AudioStream" uid="uid://bkbd6vayvuf11" path="res://audio/sounds/enemy/hurt.wav" id="18_m5r20"]
+[ext_resource type="Script" uid="uid://2p53a8evemdg" path="res://scripts/components/healthbar_component.gd" id="19_r8e03"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gs7m4"]
 radius = 7.0
@@ -317,6 +318,9 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_f44pb"]
+colors = PackedColorArray(0.46747684, 0.34277225, 0.55430925, 1, 0.7104485, 0.35522425, 0.48059323, 1)
+
 [node name="sfm" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_iin56")
@@ -351,7 +355,7 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="health" type="Node2D" parent="."]
 script = ExtResource("13_w7n1s")
-max_health = 0.2
+max_health = 6.0
 death_sounds = Array[AudioStream]([ExtResource("14_kvest")])
 death_drops = Array[int]([1, 1, 1])
 death_drop_odds = Array[int]([100, 50, 25])
@@ -376,3 +380,9 @@ attack_cooldown_time = 0.5
 collision_radius = 7.5
 damage_sounds = Array[AudioStream]([ExtResource("18_m5r20")])
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="healthbar" type="Node2D" parent="."]
+position = Vector2(-16, -32)
+script = ExtResource("19_r8e03")
+gradient = SubResource("Gradient_f44pb")
+metadata/_custom_type_script = "uid://2p53a8evemdg"

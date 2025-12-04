@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cgmgqctfbwgu3"]
+[gd_scene load_steps=58 format=3 uid="uid://cgmgqctfbwgu3"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_3nmv6"]
 [ext_resource type="Texture2D" uid="uid://b15plonxuayix" path="res://graphics/characters/guardian/guardian_attacking_down.png" id="2_bqtwb"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://crgr2naugp36e" path="res://scripts/components/animation_component.gd" id="12_d8qpd"]
 [ext_resource type="AudioStream" uid="uid://cy1e2nfxb5flv" path="res://audio/sounds/enemy/death.wav" id="14_s54qa"]
 [ext_resource type="AudioStream" uid="uid://bkbd6vayvuf11" path="res://audio/sounds/enemy/hurt.wav" id="17_4ii8p"]
+[ext_resource type="Script" uid="uid://2p53a8evemdg" path="res://scripts/components/healthbar_component.gd" id="19_c0275"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gs7m4"]
 radius = 7.0
@@ -315,6 +316,9 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_ghqqk"]
+colors = PackedColorArray(0.5678866, 0, 0.3874561, 1, 0.14020103, 0, 0, 1)
+
 [node name="test_enemy" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_3nmv6")
@@ -346,7 +350,6 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="health" type="Node2D" parent="."]
 script = ExtResource("7_u58fu")
-max_health = 0.8
 death_sounds = Array[AudioStream]([ExtResource("14_s54qa")])
 death_drops = Array[int]([1, 1, 1, 1, 1, 1, 1])
 death_drop_odds = Array[int]([100, 100, 100, 50, 50, 25, 10])
@@ -370,3 +373,9 @@ script = ExtResource("9_ehifl")
 collision_radius = 7.5
 damage_sounds = Array[AudioStream]([ExtResource("17_4ii8p")])
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="healthbar" type="Node2D" parent="."]
+position = Vector2(-17, -66)
+script = ExtResource("19_c0275")
+gradient = SubResource("Gradient_ghqqk")
+metadata/_custom_type_script = "uid://2p53a8evemdg"

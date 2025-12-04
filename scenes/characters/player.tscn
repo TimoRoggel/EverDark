@@ -665,7 +665,7 @@ metadata/_custom_type_script = "uid://c0jl7340jmrnc"
 [node name="hitbox" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("10_2l4js")
-collision_radius = 6.0
+collision_radius = 6.3
 damage_sounds = Array[AudioStream]([ExtResource("31_6aj6e")])
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 

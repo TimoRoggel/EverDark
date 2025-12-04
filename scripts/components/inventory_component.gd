@@ -77,14 +77,20 @@ func random_spread_pos(entity_location, item_spread_radius) -> Vector2:
 	return random_vector
 
 func get_inventory() -> Array:
-	return list().map(func(i: InventoryItem) -> Array: return [i.item.id, i.quantity])
+	var items: Array = []
+	for slot: InventorySlot in container.get_slots():
+		if slot.is_empty():
+			items.append([])
+			continue
+		var item: InventoryItem = slot.inventory_item
+		items.append([item.item.id, item.quantity])
+	return items
 
 func set_inventory(new_inventory: Array) -> void:
 	var s: Array[InventoryItem] = []
 	s.resize(slots)
-	new_inventory.resize(slots)
 	for i: int in slots:
-		if new_inventory[i] == null:
+		if new_inventory[i].is_empty():
 			s[i] = null
 		else:
 			var item: Array = new_inventory[i]

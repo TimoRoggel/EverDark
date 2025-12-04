@@ -24,6 +24,9 @@ func load_data(data: Dictionary) -> void:
 	sound_volume = data.get("sound_volume", 1.0)
 	music_volume = data.get("music_volume", 0.5)
 
+func load_specific(_data: Dictionary, _key: String) -> void:
+	return
+
 func clean_data() -> void:
 	active_save_file = 0
 	master_volume = 0.5

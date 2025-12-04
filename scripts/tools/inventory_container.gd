@@ -238,7 +238,7 @@ func send_items(other: InventoryContainer, item_slots: Array[InventorySlot]) -> 
 func set_slots(inventory: Array[InventoryItem]) -> void:
 	var children: Array[Node] = get_children()
 	for i: int in slots:
-		var c: Node = children[i]
+		var c: Node = children[i + 5 if has_hotbar && i > 4 else i]
 		if is_instance_of(c, InventorySlot):
 			c.inventory_item = inventory[i]
 			c._setup_item()

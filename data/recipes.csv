@@ -1,6 +1,6 @@
 "id","name","rewards","costs","category","visible"
 "0","wooden core","[1]","[5;5;5;5]","misc","FALSE"
-"1","lumin","[0]","[]","misc","TRUE"
+"1","lumin","[0]","[]","misc","FALSE"
 "2","potion","[2]","[12;12;22]","misc","TRUE"
 "3","crafting table","[3]","[5;5;5;5;5;6;6;6;6;6]","buildings","TRUE"
 "4","chest","[4]","[5;5;5;5;5;5;5;5;5;5;19;19]","buildings","TRUE"

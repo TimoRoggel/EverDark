@@ -3,6 +3,7 @@ extends Area2D
 
 const CHEST_CLOSED = preload("uid://dh0rj8oyd78hu")
 const CHEST_OPEN = preload("uid://bt5l56duf4ya0")
+const CLOSE_SOUND = preload("uid://wy072etgvvd1") 
 
 @export var chest_inventory: InventoryContainer = null
 @export var chest_item_id: int = 4
@@ -29,6 +30,9 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is PlayerController:
+		if chest_inventory.visible:
+			close()
+		
 		if player_ref:
 			player_ref.hotbar.visible = true
 			player_ref.inventory.container.visible = false
@@ -48,22 +52,37 @@ func _process(_delta: float) -> void:
 					DroppedItem2D.drop(item.item.id, item.quantity, player_ref.global_position)
 			for slot: InventorySlot in chest_inventory.get_slots():
 				slot.inventory_item = null
+				
 	if chest_inventory.visible:
 		sprite_chest.texture = CHEST_OPEN
 	else:
 		sprite_chest.texture = CHEST_CLOSED
 
-func _on_ui() -> void:
-	if not is_interactable or not player_ref:
-		return
-	chest_inventory.visible = !chest_inventory.visible
-	player_ref_inventory.container.visible = chest_inventory.visible
-	if player_ref.hotbar:
-		player_ref.hotbar.visible = chest_inventory.visible
+func open() -> void:
+	chest_inventory.visible = true
+	if player_ref:
+		player_ref.hotbar.visible = false
+		player_ref_inventory.container.visible = true
+	GameManager.set_active_ui(self)
+
+func close() -> void:
+	chest_inventory.visible = false
+	if player_ref:
+		player_ref.hotbar.visible = true
+		player_ref_inventory.container.visible = false
+
+	if open_close_sound:
+		open_close_sound.stream = CLOSE_SOUND
+		open_close_sound.play()
+		
+	GameManager.clear_active_ui()
 
 func _on_pickup() -> void:
 	if not is_interactable or not player_ref:
 		return
+
+	if chest_inventory.visible:
+		close()
 
 	for item in chest_inventory.get_items():
 		var leftover = player_ref_inventory.container.add(item.item.id, item.quantity)
@@ -79,6 +98,7 @@ func _on_pickup() -> void:
 
 	for slot in chest_inventory.get_slots():
 		slot.inventory_item = null
+	
 	chest_inventory.visible = false
 	player_ref_inventory.container.visible = false
 

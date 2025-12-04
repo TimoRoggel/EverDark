@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://buytc168e0tfc" path="res://audio/sounds/crafting_table/craft.wav" id="3_jp7wa"]
 
 [node name="CraftingUI" type="PanelContainer"]
+process_mode = 3
 custom_minimum_size = Vector2(640, 360)
 anchors_preset = 15
 anchor_right = 1.0

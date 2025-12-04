@@ -34,6 +34,7 @@ stream_0/stream = ExtResource("10_deqxu")
 radius = 19.0
 
 [node name="campfire" type="Area2D"]
+process_mode = 3
 z_as_relative = false
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_deqxu")
@@ -56,6 +57,7 @@ layer = 2
 visible = false
 
 [node name="center" type="CenterContainer" parent="campfire_layer"]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

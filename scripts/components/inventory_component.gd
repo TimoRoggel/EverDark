@@ -9,13 +9,32 @@ signal updated
 func _enter() -> void:
 	for slot: InventorySlot in container.get_slots():
 		slot.item_dropped.connect(_on_item_dropped)
-	controller.get_component(InputComponent).inventory_toggled.connect(func() -> void:
-		container.visible = !container.visible
-		if controller.hotbar:
-			controller.hotbar.visible = !container.visible
-	)
+	
+	controller.get_component(InputComponent).inventory_toggled.connect(toggle_inventory)
+	
 	SaveSystem.track("inventory", get_inventory, set_inventory, [])
 	container.updated.connect(updated.emit)
+
+
+func toggle_inventory() -> void:
+	if container.visible:
+		close()
+	else:
+		open()
+
+func open() -> void:
+	container.visible = true
+	if controller.hotbar:
+		controller.hotbar.visible = false
+	
+	GameManager.set_active_ui(self)
+
+func close() -> void:
+	container.visible = false
+	if controller.hotbar:
+		controller.hotbar.visible = true
+		
+	GameManager.clear_active_ui()
 
 func _update(_delta: float) -> void:
 	pass

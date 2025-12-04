@@ -12,6 +12,8 @@ var crafting_input: InputComponent = null
 
 func _ready() -> void:
 	await get_tree().physics_frame
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	crafting_input = GameManager.player.get_component(InputComponent)
 	crafting_input.pickup.connect(_on_pickup)
 
@@ -22,20 +24,24 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is PlayerController:
-		player_ref = null
+		if not crafting_ui.visible:
+			player_ref = null
 		is_interactable = false
-		crafting_ui.visible = false
-		if hotbar:
+		if hotbar and not crafting_ui.visible:
 			hotbar.visible = true
 
 func _process(_delta: float) -> void:
-	if is_interactable and player_ref:
-		if Input.is_action_just_pressed("ui"): 
-			toggle_ui(player_ref)
+	if crafting_ui.visible:
+		if Input.is_action_just_pressed("ui") or Input.is_action_just_pressed("interact"):
+			close()
 
 func _on_pickup() -> void:
+	if crafting_ui.visible:
+		close()
+		
 	if not is_interactable or not player_ref:
 		return
+		
 	var crafting_item = DataManager.get_resource_by_id("items", crafting_table_item_id)
 	player_ref.inventory.add(crafting_item.id, 1)
 	player_ref.inventory.set_held_item_id(crafting_item.id)
@@ -43,14 +49,30 @@ func _on_pickup() -> void:
 	crafting_ui.visible = false
 	queue_free()
 
-func toggle_ui(controller: PlayerController) -> void:
-	if controller:
-		crafting_ui.inventory = controller.inventory
-	if !GameManager.ui_open == !crafting_ui.visible:
-		GameManager.ui_open = !crafting_ui.visible
-		crafting_ui.visible = !crafting_ui.visible
-		get_tree().paused = crafting_ui.visible and not GameManager.paused
-		GameManager.paused = get_tree().paused
-		if controller.hotbar:
-			hotbar = controller.hotbar
-			hotbar.visible = !crafting_ui.visible
+func open() -> void:
+	if not player_ref:
+		player_ref = GameManager.player
+		
+	if player_ref:
+		crafting_ui.inventory = player_ref.inventory
+		if player_ref.hotbar:
+			hotbar = player_ref.hotbar
+			hotbar.visible = false
+			
+	crafting_ui.visible = true
+	
+	get_tree().paused = true
+	GameManager.paused = true
+	
+	GameManager.set_active_ui(self)
+
+func close() -> void:
+	crafting_ui.visible = false
+	
+	if hotbar:
+		hotbar.visible = true
+	
+	get_tree().paused = false
+	GameManager.paused = false
+	
+	GameManager.clear_active_ui()

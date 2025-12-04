@@ -1,45 +1,56 @@
 class_name PauseMenu extends Control
+
 @onready var settings_pause_menu: Control = $SettingsPauseMenu
 @onready var buttons: VBoxContainer = $MarginContainer/Buttons
-var paused: bool = false
+
+var is_paused: bool = false
 var unique_id: int = ResourceUID.create_id()
 
 func _ready() -> void:
 	GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
+	
 	visible = false
-	get_tree().paused = false
+	settings_pause_menu.visible = false
 	buttons.visible = true
-	settings_pause_menu.visible = false 
 
 func _exit_tree() -> void:
 	GameManager.ui_opened_conditions.erase(name + str(unique_id))
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("pause"):
-		if settings_pause_menu.visible:
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		
+		if visible and settings_pause_menu.visible:
 			_on_settings_pause_menu_exit_settings_pause_menu()
-		else:
-			_toggle_pause()
+			get_viewport().set_input_as_handled()
+			return
+
+		if not is_paused and GameManager.try_close_active_ui():
+			get_viewport().set_input_as_handled()
+			return
+
+		_toggle_pause()
+		get_viewport().set_input_as_handled()
 
 func _toggle_pause() -> void:
-	if paused:
+	if is_paused:
 		_resume()
 	else:
 		_pause()
 
 func _pause() -> void:
-	if not GameManager.paused and not GameManager.ui_open:
-		get_tree().paused = true
-		GameManager.paused = true
+	if GameManager.active_ui_node != null:
+		return
+		
+	GameManager.paused = true
+	get_tree().paused = true
 	visible = true
-	paused = true
+	is_paused = true
 
 func _resume() -> void:
-	if GameManager.paused and not GameManager.ui_open:
-		get_tree().paused = false
-		GameManager.paused = false
+	GameManager.paused = false
+	get_tree().paused = false
 	visible = false
-	paused = false
+	is_paused = false
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
@@ -58,5 +69,4 @@ func _on_settings_pause_menu_exit_settings_pause_menu() -> void:
 func _on_back_to_main_menu_pressed() -> void:
 	SaveSystem.reset()
 	get_tree().paused = false  
-	var target_scene_path = "res://UI/Main menu/main_menu.tscn"
-	SceneTransitionController.change_scene(target_scene_path, "fade_layer", 1.0)
+	SceneTransitionController.change_scene("res://UI/Main menu/main_menu.tscn", "fade_layer", 1.0)

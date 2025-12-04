@@ -101,3 +101,11 @@ func try_close_active_ui() -> bool:
 			clear_active_ui()
 		return true
 	return false
+
+var show_controls_overlay: bool = true
+
+signal controls_visibility_changed(is_visible: bool)
+
+func set_controls_visibility(value: bool) -> void:
+	show_controls_overlay = value
+	controls_visibility_changed.emit(show_controls_overlay)

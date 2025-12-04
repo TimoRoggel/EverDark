@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccsvhx5s8yx0t"]
+[gd_scene load_steps=5 format=3 uid="uid://ccsvhx5s8yx0t"]
 
 [ext_resource type="Script" uid="uid://dricqlote5fbh" path="res://Crafting/crafting_ui.gd" id="1_jp7wa"]
+[ext_resource type="Texture2D" uid="uid://dsv0eqiex71cw" path="res://map/Art Assets/Player HUD/184x130_upgrade_HUD.png" id="2_fpwgh"]
 [ext_resource type="PackedScene" uid="uid://chgdmhkgaavft" path="res://scenes/crafting/inventory_slot.tscn" id="2_w7jay"]
 [ext_resource type="AudioStream" uid="uid://buytc168e0tfc" path="res://audio/sounds/crafting_table/craft.wav" id="3_jp7wa"]
 
@@ -22,6 +23,10 @@ theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_fpwgh")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://7cxdqearioco"]
+[gd_scene load_steps=30 format=3 uid="uid://7cxdqearioco"]
 
 [ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="1_hhd8y"]
 [ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="2_rpofv"]
@@ -14,15 +14,21 @@
 [ext_resource type="Texture2D" uid="uid://ck5wjptfftaac" path="res://map/Art Assets/Player HUD/185x12_campfire_fuel.png" id="11_ai4cp"]
 [ext_resource type="Texture2D" uid="uid://dofjltgcxqpdh" path="res://map/Art Assets/Player HUD/185x12_campfire_fuel_fill.png" id="12_ssoka"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ameeo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b6swb"]
 shader = ExtResource("1_hhd8y")
 shader_parameter/highlighted = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpgaa"]
 bg_color = Color(0.09411765, 0.08627451, 0.05490196, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i56yg"]
-bg_color = Color(0, 0, 0, 0.25)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b6swb"]
+texture = ExtResource("7_b6swb")
+texture_margin_left = 14.0
+texture_margin_top = 16.0
+texture_margin_right = 18.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b6swb"]
 
@@ -47,6 +53,20 @@ texture_margin_bottom = 14.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
+[sub_resource type="LabelSettings" id="LabelSettings_ssoka"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_b6swb"]
+font_size = 19
+font_color = Color(0.8117647, 0.74509805, 0.5411765, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ai4cp"]
+font_size = 14
+font_color = Color(0.8117647, 0.74509805, 0.5411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssoka"]
+bg_color = Color(0.09411765, 0.08627451, 0.05490196, 1)
+
 [sub_resource type="Gradient" id="Gradient_pkret"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
@@ -68,7 +88,7 @@ radius = 19.0
 [node name="campfire" type="Area2D"]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_ameeo")
+material = SubResource("ShaderMaterial_b6swb")
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("2_rpofv")
@@ -86,29 +106,26 @@ offset = Vector2(0, -7)
 
 [node name="campfire_layer" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 2
 visible = false
 
 [node name="center" type="CenterContainer" parent="campfire_layer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -124.0
-offset_top = 2.0
-offset_right = -124.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("5_bvo4n")
 
 [node name="panel" type="PanelContainer" parent="campfire_layer/center"]
-custom_minimum_size = Vector2(240, 200)
+custom_minimum_size = Vector2(630, 200)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bpgaa")
 
 [node name="margin" type="MarginContainer" parent="campfire_layer/center/panel"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
@@ -116,9 +133,11 @@ theme_override_constants/margin_bottom = 8
 
 [node name="vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="top_bar" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="campfire_label" type="Label" parent="campfire_layer/center/panel/margin/vbox/top_bar"]
 layout_mode = 2
@@ -134,6 +153,7 @@ icon = ExtResource("6_tjd1i")
 [node name="hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/separation = 8
 
 [node name="items" type="ItemList" parent="campfire_layer/center/panel/margin/vbox/hbox"]
@@ -143,7 +163,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/guide_color = Color(0.7019608, 0.7019608, 0.7019608, 0)
 theme_override_constants/line_separation = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_i56yg")
+theme_override_styles/panel = SubResource("StyleBoxTexture_b6swb")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_b6swb")
 theme_override_styles/hovered = SubResource("StyleBoxEmpty_ai4cp")
 theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_ai4cp")
@@ -157,6 +177,7 @@ theme_override_styles/cursor = SubResource("StyleBoxEmpty_ai4cp")
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="craftable_name" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview"]
 unique_name_in_owner = true
@@ -169,32 +190,29 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_i2yea")
 
 [node name="craftable_texture" type="TextureRect" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/craftable_texture_container"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("6_lg0jq")
 stretch_mode = 5
 
 [node name="requirement_label" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Requirements:"
+text = "Recipe:"
 
 [node name="requirements_vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/hbox/preview"]
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_filter = 2
 
 [node name="requirements_hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_vbox"]
 layout_mode = 2
-
-[node name="requirements_name" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_vbox/requirements_hbox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Stone"
 
 [node name="requirement_texture" type="TextureRect" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_vbox/requirements_hbox"]
 unique_name_in_owner = true
@@ -203,9 +221,16 @@ texture = ExtResource("6_lg0jq")
 stretch_mode = 3
 
 [node name="requirements_amount" type="Label" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_vbox/requirements_hbox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 text = " 1x"
+label_settings = SubResource("LabelSettings_ssoka")
+
+[node name="separator" type="ColorRect" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_vbox"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.23921569, 0.22745098, 0.18431373, 1)
 
 [node name="requirements_hbox2" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox/hbox/preview/requirements_vbox"]
 layout_mode = 2
@@ -214,25 +239,28 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
-text = "25% Fuel"
+text = "25% fuel needed"
+label_settings = SubResource("LabelSettings_ssoka")
+
+[node name="inventory_space" type="Control" parent="campfire_layer/center/panel/margin/vbox/hbox"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+mouse_filter = 2
 
 [node name="fuel_hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="slot_vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = -4
-
-[node name="fuel_label" type="Label" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/slot_vbox"]
-layout_mode = 2
-text = "Fuel"
-horizontal_alignment = 1
-vertical_alignment = 2
 
 [node name="fuel_slot" type="PanelContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/slot_vbox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+size_flags_vertical = 10
 theme_override_styles/panel = SubResource("StyleBoxTexture_i2yea")
 script = ExtResource("7_tjd1i")
 metadata/_custom_type_script = "uid://drux8dqpostqp"
@@ -240,23 +268,50 @@ metadata/_custom_type_script = "uid://drux8dqpostqp"
 [node name="TextureRect" type="TextureRect" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/slot_vbox/fuel_slot"]
 modulate = Color(0, 0, 0, 0.15)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("9_pkret")
 
-[node name="interaction_vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox"]
+[node name="vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="craft_button" type="Button" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/interaction_vbox"]
-unique_name_in_owner = true
+[node name="padding" type="Control" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Craft"
 
-[node name="fuel_progress" type="TextureProgressBar" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/interaction_vbox"]
+[node name="interaction_vbox" type="VBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="fuel_amount" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox/interaction_vbox"]
+layout_mode = 2
+
+[node name="fuel_label" type="Label" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox/interaction_vbox/fuel_amount"]
+layout_mode = 2
+text = "Fuel"
+label_settings = SubResource("LabelSettings_b6swb")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="fuel_amount" type="Label" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox/interaction_vbox/fuel_amount"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_ai4cp")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="fuel_progress" type="TextureProgressBar" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox/interaction_vbox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
+mouse_filter = 2
 nine_patch_stretch = true
 stretch_margin_left = 18
 stretch_margin_top = 12
@@ -264,6 +319,28 @@ stretch_margin_right = 18
 texture_under = ExtResource("11_ai4cp")
 texture_progress = ExtResource("12_ssoka")
 texture_progress_offset = Vector2(1, 1)
+
+[node name="padding" type="Control" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+
+[node name="craft_button" type="Button" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+text = "Cook"
+
+[node name="inventory_background_panel" type="Panel" parent="campfire_layer"]
+visible = false
+modulate = Color(1, 0, 0, 1)
+offset_left = 371.0
+offset_top = 95.0
+offset_right = 635.0
+offset_bottom = 269.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ssoka")
 
 [node name="light" type="PointLight2D" parent="."]
 unique_name_in_owner = true
@@ -286,4 +363,4 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_pkret")
 
 [connection signal="pressed" from="campfire_layer/center/panel/margin/vbox/top_bar/close_button" to="campfire_layer/center" method="_on_close_button_pressed"]
-[connection signal="pressed" from="campfire_layer/center/panel/margin/vbox/fuel_hbox/interaction_vbox/craft_button" to="campfire_layer/center" method="_on_craft_button_pressed"]
+[connection signal="pressed" from="campfire_layer/center/panel/margin/vbox/fuel_hbox/vbox/hbox/craft_button" to="campfire_layer/center" method="_on_craft_button_pressed"]

@@ -274,8 +274,6 @@ visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("20_kmyvj")]
-
 [node name="inventory_background_panel" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("copy_visibility")]
 visible = false
 offset_left = 371.0
@@ -299,6 +297,8 @@ script = ExtResource("8_eojnx")
 slots = 15
 has_hotbar = true
 metadata/_custom_type_script = "uid://bp2m4dafooblw"
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("20_kmyvj")]
 
 [node name="hotbar" type="HBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("inventory", "inventory_component")]
 anchors_preset = 12

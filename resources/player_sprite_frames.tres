@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=199 format=3 uid="uid://bk7tcpddsbd8e"]
+[gd_resource type="SpriteFrames" load_steps=205 format=3 uid="uid://bk7tcpddsbd8e"]
 
 [ext_resource type="Texture2D" uid="uid://tdl3a63l1y2y" path="res://graphics/characters/player/player_fight_down.png" id="1_xdrai"]
 [ext_resource type="Texture2D" uid="uid://chllv7bpst5ci" path="res://graphics/characters/player/player_fight_down_7.png" id="1_xdrai_7"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://y3o1574w7a2s" path="res://graphics/characters/player/player_movement_down.png" id="6_cd0ib"]
 [ext_resource type="Texture2D" uid="uid://5t2ygtatkgbi" path="res://graphics/characters/player/player_movement_side.png" id="7_mk4ni"]
 [ext_resource type="Texture2D" uid="uid://bugi1rsonw5m" path="res://graphics/characters/player/player_movement_up.png" id="8_qbj12"]
+[ext_resource type="Texture2D" uid="uid://btedrdessw45" path="res://graphics/characters/player/pick-drop_side_view.png" id="21_8i132"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nktl3"]
 atlas = ExtResource("1_xdrai")
@@ -733,6 +734,26 @@ region = Rect2(185, 0, 32, 32)
 atlas = ExtResource("8_qbj12")
 region = Rect2(222, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_38c1x"]
+atlas = ExtResource("21_8i132")
+region = Rect2(36, 0, 36, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5o63"]
+atlas = ExtResource("21_8i132")
+region = Rect2(72, 0, 36, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxkr8"]
+atlas = ExtResource("21_8i132")
+region = Rect2(108, 0, 36, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cofhg"]
+atlas = ExtResource("21_8i132")
+region = Rect2(144, 0, 36, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qw3q"]
+atlas = ExtResource("21_8i132")
+region = Rect2(180, 0, 36, 32)
+
 [resource]
 animations = [{
 "frames": [{
@@ -1412,4 +1433,100 @@ animations = [{
 "loop": true,
 "name": &"move_up",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38c1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5o63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxkr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cofhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qw3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cofhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxkr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5o63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38c1x")
+}],
+"loop": false,
+"name": &"pickdrop_down",
+"speed": 40.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38c1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5o63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxkr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cofhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qw3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cofhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxkr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5o63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38c1x")
+}],
+"loop": false,
+"name": &"pickdrop_right",
+"speed": 40.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38c1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5o63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxkr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cofhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qw3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cofhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxkr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5o63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38c1x")
+}],
+"loop": false,
+"name": &"pickdrop_up",
+"speed": 40.0
 }]

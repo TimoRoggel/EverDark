@@ -27,6 +27,8 @@ func _exit() -> void:
 
 func _on_item_dropped(item: InventoryItem) -> void:
 	DroppedItem2D.drop(item.item.id, item.quantity, global_position)
+	if !controller.animation.forced_animation_playing:
+		controller.animation.play("pickdrop")
 	
 func drop_all():
 	if not is_empty():

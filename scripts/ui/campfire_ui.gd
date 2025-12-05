@@ -82,11 +82,17 @@ func show_recipe(recipe: Recipe) -> void:
 
 func check_recipe_availability(recipe: Recipe = items.get_item_metadata(selected)) -> void:
 	var inv: InventoryComponent = GameManager.player.inventory
+	if !inv:
+		return
 	requirements_name.modulate = Color.RED if !inv.has(recipe.cost_ids[0]) else Color.WHITE
 	requirements_fuel_cost.modulate = Color.RED if fuel_progress.value < recipe.rewards[0].fuel_cost else Color.WHITE
 
 func can_craft_recipe(recipe: Recipe) -> bool:
 	check_recipe_availability(recipe)
+	if !GameManager.player:
+		return false
+	if !GameManager.player.inventory:
+		return false
 	return GameManager.player.inventory.has(recipe.cost_ids[0]) && fuel_progress.value >= recipe.rewards[0].fuel_cost
 
 func update_sprite() -> void:

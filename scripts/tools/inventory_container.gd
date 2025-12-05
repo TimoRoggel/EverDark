@@ -27,7 +27,8 @@ func _ready() -> void:
 	_redraw()
 
 func _exit_tree() -> void:
-	GameManager.ui_opened_conditions.erase(name + str(unique_id))
+	if !Engine.is_editor_hint():
+		GameManager.ui_opened_conditions.erase(name + str(unique_id))
 
 func _clear() -> void:
 	for c: Node in get_children():

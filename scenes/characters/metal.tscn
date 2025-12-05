@@ -30,8 +30,8 @@ shape = SubResource("RectangleShape2D_k20xd")
 script = ExtResource("2_fml06")
 max_health = 15.0
 death_sounds = Array[AudioStream]([ExtResource("3_lptqr")])
-death_drops = Array[int]([6, 6, 6, 6, 6, 19, 19])
-death_drop_odds = Array[int]([100, 100, 100, 50, 50, 100, 50])
+death_drops = Array[int]([6, 6, 6, 6, 6, 19, 19, 19])
+death_drop_odds = Array[int]([100, 100, 100, 50, 50, 100, 100, 50])
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="hitbox" type="Node2D" parent="components"]

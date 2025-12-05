@@ -93,6 +93,12 @@ func use_lumin(at: Vector2, held_slot_item: int, size: float) -> void:
 	lumin_player.global_position = at
 	lumin_player.play_randomized()
 	Generator.lumin_positions.append(at)
-	Generator.lumin_sizes.append(size)
+	Generator.lumin_sizes.append(0.0)
+	grow_lumin(Generator.lumin_sizes.size() - 1, size)
 	current_lumin_positions.append(at)
 	inventory.remove(held_slot_item)
+
+func grow_lumin(index: int, target_size: float) -> void:
+	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SPRING)
+	tween.tween_method(Generator.set_lumin_size.bind(index), 0.0, target_size, 0.25)
+	tween.play()

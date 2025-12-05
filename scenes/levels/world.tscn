@@ -2597,14 +2597,14 @@ position = Vector2(561, -663)
 [node name="enemies" type="Node2D" parent="."]
 
 [node name="guardian_spawner" type="Node2D" parent="enemies"]
-position = Vector2(426, -581)
+position = Vector2(410, -554)
 script = ExtResource("9_btahq")
 entity = ExtResource("10_px3xn")
 capacity = 1
 min_spawn_rate = 25.0
 randomness = 0.35
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 95.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="guardian_spawner2" type="Node2D" parent="enemies"]
@@ -2701,8 +2701,7 @@ metadata/_custom_type_script = "uid://chjcoikfv18ob"
 position = Vector2(-12, 8)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
-visible = false
-position = Vector2(-939, -190)
+position = Vector2(26, -84)
 
 [node name="note_0" type="Area2D" parent="."]
 visible = false

@@ -16,6 +16,8 @@ func _enter() -> void:
 	)
 	container.updated.connect(updated.emit)
 	SaveSystem.track("inventory", get_inventory, set_inventory.call_deferred, [])
+	#await get_tree().create_timer(0.25).timeout
+	#set_inventory([[0, 99], [24, 99]])
 
 func _update(_delta: float) -> void:
 	pass

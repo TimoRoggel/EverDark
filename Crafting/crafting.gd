@@ -13,9 +13,9 @@ var crafting_input: InputComponent = null
 func _ready() -> void:
 	await get_tree().physics_frame
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
-	
 	crafting_input = GameManager.player.get_component(InputComponent)
 	crafting_input.pickup.connect(_on_pickup)
+	crafting_ui.close_requested.connect(close)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is PlayerController:

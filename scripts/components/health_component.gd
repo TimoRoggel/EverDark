@@ -161,10 +161,10 @@ func calc_knockback(attack: AttackController) -> void:
 	var knockback_component: KnockbackComponent = controller.get_component(KnockbackComponent)
 	if knockback_component:
 		var direction: Vector2 = attack.get_real_velocity().normalized()
-		var force: float = attack.attack.knockback
+		var force: float = attack.attack.knockback * 1.5
 		knockback_component.apply_knockback(direction, force)
 	elif "movement" in controller:
-		controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.1)
+		controller.movement.take_knockback(attack.get_real_velocity() * attack.attack.knockback, attack.attack.knockback * 0.3)
 		
 func reset():
 	current_health = max_health

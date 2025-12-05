@@ -9,7 +9,7 @@ const UNLIT_SPRITE: Texture2D = preload("uid://dkenn8pic6tnm")
 
 @onready var items: ItemList = %items
 @onready var fuel_slot: InventorySlot = %fuel_slot
-@onready var fuel_progress: ProgressBar = %fuel_progress
+@onready var fuel_progress: TextureProgressBar = %fuel_progress
 @onready var craft_button: Button = %craft_button
 
 @onready var craftable_name: Label = %craftable_name

@@ -55,8 +55,8 @@ func _custom_process(delta: float) -> void:
 	else:
 		movement.desired_movement = Vector2.ZERO
 	if animation:
-		animation.direction = movement.desired_movement
-		animation.should_flip = movement.desired_movement.x < 0.0
+		animation.direction = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
+		animation.should_flip = animation.direction.x < 0.0
 		animation.attacking = charging
 	super(delta)
 

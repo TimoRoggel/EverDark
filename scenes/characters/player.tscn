@@ -109,7 +109,8 @@ z_as_relative = false
 y_sort_enabled = true
 use_parent_material = true
 sprite_frames = ExtResource("2_6ux5t")
-animation = &"pickdrop_up"
+animation = &"idle_down"
+frame_progress = 0.7611664
 centered = false
 offset = Vector2(-16, -32)
 

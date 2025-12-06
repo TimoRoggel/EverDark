@@ -61,6 +61,9 @@ func get_suitable_animation() -> String:
 
 func play(animation: String) -> void:
 	var target_animation_name: String = animation + "_" + direction_suffix()
+	var anim_with_item: String = target_animation_name + "_" + str(held_item)
+	if animated_sprite.sprite_frames.has_animation(anim_with_item):
+		target_animation_name = anim_with_item
 	if !animated_sprite.sprite_frames.has_animation(target_animation_name):
 		return
 	forced_animation_playing = true

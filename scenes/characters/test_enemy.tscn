@@ -334,7 +334,7 @@ shape = SubResource("CircleShape2D_gs7m4")
 use_parent_material = true
 position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_k34kf")
-animation = &"idle_down"
+animation = &"attack_up"
 autoplay = "idle_down"
 
 [node name="move" type="Node2D" parent="."]
@@ -345,7 +345,7 @@ metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 [node name="attack" type="Node2D" parent="."]
 script = ExtResource("3_0lte8")
 attack_id = 1
-damaging_flags = 3
+damaging_flags = 1
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="health" type="Node2D" parent="."]

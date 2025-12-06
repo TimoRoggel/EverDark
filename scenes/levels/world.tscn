@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=25 format=4 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
 [ext_resource type="PackedScene" uid="uid://dw3msgvb1ai4b" path="res://scenes/characters/stone.tscn" id="4_xidr1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://chjcoikfv18ob" path="res://scripts/tools/entity_spawner.gd" id="9_btahq"]
 [ext_resource type="Script" uid="uid://dkt222qwdgnfh" path="res://scripts/tools/harvestable_body_2d.gd" id="9_csbb7"]
 [ext_resource type="PackedScene" uid="uid://kp8jku03lrxp" path="res://Chest/chest.tscn" id="9_f1v6p"]
+[ext_resource type="Script" uid="uid://c6bk8wmycj11q" path="res://scenes/levels/guardian_spawner.gd" id="9_px3xn"]
 [ext_resource type="Script" uid="uid://b3b33abitpj2t" path="res://scripts/tools/runnables/harvestable_runnable.gd" id="10_mmplq"]
 [ext_resource type="Resource" uid="uid://ceh6jav0wnpjx" path="res://resources/entities/test_entity.tres" id="10_px3xn"]
 [ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="10_q418o"]
@@ -2597,8 +2598,11 @@ position = Vector2(561, -663)
 [node name="enemies" type="Node2D" parent="."]
 
 [node name="guardian_spawner" type="Node2D" parent="enemies"]
-position = Vector2(410, -554)
-script = ExtResource("9_btahq")
+position = Vector2(351, -525)
+script = ExtResource("9_px3xn")
+boss_health = 10000.0
+boss_min_power = 5000.0
+boss_max_power = 5000.0
 entity = ExtResource("10_px3xn")
 capacity = 1
 min_spawn_rate = 25.0
@@ -2655,8 +2659,8 @@ metadata/_custom_type_script = "uid://chjcoikfv18ob"
 position = Vector2(200, -408)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
-capacity = 80
-amount = 80
+capacity = 10
+amount = 10
 min_spawn_rate = 25.0
 randomness = 0.2
 min_radius = 80.0

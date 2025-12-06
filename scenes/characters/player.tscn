@@ -109,8 +109,7 @@ z_as_relative = false
 y_sort_enabled = true
 use_parent_material = true
 sprite_frames = ExtResource("2_6ux5t")
-animation = &"idle_down"
-frame_progress = 0.7611664
+animation = &"attack_right_17"
 centered = false
 offset = Vector2(-16, -32)
 

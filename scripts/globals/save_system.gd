@@ -61,7 +61,6 @@ func player() -> PlayerSaveObject:
 
 func track(key: String, getter: Callable, setter: Callable, default: Variant = null) -> void:
 	player().trackers[key] = { "getter": getter, "setter": setter, "default": default }
-	save_manager.load_data.call_deferred(key)
 
 func untrack(key) -> void:
 	player().trackers.erase(key)

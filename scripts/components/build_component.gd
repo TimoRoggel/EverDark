@@ -21,7 +21,7 @@ var build_preview: Sprite2D = null
 
 static func place_item(item: int, pos: Vector2) -> void:
 	var scene: Node2D = PLACEABLE_SCENES[item].instantiate()
-	Engine.get_main_loop().current_scene.add_child(scene)
+	Engine.get_main_loop().current_scene.add_child.call_deferred(scene)
 	scene.global_position = pos
 	WorldStateSaver.placed_items[scene.name] = [item, pos]
 

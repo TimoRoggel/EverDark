@@ -44,6 +44,16 @@ func _ready() -> void:
 	)
 	update_sprite()
 	fuel_amount.text = str(String.num(fuel_progress.value, 0), "%")
+	interactable.input_event.connect(_on_input_event)
+
+func _on_input_event(_viewport: Node, event: InputEvent, _idx: int) -> void:
+	if event.is_action_pressed("pickup"):
+		var remainder: int = GameManager.player.inventory.add(26)
+		if remainder > 0:
+			DroppedItem2D.drop(26, 1, interactable.global_position)
+		_on_close_button_pressed()
+		WorldStateSaver.placed_items.erase(interactable.name)
+		interactable.queue_free()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") && is_visible_in_tree():

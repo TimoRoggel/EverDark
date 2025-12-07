@@ -32,4 +32,5 @@ func _on_area_2d_area_entered(a: Area2D) -> void:
 	a.set_active(convert_speed)
 	a.item = DataManager.get_resource_by_id("items", 0)
 	await get_tree().create_timer(convert_speed, false).timeout
-	a.visible = true
+	if a && !a.is_queued_for_deletion():
+		a.visible = true

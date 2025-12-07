@@ -109,8 +109,9 @@ func cooldown():
 	is_in_cooldown = false
 	
 func stop_sprint_timer():
-	sprint_timer.stop()
-	sprint_timer.queue_free()
+	if sprint_timer:
+		sprint_timer.stop()
+		sprint_timer.queue_free()
 
 func _exit() -> void:
 	pass

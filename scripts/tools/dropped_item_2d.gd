@@ -27,10 +27,12 @@ static func drop(item_id: int, count: int, pos: Vector2) -> void:
 	dropped_item.amount = count
 	Engine.get_main_loop().current_scene.add_child(dropped_item)
 	dropped_item.global_position = pos
+	dropped_item.timeout(0.75)
 	var dropped_sound: RandomAudioStreamPlayer2D = GameManager.create_audio_player(&"SFX", [preload("uid://dwfwgrm6ia01k")], dropped_item)
 	dropped_sound.play_randomized()
 	await dropped_sound.finished
 	dropped_sound.queue_free()
+
 
 func _ready() -> void:
 	z_as_relative = false

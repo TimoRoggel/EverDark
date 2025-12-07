@@ -17,7 +17,7 @@
 [ext_resource type="Resource" uid="uid://ylhc2g4awx42" path="res://resources/entities/sfm_entity.tres" id="11_8cjxf"]
 [ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
-[ext_resource type="Script" uid="uid://k2h8hdh738wa" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="AudioStream" uid="uid://dyklopfm0j5up" path="res://audio/ambience/forest_ambience_0.wav" id="14_8c33x"]
 [ext_resource type="TileSet" uid="uid://cyqg6ktxfoknu" path="res://resources/tile_set.tres" id="14_q418o"]
 
@@ -28,15 +28,15 @@ tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_btahq"]
-shader = ExtResource("10_q418o")
-shader_parameter/highlighted = false
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_px3xn"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8cjxf"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtmcs"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
@@ -2734,7 +2734,7 @@ position = Vector2(-959, -141)
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_btahq")
+material = SubResource("ShaderMaterial_px3xn")
 position = Vector2(-946, -138)
 collision_layer = 4
 collision_mask = 4
@@ -2746,7 +2746,7 @@ custom_parameter = "{\"note\": 0}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_px3xn")
+material = SubResource("ShaderMaterial_8cjxf")
 position = Vector2(-908, -129)
 collision_layer = 4
 collision_mask = 4
@@ -2759,7 +2759,7 @@ custom_parameter = "{\"note\": 1}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_8cjxf")
+material = SubResource("ShaderMaterial_jtmcs")
 position = Vector2(-913, -100)
 collision_layer = 4
 collision_mask = 4

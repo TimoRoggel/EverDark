@@ -115,7 +115,6 @@ func set_controls_visibility(value: bool) -> void:
 
 func finish_objective(index: int) -> void:
 	var byte: int = roundi(pow(2.0, float(index)))
-	print(objectives_done, " ", byte, " = ", !(objectives_done & byte == byte))
 	if !(objectives_done & byte == byte):
 		objectives_done += byte
 

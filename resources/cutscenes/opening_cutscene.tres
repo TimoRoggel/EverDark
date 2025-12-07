@@ -90,6 +90,5 @@ metadata/_custom_type_script = "uid://cigghrhljfb3i"
 [resource]
 script = ExtResource("2_4g73k")
 background_audio = ExtResource("1_4ymyg")
-skipable = true
 frames = Array[ExtResource("1_tsfns")]([SubResource("Resource_kuga3"), SubResource("Resource_jaecw"), SubResource("Resource_4ymyg"), SubResource("Resource_rl088"), SubResource("Resource_6tg64"), SubResource("Resource_j6shp"), SubResource("Resource_xdjct")])
 metadata/_custom_type_script = "uid://uc3cowu6nk4c"

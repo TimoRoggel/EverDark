@@ -22,6 +22,15 @@ uniform float player_circle_end = 16.0;
 uniform float lumin_circle_start = 128.0;
 uniform float lumin_circle_end = 160.0;
 uniform float everdark_scroll_speed = 0.001;
+uniform vec4 quantization = vec4(64.0);
+
+vec4 quantize(vec4 color) {
+	float r = round(color.r * quantization.r) / quantization.r;
+	float g = round(color.g * quantization.g) / quantization.g;
+	float b = round(color.b * quantization.b) / quantization.b;
+	float a = round(color.a * quantization.a) / quantization.a;
+	return vec4(r,g,b,a);
+}
 
 void weirdify(vec2 uv, sampler2D base_texture, out vec4 output_color)
 {
@@ -93,4 +102,5 @@ float get_alpha(vec2 uv, sampler2D input_texture, vec2 pixel_size) {
 void fragment() {
 	weirdify(UV, TEXTURE, COLOR);
 	COLOR.a = get_alpha(UV, TEXTURE, TEXTURE_PIXEL_SIZE);
+	COLOR = quantize(COLOR);
 }

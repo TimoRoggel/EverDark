@@ -4,6 +4,8 @@ class_name EnemyController extends CharacterController
 @export var min_distance_to_target: float = 8.0
 @export var attack_distance: float = 48.0
 @export var predictive_attacking: bool = false
+@export var stuck_velocity_threshold: float = 5.0
+@export var stuck_time_before_unstuck: float = 0.5
 
 var target: TargetComponent = null
 var attack: SpawnAttackComponent = null
@@ -12,6 +14,7 @@ var health: HealthComponent = null
 var animation: AnimationComponent = null
 
 var charging: bool = false
+var stuck_time: float = 0.0
 
 func _init() -> void:
 	flags = CharacterFlags.Enemy
@@ -25,19 +28,22 @@ func _ready() -> void:
 	health = get_component(HealthComponent)
 	health.damage_taken.connect(on_damage_taken)
 	animation = get_component(AnimationComponent)
+	GameManager.ending.connect(func() -> void: health.current_health = 0.0)
 
 func _custom_process(delta: float) -> void:
 	if !health.alive:
 		return
 	var current_target: CharacterController = get_target()
 	var angle_to_target: float = 0.0
+	var distance: float = INF
+	var vel: Vector2 = get_real_velocity()
 	if current_target:
 		var intercept_angle: float = prediction_angle()
 		if intercept_angle != 0.0 && predictive_attacking:
 			angle_to_target = intercept_angle
 		else:
 			angle_to_target = global_position.angle_to_point(current_target.global_position)
-		var distance: float = distance_to_target()
+		distance = distance_to_target()
 		if !charging:
 			attack.attack_angle = angle_to_target
 			movement.desired_movement = Vector2.from_angle(angle_to_target)
@@ -52,17 +58,24 @@ func _custom_process(delta: float) -> void:
 			movement.desired_movement = Vector2.ZERO
 			if distance <= min_distance_to_target * 0.5:
 				movement.desired_movement = -Vector2.from_angle(angle_to_target)
+		if movement.desired_movement.length() > 0.1 && distance > min_distance_to_target:
+			if vel.length() < stuck_velocity_threshold:
+				stuck_time += delta
+			else:
+				stuck_time = 0.0
+			if stuck_time >= stuck_time_before_unstuck:
+				var dir: Vector2 = Vector2.from_angle(angle_to_target)
+				var side: float = (1.0 if randf() > 0.5 else -1.0)
+				movement.desired_movement = dir.rotated(side * PI * 0.5)
+				stuck_time = 0.0
+		else:
+			stuck_time = 0.0
 	else:
 		movement.desired_movement = Vector2.ZERO
+		stuck_time = 0.0
 	if animation:
-		var vel: Vector2 = get_real_velocity()
-		var target_direction: Vector2 = animation.direction
-		if vel.length() > 1.0:
-			target_direction = vel
-		elif charging:
-			target_direction = Vector2.from_angle(angle_to_target)
-		animation.direction = target_direction
-		animation.should_flip = target_direction.x < 0.0
+		animation.direction = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
+		animation.should_flip = animation.direction.x < 0.0
 		animation.attacking = charging
 	super(delta)
 
@@ -70,9 +83,14 @@ func get_target() -> CharacterController:
 	return target.target
 
 func on_damage_taken(from: AttackController) -> void:
-	if !target || target.is_queued_for_deletion():
+	if !target or target.is_queued_for_deletion():
+		return
+	if !is_instance_valid(from):
+		return
+	if !from.spawner or !is_instance_valid(from.spawner):
 		return
 	target.try_add_target(from.spawner)
+
 
 func distance_to_target() -> float:
 	var current_target: CharacterController = get_target()

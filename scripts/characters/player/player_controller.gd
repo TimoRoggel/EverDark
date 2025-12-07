@@ -29,6 +29,9 @@ func _init() -> void:
 func _ready() -> void:
 	show()
 	SaveSystem.track("position", get_position, set_position, Vector2.ZERO)
+	SaveSystem.track("lumin_positions", Generator.get_lumin_positions, Generator.set_lumin_positions, [Vector2(8,8)])
+	SaveSystem.track("lumin_sizes", Generator.get_lumin_sizes, Generator.set_lumin_sizes, [Generator.LUMIN_START_SIZE])
+	SaveSystem.track("seed", Generator.get_seed, Generator.set_seed, randi())
 	super()
 	GameManager.player = self
 	await get_tree().process_frame
@@ -59,13 +62,12 @@ func _custom_physics_process(delta: float) -> void:
 	if !movement:
 		return
 	movement.desired_movement = input.movement
-	var vel: Vector2 = get_real_velocity()
+	var held_item_id: int = inventory.get_held_item_id() if inventory else -1
 	if block:
 		block.block_angle = input.angle_to_cursor
 	if weapon:
 		weapon.attack_id = -1
 		if inventory:
-			var held_item_id: int = inventory.get_held_item_id()
 			if held_item_id == -1:
 				weapon.attack_id = 0
 				held_item_sprite.texture = null
@@ -73,6 +75,8 @@ func _custom_physics_process(delta: float) -> void:
 				var held_item: Item = DataManager.get_resource_by_id("items", held_item_id)
 				held_item_sprite.texture = held_item.icon
 				weapon.attack_id = held_item.weapon_id
+			held_item_sprite.visible = !animation.animated_sprite.animation.begins_with(AnimationComponent.ANIMS[2]) && !animation.forced_animation_playing
+			animation.held_item = held_item_id
 		weapon.attack_angle = input.angle_to_cursor
 		weapon.attacking = input.attacking
 	if dash:
@@ -85,12 +89,12 @@ func _custom_physics_process(delta: float) -> void:
 		held_item_sprite.position.x = 8.0 * (-1.0 if animation.should_flip else 1.0)
 		held_item_sprite.position.y = -2.0 if animation.is_looking_up() else (2.0 if animation.is_looking_down() else 0.0)
 		var target_direction: Vector2 = animation.direction
-		if vel.length() > 1.0:
-			target_direction = vel
+		if input.movement.length() > 0.5:
+			target_direction = input.movement
 		elif input.attacking:
 			target_direction = Vector2.from_angle(input.angle_to_cursor)
 		animation.direction = target_direction
-		animation.attacking = weapon.attack_active
+		animation.attacking = weapon.attack_active && held_item_id != 30
 
 func on_bounce(bounce_amount: float) -> void:
 	camera.shake(bounce_amount * 0.02, 0.1)

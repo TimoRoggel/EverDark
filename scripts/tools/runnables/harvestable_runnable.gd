@@ -7,6 +7,7 @@ func run(param: Dictionary) -> void:
 	pickup_sound.play_randomized()
 	var harvestable: Harvestable = DataManager.get_resource_by_id("harvestables", param["harvestable"])
 	var rewards: Array[Item] = harvestable.generate_rewards()
+	param["controller"].animation.play("pickdrop")
 	for i: Item in rewards:
 		give_item(param["controller"], i)
 	param["self"].deplete()

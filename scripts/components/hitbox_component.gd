@@ -6,10 +6,14 @@ class_name HitboxComponent extends Component
 @export var collision_radius: float = 1.0:
 	set(value):
 		collision_radius = value
+		if hurtbox_collision and hurtbox_collision.shape is CircleShape2D:
+			hurtbox_collision.shape.radius = value
 		queue_redraw()
 @export var damage_sounds: Array[AudioStream] = []
 @export var minimum_harvest_level_filter: int = 0
 @export_flags("Pickaxe", "Axe") var damage_flag_filters: int = 0
+@export_flags_2d_physics var hurtbox_collision_layer: int = 1
+@export_flags_2d_physics var hurtbox_collision_mask: int = 2
 
 var health_component: HealthComponent = null
 var block_component: BlockComponent = null
@@ -31,7 +35,8 @@ func _enter() -> void:
 	block_component = controller.get_component(BlockComponent)
 	if hurtbox_area && hurtbox_collision:
 		# setup area2d
-		hurtbox_area.collision_mask = 2
+		hurtbox_area.collision_layer = hurtbox_collision_layer
+		hurtbox_area.collision_mask = hurtbox_collision_mask
 		add_child(hurtbox_area)
 		hurtbox_area.add_child(hurtbox_collision)
 		hurtbox_collision.shape = CircleShape2D.new()

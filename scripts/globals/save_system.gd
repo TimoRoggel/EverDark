@@ -9,6 +9,7 @@ var options: OptionsSaveObject = null
 var files: Dictionary[int, PlayerSaveObject] = {}
 
 var save_timer: Timer = Timer.new()
+var new_save: bool = false
 
 signal loaded_data
 

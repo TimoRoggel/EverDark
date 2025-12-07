@@ -15,7 +15,7 @@ func _enter() -> void:
 			controller.hotbar.visible = !container.visible
 	)
 	container.updated.connect(updated.emit)
-	SaveSystem.track("inventory", get_inventory, set_inventory.call_deferred, [])
+	SaveSystem.track("inventory", get_inventory, set_inventory.call_deferred, [[7, 1], [1, 1]])
 	#await get_tree().create_timer(0.25).timeout
 	#set_inventory([[0, 99], [24, 99]])
 

@@ -14,8 +14,8 @@ const INVENTORY_SLOT: PackedScene = preload("uid://chgdmhkgaavft")
 
 var color_active_text: Color = Color("5e412f")
 var color_active_icon: Color = Color.WHITE
-var color_locked_text: Color = Color(0.5, 0.4, 0.4, 0.5)
-var color_locked_icon: Color = Color(0.4, 0.4, 0.4, 0.5)
+var color_locked_text: Color = Color(0.584, 0.514, 0.345, 1.0)
+var color_locked_icon: Color = Color(0.0, 0.0, 0.0, 0.5)
 
 var recipe_material_dict: Dictionary[Item, int] = {}
 var inventory: InventoryComponent = null

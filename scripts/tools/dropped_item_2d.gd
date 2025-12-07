@@ -39,11 +39,10 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		WorldStateSaver.dropped_items.erase(name)
 
-
 func _ready() -> void:
 	z_as_relative = false
 	y_sort_enabled = true
-	z_index = 100
+	z_index = 200
 	sprite.texture = item.icon
 	sprite.use_parent_material = true
 	add_child(sprite)

@@ -276,8 +276,6 @@ visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ControlsOverlay" parent="CanvasLayer" instance=ExtResource("52_5bn3a")]
-
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("20_kmyvj")]
 
 [node name="inventory_background_panel" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("copy_visibility")]
@@ -318,3 +316,8 @@ inventory_component = NodePath("../../components/inventory")
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
 visible = false
+
+[node name="controls" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ControlsOverlay" parent="controls" instance=ExtResource("52_5bn3a")]

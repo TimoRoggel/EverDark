@@ -20,8 +20,8 @@
 [ext_resource type="AudioStream" uid="uid://bkbd6vayvuf11" path="res://audio/sounds/enemy/hurt.wav" id="18_m5r20"]
 [ext_resource type="Script" uid="uid://2p53a8evemdg" path="res://scripts/components/healthbar_component.gd" id="19_r8e03"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gs7m4"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8e03"]
+size = Vector2(12, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0m4c0"]
 atlas = ExtResource("2_iin56")
@@ -331,7 +331,8 @@ target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bhkah5ac48rty"
 
 [node name="collision" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gs7m4")
+position = Vector2(1, -2.5)
+shape = SubResource("RectangleShape2D_r8e03")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
@@ -375,9 +376,10 @@ animated_sprite = NodePath("../sprite")
 metadata/_custom_type_script = "uid://crgr2naugp36e"
 
 [node name="hitbox" type="Node2D" parent="."]
+position = Vector2(0, -10)
 script = ExtResource("17_8tv53")
 attack_cooldown_time = 0.5
-collision_radius = 7.5
+collision_radius = 14.0
 damage_sounds = Array[AudioStream]([ExtResource("18_m5r20")])
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 

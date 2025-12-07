@@ -116,7 +116,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 321.0
+offset_right = 176.0
 grow_vertical = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 32
@@ -125,13 +125,13 @@ script = ExtResource("5_dhie7")
 
 [node name="vbox" type="VBoxContainer" parent="objectives"]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 6
 
 [node name="objectives_label" type="RichTextLabel" parent="objectives/vbox"]
 unique_name_in_owner = true
 z_index = -14
 z_as_relative = false
-custom_minimum_size = Vector2(0, 8)
+custom_minimum_size = Vector2(160, 8)
 layout_mode = 2
 theme_override_constants/paragraph_separation = -4
 theme_override_fonts/normal_font = SubResource("SystemFont_dhie7")
@@ -142,19 +142,20 @@ bbcode_enabled = true
 text = "[b]Main[/b]"
 fit_content = true
 scroll_active = false
-autowrap_mode = 0
 
 [node name="main_objective" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "\"Bring back the light\" by healing the monolith"
 label_settings = SubResource("LabelSettings_s83ig")
+autowrap_mode = 3
 
 [node name="side_label" type="RichTextLabel" parent="objectives/vbox"]
 unique_name_in_owner = true
 z_index = -14
 z_as_relative = false
-custom_minimum_size = Vector2(0, 8)
+custom_minimum_size = Vector2(160, 8)
 layout_mode = 2
 theme_override_constants/paragraph_separation = -4
 theme_override_fonts/normal_font = SubResource("SystemFont_dhie7")
@@ -165,40 +166,51 @@ bbcode_enabled = true
 text = "[b]Side[/b]"
 fit_content = true
 scroll_active = false
-autowrap_mode = 0
 
 [node name="side_make_lumin" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-text = "Throw a VOID Core in the hole to get Lumin"
+text = "Throw a VOID Core in the hole"
 label_settings = SubResource("LabelSettings_s83ig")
+autowrap_mode = 3
 
 [node name="side_gather" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-text = "Gather some sticks and stone"
+text = "Gather sticks and stone"
 label_settings = SubResource("LabelSettings_s83ig")
+autowrap_mode = 3
 
 [node name="side_kill" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Kill a monster"
 label_settings = SubResource("LabelSettings_s83ig")
+autowrap_mode = 3
 
 [node name="side_upgrade" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Upgrade a tool"
 label_settings = SubResource("LabelSettings_s83ig")
+autowrap_mode = 3
 
 [node name="side_expand" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-text = "Use a torch or lantern to push back the Everdark"
+text = "Use a torch"
 label_settings = SubResource("LabelSettings_s83ig")
+autowrap_mode = 3
 
 [node name="side_cook" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Cook a berry or mushroom"
 label_settings = SubResource("LabelSettings_s83ig")
+autowrap_mode = 3

@@ -22,5 +22,5 @@ func animate_healthbar_color_change(color: Color):
 	tween.tween_property(health_bar, "modulate", Color(.7,0,0), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
 func update_virusbar_color(color: Color, value: float):
-	var white = Color(1, 1, 1)
+	var white = Color(0.637, 0.514, 1.0, 1.0)  
 	virus_bar.modulate = white.lerp(color, value)

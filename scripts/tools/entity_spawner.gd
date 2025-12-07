@@ -92,13 +92,17 @@ func spawn_entity() -> void:
 		return
 	spawned_entity.queue_free()
 	
-func reset_enemies():
-	var spawn_position = get_randomized_spawn_location()
+func reset_enemies() -> void:
 	for enemy in spawned_entities:
-		while Generator.layer.get_cell_tile_data(Generator.layer.local_to_map(spawn_position)):
+		if not is_instance_valid(enemy):
+			continue
+		var spawn_position: Vector2 = get_randomized_spawn_location()
+		for i in TRIES:
+			if Generator.is_in_everdark(spawn_position):
+				break
 			spawn_position = get_randomized_spawn_location()
+		enemy.global_position = spawn_position
 		await get_tree().create_timer(1.0).timeout
-		enemy.global_position = get_randomized_spawn_location()
 
 func restart_timer() -> void:
 	spawn_timer.start(GameManager.get_randomized_value(get_spawn_rate(), randomness))

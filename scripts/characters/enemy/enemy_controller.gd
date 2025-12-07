@@ -28,6 +28,7 @@ func _ready() -> void:
 	health = get_component(HealthComponent)
 	health.damage_taken.connect(on_damage_taken)
 	animation = get_component(AnimationComponent)
+	GameManager.ending.connect(func() -> void: health.current_health = 0.0)
 
 func _custom_process(delta: float) -> void:
 	if !health.alive:

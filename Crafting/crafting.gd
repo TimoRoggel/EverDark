@@ -9,6 +9,7 @@ var hotbar : HBoxContainer
 var is_interactable: bool = false
 var player_ref: PlayerController = null
 var crafting_input: InputComponent = null
+var can_toggle: bool = true
 
 func _ready() -> void:
 	await get_tree().physics_frame
@@ -31,7 +32,7 @@ func _on_body_exited(body: Node2D) -> void:
 			hotbar.visible = true
 
 func _process(_delta: float) -> void:
-	if crafting_ui.visible:
+	if crafting_ui.visible && can_toggle:
 		if Input.is_action_just_pressed("ui") or Input.is_action_just_pressed("interact"):
 			close()
 
@@ -66,6 +67,9 @@ func open() -> void:
 	GameManager.paused = true
 	
 	GameManager.set_active_ui(self)
+	can_toggle = false
+	await get_tree().physics_frame
+	can_toggle = true
 
 func close() -> void:
 	crafting_ui.visible = false
@@ -77,3 +81,6 @@ func close() -> void:
 	GameManager.paused = false
 	
 	GameManager.clear_active_ui()
+	can_toggle = false
+	await get_tree().physics_frame
+	can_toggle = true

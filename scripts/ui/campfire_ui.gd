@@ -35,6 +35,7 @@ func _ready() -> void:
 			continue
 		items.add_item(r.rewards[0].display_name, r.rewards[0].icon)
 		items.set_item_metadata(items.item_count - 1, r)
+		items.set_item_tooltip(items.item_count - 1, r.rewards[0].display_name + "\n" + r.rewards[0].description)
 	fuel_slot.filters = 1
 	items.select(0)
 	select(0)
@@ -134,6 +135,7 @@ func _on_craft_button_pressed() -> void:
 	fuel_amount.text = str(String.num(fuel_progress.value, 0), "%")
 	show_recipe(recipe)
 	cook_audio.play()
+	GameManager.finish_objective(6)
 
 func _on_close_button_pressed() -> void:
 	close()

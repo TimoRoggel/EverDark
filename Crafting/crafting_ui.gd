@@ -14,8 +14,8 @@ const INVENTORY_SLOT: PackedScene = preload("uid://chgdmhkgaavft")
 
 var color_active_text: Color = Color("5e412f")
 var color_active_icon: Color = Color.WHITE
-var color_locked_text: Color = Color(0.5, 0.4, 0.4, 0.5)
-var color_locked_icon: Color = Color(0.4, 0.4, 0.4, 0.5)
+var color_locked_text: Color = Color(0.584, 0.514, 0.345, 1.0)
+var color_locked_icon: Color = Color(0.0, 0.0, 0.0, 0.5)
 
 var recipe_material_dict: Dictionary[Item, int] = {}
 var inventory: InventoryComponent = null
@@ -104,6 +104,8 @@ func build_recipe_tree() -> void:
 			
 			if recipe.rewards.size() > 0:
 				item_slot.set_text(0, recipe.rewards[0].display_name)
+				item_slot.set_description(0, recipe.rewards[0].description)
+				item_slot.set_tooltip_text(0, recipe.rewards[0].display_name + "\n" + recipe.rewards[0].description)
 				item_slot.set_icon(0, recipe.rewards[0].icon)
 			
 			item_slot.set_metadata(0, recipe)
@@ -182,6 +184,8 @@ func _on_CraftButton_pressed() -> void:
 	for reward_id: int in current_recipe.reward_ids:
 		inventory.add(reward_id, 1)
 	
+	if [6,7,8,11,12,13,19,20,21].has(current_recipe.id):
+		GameManager.finish_objective(4)
 	audio_stream_player.play()
 
 	build_recipe_material_window(current_recipe)

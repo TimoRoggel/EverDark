@@ -10,7 +10,6 @@ func run(param: Dictionary) -> void:
 		ui_control.open()
 	else:
 		ui_control.close()
-	hud.visible = !hud.visible
 	hud.get_child(0).check_recipe_availability()
 	hud.get_tree().paused = true
 	controller.hotbar.visible = false

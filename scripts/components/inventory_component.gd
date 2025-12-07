@@ -15,7 +15,6 @@ func _enter() -> void:
 	#await get_tree().create_timer(0.25).timeout
 	#set_inventory([[0, 99], [24, 99]])
 
-
 func toggle_inventory() -> void:
 	if container.visible:
 		close()
@@ -56,6 +55,8 @@ func drop_all():
 	container.clear_all()
 
 func add(item_id: int, quantity: int = 1) -> int:
+	if (item_id == 6 && has(18)) || (item_id == 18 && has(6)):
+		GameManager.finish_objective(2)
 	return container.add(item_id, quantity)
 
 func remove(item_id: int, quantity: int = 1) -> int:

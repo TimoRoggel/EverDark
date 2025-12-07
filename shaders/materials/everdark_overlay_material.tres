@@ -42,3 +42,4 @@ shader_parameter/player_circle_end = 32.0
 shader_parameter/lumin_circle_start = 132.0
 shader_parameter/lumin_circle_end = 148.0
 shader_parameter/everdark_scroll_speed = 0.001
+shader_parameter/quantization = Vector4(64, 16, 64, 8)

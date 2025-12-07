@@ -9,6 +9,7 @@ var options: OptionsSaveObject = null
 var files: Dictionary[int, PlayerSaveObject] = {}
 
 var save_timer: Timer = Timer.new()
+var new_save: bool = false
 
 signal loaded_data
 
@@ -61,7 +62,6 @@ func player() -> PlayerSaveObject:
 
 func track(key: String, getter: Callable, setter: Callable, default: Variant = null) -> void:
 	player().trackers[key] = { "getter": getter, "setter": setter, "default": default }
-	load_data()
 
 func untrack(key) -> void:
 	player().trackers.erase(key)

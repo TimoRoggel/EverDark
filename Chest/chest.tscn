@@ -1,15 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://kp8jku03lrxp"]
+[gd_scene load_steps=14 format=3 uid="uid://kp8jku03lrxp"]
 
 [ext_resource type="Script" uid="uid://bqsa1lysj06sl" path="res://Chest/chest.gd" id="1_gj4rf"]
 [ext_resource type="Texture2D" uid="uid://dh0rj8oyd78hu" path="res://graphics/chest_closed.png" id="1_vbo4i"]
 [ext_resource type="PackedScene" uid="uid://cow17ljb5qgg" path="res://Chest/chest_inventory.tscn" id="2_urnrk"]
+[ext_resource type="Texture2D" uid="uid://d27av85dvlkhi" path="res://map/Art Assets/Player HUD/30x30_inventory_HUD_slot.png" id="3_8o3n0"]
 [ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="3_h07ny"]
 [ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="3_urnrk"]
 [ext_resource type="Script" uid="uid://bfn8ymysbnhu7" path="res://scripts/tools/runnables/chest_runnable.gd" id="5_07ty7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gj4rf"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8o3n0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h07ny"]
+bg_color = Color(0.09411765, 0.08627451, 0.05490196, 1)
+
+[sub_resource type="GDScript" id="GDScript_8o3n0"]
+resource_name = "visibility_copy"
+script/source = "extends Panel
+
+@export var copy_visibility: Control = null
+
+func _ready() -> void:
+	copy_visibility.visibility_changed.connect(func() -> void:
+		visible = copy_visibility.visible
+	)
+	visible = copy_visibility.visible
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_as8yd"]
+texture = ExtResource("3_8o3n0")
+
+[sub_resource type="Theme" id="Theme_g4xu0"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_as8yd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4xu0"]
 shader = ExtResource("3_h07ny")
 shader_parameter/highlighted = false
 
@@ -27,14 +50,33 @@ shape = SubResource("CircleShape2D_gj4rf")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
+[node name="chest_background_panel" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("copy_visibility")]
+visible = false
+offset_left = 36.0
+offset_top = 58.0
+offset_right = 346.795
+offset_bottom = 318.885
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h07ny")
+script = SubResource("GDScript_8o3n0")
+copy_visibility = NodePath("../Chest_Inventory")
+
 [node name="Chest_Inventory" parent="CanvasLayer" instance=ExtResource("2_urnrk")]
 visible = false
+offset_left = -282.0
+offset_top = 60.0
+offset_right = 26.0
+offset_bottom = 316.0
+theme = SubResource("Theme_g4xu0")
+columns = 6
+rows = 5
+has_hotbar = null
 
 [node name="Interactable2D" type="Area2D" parent="."]
-material = SubResource("ShaderMaterial_8o3n0")
+material = SubResource("ShaderMaterial_g4xu0")
 position = Vector2(0, -7)
 collision_layer = 4
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("3_urnrk")
 interact_script = ExtResource("5_07ty7")
 custom_parameter = "{}"

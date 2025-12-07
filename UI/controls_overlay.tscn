@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpxy5tg85w03x"]
+
+[ext_resource type="Script" uid="uid://c1ji8ytcp5klg" path="res://UI/controls_overlay.gd" id="1_hav85"]
+[ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="2_h8wm8"]
+
+[sub_resource type="SystemFont" id="SystemFont_2vuwk"]
+subpixel_positioning = 0
+keep_rounding_remainders = false
+
+[node name="ControlsOverlay" type="Control"]
+modulate = Color(0.8733763, 0.8680402, 0.7525956, 0.5019608)
+z_index = -12
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hav85")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -144.0
+offset_right = 169.0
+offset_bottom = 144.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer"]
+z_index = -14
+z_as_relative = false
+layout_mode = 2
+theme_override_constants/paragraph_separation = -4
+theme_override_fonts/normal_font = SubResource("SystemFont_2vuwk")
+theme_override_fonts/bold_font = ExtResource("2_h8wm8")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 8
+bbcode_enabled = true
+text = "[b]MOVEMENT[/b]
+Move: WASD
+Sprint: L-Shift
+
+[b]INTERACTIONS[/b]
+Use/Grab: F
+Eat: Left Mouse
+Pause/Exit: Escape
+
+[b]COMBAT[/b]
+Attack: Left Mouse
+Block: Right Mouse
+
+[b]INVENTORY[/b]
+Open: E
+Drop: Q (+Ctrl for stack)
+Select Item: 1-5 / Wheel"
+scroll_active = false
+autowrap_mode = 0

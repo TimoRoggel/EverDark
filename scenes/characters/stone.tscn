@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw3msgvb1ai4b"]
+[gd_scene load_steps=11 format=3 uid="uid://dw3msgvb1ai4b"]
 
 [ext_resource type="Script" uid="uid://c0n6qqwj4c4lm" path="res://scripts/characters/character_controller.gd" id="1_hn3j5"]
 [ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_qgg5r"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://b3gtbyxwlhnmq" path="res://audio/sounds/stone/death.wav" id="3_ylsqy"]
 [ext_resource type="AudioStream" uid="uid://c66n7ga4dhoff" path="res://audio/sounds/stone/hit.wav" id="5_182mu"]
 [ext_resource type="Texture2D" uid="uid://dyc2ax7em7fk1" path="res://map/Art Assets/Map Objects (colision)/Rocks/32x32_rock_01.png" id="6_fbqax"]
+[ext_resource type="Script" uid="uid://dxkedey5xyb5i" path="res://scripts/components/save_removal_component.gd" id="6_mw0h4"]
 [ext_resource type="Script" uid="uid://m6vcvhqhntsq" path="res://scripts/tools/randomized_sprite_2d.gd" id="7_mw0h4"]
 [ext_resource type="Texture2D" uid="uid://b4ojvk8takqi3" path="res://map/Art Assets/Map Objects (colision)/Rocks/32x32_rocks_03.png" id="8_1jhnp"]
 
@@ -42,6 +43,10 @@ collision_radius = 12.0
 damage_sounds = Array[AudioStream]([ExtResource("5_182mu")])
 damage_flag_filters = 1
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="save_remove" type="Node2D" parent="components"]
+script = ExtResource("6_mw0h4")
+metadata/_custom_type_script = "uid://dxkedey5xyb5i"
 
 [node name="sprite" type="Sprite2D" parent="."]
 z_as_relative = false

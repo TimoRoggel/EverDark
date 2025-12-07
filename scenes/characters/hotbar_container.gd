@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 @export var inventory: InventoryContainer
-@export var inventory_component: InventoryComponent  
+@export var inventory_component: InventoryComponent
 
 var hotbar_slots: int = 5 
 var currently_selected_slot: int = 0
@@ -27,9 +27,9 @@ func _on_visibility_changed() -> void:
 # Hotbar.gd
 
 func _input(event: InputEvent) -> void:
-
 	if not is_active:
 		return
+	
 	if event.is_action_pressed("drop_item"):
 		if inventory:
 			var slots = inventory.get_slots()
@@ -46,6 +46,12 @@ func _input(event: InputEvent) -> void:
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				currently_selected_slot = posmod(currently_selected_slot + 1, hotbar_slots)
 				select_slot(currently_selected_slot)
+
+	if event is InputEventKey and event.pressed:
+		if event.keycode >= KEY_1 and event.keycode <= KEY_9:
+			var slot_index = event.keycode - KEY_1
+			if slot_index < hotbar_slots:
+				select_slot(slot_index)
 
 func _process(_delta: float) -> void:
 	update_hotbar()

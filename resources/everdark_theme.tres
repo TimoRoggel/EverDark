@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b7nbmvh5aw3xl" path="res://map/Art Assets/Player HUD/40x15_button.png" id="1_rr8nu"]
 [ext_resource type="Texture2D" uid="uid://bgi4e4frlesu5" path="res://map/Art Assets/Player HUD/40x15_button_hover.png" id="2_sk18p"]
-[ext_resource type="FontFile" uid="uid://bde85ifgt4hjt" path="res://resources/Jersey10-Regular.ttf" id="3_k05fi"]
+[ext_resource type="FontFile" uid="uid://bde85ifgt4hjt" path="res://resources/fonts/Jersey10-Regular.ttf" id="3_rr8nu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ra07v"]
 texture = ExtResource("1_rr8nu")
@@ -43,7 +43,7 @@ axis_stretch_vertical = 1
 modulate_color = Color(0.5, 0.5, 0.5, 1)
 
 [resource]
-default_font = ExtResource("3_k05fi")
+default_font = ExtResource("3_rr8nu")
 default_font_size = 19
 Button/styles/disabled = SubResource("StyleBoxTexture_ra07v")
 Button/styles/focus = SubResource("StyleBoxTexture_ipap1")

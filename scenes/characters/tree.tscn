@@ -22,8 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://dy2aib1s3yjxm" path="res://graphics/harvestables/64x64_tree_6_cut.png" id="16_jiam6"]
 [ext_resource type="Texture2D" uid="uid://dt5x6gtwh7b20" path="res://graphics/harvestables/64x64_tree_7_cut.png" id="17_gae32"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l03xu"]
-size = Vector2(34, 13)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ar8js"]
+size = Vector2(34, 9)
 
 [node name="tree" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 z_as_relative = false
@@ -39,8 +39,8 @@ target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://cnjj587sudseu"
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6.5)
-shape = SubResource("RectangleShape2D_l03xu")
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_ar8js")
 
 [node name="components" type="Node2D" parent="."]
 

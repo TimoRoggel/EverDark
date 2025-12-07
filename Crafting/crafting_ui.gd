@@ -104,6 +104,8 @@ func build_recipe_tree() -> void:
 			
 			if recipe.rewards.size() > 0:
 				item_slot.set_text(0, recipe.rewards[0].display_name)
+				item_slot.set_description(0, recipe.rewards[0].description)
+				item_slot.set_tooltip_text(0, recipe.rewards[0].display_name + "\n" + recipe.rewards[0].description)
 				item_slot.set_icon(0, recipe.rewards[0].icon)
 			
 			item_slot.set_metadata(0, recipe)

@@ -41,7 +41,7 @@ enabled=PackedStringArray("res://addons/YATI/plugin.cfg", "res://addons/sync_spr
 
 [gui]
 
-timers/tooltip_delay_sec=0.25
+timers/tooltip_delay_sec=0.0
 theme/custom="uid://cs2viwcjg8kjc"
 
 [input]

@@ -35,6 +35,7 @@ func _ready() -> void:
 			continue
 		items.add_item(r.rewards[0].display_name, r.rewards[0].icon)
 		items.set_item_metadata(items.item_count - 1, r)
+		items.set_item_tooltip(items.item_count - 1, r.rewards[0].display_name + "\n" + r.rewards[0].description)
 	fuel_slot.filters = 1
 	items.select(0)
 	select(0)

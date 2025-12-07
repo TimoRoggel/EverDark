@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b47pfp0hgfl86"]
+[gd_scene load_steps=9 format=3 uid="uid://b47pfp0hgfl86"]
 
 [ext_resource type="Script" uid="uid://c0n6qqwj4c4lm" path="res://scripts/characters/character_controller.gd" id="1_h0rst"]
 [ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_fml06"]
 [ext_resource type="AudioStream" uid="uid://b3gtbyxwlhnmq" path="res://audio/sounds/stone/death.wav" id="3_lptqr"]
 [ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="4_oexdb"]
 [ext_resource type="AudioStream" uid="uid://c66n7ga4dhoff" path="res://audio/sounds/stone/hit.wav" id="5_6vmd6"]
+[ext_resource type="Script" uid="uid://dxkedey5xyb5i" path="res://scripts/components/save_removal_component.gd" id="6_k20xd"]
 [ext_resource type="Texture2D" uid="uid://dkohttuwo68ja" path="res://graphics/24x24_metal.png" id="6_urmkj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k20xd"]
@@ -29,8 +30,8 @@ shape = SubResource("RectangleShape2D_k20xd")
 script = ExtResource("2_fml06")
 max_health = 15.0
 death_sounds = Array[AudioStream]([ExtResource("3_lptqr")])
-death_drops = Array[int]([6, 6, 6, 6, 6, 19, 19])
-death_drop_odds = Array[int]([100, 100, 100, 50, 50, 100, 50])
+death_drops = Array[int]([6, 6, 6, 6, 6, 19, 19, 19])
+death_drop_odds = Array[int]([100, 100, 100, 50, 50, 100, 100, 50])
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="hitbox" type="Node2D" parent="components"]
@@ -42,6 +43,10 @@ damage_sounds = Array[AudioStream]([ExtResource("5_6vmd6")])
 minimum_harvest_level_filter = 1
 damage_flag_filters = 1
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="save_remove" type="Node2D" parent="components"]
+script = ExtResource("6_k20xd")
+metadata/_custom_type_script = "uid://dxkedey5xyb5i"
 
 [node name="sprite" type="Sprite2D" parent="."]
 z_as_relative = false

@@ -1,10 +1,52 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccsvhx5s8yx0t"]
+[gd_scene load_steps=18 format=3 uid="uid://ccsvhx5s8yx0t"]
 
 [ext_resource type="Script" uid="uid://dricqlote5fbh" path="res://Crafting/crafting_ui.gd" id="1_jp7wa"]
+[ext_resource type="Texture2D" uid="uid://chk5qxglu5xxu" path="res://map/Art Assets/Player HUD/Upgrade_HUD.png" id="2_fpwgh"]
 [ext_resource type="PackedScene" uid="uid://chgdmhkgaavft" path="res://scenes/crafting/inventory_slot.tscn" id="2_w7jay"]
+[ext_resource type="Texture2D" uid="uid://nvrffc1gu643" path="res://graphics/ui_icons/dropdown.png" id="3_5tqky"]
 [ext_resource type="AudioStream" uid="uid://buytc168e0tfc" path="res://audio/sounds/crafting_table/craft.wav" id="3_jp7wa"]
+[ext_resource type="Texture2D" uid="uid://cacifihv143uq" path="res://graphics/ui_icons/close.png" id="3_kplwc"]
+[ext_resource type="Texture2D" uid="uid://ccmx5batu45lf" path="res://graphics/ui_icons/dropdown_toggled.png" id="4_xa482"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa482"]
+bg_color = Color(0.3529412, 0.2509804, 0.19607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6o32"]
+bg_color = Color(0.24705882, 0.1764706, 0.13725491, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38mgm"]
+bg_color = Color(0.15686275, 0.11372549, 0.09019608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2hte"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.92156863, 0.81960785, 0.54509807, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a1ky3"]
+
+[sub_resource type="Theme" id="Theme_v27fj"]
+Tree/colors/guide_color = Color(0.92941177, 0.8392157, 0.59607846, 1)
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_xa482")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_b6o32")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_38mgm")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_a2hte")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_a1ky3")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fpwgh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kplwc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a3l8g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tqky"]
+bg_color = Color(0.8784314, 0.8039216, 0.6156863, 1)
+corner_radius_top_left = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 8.0
 
 [node name="CraftingUI" type="PanelContainer"]
+process_mode = 3
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(640, 360)
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,22 +55,71 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.849)
+theme = SubResource("Theme_v27fj")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fpwgh")
 script = ExtResource("1_jp7wa")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
 layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+texture = ExtResource("2_fpwgh")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(687, 480)
+layout_mode = 2
+theme_override_constants/margin_left = 124
+theme_override_constants/margin_top = 114
+theme_override_constants/margin_right = 124
+theme_override_constants/margin_bottom = 64
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 14
 alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control5" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="Tree" type="Tree" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/relationship_line_color = Color(1, 0, 0, 1)
+theme_override_colors/parent_hl_line_color = Color(1, 0, 0, 1)
+theme_override_colors/children_hl_line_color = Color(1, 0, 0, 1)
+theme_override_icons/arrow = ExtResource("3_5tqky")
+theme_override_icons/arrow_collapsed = ExtResource("4_xa482")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kplwc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/hovered = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/hovered_dimmed = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_5tqky")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_5tqky")
+theme_override_styles/selected = SubResource("StyleBoxFlat_5tqky")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_5tqky")
+theme_override_styles/cursor = SubResource("StyleBoxFlat_5tqky")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/button_hover = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/button_pressed = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/custom_button = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/custom_button_hover = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/custom_button_pressed = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/title_button_normal = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/title_button_pressed = SubResource("StyleBoxEmpty_a3l8g")
+theme_override_styles/title_button_hover = SubResource("StyleBoxEmpty_a3l8g")
+
+[node name="Control2" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
@@ -40,7 +131,28 @@ alignment = 1
 [node name="TitleLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
 horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="InventorySlot" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
 
 [node name="ItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -49,49 +161,29 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 4
-
-[node name="InventorySlot" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot6" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot7" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot8" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot2" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot3" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot4" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot5" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
 [node name="CraftButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Craft"
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonExit" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 22)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("3_kplwc")
+
+[node name="Control6" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_jp7wa")
 
 [connection signal="cell_selected" from="MarginContainer/HBoxContainer/Tree" to="." method="_on_tree_cell_selected"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ButtonExit" to="." method="_on_button_exit_pressed"]

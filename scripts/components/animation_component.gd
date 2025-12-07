@@ -18,6 +18,7 @@ var attacking: bool = false
 var should_flip: bool = false
 var direction: Vector2 = Vector2.ZERO
 var forced_animation_playing: bool = false
+var held_item: int = -1
 
 func _enter() -> void:
 	pass
@@ -38,7 +39,7 @@ func _exit() -> void:
 func direction_suffix() -> String:
 	if direction.is_zero_approx():
 		return DIRS[0]
-	if abs(direction.x) > abs(direction.y):
+	if abs(direction.x) >= abs(direction.y):
 		return DIRS[2]
 	if direction.y < 0.0:
 		return DIRS[1]
@@ -52,10 +53,17 @@ func get_suitable_animation() -> String:
 		if abs(controller.get_real_velocity().length()) > MOVEMENT_THRESHOLD:
 			anim = ANIMS[1]
 	anim += "_" + direction_suffix()
+	var anim_with_item: String = anim
+	anim_with_item += "_" + str(held_item)
+	if animated_sprite.sprite_frames.has_animation(anim_with_item):
+		return anim_with_item
 	return anim
 
 func play(animation: String) -> void:
 	var target_animation_name: String = animation + "_" + direction_suffix()
+	var anim_with_item: String = target_animation_name + "_" + str(held_item)
+	if animated_sprite.sprite_frames.has_animation(anim_with_item):
+		target_animation_name = anim_with_item
 	if !animated_sprite.sprite_frames.has_animation(target_animation_name):
 		return
 	forced_animation_playing = true

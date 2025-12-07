@@ -28,6 +28,7 @@ func _ready() -> void:
 	health = get_component(HealthComponent)
 	health.damage_taken.connect(on_damage_taken)
 	animation = get_component(AnimationComponent)
+	GameManager.ending.connect(func() -> void: health.current_health = 0.0)
 
 func _custom_process(delta: float) -> void:
 	if !health.alive:
@@ -73,13 +74,8 @@ func _custom_process(delta: float) -> void:
 		movement.desired_movement = Vector2.ZERO
 		stuck_time = 0.0
 	if animation:
-		var target_direction: Vector2 = animation.direction
-		if vel.length() > 1.0:
-			target_direction = vel
-		elif charging:
-			target_direction = Vector2.from_angle(angle_to_target)
-		animation.direction = target_direction
-		animation.should_flip = target_direction.x < 0.0
+		animation.direction = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
+		animation.should_flip = animation.direction.x < 0.0
 		animation.attacking = charging
 	super(delta)
 

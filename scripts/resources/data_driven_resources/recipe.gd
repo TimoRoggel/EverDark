@@ -23,6 +23,14 @@ static func from_data(data: Dictionary) -> Recipe:
 	
 	return recipe
 
+func get_cost_count(cost_id: int) -> int:
+	var count: int = 0
+	for c: int in cost_ids:
+		if c != cost_id:
+			continue
+		count += 1
+	return count
+
 func get_rewards() -> Array[Item]:
 	var reward_array: Array[Item] = []
 	for i: int in reward_ids:

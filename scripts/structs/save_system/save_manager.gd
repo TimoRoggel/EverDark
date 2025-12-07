@@ -30,12 +30,13 @@ func load_game(file_path: String) -> void:
 			obj.clean_data()
 
 func load_data(key: String) -> void:
-	if !loaded_data.has(key):
-		return
 	for obj: SaveObject in save_objects:
 		if !loaded_data.has(obj.name):
 			continue
-		obj.load_data(loaded_data[key])
+		var data: Dictionary = loaded_data[obj.name]
+		if !data.has(key):
+			continue
+		obj.load_specific(data, key)
 
 func clean_data() -> void:
 	for obj: SaveObject in save_objects:

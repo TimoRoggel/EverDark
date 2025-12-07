@@ -62,12 +62,12 @@ func _custom_physics_process(delta: float) -> void:
 	if !movement:
 		return
 	movement.desired_movement = input.movement
+	var held_item_id: int = inventory.get_held_item_id() if inventory else -1
 	if block:
 		block.block_angle = input.angle_to_cursor
 	if weapon:
 		weapon.attack_id = -1
 		if inventory:
-			var held_item_id: int = inventory.get_held_item_id()
 			if held_item_id == -1:
 				weapon.attack_id = 0
 				held_item_sprite.texture = null
@@ -94,7 +94,7 @@ func _custom_physics_process(delta: float) -> void:
 		elif input.attacking:
 			target_direction = Vector2.from_angle(input.angle_to_cursor)
 		animation.direction = target_direction
-		animation.attacking = weapon.attack_active
+		animation.attacking = weapon.attack_active && held_item_id != 30
 
 func on_bounce(bounce_amount: float) -> void:
 	camera.shake(bounce_amount * 0.02, 0.1)

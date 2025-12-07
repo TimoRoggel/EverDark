@@ -49,6 +49,7 @@ class_name Attack extends DataDrivenResource
 @export var death_attack: Attack = null
 @export var harvest_level: int = 0
 @export var flags: int = 0
+@export var cost: int = -1
 
 static func from_data(data: Dictionary) -> Attack:
 	var attack: Attack = Attack.new()
@@ -76,6 +77,7 @@ static func from_data(data: Dictionary) -> Attack:
 	attack.alpha_over_time = DataDrivenResource.get_loaded(data, "alpha_over_time")
 	attack.harvest_level = data["harvest_level"]
 	attack.flags = data["flags"]
+	attack.cost = data["cost"]
 	return attack
 
 func rand_range(base: float, randomness: float) -> float:

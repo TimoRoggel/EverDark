@@ -24,6 +24,7 @@ const UNLIT_SPRITE: Texture2D = preload("uid://dkenn8pic6tnm")
 @onready var leave_area_check: Area2D = %leave_area_check
 
 var selected: int = 0
+var can_close: bool = true
 var unique_id: int = ResourceUID.create_id()
 
 func _ready() -> void:
@@ -40,7 +41,8 @@ func _ready() -> void:
 	leave_area_check.body_exited.connect(func(body: Node) -> void:
 		if body != GameManager.player:
 			return
-		_on_close_button_pressed()
+		if get_parent().visible:
+			close()
 	)
 	update_sprite()
 	fuel_amount.text = str(String.num(fuel_progress.value, 0), "%")
@@ -59,6 +61,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") && is_visible_in_tree():
 		interactable.set_active(0.25)
 		_on_close_button_pressed()
+
+func _process(_delta: float) -> void:
+	if get_parent().visible and can_close:
+		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui") or Input.is_action_just_pressed("interact"):
+			close()
 
 func _physics_process(_delta: float) -> void:
 	if !is_visible_in_tree():
@@ -129,8 +136,24 @@ func _on_craft_button_pressed() -> void:
 	cook_audio.play()
 
 func _on_close_button_pressed() -> void:
-	get_parent().visible = false
+	close()
+
+func open() -> void:
+	get_parent().visible = true
+	check_recipe_availability()
+	can_close = false
+	
+	get_tree().paused = true
+	GameManager.paused = true
+	GameManager.set_active_ui(self)
+	await get_tree().create_timer(0.15, true, false, true).timeout
+	can_close = true
+
+func close() -> void:
+	get_parent().visible = false	
 	get_tree().paused = false
+	GameManager.paused = false
+	GameManager.clear_active_ui()
 	GameManager.player.hotbar.visible = true
 	GameManager.player.inventory.container.visible = false
 	if fuel_slot.inventory_item:

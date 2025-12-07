@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpxy5tg85w03x"]
+
+[ext_resource type="Script" uid="uid://c1ji8ytcp5klg" path="res://UI/controls_overlay.gd" id="1_hav85"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hav85"]
+line_spacing = -1.0
+font_size = 10
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ControlsOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hav85")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "MOVEMENT
+WASD - Move | SHIFT - Sprint
+
+INTERACTIONS
+F - Use/Grab | Hold LMB - Eat
+ESC - Pause/Exit
+
+COMBAT
+LMB - Attack | RMB - Block
+
+INVENTORY
+E - Open | Q - Drop (Ctrl+Q Stack)
+1-5 / Wheel - Select Slot"
+label_settings = SubResource("LabelSettings_hav85")

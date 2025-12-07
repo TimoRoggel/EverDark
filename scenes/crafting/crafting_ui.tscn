@@ -1,10 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccsvhx5s8yx0t"]
+[gd_scene load_steps=9 format=3 uid="uid://ccsvhx5s8yx0t"]
 
 [ext_resource type="Script" uid="uid://dricqlote5fbh" path="res://Crafting/crafting_ui.gd" id="1_jp7wa"]
+[ext_resource type="Texture2D" uid="uid://chk5qxglu5xxu" path="res://map/Art Assets/Player HUD/Upgrade_HUD.png" id="2_fpwgh"]
 [ext_resource type="PackedScene" uid="uid://chgdmhkgaavft" path="res://scenes/crafting/inventory_slot.tscn" id="2_w7jay"]
 [ext_resource type="AudioStream" uid="uid://buytc168e0tfc" path="res://audio/sounds/crafting_table/craft.wav" id="3_jp7wa"]
+[ext_resource type="Texture2D" uid="uid://cacifihv143uq" path="res://graphics/ui_icons/close.png" id="3_kplwc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fpwgh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kplwc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a3l8g"]
 
 [node name="CraftingUI" type="PanelContainer"]
+process_mode = 3
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(640, 360)
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,22 +23,49 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.849)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fpwgh")
 script = ExtResource("1_jp7wa")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
 layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+texture = ExtResource("2_fpwgh")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(687, 480)
+layout_mode = 2
+theme_override_constants/margin_left = 124
+theme_override_constants/margin_top = 108
+theme_override_constants/margin_right = 124
+theme_override_constants/margin_bottom = 64
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 14
 alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control5" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="Tree" type="Tree" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kplwc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_a3l8g")
+
+[node name="Control2" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
@@ -40,7 +77,28 @@ alignment = 1
 [node name="TitleLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
 horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="InventorySlot" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="MarginContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("2_w7jay")]
+layout_mode = 2
 
 [node name="ItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -49,49 +107,29 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 4
-
-[node name="InventorySlot" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot6" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot7" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot8" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot2" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot3" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot4" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
-[node name="InventorySlot5" parent="MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("2_w7jay")]
-layout_mode = 2
-
 [node name="CraftButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Craft"
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonExit" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 22)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("3_kplwc")
+
+[node name="Control6" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_jp7wa")
 
 [connection signal="cell_selected" from="MarginContainer/HBoxContainer/Tree" to="." method="_on_tree_cell_selected"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ButtonExit" to="." method="_on_button_exit_pressed"]

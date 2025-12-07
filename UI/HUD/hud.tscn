@@ -118,14 +118,12 @@ texture = SubResource("GradientTexture2D_radol")
 modulate = Color(0.6900825, 0.576342, 0.49026808, 0.5019608)
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-grow_horizontal = 0
+offset_right = 321.0
 grow_vertical = 2
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 32
 theme_override_constants/margin_bottom = 8
 script = ExtResource("5_dhie7")
 
@@ -137,7 +135,7 @@ theme_override_constants/separation = -2
 unique_name_in_owner = true
 z_index = -14
 z_as_relative = false
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 theme_override_constants/paragraph_separation = -4
 theme_override_fonts/normal_font = SubResource("SystemFont_dhie7")
@@ -145,8 +143,7 @@ theme_override_fonts/bold_font = ExtResource("5_radol")
 theme_override_font_sizes/normal_font_size = 12
 theme_override_font_sizes/bold_font_size = 8
 bbcode_enabled = true
-text = "[right][font_size=16][b]Objectives[/b][/font_size]
-[b]Main[/b]"
+text = "[b]Main[/b]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -156,7 +153,6 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "\"Bring back the light\" by healing the monolith"
 label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2
 
 [node name="side_label" type="RichTextLabel" parent="objectives/vbox"]
 unique_name_in_owner = true
@@ -170,7 +166,7 @@ theme_override_fonts/bold_font = ExtResource("5_radol")
 theme_override_font_sizes/normal_font_size = 12
 theme_override_font_sizes/bold_font_size = 8
 bbcode_enabled = true
-text = "[right][b]Side[/b]"
+text = "[b]Side[/b]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -180,39 +176,33 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Throw a VOID Core in the hole to get Lumin"
 label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2
 
 [node name="side_gather" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Gather some sticks and stone"
 label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2
 
 [node name="side_kill" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Kill a monster"
 label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2
 
 [node name="side_upgrade" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Upgrade a tool"
 label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2
 
 [node name="side_expand" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Use a torch or lantern to push back the Everdark"
 label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2
 
 [node name="side_cook" type="Label" parent="objectives/vbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Cook a berry or mushroom"
 label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2

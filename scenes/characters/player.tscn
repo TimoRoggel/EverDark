@@ -53,7 +53,7 @@
 [ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
-size = Vector2(6, 8)
+size = Vector2(7, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nktl3"]
 atlas = ExtResource("2_m38kj")
@@ -571,8 +571,9 @@ metadata/_custom_type_script = "uid://bdg3j7sgmdj0n"
 [node name="collision" type="CollisionShape2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(0, -4)
+position = Vector2(-0.5, -15.5)
 shape = SubResource("RectangleShape2D_dyp2m")
+debug_color = Color(2.5027991e-06, 0.58912516, 0.7604221, 0.41960785)
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 z_as_relative = false
@@ -664,7 +665,7 @@ metadata/_custom_type_script = "uid://c0jl7340jmrnc"
 [node name="hitbox" type="Node2D" parent="components"]
 position = Vector2(0, -4)
 script = ExtResource("10_2l4js")
-collision_radius = 6.0
+collision_radius = 6.3
 damage_sounds = Array[AudioStream]([ExtResource("31_6aj6e")])
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
 

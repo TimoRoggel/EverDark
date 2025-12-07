@@ -67,7 +67,7 @@ func on_virus_timer_timeout() -> void:
 		elapsed_time -= virus_timer.wait_time
 	var health_percentage = controller.health.max_health / 100 * controller.health.current_health
 	virus_effect.emit(elapsed_time * health_percentage)
-	controller.hud.update_virusbar_color(Color(.4,0,.4), elapsed_time/total_time)
+	controller.hud.update_virusbar_color(Color(0.486, 0.003, 0.993, 1.0), elapsed_time/total_time)
 
 	# damage player if virusbar is full
 	if elapsed_time >= total_time:

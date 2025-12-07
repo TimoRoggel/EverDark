@@ -184,6 +184,8 @@ func _on_CraftButton_pressed() -> void:
 	for reward_id: int in current_recipe.reward_ids:
 		inventory.add(reward_id, 1)
 	
+	if [6,7,8,11,12,13,19,20,21].has(current_recipe.id):
+		GameManager.finish_objective(4)
 	audio_stream_player.play()
 
 	build_recipe_material_window(current_recipe)

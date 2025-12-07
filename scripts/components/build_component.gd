@@ -90,6 +90,7 @@ func use_lumin(at: Vector2, held_slot_item: int, size: float) -> void:
 	for coords: Vector2 in current_lumin_positions:
 		if coords.distance_squared_to(at) < MIN_DISTANCE:
 			return
+	GameManager.finish_objective(5)
 	lumin_player.global_position = at
 	lumin_player.play_randomized()
 	Generator.lumin_positions.append(at)

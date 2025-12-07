@@ -42,5 +42,4 @@ func _exit() -> void:
 
 func _on_health_changed(new_health: float) -> void:
 	healthbar.value = new_health
-	print(healthbar.value, healthbar.max_value)
 	healthbar.tint_progress = gradient.sample(healthbar.value)

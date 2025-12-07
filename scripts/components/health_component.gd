@@ -59,6 +59,8 @@ func death() -> void:
 			continue
 		DroppedItem2D.drop(item_id, 1, global_position)
 	died.emit()
+	if is_instance_of(controller, EnemyController):
+		GameManager.finish_objective(3)
 	if !persistent:
 		controller.collision_layer = 0
 	if death_player:

@@ -8,6 +8,9 @@ var player: PlayerController = null
 var ui_opened_conditions: Dictionary[String, Callable] = {}
 var paused : bool = false
 var ui_open : bool = false
+var objectives_done: int = 0
+
+signal ending
 
 func _process(_delta: float) -> void:
 	if slowdown_timer <= Time.get_ticks_msec():
@@ -109,3 +112,12 @@ signal controls_visibility_changed(is_visible: bool)
 func set_controls_visibility(value: bool) -> void:
 	show_controls_overlay = value
 	controls_visibility_changed.emit(show_controls_overlay)
+
+func finish_objective(index: int) -> void:
+	var byte: int = roundi(pow(2.0, float(index)))
+	print(objectives_done, " ", byte, " = ", !(objectives_done & byte == byte))
+	if !(objectives_done & byte == byte):
+		objectives_done += byte
+
+func end() -> void:
+	ending.emit()

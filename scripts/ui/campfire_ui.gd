@@ -135,6 +135,7 @@ func _on_craft_button_pressed() -> void:
 	fuel_amount.text = str(String.num(fuel_progress.value, 0), "%")
 	show_recipe(recipe)
 	cook_audio.play()
+	GameManager.finish_objective(6)
 
 func _on_close_button_pressed() -> void:
 	close()

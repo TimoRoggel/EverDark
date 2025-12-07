@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://beguyjw3ooy0v"]
+[gd_scene load_steps=13 format=3 uid="uid://beguyjw3ooy0v"]
 
 [ext_resource type="Script" uid="uid://b0d0063dp6gts" path="res://UI/HUD/hud.gd" id="1_ing8j"]
 [ext_resource type="Script" uid="uid://cd3a88w0gqwch" path="res://UI/HUD/health_bar.gd" id="2_te8l2"]
 [ext_resource type="Texture2D" uid="uid://cu6f32nh6t6ls" path="res://graphics/160x32_healthbar_01.png" id="3_te8l2"]
 [ext_resource type="Texture2D" uid="uid://dte73mhyjrmiu" path="res://graphics/160x32_virusbar_01.png" id="4_qdh7y"]
+[ext_resource type="Script" uid="uid://cad38seickdtu" path="res://UI/HUD/objectives.gd" id="5_dhie7"]
+[ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="5_radol"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdh7y"]
 bg_color = Color(1, 1, 1, 1)
@@ -23,6 +25,18 @@ width = 640
 height = 360
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="SystemFont" id="SystemFont_dhie7"]
+subpixel_positioning = 0
+keep_rounding_remainders = false
+
+[sub_resource type="SystemFont" id="SystemFont_s83ig"]
+subpixel_positioning = 0
+keep_rounding_remainders = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_s83ig"]
+font = SubResource("SystemFont_s83ig")
+font_size = 13
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -96,3 +110,106 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_radol")
+
+[node name="objectives" type="MarginContainer" parent="."]
+modulate = Color(0.6900825, 0.576342, 0.49026808, 0.5019608)
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+script = ExtResource("5_dhie7")
+
+[node name="vbox" type="VBoxContainer" parent="objectives"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="objectives_label" type="RichTextLabel" parent="objectives/vbox"]
+unique_name_in_owner = true
+z_index = -14
+z_as_relative = false
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_constants/paragraph_separation = -4
+theme_override_fonts/normal_font = SubResource("SystemFont_dhie7")
+theme_override_fonts/bold_font = ExtResource("5_radol")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 8
+bbcode_enabled = true
+text = "[right][font_size=16][b]Objectives[/b][/font_size]
+[b]Main[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="main_objective" type="Label" parent="objectives/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "\"Bring back the light\" by healing the monolith"
+label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2
+
+[node name="side_label" type="RichTextLabel" parent="objectives/vbox"]
+unique_name_in_owner = true
+z_index = -14
+z_as_relative = false
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/paragraph_separation = -4
+theme_override_fonts/normal_font = SubResource("SystemFont_dhie7")
+theme_override_fonts/bold_font = ExtResource("5_radol")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 8
+bbcode_enabled = true
+text = "[right][b]Side[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="side_make_lumin" type="Label" parent="objectives/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Throw a VOID Core in the hole to get Lumin"
+label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2
+
+[node name="side_gather" type="Label" parent="objectives/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gather some sticks and stone"
+label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2
+
+[node name="side_kill" type="Label" parent="objectives/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kill a monster"
+label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2
+
+[node name="side_upgrade" type="Label" parent="objectives/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrade a tool"
+label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2
+
+[node name="side_expand" type="Label" parent="objectives/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Use a torch or lantern to push back the Everdark"
+label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2
+
+[node name="side_cook" type="Label" parent="objectives/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cook a berry or mushroom"
+label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2

@@ -8,6 +8,7 @@ subpixel_positioning = 0
 keep_rounding_remainders = false
 
 [node name="ControlsOverlay" type="Control"]
+modulate = Color(0.8733763, 0.8680402, 0.7525956, 0.5019608)
 z_index = -12
 z_as_relative = false
 layout_mode = 3

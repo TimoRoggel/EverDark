@@ -34,10 +34,13 @@ func activate_monolith():
 	
 	Generator.lumin_positions.append(global_position)
 	Generator.lumin_sizes.append(10.0)
+	GameManager.finish_objective(0)
 	var index: int = Generator.lumin_sizes.size() - 1
 	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	tween.tween_method(Generator.set_lumin_size.bind(index), 10.0, 9999.9, 120.0)
 	tween.play()
+	
+	GameManager.end()
 	
 	if activated_sprite:
 		$Sprite2D.texture = activated_sprite

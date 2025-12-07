@@ -18,7 +18,6 @@ func get_world_state() -> Dictionary:
 func set_world_state(state: Dictionary) -> void:
 	if state.is_empty():
 		return
-	print(state)
 	new_save = state.get("new_save", true)
 	dropped_items = state.get("dropped_items", {})
 	placed_items = state.get("placed_items", {})

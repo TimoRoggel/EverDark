@@ -41,7 +41,7 @@ enabled=PackedStringArray("res://addons/YATI/plugin.cfg", "res://addons/sync_spr
 
 [gui]
 
-timers/tooltip_delay_sec=0.25
+timers/tooltip_delay_sec=0.0
 theme/custom="uid://cs2viwcjg8kjc"
 
 [input]
@@ -165,6 +165,7 @@ textures/default_filters/anisotropic_filtering_level=0
 textures/decals/filter=0
 textures/light_projectors/filter=0
 environment/defaults/default_clear_color=Color(0.03529412, 0, 0.07450981, 1)
+2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true
 
 [shader_globals]

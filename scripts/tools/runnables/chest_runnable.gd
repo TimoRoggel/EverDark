@@ -25,7 +25,7 @@ func can_run(param: Dictionary) -> bool:
 		return controller.inventory.available_space(chest_item_id) > 0
 	return true
 
-func _toggle_ui(controller: PlayerController, chest: Chest) -> void:
+func _toggle_ui(_controller: PlayerController, chest: Chest) -> void:
 	if !chest.chest_inventory.visible:
 		chest.open_close_sound.stream = OPEN_SOUND
 		chest.open_close_sound.play()

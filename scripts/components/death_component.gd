@@ -9,6 +9,8 @@ var animation: AnimationComponent
 
 var is_dead := false
 
+signal respawning
+
 func _enter():
 	entity = controller
 	animation = controller.get_component(AnimationComponent)
@@ -39,6 +41,7 @@ func entity_died():
 func respawn():
 	controller.death_view.hide()
 	await get_tree().create_timer(.5).timeout
+	respawning.emit()
 	entity.global_position = respawn_point
 	controller.hitbox.is_active = true
 	controller.set_physics_process(true)

@@ -12,7 +12,7 @@ var current_health: float = max_health:
 		health_changed.emit(value)
 var alive: bool = true
 var death_player: RandomAudioStreamPlayer2D = null
-var screen_shake_amount: float = 0.5
+var screen_shake_amount: float = 0.25
 var hitbox: HitboxComponent = null
 
 signal damage_taken(from: AttackController)
@@ -59,6 +59,8 @@ func death() -> void:
 			continue
 		DroppedItem2D.drop(item_id, 1, global_position)
 	died.emit()
+	if is_instance_of(controller, EnemyController):
+		GameManager.finish_objective(3)
 	if !persistent:
 		controller.collision_layer = 0
 	if death_player:

@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cxwuww81e8unb"]
+
+[ext_resource type="Shader" uid="uid://d0c6r1jo0wr84" path="res://shaders/glow.gdshader" id="1_7m2ab"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7m2ab"]
+noise_type = 0
+frequency = 0.0051
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tygks"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_7m2ab")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[resource]
+shader = ExtResource("1_7m2ab")
+shader_parameter/thickness = 0.50000002375
+shader_parameter/ring_count = 16
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+shader_parameter/noise = SubResource("NoiseTexture2D_tygks")

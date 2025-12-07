@@ -1,6 +1,8 @@
 @tool
 class_name InventorySlot extends PanelContainer
 
+const ITEM_GLOW: ShaderMaterial = preload("uid://cxwuww81e8unb")
+
 @export var inventory_item: InventoryItem = null:
 	set(value):
 		if value:
@@ -32,23 +34,23 @@ func _notification(what: int) -> void:
 		dragging_item = null
 
 func _init() -> void:
-	var vbox: VBoxContainer = VBoxContainer.new()
-	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(vbox)
 	icon = TextureRect.new()
 	icon.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vbox.add_child(icon)
+	add_child(icon)
 	label = Label.new()
 	label.text = ""
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	label.size_flags_vertical = Control.SIZE_SHRINK_END
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vbox.add_child(label)
+	label.label_settings = LabelSettings.new()
+	label.label_settings.outline_color = Color.BLACK
+	label.label_settings.outline_size = 8
+	add_child(label)
 	mouse_entered.connect(func() -> void: hovered = true)
 	mouse_exited.connect(func() -> void: hovered = false)
 
@@ -156,15 +158,34 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 func _is_valid_item(item: Item) -> bool:
 	return item.flags & filters == filters
 
+func _make_custom_tooltip(_for_text: String) -> Object:
+	if !inventory_item:
+		return null
+	var vbox: VBoxContainer = VBoxContainer.new()
+	var title_label: Label = Label.new()
+	title_label.text = inventory_item.item.display_name
+	title_label.label_settings = LabelSettings.new()
+	title_label.label_settings.font_size = 24
+	vbox.add_child(title_label)
+	if !inventory_item.item.description.is_empty():
+		vbox.custom_minimum_size.x = 256.0
+		var desc_label: Label = Label.new()
+		desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		desc_label.set_text.call_deferred(inventory_item.item.description)
+		desc_label.modulate.a = 0.75
+		vbox.add_child(desc_label)
+	return vbox
+
 func _setup_item() -> void:
+	icon.material = null
 	if inventory_item:
 		icon.texture = inventory_item.item.icon
 		label.text = str(inventory_item.quantity, "x")
-		tooltip_text = inventory_item.item.display_name
+		if inventory_item.item.glows:
+			icon.material = ITEM_GLOW
 	else:
 		icon.texture = null
 		label.text = ""
-		tooltip_text = ""
 
 func _update_item() -> void:
 	_setup_item()

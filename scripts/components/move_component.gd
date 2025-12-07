@@ -37,7 +37,7 @@ func _enter() -> void:
 	if controller is PlayerController:
 		if controller.get_component(AnimationComponent):
 			animation_player = controller.get_component(AnimationComponent).animated_sprite
-		sprint_scale = default_speed/100*sprint_speed/100
+		sprint_scale = default_speed/100*sprint_speed/75
 		if controller.get_component(InputComponent):
 			inputs = controller.get_component(InputComponent)
 			inputs.sprint.connect(sprint)

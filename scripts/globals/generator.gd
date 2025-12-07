@@ -10,11 +10,6 @@ var lumin_positions: PackedVector2Array = [Vector2(8,8)]
 var lumin_sizes: PackedFloat32Array = [LUMIN_START_SIZE]
 var game_seed: int = randi()
 
-func _ready() -> void:
-	SaveSystem.track("lumin_positions", get_lumin_positions, set_lumin_positions, [Vector2(8,8)])
-	SaveSystem.track("lumin_sizes", get_lumin_sizes, set_lumin_sizes, [LUMIN_START_SIZE])
-	SaveSystem.track("seed", get_seed, set_seed, randi())
-
 func get_lumin_transforms() -> Array:
 	var transforms: Array = []
 	var positions: Array = []
@@ -52,6 +47,9 @@ func is_in_everdark(position: Vector2) -> bool:
 		if edge_dist < closest_edge:
 			closest_edge = edge_dist
 	return closest_edge > 0.0
+
+func set_lumin_size(size: float, index: int) -> void:
+	lumin_sizes[index] = size
 
 func get_lumin_positions() -> PackedVector2Array:
 	return lumin_positions

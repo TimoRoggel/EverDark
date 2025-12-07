@@ -42,17 +42,6 @@ func _on_body_exited(body: Node2D) -> void:
 		chest_inventory.visible = false
 
 func _process(_delta: float) -> void:
-	if is_interactable and player_ref:
-		if Input.is_action_just_pressed("interact"):
-			player_ref.hotbar.visible = !chest_inventory.visible
-			var items_to_drop: Array[InventoryItem] = chest_inventory.get_items()
-			for item: InventoryItem in items_to_drop:
-				var leftover: int = player_ref_inventory.container.add(item.item.id, item.quantity)
-				if leftover > 0:
-					DroppedItem2D.drop(item.item.id, item.quantity, player_ref.global_position)
-			for slot: InventorySlot in chest_inventory.get_slots():
-				slot.inventory_item = null
-				
 	if chest_inventory.visible:
 		sprite_chest.texture = CHEST_OPEN
 	else:
@@ -101,6 +90,7 @@ func _on_pickup() -> void:
 	
 	chest_inventory.visible = false
 	player_ref_inventory.container.visible = false
+	WorldStateSaver.placed_items.erase(name)
 
 	queue_free()
 	player_ref.get_component(BuildComponent).refresh_held_item()

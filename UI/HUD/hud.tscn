@@ -23,17 +23,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ing8j")
-
-[node name="vignette" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
-texture = SubResource("GradientTexture2D_radol")
+script = ExtResource("1_ing8j")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 modulate = Color(0.85430586, 0, 0, 1)
@@ -44,6 +35,7 @@ offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 36.0
 scale = Vector2(0.43, 0.48)
+mouse_filter = 2
 show_percentage = false
 script = ExtResource("2_te8l2")
 
@@ -51,6 +43,7 @@ script = ExtResource("2_te8l2")
 layout_mode = 1
 offset_right = 160.0
 offset_bottom = 32.0
+mouse_filter = 2
 value = 50.0
 texture_over = ExtResource("3_te8l2")
 
@@ -59,6 +52,7 @@ visible = false
 layout_mode = 1
 offset_right = 160.0
 offset_bottom = 32.0
+mouse_filter = 2
 value = 50.0
 texture_over = ExtResource("4_qdh7y")
 
@@ -66,6 +60,7 @@ texture_over = ExtResource("4_qdh7y")
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="VirusBar" type="ProgressBar" parent="VirusView"]
 modulate = Color(0.85430586, 0, 0, 1)
@@ -76,5 +71,18 @@ offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 36.0
 scale = Vector2(0.43, 0.48)
+mouse_filter = 2
 show_percentage = false
 script = ExtResource("2_te8l2")
+
+[node name="vignette" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_radol")

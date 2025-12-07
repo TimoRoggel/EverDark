@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3uq6e0ebj040"]
+[gd_scene load_steps=11 format=3 uid="uid://c3uq6e0ebj040"]
 
 [ext_resource type="Script" uid="uid://c0n6qqwj4c4lm" path="res://scripts/characters/character_controller.gd" id="1_6vuch"]
 [ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_167py"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="4_16y36"]
 [ext_resource type="AudioStream" uid="uid://c66n7ga4dhoff" path="res://audio/sounds/stone/hit.wav" id="5_5p61c"]
 [ext_resource type="Texture2D" uid="uid://1go2edc16lul" path="res://map/map assets/New Piskel (47).png" id="6_6vuch"]
+[ext_resource type="Script" uid="uid://dxkedey5xyb5i" path="res://scripts/components/save_removal_component.gd" id="6_167py"]
 [ext_resource type="Script" uid="uid://m6vcvhqhntsq" path="res://scripts/tools/randomized_sprite_2d.gd" id="7_qkm1l"]
 [ext_resource type="Texture2D" uid="uid://bgpegj5i58cp3" path="res://map/Art Assets/Aesthetics (no colisions)/64x64_carcas_01.png" id="8_167py"]
 
@@ -43,6 +44,10 @@ collision_radius = 34.0
 damage_sounds = Array[AudioStream]([ExtResource("5_5p61c")])
 damage_flag_filters = 1
 metadata/_custom_type_script = "uid://dwhmrw8e0vjks"
+
+[node name="save_remove" type="Node2D" parent="components"]
+script = ExtResource("6_167py")
+metadata/_custom_type_script = "uid://dxkedey5xyb5i"
 
 [node name="sprite" type="Sprite2D" parent="."]
 z_as_relative = false

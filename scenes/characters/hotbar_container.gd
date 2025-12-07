@@ -3,7 +3,7 @@ extends HBoxContainer
 @export var inventory: InventoryContainer
 @export var inventory_component: InventoryComponent
 
-var hotbar_slots: int = 3 
+var hotbar_slots: int = 5 
 var currently_selected_slot: int = 0
 var is_active: bool = true
 var hotbar_just_emptied: bool = false

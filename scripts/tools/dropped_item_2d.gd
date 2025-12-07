@@ -21,16 +21,24 @@ var sprite: Sprite2D = Sprite2D.new()
 var base_y: float
 var time: float = 0.0
 
-static func drop(item_id: int, count: int, pos: Vector2) -> void:
+static func drop(item_id: int, count: int, pos: Vector2, play_sound: bool = true) -> void:
 	var dropped_item: DroppedItem2D = DroppedItem2D.new()
 	dropped_item.item = DataManager.get_resource_by_id("items", item_id)
 	dropped_item.amount = count
 	Engine.get_main_loop().current_scene.add_child(dropped_item)
 	dropped_item.global_position = pos
-	var dropped_sound: RandomAudioStreamPlayer2D = GameManager.create_audio_player(&"SFX", [preload("uid://dwfwgrm6ia01k")], dropped_item)
-	dropped_sound.play_randomized()
-	await dropped_sound.finished
-	dropped_sound.queue_free()
+	if play_sound:
+		dropped_item.timeout(0.75)
+		var dropped_sound: RandomAudioStreamPlayer2D = GameManager.create_audio_player(&"SFX", [preload("uid://dwfwgrm6ia01k")], dropped_item)
+		dropped_sound.play_randomized()
+		await dropped_sound.finished
+		dropped_sound.queue_free()
+	WorldStateSaver.dropped_items[dropped_item.name] = [item_id, count, pos]
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		WorldStateSaver.dropped_items.erase(name)
+
 
 func _ready() -> void:
 	z_as_relative = false

@@ -1,9 +1,73 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5x7ph6tqdf08"]
+[gd_scene load_steps=15 format=3 uid="uid://c5x7ph6tqdf08"]
 
+[ext_resource type="FontFile" uid="uid://bde85ifgt4hjt" path="res://resources/fonts/Jersey10-Regular.ttf" id="1_4m7xi"]
 [ext_resource type="Script" uid="uid://da3mii20clos5" path="res://UI/Main menu/main_menu.gd" id="1_sf1lb"]
-[ext_resource type="Texture2D" uid="uid://c4dbe1eli6gml" path="res://UI/Main menu/image.png" id="2_ty6hc"]
+[ext_resource type="Texture2D" uid="uid://bwasmkn0sy75p" path="res://graphics/ui_icons/title_screen_button.png" id="2_ohege"]
 [ext_resource type="PackedScene" uid="uid://bb4j8ic5yq7w6" path="res://UI/Settings/settings_menu.tscn" id="3_cxei2"]
+[ext_resource type="Texture2D" uid="uid://d1k0xq7ph4nua" path="res://graphics/main_screen_background.png" id="4_ltvnq"]
 [ext_resource type="AudioStream" uid="uid://d4npl8kgc8374" path="res://audio/music/title.mp3" id="4_ty6hc"]
+[ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="5_j1eoc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m7xi"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.24300002)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4m7xi"]
+texture = ExtResource("2_ohege")
+texture_margin_left = 28.0
+texture_margin_top = 14.0
+texture_margin_right = 28.0
+texture_margin_bottom = 26.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(0.8122784, 0.8122784, 0.8122784, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mixib"]
+texture = ExtResource("2_ohege")
+texture_margin_left = 28.0
+texture_margin_top = 14.0
+texture_margin_right = 28.0
+texture_margin_bottom = 26.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ohege"]
+texture = ExtResource("2_ohege")
+texture_margin_left = 28.0
+texture_margin_top = 14.0
+texture_margin_right = 28.0
+texture_margin_bottom = 26.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(0.4321134, 0.4321134, 0.4321134, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohege"]
+content_margin_top = 32.0
+bg_color = Color(0, 0, 0, 0.24313726)
+expand_margin_top = 32.0
+
+[sub_resource type="Theme" id="Theme_woebo"]
+default_font = ExtResource("1_4m7xi")
+default_font_size = 18
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_4m7xi")
+Button/colors/font_color = Color(0.050980393, 0.050980393, 0.050980393, 1)
+Button/colors/font_focus_color = Color(0.1469897, 0.1469897, 0.1469897, 1)
+Button/colors/font_hover_color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+Button/fonts/font = ExtResource("1_4m7xi")
+Button/styles/focus = SubResource("StyleBoxTexture_4m7xi")
+Button/styles/hover = SubResource("StyleBoxTexture_4m7xi")
+Button/styles/normal = SubResource("StyleBoxTexture_mixib")
+Button/styles/pressed = SubResource("StyleBoxTexture_ohege")
+Label/colors/font_color = Color(0.8530103, 0.8530103, 0.8530103, 1)
+Window/styles/embedded_border = SubResource("StyleBoxFlat_ohege")
+Window/styles/embedded_unfocused_border = SubResource("StyleBoxFlat_ohege")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ml5wt"]
+font = ExtResource("5_j1eoc")
+font_size = 40
 
 [node name="Main menu" type="Control"]
 layout_mode = 3
@@ -12,14 +76,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_woebo")
 script = ExtResource("1_sf1lb")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-offset_top = -184.0
-offset_right = 732.0
-offset_bottom = 364.0
-texture = ExtResource("2_ty6hc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ltvnq")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -27,12 +94,15 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 101.0
 grow_horizontal = 2
-theme_override_constants/margin_top = 4
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 39
 
 [node name="Label" type="Label" parent="MarginContainer2"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 56
 text = "EVERDARK"
+label_settings = SubResource("LabelSettings_ml5wt")
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -42,9 +112,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 12
+theme_override_constants/margin_left = 392
+theme_override_constants/margin_top = 104
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -54,29 +123,39 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-theme_override_constants/separation = 12
+theme_override_constants/separation = -12
 alignment = 1
 
 [node name="Start" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+z_index = 3
+z_as_relative = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Start a new game"
 
 [node name="NewGameConfirmation" type="ConfirmationDialog" parent="MarginContainer/HBoxContainer/VBoxContainer/Start"]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(299, 121)
 dialog_text = "Are you sure you want to start a new game?
 Your previous game data will be lost."
 
 [node name="Continue  Playing" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+z_index = 2
+z_as_relative = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Continue  Playing"
 
 [node name="Settings" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+z_index = 1
+z_as_relative = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Settings"
 
 [node name="Exit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+z_as_relative = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Exit"

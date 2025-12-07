@@ -1,6 +1,8 @@
 @tool
 class_name InventoryContainer extends GridContainer
 
+const HOTBAR_SEPARATOR_HEIGHT: float = 8.0
+
 @export var slots: int = 30:
 	set(value):
 		slots = value
@@ -11,6 +13,7 @@ class_name InventoryContainer extends GridContainer
 		_redraw()
 @export var input_only: bool = false
 @export var output_only: bool = false
+@export var has_hotbar: bool = false
 
 var unique_id: int = ResourceUID.create_id()
 
@@ -24,22 +27,35 @@ func _ready() -> void:
 	_redraw()
 
 func _exit_tree() -> void:
-	GameManager.ui_opened_conditions.erase(name + str(unique_id))
+	if !Engine.is_editor_hint():
+		GameManager.ui_opened_conditions.erase(name + str(unique_id))
 
 func _clear() -> void:
 	for c: Node in get_children():
 		c.queue_free()
 
 func _redraw() -> void:
+	var old_items: Array[InventoryItem] = get_items()
 	_clear()
 	for i: int in slots:
+		if has_hotbar && i == 5:
+			add_hotbar_separator()
 		var slot: InventorySlot = InventorySlot.new()
 		slot.item_changed.connect(updated.emit)
-		slot.item_dropped.connect(_on_slot_drop) 
+		slot.item_dropped.connect(_on_slot_drop)
+		if old_items.size() > i:
+			slot.inventory_item = old_items[i]
+			slot._setup_item()
 		add_child(slot)
 
 func _on_slot_drop(item: InventoryItem):
 	item_dropped_on_ground.emit(item)
+
+func add_hotbar_separator() -> void:
+	for i: int in 5:
+		var separator: Control = Control.new()
+		separator.custom_minimum_size.y = HOTBAR_SEPARATOR_HEIGHT
+		add_child(separator)
 
 func add(item_id: int, quantity: int = 1) -> int:
 	var inventory: Array[InventorySlot] = get_slots()
@@ -222,8 +238,8 @@ func send_items(other: InventoryContainer, item_slots: Array[InventorySlot]) -> 
 
 func set_slots(inventory: Array[InventoryItem]) -> void:
 	var children: Array[Node] = get_children()
-	for i: int in get_child_count():
-		var c: Node = children[i]
+	for i: int in slots:
+		var c: Node = children[i + 5 if has_hotbar && i > 4 else i]
 		if is_instance_of(c, InventorySlot):
 			c.inventory_item = inventory[i]
 			c._setup_item()

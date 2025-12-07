@@ -10,7 +10,7 @@ class_name Attack extends DataDrivenResource
 @export var inheritance: float = 0.5
 @export var speed: float = 16.0
 @export var velocity_overtime: Curve = null
-@export var knockback: float = 0.5
+@export var knockback: float = 0.8
 @export_range(0, 1, 0.001) var speed_randomness: float = 0.0
 @export var align_rotation: bool = false
 @export_group("Spawn")
@@ -49,6 +49,7 @@ class_name Attack extends DataDrivenResource
 @export var death_attack: Attack = null
 @export var harvest_level: int = 0
 @export var flags: int = 0
+@export var cost: int = -1
 
 static func from_data(data: Dictionary) -> Attack:
 	var attack: Attack = Attack.new()
@@ -76,6 +77,7 @@ static func from_data(data: Dictionary) -> Attack:
 	attack.alpha_over_time = DataDrivenResource.get_loaded(data, "alpha_over_time")
 	attack.harvest_level = data["harvest_level"]
 	attack.flags = data["flags"]
+	attack.cost = data["cost"]
 	return attack
 
 func rand_range(base: float, randomness: float) -> float:

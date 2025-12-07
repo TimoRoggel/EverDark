@@ -28,6 +28,7 @@ static func drop(item_id: int, count: int, pos: Vector2, play_sound: bool = true
 	Engine.get_main_loop().current_scene.add_child(dropped_item)
 	dropped_item.global_position = pos
 	if play_sound:
+		dropped_item.timeout(0.75)
 		var dropped_sound: RandomAudioStreamPlayer2D = GameManager.create_audio_player(&"SFX", [preload("uid://dwfwgrm6ia01k")], dropped_item)
 		dropped_sound.play_randomized()
 		await dropped_sound.finished
@@ -37,6 +38,7 @@ static func drop(item_id: int, count: int, pos: Vector2, play_sound: bool = true
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		WorldStateSaver.dropped_items.erase(name)
+
 
 func _ready() -> void:
 	z_as_relative = false

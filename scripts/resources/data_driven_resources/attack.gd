@@ -10,7 +10,7 @@ class_name Attack extends DataDrivenResource
 @export var inheritance: float = 0.5
 @export var speed: float = 16.0
 @export var velocity_overtime: Curve = null
-@export var knockback: float = 0.5
+@export var knockback: float = 0.8
 @export_range(0, 1, 0.001) var speed_randomness: float = 0.0
 @export var align_rotation: bool = false
 @export_group("Spawn")

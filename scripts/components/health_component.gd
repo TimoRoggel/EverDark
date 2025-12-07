@@ -1,55 +1,26 @@
 class_name HealthComponent extends Component
 
-#const HEALTHBAR_F: CompressedTexture2D = preload("res://graphics/ui/healthbar_f.png")
-#const HEALTHBAR_U: CompressedTexture2D = preload("res://graphics/ui/healthbar_u.png")
-#const HEALTHBAR_D: CompressedTexture2D = preload("res://graphics/ui/healthbar_d.png")
-
 @export var max_health: float = 10.0
 @export var death_sounds: Array[AudioStream] = []
 @export var persistent: bool = false
 @export var death_drops: Array[int] = []
 @export var death_drop_odds: Array[int] = []
 
-var healthbar: TextureProgressBar = null
-var healthbar_delta: TextureProgressBar = null
-var current_health: float = max_health
+var current_health: float = max_health:
+	set(value):
+		current_health = value
+		health_changed.emit(value)
 var alive: bool = true
 var death_player: RandomAudioStreamPlayer2D = null
-var healthbar_delta_timer: Timer = null
 var screen_shake_amount: float = 0.5
 var hitbox: HitboxComponent = null
 
 signal damage_taken(from: AttackController)
 signal died
+signal health_changed(new_value: float)
 
 func _enter() -> void:
-	# Healthbar
-	healthbar = TextureProgressBar.new()
-	healthbar.z_as_relative = false
-	healthbar.z_index = 200
-	healthbar.size = Vector2(16, 4)
-	healthbar.position = Vector2(-8, -16)
-	#healthbar.texture_progress = HEALTHBAR_F
-	healthbar_delta = TextureProgressBar.new()
-	healthbar_delta.z_as_relative = false
-	healthbar_delta.z_index = 199
-	healthbar_delta.size = Vector2(16, 4)
-	healthbar_delta.position = Vector2(-8, -16)
-	#healthbar_delta.texture_under = HEALTHBAR_U
-	#healthbar_delta.texture_progress = HEALTHBAR_D
-	healthbar_delta_timer = Timer.new()
-	add_child(healthbar_delta_timer)
-	healthbar_delta_timer.timeout.connect(func() -> void:
-		var tween: Tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-		tween.tween_property(healthbar_delta, "value", healthbar.value, 0.25)
-	)
-	update_healthbar()
-	healthbar_delta.value = healthbar.value
-	if !persistent:
-		healthbar.visible = false
-		healthbar_delta.visible = false
-	add_child(healthbar)
-	add_child(healthbar_delta)
+	current_health = max_health
 	# Audio
 	if death_sounds.size() > 0:
 		death_player = GameManager.create_audio_player(&"SFX", death_sounds, self)
@@ -63,11 +34,15 @@ func _update(_delta: float) -> void:
 func _exit() -> void:
 	pass
 
-func update_healthbar() -> void:
-	healthbar.value = current_health / max_health * 100.0
-	healthbar.visible = true
-	healthbar_delta.visible = true
-	healthbar_delta_timer.start(0.25)
+func set_health_no_drops(new_health: float) -> void:
+	current_health = new_health
+	if current_health <= 0:
+		alive = false
+		died.emit()
+		if persistent:
+			return
+		controller.process_mode = Node.PROCESS_MODE_DISABLED
+		controller.queue_free()
 
 func death() -> void:
 	if is_queued_for_deletion():
@@ -108,7 +83,6 @@ func take_damage(attack: AttackController) -> void:
 	if controller is PlayerController:
 		controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
 	calc_knockback(attack)
-	update_healthbar()
 	var invulnerability: float = proj.invulnerability
 	controller.set_damaged(true)
 	GameManager.slowdown(proj.slowdown, proj.slowdown_duration_ms)
@@ -129,7 +103,6 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 	controller.hud.animate_healthbar_color_change(Color(.7,0,0))
 	controller.set_damaged(true)
 	await get_tree().create_timer(.5).timeout
-	update_healthbar()
 	var invulnerability: float = env.cur_invulnerability
 	GameManager.slowdown(env.slowdown, env.slowdown_duration_ms)
 	await get_tree().create_timer(max(invulnerability, 0.15)).timeout
@@ -151,8 +124,6 @@ func heal(amount: float = 1.0):
 	if amount < 0:
 		take_damage_anim()
 	controller.hud.animate_healthbar_color_change(Color(1.0, 0.0, 0.0, 1.0))
-	await get_tree().create_timer(.5).timeout
-	update_healthbar()
 
 func calc_knockback(attack: AttackController) -> void:
 	if attack.attack.knockback == 0.0:

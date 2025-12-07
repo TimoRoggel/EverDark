@@ -40,6 +40,10 @@ func _exit() -> void:
 func can_attack() -> bool:
 	if attack_id < 0:
 		return false
+	if attack_type.cost > -1:
+		if controller.inventory:
+			if !controller.inventory.has(attack_type.cost):
+				return false
 	return attack_timeout <= 0
 
 func try_attack() -> void:
@@ -48,6 +52,9 @@ func try_attack() -> void:
 	attack()
 
 func attack() -> void:
+	if attack_type.cost > -1:
+		if controller.inventory:
+			controller.inventory.remove(attack_type.cost)
 	attack_active = true
 	if sound_player:
 		sound_player.play_randomized()

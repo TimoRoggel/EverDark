@@ -41,6 +41,7 @@ func _on_pickup() -> void:
 	player_ref.inventory.set_held_item_id(crafting_item.id)
 	player_ref.build.refresh_held_item()
 	crafting_ui.visible = false
+	WorldStateSaver.placed_items.erase(name)
 	queue_free()
 
 func toggle_ui(controller: PlayerController) -> void:

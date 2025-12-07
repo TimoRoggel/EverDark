@@ -20,6 +20,7 @@ func _enter() -> void:
 		if selected_item.absorbtion > 0:
 			if controller.health.current_health >= controller.health.max_health:
 				return
+		controller.animation.play("eat")
 		controller.hotbar.substract_item()
 		controller.health.heal(selected_item.absorbtion)
 		if selected_item.absorbtion > 0:

@@ -45,13 +45,21 @@ func _custom_physics_process(_delta: float) -> void:
 	pass
 
 func _process(delta: float) -> void:
+	if is_queued_for_deletion():
+		return
 	for c: Component in components:
+		if !c || c.is_queued_for_deletion():
+			continue
 		if !c.updates_in_physics:
 			c._update(delta)
 	_custom_process(delta)
 
 func _physics_process(delta: float) -> void:
+	if is_queued_for_deletion():
+		return
 	for c: Component in components:
+		if !c || c.is_queued_for_deletion():
+			continue
 		if c.updates_in_physics:
 			c._update(delta)
 	_custom_physics_process(delta)

@@ -359,7 +359,7 @@ script = ExtResource("13_w7n1s")
 max_health = 6.0
 death_sounds = Array[AudioStream]([ExtResource("14_kvest")])
 death_drops = Array[int]([1, 1, 1])
-death_drop_odds = Array[int]([100, 50, 25])
+death_drop_odds = Array[int]([50, 25, 10])
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="target" type="Node2D" parent="."]

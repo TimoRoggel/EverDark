@@ -37,6 +37,9 @@ keep_rounding_remainders = false
 [sub_resource type="LabelSettings" id="LabelSettings_s83ig"]
 font = SubResource("SystemFont_s83ig")
 font_size = 13
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.1254902)
+shadow_offset = Vector2(0, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3

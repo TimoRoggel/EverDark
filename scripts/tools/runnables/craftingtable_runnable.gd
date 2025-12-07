@@ -2,17 +2,32 @@ class_name CraftingTable_runnable
 extends Runnable
 
 func run(param: Dictionary) -> void:
-	var table = param["self"]
-	if table.has_method("toggle_ui"):
-		table.toggle_ui(param["controller"])
-	table.set_active(0.1)
+	var interactable = param["self"] 
+	var table = interactable.get_parent() 
+	var controller = param["controller"]
+	
+	if not table.player_ref:
+		table.player_ref = controller
+
+	if !table.crafting_ui.visible:
+		table.open()
+	else:
+		table.close()
+	
+	interactable.set_active(0.1)
 
 func can_run(_param: Dictionary) -> bool:
 	return true
 
 func pickup(param: Dictionary) -> void:
+	var interactable = param["self"]
+	var table = interactable.get_parent()
+	
+	if table.crafting_ui.visible:
+		table.close()
+		
 	var remainder: int = param["controller"].inventory.add(3, param.get("quantity", 1))
 	if remainder == 0:
-		param["self"].queue_free()
+		table.queue_free()
 	else:
 		pass

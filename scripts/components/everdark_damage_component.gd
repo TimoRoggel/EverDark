@@ -20,7 +20,7 @@ signal virus_effect(value: float)
 signal everdark_entered(yes: bool)
 signal virusbar_setup(min)
 
-var virus_timer: Timer = null
+var virus_timer: Timer = null # counts small time steps and based on those steps health and virsubar are updated
 var elapsed_time := 0.0
 var damage_player: RandomAudioStreamPlayer2D = null
 var health: HealthComponent
@@ -34,6 +34,8 @@ func _enter() -> void:
 func _update(_delta: float) -> void:
 	if controller.death:
 		if controller.death.is_dead:
+			virus_timer.stop()
+			elapsed_time = 0.0
 			return
 		var in_everdark: bool = Generator.is_in_everdark(controller.global_position)
 		if in_everdark && virus_timer.is_stopped():

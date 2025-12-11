@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=25 format=4 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="Script" uid="uid://cgowfsimcmpcr" path="res://scripts/tools/world_state.gd" id="1_px3xn"]
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="AudioStream" uid="uid://dyklopfm0j5up" path="res://audio/ambience/forest_ambience_0.wav" id="14_8c33x"]
 [ext_resource type="TileSet" uid="uid://cyqg6ktxfoknu" path="res://resources/tile_set.tres" id="14_q418o"]
+[ext_resource type="PackedScene" uid="uid://ccwvv1mhn4g3q" path="res://scenes/characters/tall_enemy.tscn" id="20_px3xn"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -27,15 +28,15 @@ tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_btahq"]
-shader = ExtResource("10_q418o")
-shader_parameter/highlighted = false
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_px3xn"]
-shader = ExtResource("10_q418o")
-shader_parameter/highlighted = false
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8cjxf"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtmcs"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lsws"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
@@ -2697,7 +2698,7 @@ position = Vector2(-959, -141)
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_btahq")
+material = SubResource("ShaderMaterial_8cjxf")
 position = Vector2(-946, -138)
 collision_layer = 4
 collision_mask = 4
@@ -2709,7 +2710,7 @@ custom_parameter = "{\"note\": 0}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_px3xn")
+material = SubResource("ShaderMaterial_jtmcs")
 position = Vector2(-908, -129)
 collision_layer = 4
 collision_mask = 4
@@ -2722,7 +2723,7 @@ custom_parameter = "{\"note\": 1}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_8cjxf")
+material = SubResource("ShaderMaterial_3lsws")
 position = Vector2(-913, -100)
 collision_layer = 4
 collision_mask = 4
@@ -2831,3 +2832,6 @@ stream = ExtResource("14_8c33x")
 volume_db = -12.0
 autoplay = true
 bus = &"Ambience"
+
+[node name="sfm" parent="." instance=ExtResource("20_px3xn")]
+position = Vector2(17, -105)

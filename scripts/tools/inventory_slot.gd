@@ -25,6 +25,7 @@ signal pressed(item: InventoryItem)
 signal item_dropped(item: InventoryItem)
 signal item_changed
 
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAG_END:
 		if !dragging_item:

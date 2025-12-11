@@ -47,6 +47,7 @@ func _update(_delta: float) -> void:
 		# stop timer on everdark exit
 		elif not in_everdark and not virus_timer.is_stopped():
 			virus_timer.stop()
+			elapsed_time = 0.0
 			everdark_entered.emit(false)
 	
 func _exit() -> void:

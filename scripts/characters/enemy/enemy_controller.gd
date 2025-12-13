@@ -77,6 +77,8 @@ func _custom_process(delta: float) -> void:
 		animation.direction = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
 		animation.should_flip = animation.direction.x < 0.0
 		animation.attacking = charging
+		if animation.animated_sprite.animation.begins_with(animation.ANIMS[2]):
+			movement.desired_movement = Vector2.ZERO
 	super(delta)
 
 func get_target() -> CharacterController:

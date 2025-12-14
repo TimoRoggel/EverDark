@@ -25,7 +25,7 @@ func open() -> void:
 	container.visible = true
 	if controller.hotbar:
 		controller.hotbar.visible = false
-	
+	GameManager.finish_objective(8)
 	GameManager.set_active_ui(self)
 
 func close() -> void:

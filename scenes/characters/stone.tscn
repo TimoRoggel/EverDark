@@ -57,3 +57,9 @@ texture = ExtResource("6_fbqax")
 script = ExtResource("7_mw0h4")
 textures = Array[Texture2D]([ExtResource("6_fbqax"), ExtResource("8_1jhnp")])
 metadata/_custom_type_script = "uid://m6vcvhqhntsq"
+
+[node name="obstacle" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -3)
+radius = 12.0
+affect_navigation_mesh = true
+carve_navigation_mesh = true

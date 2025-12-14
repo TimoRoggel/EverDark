@@ -70,3 +70,9 @@ position = Vector2(0, -5)
 texture = ExtResource("6_nu063")
 offset = Vector2(0, -24)
 region_rect = Rect2(4, 36, 59, 58)
+
+[node name="obstacle" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -14)
+radius = 24.0
+affect_navigation_mesh = true
+carve_navigation_mesh = true

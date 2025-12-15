@@ -4,7 +4,6 @@ class_name EnemyController extends CharacterController
 @export var min_distance_to_target: float = 8.0
 @export var attack_distance: float = 48.0
 @export var predictive_attacking: bool = false
-@export var stuck_velocity_threshold: float = 5.0
 
 var target: TargetComponent = null
 var attack: SpawnAttackComponent = null

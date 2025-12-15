@@ -66,9 +66,7 @@ func attack() -> void:
 	attack_active = false
 
 func spawn_bullet() -> void:
-	var temp_attack_data = attack_type.duplicate()
-	temp_attack_data.power = randf_range(min_power, max_power)
-	var bullet: AttackController = AttackController.new(temp_attack_data, Vector2.from_angle(attack_angle), controller)
+	var bullet: AttackController = AttackController.new(attack_type, Vector2.from_angle(attack_angle), controller)
 	
 	bullet.damage_flags = damaging_flags
 	if attack_type.attached_to_owner:

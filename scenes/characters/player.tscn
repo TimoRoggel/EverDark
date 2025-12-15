@@ -315,7 +315,9 @@ inventory = NodePath("../inventory")
 inventory_component = NodePath("../../components/inventory")
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
+process_mode = 3
 visible = false
+z_index = 275
 
 [node name="controls" type="CanvasLayer" parent="."]
 layer = 0

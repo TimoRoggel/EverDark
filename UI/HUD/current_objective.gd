@@ -10,6 +10,7 @@ var override: bool = true
 func _ready() -> void:
 	GameManager.objective_finished.connect(update_objective)
 	override = true
+	await get_tree().create_timer(0.5).timeout
 	await show_current_objective()
 	override = false
 

@@ -21,7 +21,7 @@ func _exit() -> void:
 	pass
 
 func apply_knockback(direction: Vector2, force: float, duration: float = 0.1) -> void:
-	var effective_force: float = force * 200.0
+	var effective_force: float = force * 300.0
 	knockback_velocity = direction.normalized() * effective_force * (1.0 / knockback_resistance)
 	is_being_knocked_back = true
 	

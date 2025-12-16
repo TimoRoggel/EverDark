@@ -26,10 +26,11 @@ func _ready() -> void:
 	interact_script = HARVESTABLE_RUNNABLE
 	active = true
 	update_texture()
+	SaveSystem.track(name, get_recover_time, set_recover_time, 0.0)
 	super()
 
-func deplete() -> void:
-	recover_timer.start(randi_range(harvestable.min_recover_time, harvestable.max_recover_time))
+func deplete(time: float = randi_range(harvestable.min_recover_time, harvestable.max_recover_time)) -> void:
+	recover_timer.start(time)
 	update_texture()
 
 func update_texture() -> void:
@@ -46,3 +47,10 @@ func update_param() -> void:
 
 func is_depleted() -> bool:
 	return !recover_timer.is_stopped()
+
+func get_recover_time() -> float:
+	return recover_timer.time_left
+
+func set_recover_time(time: float) -> void:
+	if time > 0.0:
+		deplete(time)

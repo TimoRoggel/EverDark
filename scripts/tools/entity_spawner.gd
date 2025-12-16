@@ -10,6 +10,8 @@ const TRIES: int = 20
 @export var max_spawn_distance: float = 6400.0
 ## At (0,0) this is the spawn rate (spawns 1 entity per [member min_spawn_rate] seconds), at [member max_spawn_distance] this value is 0.1%.
 @export_range(0.0, 800.0, 0.01) var min_spawn_rate: float = 1.0
+## How long until the first entity spawns when the game starts.
+@export_range(0.0, 800.0, 0.01) var initial_spawn_rate: float = 1.0
 @export_range(0.0, 1.0, 0.01) var randomness: float = 0.0
 @export var min_radius: float = 250.0:
 	set(value):
@@ -35,7 +37,8 @@ func _ready() -> void:
 	spawn_timer.one_shot = true
 	add_child(spawn_timer)
 	spawn_timer.timeout.connect(spawn)
-	spawn_timer.start(0.01)
+	spawn_timer.start(initial_spawn_rate)
+	SaveSystem.track(name, get_entity_data, set_entity_data, {})
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():
@@ -80,11 +83,17 @@ func spawn_entity() -> void:
 		particles.global_position = spawn_position
 		get_tree().current_scene.add_child(particles)
 		await get_tree().create_timer(entity.time_to_spawn, false).timeout
+	create_entity(spawn_position)
+
+func create_entity(spawn_position: Vector2, health: float = 0.0) -> void:
 	var spawned_entity: Node2D = entity.scene.instantiate()
 	spawned_entity.global_position = spawn_position
 	get_tree().current_scene.add_child(spawned_entity)
 	spawned_entity.tree_exiting.connect(func() -> void: spawned_entities.erase(spawned_entity))
 	spawned_entities.append(spawned_entity)
+	await get_tree().create_timer(0.2).timeout
+	if health > 0.0:
+		spawned_entity.health.current_health = health
 	await get_tree().create_timer(120.0, false).timeout
 	if !spawned_entity:
 		return
@@ -116,3 +125,23 @@ func get_randomized_spawn_location() -> Vector2:
 	var x: float = global_position.x + d * cos(theta)
 	var y: float = global_position.y + d * sin(theta)
 	return Vector2(x, y)
+
+func get_entity_data() -> Dictionary:
+	var data: Dictionary = {}
+	data["time"] = spawn_timer.time_left
+	data["entities"] = []
+	for e: EnemyController in spawned_entities:
+		if !e.health:
+			continue
+		data["entities"].append({"health": e.health.current_health, "position": e.global_position})
+	return data
+
+func set_entity_data(data: Dictionary) -> void:
+	if spawned_entities.size() > 0:
+		return
+	if data.is_empty():
+		spawn_timer.start(initial_spawn_rate)
+		return
+	for d: Dictionary in data["entities"]:
+		create_entity(d["position"], d["health"])
+	spawn_timer.start(data["time"])

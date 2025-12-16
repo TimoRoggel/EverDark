@@ -23,6 +23,7 @@ const TRIES: int = 20
 		max_radius = value
 		if Engine.is_editor_hint():
 			queue_redraw()
+@export var entitiy_spawn_wait_time: float = 30.0 
 
 var spawn_timer: Timer = null
 var spawned_entities: Array[Node2D] = []
@@ -112,6 +113,15 @@ func reset_enemies() -> void:
 			spawn_position = get_randomized_spawn_location()
 		enemy.global_position = spawn_position
 		await get_tree().create_timer(1.0).timeout
+		
+func despawn_enemies() -> void:
+	for enemy in spawned_entities:
+		if not is_instance_valid(enemy):
+			continue
+		enemy.queue_free()
+	spawn_timer.stop()
+	await get_tree().create_timer(entitiy_spawn_wait_time).timeout
+	spawn_timer.start()
 
 func restart_timer() -> void:
 	spawn_timer.start(GameManager.get_randomized_value(get_spawn_rate(), randomness))

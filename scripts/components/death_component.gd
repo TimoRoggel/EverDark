@@ -37,7 +37,11 @@ func entity_died():
 	await animation.play("death")
 	entity.target_sprite.hide()
 	controller.death_view.show()
-	
+	var enemies := controller.get_node_or_null("../enemies").get_children()
+	if enemies:
+		for spawner in enemies:
+			spawner.despawn_enemies()
+		
 func respawn():
 	controller.death_view.hide()
 	await get_tree().create_timer(.5).timeout

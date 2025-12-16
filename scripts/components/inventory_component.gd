@@ -53,6 +53,21 @@ func drop_all():
 			if slot.inventory_item:
 				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
 	container.clear_all()
+	
+func drop_items(percent: float):
+	var filled_slots: Array = []
+	if not is_empty():
+		for slot in container.get_slots():
+			if slot.inventory_item:
+				filled_slots.append(slot)
+				
+	var drop_count := int(round(filled_slots.size() * (percent / 100.0)))
+	filled_slots.shuffle()
+	var chosen_slots := filled_slots.slice(0, drop_count)
+	for slot in chosen_slots:
+		var random_vector = random_spread_pos(controller.global_position, 20)
+		DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
+	container.clear_all()
 
 func add(item_id: int, quantity: int = 1) -> int:
 	if (item_id == 6 && has(18)) || (item_id == 18 && has(6)):

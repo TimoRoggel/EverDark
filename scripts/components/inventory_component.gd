@@ -29,10 +29,11 @@ func _on_item_dropped(item: InventoryItem) -> void:
 func drop_all():
 	if not is_empty():
 		for slot in container.get_slots():
-			var random_vector = random_spread_pos(controller.global_position, 20)
-			if slot.inventory_item:
+			if slot.inventory_item && !slot.inventory_item.locked:
+				var random_vector = random_spread_pos(controller.global_position, 20)
 				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
-	container.clear_all()
+				slot.remove_amount(slot.inventory_item.quantity)
+	container.updated.emit()
 
 func add(item_id: int, quantity: int = 1) -> int:
 	return container.add(item_id, quantity)
@@ -71,13 +72,13 @@ func is_placeable(item_id: int) -> bool:
 	return item_id in [3, 4, 26]
 
 func random_spread_pos(entity_location, item_spread_radius) -> Vector2:
-	var rand_x = randf_range(entity_location.x - item_spread_radius, entity_location.x + item_spread_radius) 
+	var rand_x = randf_range(entity_location.x - item_spread_radius, entity_location.x + item_spread_radius)
 	var rand_y = randf_range(entity_location.y + item_spread_radius, entity_location.y - item_spread_radius)
 	var random_vector = Vector2(rand_x, rand_y)
 	return random_vector
 
 func get_inventory() -> Array:
-	return list().map(func(i: InventoryItem) -> Array: return [i.item.id, i.quantity])
+	return list().map(func(i: InventoryItem) -> Array: return [i.item.id, i.quantity, i.locked])
 
 func set_inventory(new_inventory: Array) -> void:
 	var s: Array[InventoryItem] = []
@@ -88,5 +89,8 @@ func set_inventory(new_inventory: Array) -> void:
 			s[i] = null
 		else:
 			var item: Array = new_inventory[i]
-			s[i] = InventoryItem.new(DataManager.get_resource_by_id("items", item[0]), item[1])
+			var locked_val: bool = false
+			if item.size() >= 3:
+				locked_val = bool(item[2])
+			s[i] = InventoryItem.new(DataManager.get_resource_by_id("items", item[0]), item[1], locked_val)
 	container.set_slots(s)

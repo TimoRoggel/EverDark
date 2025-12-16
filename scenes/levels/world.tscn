@@ -28,15 +28,15 @@ tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_btahq"]
-shader = ExtResource("10_q418o")
-shader_parameter/highlighted = false
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_px3xn"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8cjxf"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtmcs"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
@@ -2711,7 +2711,7 @@ position = Vector2(26, -84)
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_btahq")
+material = SubResource("ShaderMaterial_px3xn")
 position = Vector2(-946, -138)
 collision_layer = 4
 collision_mask = 4
@@ -2723,7 +2723,7 @@ custom_parameter = "{\"note\": 0}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_px3xn")
+material = SubResource("ShaderMaterial_8cjxf")
 position = Vector2(-908, -129)
 collision_layer = 4
 collision_mask = 4
@@ -2736,7 +2736,7 @@ custom_parameter = "{\"note\": 1}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_8cjxf")
+material = SubResource("ShaderMaterial_jtmcs")
 position = Vector2(-913, -100)
 collision_layer = 4
 collision_mask = 4

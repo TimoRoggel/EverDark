@@ -2,7 +2,9 @@ class_name DeathComponent extends Component
 
 @export_category("Death properties")
 @export var respawn_point := Vector2.ZERO
+@export_category("Drop properties")
 @export var inventory_drop_percentage : float = 50.0
+@export var slot_drop_percentage : float = 20.0
 
 var entity: CharacterController
 var inventory: InventoryComponent
@@ -30,7 +32,7 @@ func entity_died():
 	entity.health.reset()
 	inventory = controller.inventory
 	if inventory:
-		inventory.drop_items(inventory_drop_percentage)
+		inventory.drop_items(inventory_drop_percentage, slot_drop_percentage)
 	if controller.hotbar:
 		controller.hotbar.update_hotbar()
 	controller.hitbox.is_active = false

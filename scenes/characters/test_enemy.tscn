@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cgmgqctfbwgu3"]
+[gd_scene load_steps=69 format=3 uid="uid://cgmgqctfbwgu3"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_3nmv6"]
 [ext_resource type="Texture2D" uid="uid://b15plonxuayix" path="res://graphics/characters/guardian/guardian_attacking_down.png" id="2_bqtwb"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://bkbd6vayvuf11" path="res://audio/sounds/enemy/hurt.wav" id="17_4ii8p"]
 [ext_resource type="Script" uid="uid://2p53a8evemdg" path="res://scripts/components/healthbar_component.gd" id="19_c0275"]
 [ext_resource type="Script" uid="uid://dxkedey5xyb5i" path="res://scripts/components/save_removal_component.gd" id="20_ghqqk"]
+[ext_resource type="Texture2D" uid="uid://g7a2she3ktpw" path="res://graphics/particle.png" id="21_n7gwq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0275"]
 size = Vector2(20, 9)
@@ -320,6 +321,56 @@ animations = [{
 [sub_resource type="Gradient" id="Gradient_ghqqk"]
 colors = PackedColorArray(0.92089695, 0, 0.41446668, 1, 0.69687116, 0, 0.029125575, 1)
 
+[sub_resource type="Curve" id="Curve_isejs"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.397351, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_26or3"]
+width = 32
+curve = SubResource("Curve_isejs")
+
+[sub_resource type="Gradient" id="Gradient_bhht3"]
+colors = PackedColorArray(0.7529412, 0, 0, 1, 0.4627451, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rc8ox"]
+gradient = SubResource("Gradient_bhht3")
+width = 32
+
+[sub_resource type="Gradient" id="Gradient_6xnqm"]
+colors = PackedColorArray(1, 1, 1, 1, 0.24313726, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_axbcy"]
+gradient = SubResource("Gradient_6xnqm")
+width = 32
+
+[sub_resource type="Curve" id="Curve_mw2fn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16225165, 1), 0.0, 0.0, 0, 0, Vector2(0.80794704, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8a5pe"]
+width = 32
+curve = SubResource("Curve_mw2fn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ob85m"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(12, 24, 1)
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 0.1
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 80.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.79999995
+scale_curve = SubResource("CurveTexture_8a5pe")
+color_ramp = SubResource("GradientTexture1D_axbcy")
+color_initial_ramp = SubResource("GradientTexture1D_rc8ox")
+alpha_curve = SubResource("CurveTexture_26or3")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.09999997
+
 [node name="test_enemy" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_3nmv6")
@@ -350,12 +401,13 @@ attack_id = 1
 damaging_flags = 1
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
-[node name="health" type="Node2D" parent="."]
+[node name="health" type="Node2D" parent="." node_paths=PackedStringArray("hit_particles")]
 script = ExtResource("7_u58fu")
 max_health = 100.0
 death_sounds = Array[AudioStream]([ExtResource("14_s54qa")])
 death_drops = Array[int]([1, 1, 1, 1, 1, 1, 1])
 death_drop_odds = Array[int]([100, 100, 100, 50, 50, 25, 10])
+hit_particles = NodePath("../damage_particles")
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="target" type="Node2D" parent="."]
@@ -388,3 +440,16 @@ metadata/_custom_type_script = "uid://2p53a8evemdg"
 [node name="save_remove" type="Node2D" parent="."]
 script = ExtResource("20_ghqqk")
 metadata/_custom_type_script = "uid://dxkedey5xyb5i"
+
+[node name="damage_particles" type="GPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(0, -21)
+emitting = false
+amount = 48
+texture = ExtResource("21_n7gwq")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ob85m")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ccwvv1mhn4g3q"]
+[gd_scene load_steps=66 format=3 uid="uid://ccwvv1mhn4g3q"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_c88le"]
 [ext_resource type="Texture2D" uid="uid://6qpbetvcy4gq" path="res://graphics/characters/tall_enemy/tall_attack_down.png" id="2_tb6ua"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://dwhmrw8e0vjks" path="res://scripts/components/hitbox_component.gd" id="17_7ma1n"]
 [ext_resource type="AudioStream" uid="uid://bkbd6vayvuf11" path="res://audio/sounds/enemy/hurt.wav" id="18_t5ybe"]
 [ext_resource type="Script" uid="uid://2p53a8evemdg" path="res://scripts/components/healthbar_component.gd" id="19_yul08"]
+[ext_resource type="Texture2D" uid="uid://g7a2she3ktpw" path="res://graphics/particle.png" id="20_ux3nx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8e03"]
 size = Vector2(12, 5)
@@ -305,6 +306,56 @@ animations = [{
 [sub_resource type="Gradient" id="Gradient_f44pb"]
 colors = PackedColorArray(0.46747684, 0.34277225, 0.55430925, 1, 0.7104485, 0.35522425, 0.48059323, 1)
 
+[sub_resource type="Curve" id="Curve_bcdfi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.397351, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0lwfn"]
+width = 32
+curve = SubResource("Curve_bcdfi")
+
+[sub_resource type="Gradient" id="Gradient_mbbv5"]
+colors = PackedColorArray(0.7529412, 0, 0, 1, 0.4627451, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p6kgo"]
+gradient = SubResource("Gradient_mbbv5")
+width = 32
+
+[sub_resource type="Gradient" id="Gradient_aehf3"]
+colors = PackedColorArray(1, 1, 1, 1, 0.24313726, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ih6le"]
+gradient = SubResource("Gradient_aehf3")
+width = 32
+
+[sub_resource type="Curve" id="Curve_3lga6"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16225165, 1), 0.0, 0.0, 0, 0, Vector2(0.80794704, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_quekf"]
+width = 32
+curve = SubResource("Curve_3lga6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yxmnk"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 12, 1)
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 0.1
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 80.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.79999995
+scale_curve = SubResource("CurveTexture_quekf")
+color_ramp = SubResource("GradientTexture1D_ih6le")
+color_initial_ramp = SubResource("GradientTexture1D_p6kgo")
+alpha_curve = SubResource("CurveTexture_0lwfn")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.09999997
+
 [node name="tall" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_c88le")
@@ -339,12 +390,13 @@ attack_id = 18
 damaging_flags = 1
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
-[node name="health" type="Node2D" parent="."]
+[node name="health" type="Node2D" parent="." node_paths=PackedStringArray("hit_particles")]
 script = ExtResource("13_4c8s2")
 max_health = 6.0
 death_sounds = Array[AudioStream]([ExtResource("14_syo8h")])
 death_drops = Array[int]([1, 1, 1])
 death_drop_odds = Array[int]([50, 25, 10])
+hit_particles = NodePath("../damage_particles")
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="target" type="Node2D" parent="."]
@@ -373,3 +425,16 @@ position = Vector2(-16, -60)
 script = ExtResource("19_yul08")
 gradient = SubResource("Gradient_f44pb")
 metadata/_custom_type_script = "uid://2p53a8evemdg"
+
+[node name="damage_particles" type="GPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(0, -13)
+emitting = false
+amount = 24
+texture = ExtResource("20_ux3nx")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_yxmnk")

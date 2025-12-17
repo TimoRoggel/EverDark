@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dw3msgvb1ai4b"]
+[gd_scene load_steps=12 format=3 uid="uid://dw3msgvb1ai4b"]
 
 [ext_resource type="Script" uid="uid://c0n6qqwj4c4lm" path="res://scripts/characters/character_controller.gd" id="1_hn3j5"]
 [ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_qgg5r"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dxkedey5xyb5i" path="res://scripts/components/save_removal_component.gd" id="6_mw0h4"]
 [ext_resource type="Script" uid="uid://m6vcvhqhntsq" path="res://scripts/tools/randomized_sprite_2d.gd" id="7_mw0h4"]
 [ext_resource type="Texture2D" uid="uid://b4ojvk8takqi3" path="res://map/Art Assets/Map Objects (colision)/Rocks/32x32_rocks_03.png" id="8_1jhnp"]
+[ext_resource type="PackedScene" uid="uid://cs8cbecy83533" path="res://scenes/effects/particles/harvest_pebble_particles.tscn" id="10_1jhnp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylsqy"]
 size = Vector2(22, 11)
@@ -28,11 +29,12 @@ shape = SubResource("RectangleShape2D_ylsqy")
 
 [node name="components" type="Node2D" parent="."]
 
-[node name="health_component" type="Node2D" parent="components"]
+[node name="health_component" type="Node2D" parent="components" node_paths=PackedStringArray("hit_particles")]
 script = ExtResource("2_qgg5r")
 death_sounds = Array[AudioStream]([ExtResource("3_ylsqy")])
 death_drops = Array[int]([6, 6, 6, 6])
 death_drop_odds = Array[int]([100, 100, 50, 50])
+hit_particles = NodePath("../../damage_particles")
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="hitbox" type="Node2D" parent="components"]
@@ -63,3 +65,5 @@ position = Vector2(0, -3)
 radius = 12.0
 affect_navigation_mesh = true
 carve_navigation_mesh = true
+
+[node name="damage_particles" parent="." instance=ExtResource("10_1jhnp")]

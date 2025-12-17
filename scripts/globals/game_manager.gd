@@ -9,6 +9,7 @@ var ui_opened_conditions: Dictionary[String, Callable] = {}
 var paused : bool = false
 var ui_open : bool = false
 var objectives_done: int = 0
+var is_chest_open : bool = false
 
 signal ending
 

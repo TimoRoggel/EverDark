@@ -5,7 +5,6 @@ extends Area2D
 @export var crafting_table_item_id: int = 3
 
 var hotbar : HBoxContainer
-
 var is_interactable: bool = false
 var player_ref: PlayerController = null
 var crafting_input: InputComponent = null
@@ -14,9 +13,14 @@ var can_toggle: bool = true
 func _ready() -> void:
 	await get_tree().physics_frame
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
-	crafting_input = GameManager.player.get_component(InputComponent)
-	crafting_input.pickup.connect(_on_pickup)
-	crafting_ui.close_requested.connect(close)
+	
+	if GameManager.player:
+		crafting_input = GameManager.player.get_component(InputComponent)
+		if crafting_input:
+			crafting_input.pickup.connect(_on_pickup)
+			
+	if crafting_ui:
+		crafting_ui.close_requested.connect(close)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is PlayerController:
@@ -33,7 +37,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _process(_delta: float) -> void:
 	if crafting_ui.visible && can_toggle:
-		if Input.is_action_just_pressed("ui") or Input.is_action_just_pressed("interact"):
+		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("ui_menu"):
 			close()
 
 func _on_pickup() -> void:

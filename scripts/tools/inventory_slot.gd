@@ -114,7 +114,10 @@ func _update_drag_preview() -> void:
 	drag_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	drag_icon.size = Vector2i.ONE * 32
 	var drag_label: Label = Label.new()
-	drag_label.text = str(dragging_item.quantity, "x")
+	if dragging_item.item.stack_size == 1:
+		drag_label.text = ""
+	else:
+		drag_label.text = str(dragging_item.quantity, "x")
 	drag_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	drag_label.position += Vector2(8.0, 32.0)
 	drag_icon.add_child(drag_label)
@@ -180,7 +183,10 @@ func _setup_item() -> void:
 	icon.material = null
 	if inventory_item:
 		icon.texture = inventory_item.item.icon
-		label.text = str(inventory_item.quantity, "x")
+		if inventory_item.item.stack_size == 1:
+			label.text = ""
+		else:
+			label.text = str(inventory_item.quantity, "x")
 		if inventory_item.item.glows:
 			icon.material = ITEM_GLOW
 	else:

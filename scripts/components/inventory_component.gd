@@ -25,14 +25,16 @@ func open() -> void:
 	container.visible = true
 	if controller.hotbar:
 		controller.hotbar.visible = false
-	
+	GameManager.paused = true
+	get_tree().paused = true
 	GameManager.set_active_ui(self)
 
 func close() -> void:
 	container.visible = false
 	if controller.hotbar:
 		controller.hotbar.visible = true
-		
+	GameManager.paused = false
+	get_tree().paused = false
 	GameManager.clear_active_ui()
 
 func _update(_delta: float) -> void:

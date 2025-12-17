@@ -27,6 +27,8 @@ func _on_visibility_changed() -> void:
 		return
 	notes_list.clear()
 	notes = LoreSystem.get_unlocked_notes()
+	if notes.is_empty():
+		return
 	for note: Note in notes:
 		notes_list.add_item(note.display_name)
 	notes_list.select(0)

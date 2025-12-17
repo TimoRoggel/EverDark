@@ -1,11 +1,13 @@
 extends Node2D
 
+const WIN_CUTSCENE: Cutscene = preload("uid://fq0l05o4kosd")
+
 @export var required_lumin_count: int = 3
 @export var activated_sprite: Texture2D
 
 var lumin: int = 0
 var is_activated: bool = false
-	
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if is_activated:
 		return
@@ -28,6 +30,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 func activate_monolith():
 	is_activated = true
+	CutsceneManager.play(WIN_CUTSCENE)
 	Generator.lumin_positions.append(global_position)
 	Generator.lumin_sizes.append(10.0)
 	GameManager.finish_objective(0)

@@ -3,19 +3,19 @@
 [ext_resource type="AudioStream" uid="uid://tusdkc4n7eej" path="res://audio/music/opening_cutscene.wav" id="1_4ymyg"]
 [ext_resource type="Script" uid="uid://cigghrhljfb3i" path="res://scripts/resources/cutscenes/cutscene_frame.gd" id="1_tsfns"]
 [ext_resource type="Script" uid="uid://uc3cowu6nk4c" path="res://scripts/resources/cutscenes/cutscene.gd" id="2_4g73k"]
-[ext_resource type="Texture2D" uid="uid://d14m8ww2cn4gw" path="res://graphics/cutscenes/opening_0.jpg" id="2_efjut"]
-[ext_resource type="Texture2D" uid="uid://drav0l75vaswr" path="res://graphics/cutscenes/opening_1.jpg" id="3_8fbce"]
+[ext_resource type="Texture2D" uid="uid://b8fqnop84wxuy" path="res://graphics/cutscenes/opening_0.png" id="3_4ymyg"]
 [ext_resource type="Script" uid="uid://cqf8ry8uv7fyr" path="res://scripts/resources/cutscenes/cutscene_transition.gd" id="3_jubw0"]
-[ext_resource type="Texture2D" uid="uid://b7ta0cckmqag2" path="res://graphics/cutscenes/opening_2.jpg" id="4_jubw0"]
 [ext_resource type="AudioStream" uid="uid://dcmre2g8xjn5" path="res://audio/sounds/player/hurt.wav" id="4_rl088"]
-[ext_resource type="Texture2D" uid="uid://c4g0rh6ry3erb" path="res://graphics/cutscenes/opening_3.jpg" id="5_7wuko"]
-[ext_resource type="Texture2D" uid="uid://bkxxxu3bc08xb" path="res://graphics/cutscenes/opening_4.jpg" id="6_0l2ho"]
+[ext_resource type="Texture2D" uid="uid://72ss62vrvxss" path="res://graphics/cutscenes/opening_1.png" id="6_rl088"]
 [ext_resource type="AudioStream" uid="uid://dwfwgrm6ia01k" path="res://audio/sounds/player/drop.wav" id="7_6tg64"]
-[ext_resource type="Texture2D" uid="uid://bfpq85iqcqqjr" path="res://graphics/cutscenes/opening_5.jpg" id="7_hfn1q"]
 [ext_resource type="Texture2D" uid="uid://18c58l627vea" path="res://graphics/cutscenes/opening_6.png" id="8_0woun"]
+[ext_resource type="Texture2D" uid="uid://buk04seox2vhw" path="res://graphics/cutscenes/opening_2.png" id="8_6tg64"]
 [ext_resource type="AudioStream" uid="uid://bf5jo5ad5qwsu" path="res://audio/sounds/player/footstep_0.wav" id="9_j6shp"]
+[ext_resource type="Texture2D" uid="uid://brlo58d1ksbsh" path="res://graphics/cutscenes/opening_3.png" id="10_j6shp"]
 [ext_resource type="AudioStream" uid="uid://buytc168e0tfc" path="res://audio/sounds/crafting_table/craft.wav" id="11_xdjct"]
+[ext_resource type="Texture2D" uid="uid://ffa82rmlx6cc" path="res://graphics/cutscenes/opening_4.png" id="12_xdjct"]
 [ext_resource type="AudioStream" uid="uid://b4khlks6g7is0" path="res://audio/sounds/player/swing_sword.wav" id="13_w55qj"]
+[ext_resource type="Texture2D" uid="uid://cma86cki7h001" path="res://graphics/cutscenes/opening_5.png" id="14_w55qj"]
 [ext_resource type="AudioStream" uid="uid://cy1e2nfxb5flv" path="res://audio/sounds/enemy/death.wav" id="15_lnsrp"]
 [ext_resource type="AudioStream" uid="uid://dr6sn17qunu" path="res://audio/sounds/player/lumin_place.wav" id="17_0wqki"]
 
@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://cqf8ry8uv7fyr"
 
 [sub_resource type="Resource" id="Resource_kuga3"]
 script = ExtResource("1_tsfns")
-image = ExtResource("2_efjut")
+image = ExtResource("3_4ymyg")
 transition = SubResource("Resource_7wuko")
 sound = ExtResource("4_rl088")
 end_zoom = 1.2
@@ -35,7 +35,7 @@ metadata/_custom_type_script = "uid://cigghrhljfb3i"
 
 [sub_resource type="Resource" id="Resource_jaecw"]
 script = ExtResource("1_tsfns")
-image = ExtResource("3_8fbce")
+image = ExtResource("6_rl088")
 transition = SubResource("Resource_7wuko")
 sound = ExtResource("7_6tg64")
 start_zoom = 1.2
@@ -44,7 +44,7 @@ metadata/_custom_type_script = "uid://cigghrhljfb3i"
 
 [sub_resource type="Resource" id="Resource_4ymyg"]
 script = ExtResource("1_tsfns")
-image = ExtResource("4_jubw0")
+image = ExtResource("8_6tg64")
 transition = SubResource("Resource_7wuko")
 sound = ExtResource("9_j6shp")
 start_zoom = 1.1
@@ -53,7 +53,7 @@ metadata/_custom_type_script = "uid://cigghrhljfb3i"
 
 [sub_resource type="Resource" id="Resource_rl088"]
 script = ExtResource("1_tsfns")
-image = ExtResource("5_7wuko")
+image = ExtResource("10_j6shp")
 transition = SubResource("Resource_7wuko")
 sound = ExtResource("11_xdjct")
 end_zoom = 1.1
@@ -62,7 +62,7 @@ metadata/_custom_type_script = "uid://cigghrhljfb3i"
 
 [sub_resource type="Resource" id="Resource_6tg64"]
 script = ExtResource("1_tsfns")
-image = ExtResource("6_0l2ho")
+image = ExtResource("12_xdjct")
 transition = SubResource("Resource_7wuko")
 sound = ExtResource("13_w55qj")
 start_zoom = 1.1
@@ -71,7 +71,7 @@ metadata/_custom_type_script = "uid://cigghrhljfb3i"
 
 [sub_resource type="Resource" id="Resource_j6shp"]
 script = ExtResource("1_tsfns")
-image = ExtResource("7_hfn1q")
+image = ExtResource("14_w55qj")
 transition = SubResource("Resource_7wuko")
 sound = ExtResource("15_lnsrp")
 end_zoom = 1.3

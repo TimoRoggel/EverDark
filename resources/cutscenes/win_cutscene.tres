@@ -1,0 +1,94 @@
+[gd_resource type="Resource" script_class="Cutscene" load_steps=24 format=3 uid="uid://fq0l05o4kosd"]
+
+[ext_resource type="AudioStream" uid="uid://dqv084ljwedvg" path="res://audio/ambience/win.wav" id="1_pbcr2"]
+[ext_resource type="Script" uid="uid://cigghrhljfb3i" path="res://scripts/resources/cutscenes/cutscene_frame.gd" id="1_skqjo"]
+[ext_resource type="Script" uid="uid://uc3cowu6nk4c" path="res://scripts/resources/cutscenes/cutscene.gd" id="2_v7f40"]
+[ext_resource type="Texture2D" uid="uid://bfvb6ugvukw28" path="res://graphics/cutscenes/win_0.png" id="3_8jclk"]
+[ext_resource type="AudioStream" uid="uid://btey1fpgqevvs" path="res://audio/sounds/win_1.wav" id="4_515ah"]
+[ext_resource type="Script" uid="uid://cqf8ry8uv7fyr" path="res://scripts/resources/cutscenes/cutscene_transition.gd" id="5_q7267"]
+[ext_resource type="Texture2D" uid="uid://ckowf2mfdv0sm" path="res://graphics/cutscenes/win_1.png" id="6_21al2"]
+[ext_resource type="Texture2D" uid="uid://dunm52l0ky2to" path="res://graphics/cutscenes/win_2.png" id="7_3u5r6"]
+[ext_resource type="AudioStream" uid="uid://dr6sn17qunu" path="res://audio/sounds/player/lumin_place.wav" id="7_515ah"]
+[ext_resource type="AudioStream" uid="uid://do2bafwxpewhc" path="res://audio/sounds/win_0.wav" id="8_wv8ps"]
+[ext_resource type="Texture2D" uid="uid://bkpx8djrwpgc8" path="res://graphics/cutscenes/win_3.png" id="9_0mjbw"]
+[ext_resource type="Texture2D" uid="uid://c8ft8wfaud4is" path="res://graphics/cutscenes/win_4.png" id="10_qqrbu"]
+[ext_resource type="AudioStream" uid="uid://bonm36v6gqqe1" path="res://audio/sounds/player/lumin_convert.wav" id="12_q7267"]
+
+[sub_resource type="Resource" id="Resource_5g7kv"]
+script = ExtResource("5_q7267")
+metadata/_custom_type_script = "uid://cqf8ry8uv7fyr"
+
+[sub_resource type="Resource" id="Resource_v5csb"]
+script = ExtResource("1_skqjo")
+image = ExtResource("3_8jclk")
+transition = SubResource("Resource_5g7kv")
+sound = ExtResource("4_515ah")
+start_zoom = 1.2
+end_zoom = 1.1
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[sub_resource type="Resource" id="Resource_ro3bj"]
+script = ExtResource("5_q7267")
+duration = 0.1
+transition_type = 5
+metadata/_custom_type_script = "uid://cqf8ry8uv7fyr"
+
+[sub_resource type="Resource" id="Resource_uhs62"]
+script = ExtResource("1_skqjo")
+image = ExtResource("6_21al2")
+transition = SubResource("Resource_ro3bj")
+sound = ExtResource("7_515ah")
+start_zoom = 1.1
+duration = 2.0
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[sub_resource type="Resource" id="Resource_82rf4"]
+script = ExtResource("5_q7267")
+duration = 0.1
+transition_type = 5
+metadata/_custom_type_script = "uid://cqf8ry8uv7fyr"
+
+[sub_resource type="Resource" id="Resource_3a3ir"]
+script = ExtResource("1_skqjo")
+image = ExtResource("7_3u5r6")
+transition = SubResource("Resource_82rf4")
+sound = ExtResource("8_wv8ps")
+duration = 0.05
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[sub_resource type="Resource" id="Resource_phvne"]
+script = ExtResource("5_q7267")
+transition_type = 8
+metadata/_custom_type_script = "uid://cqf8ry8uv7fyr"
+
+[sub_resource type="Resource" id="Resource_i2ous"]
+script = ExtResource("1_skqjo")
+image = ExtResource("9_0mjbw")
+transition = SubResource("Resource_phvne")
+start_position = Vector2(0, 32)
+end_position = Vector2(0, 16)
+start_zoom = 1.2
+end_zoom = 1.1
+duration = 0.5
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[sub_resource type="Resource" id="Resource_x4afs"]
+script = ExtResource("5_q7267")
+metadata/_custom_type_script = "uid://cqf8ry8uv7fyr"
+
+[sub_resource type="Resource" id="Resource_36wc3"]
+script = ExtResource("1_skqjo")
+image = ExtResource("10_qqrbu")
+transition = SubResource("Resource_x4afs")
+sound = ExtResource("12_q7267")
+start_position = Vector2(0, 16)
+start_zoom = 1.1
+duration = 4.0
+metadata/_custom_type_script = "uid://cigghrhljfb3i"
+
+[resource]
+script = ExtResource("2_v7f40")
+background_audio = ExtResource("1_pbcr2")
+skipable = true
+frames = Array[ExtResource("1_skqjo")]([SubResource("Resource_v5csb"), SubResource("Resource_uhs62"), SubResource("Resource_3a3ir"), SubResource("Resource_i2ous"), SubResource("Resource_36wc3")])
+metadata/_custom_type_script = "uid://uc3cowu6nk4c"

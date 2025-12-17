@@ -111,7 +111,7 @@ z_as_relative = false
 y_sort_enabled = true
 use_parent_material = true
 sprite_frames = ExtResource("2_6ux5t")
-animation = &"attack_right_17"
+animation = &"attack_up_20"
 centered = false
 offset = Vector2(-16, -32)
 

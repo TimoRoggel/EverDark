@@ -69,9 +69,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s4x63"]
-radius = 31.0
-height = 192.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7mh0n"]
+radius = 42.0
+height = 210.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yf0wu"]
+radius = 11.0
+height = 182.0
 
 [sub_resource type="GDScript" id="GDScript_cnnwx"]
 resource_name = "interact_popup"
@@ -95,10 +99,6 @@ func _on_body_exited(body: Node2D) -> void:
 	interact_popup.visible = false
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7mh0n"]
-radius = 42.0
-height = 210.0
-
 [node name="hole" type="AnimatedSprite2D"]
 z_as_relative = false
 y_sort_enabled = true
@@ -116,11 +116,9 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="collision" type="CollisionShape2D" parent="area"]
-z_index = -1
-z_as_relative = false
-position = Vector2(-2, 20)
+position = Vector2(0, 10)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_s4x63")
+shape = SubResource("CapsuleShape2D_7mh0n")
 
 [node name="convert_sound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
@@ -134,7 +132,7 @@ z_index = -1
 z_as_relative = false
 position = Vector2(-2, 20)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_s4x63")
+shape = SubResource("CapsuleShape2D_yf0wu")
 
 [node name="interact_area" type="Area2D" parent="."]
 script = SubResource("GDScript_cnnwx")

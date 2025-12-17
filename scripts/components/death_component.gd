@@ -43,7 +43,8 @@ func entity_died():
 	var enemies := controller.get_node_or_null("../enemies").get_children()
 	if enemies:
 		for spawner in enemies:
-			spawner.despawn_enemies()
+			if spawner is not EnemyController:
+				spawner.despawn_enemies()
 		
 func respawn():
 	controller.death_view.hide()

@@ -1,6 +1,6 @@
 class_name HealthComponent extends Component
 
-@export var max_health: float = 10.0
+@export var max_health: float = 12.0
 @export var death_sounds: Array[AudioStream] = []
 @export var persistent: bool = false
 @export var death_drops: Array[int] = []

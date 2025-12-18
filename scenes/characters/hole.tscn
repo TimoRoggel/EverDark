@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl655ix05mcka"]
+[gd_scene load_steps=19 format=3 uid="uid://dl655ix05mcka"]
 
 [ext_resource type="Texture2D" uid="uid://c7no50c4ocbgy" path="res://map/Art Assets/Map Objects (colision)/hole.png" id="1_ghnae"]
 [ext_resource type="Script" uid="uid://baqo7v8egwrlj" path="res://scripts/characters/hole.gd" id="1_iyxdx"]
 [ext_resource type="AudioStream" uid="uid://bonm36v6gqqe1" path="res://audio/sounds/player/lumin_convert.wav" id="3_ghnae"]
 [ext_resource type="Texture2D" uid="uid://cntskg5ujigsi" path="res://graphics/interact_convert_texture.png" id="4_yf0wu"]
+[ext_resource type="Texture2D" uid="uid://dnyg06ftafuri" path="res://graphics/particle_sparkle.png" id="5_cnnwx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghnae"]
 atlas = ExtResource("1_ghnae")
@@ -99,6 +100,17 @@ func _on_body_exited(body: Node2D) -> void:
 	interact_popup.visible = false
 "
 
+[sub_resource type="Curve" id="Curve_s4x63"]
+_data = [Vector2(0, 0.5190752), 0.0, 0.0, 0, 0, Vector2(0.24853802, 1), 0.0, 0.0, 0, 0, Vector2(0.76900595, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_7mh0n"]
+offsets = PackedFloat32Array(0.5316456, 0.76265824, 0.914557)
+colors = PackedColorArray(0.1723228, 0.093166225, 0.33707213, 1, 1, 0.96334964, 0.78936666, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_cj4tr"]
+colors = PackedColorArray(0.58168674, 0.654014, 0.73081446, 1, 1, 1, 1, 1)
+
 [node name="hole" type="AnimatedSprite2D"]
 z_as_relative = false
 y_sort_enabled = true
@@ -147,3 +159,21 @@ z_index = 150
 z_as_relative = false
 position = Vector2(0, -71)
 texture = ExtResource("4_yf0wu")
+
+[node name="convert_particles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 3)
+emitting = false
+amount = 20
+texture = ExtResource("5_cnnwx")
+preprocess = 0.25
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(90, 8)
+gravity = Vector2(0, -30)
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_s4x63")
+color_ramp = SubResource("Gradient_7mh0n")
+color_initial_ramp = SubResource("Gradient_cj4tr")

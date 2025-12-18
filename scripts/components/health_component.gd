@@ -53,6 +53,8 @@ func death() -> void:
 		return
 	alive = false
 	if !persistent:
+		if hit_particles:
+			hit_particles.reparent(get_tree().current_scene)
 		controller.visible = false
 	for i: int in death_drops.size():
 		var item_id: int = death_drops[i]
@@ -71,6 +73,9 @@ func death() -> void:
 	if !persistent:
 		controller.process_mode = Node.PROCESS_MODE_DISABLED
 		controller.queue_free()
+		if hit_particles && hit_particles.emitting:
+			await hit_particles.finished
+			hit_particles.queue_free()
 
 func can_get_damaged(attack: AttackController) -> bool:
 	return alive && (controller.flags & attack.damage_flags) == controller.flags

@@ -5,6 +5,8 @@ const WIN_CUTSCENE: Cutscene = preload("uid://fq0l05o4kosd")
 @export var required_lumin_count: int = 3
 @export var activated_sprite: Texture2D
 
+@onready var convert_particles: CPUParticles2D = %convert_particles
+
 var lumin: int = 0
 var is_activated: bool = false
 
@@ -13,6 +15,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		return
 	
 	if is_instance_of(area, DroppedItem2D) && area.item.id == 0: 
+		convert_particles.emitting = true
 		var needed_lumin = required_lumin_count - lumin
 		
 		if area.amount >= needed_lumin:
@@ -27,6 +30,9 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		
 		if lumin >= required_lumin_count:
 			activate_monolith()
+		
+		await get_tree().create_timer(0.2).timeout
+		convert_particles.emitting = false
 
 func activate_monolith():
 	is_activated = true

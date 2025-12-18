@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://ccwvv1mhn4g3q"]
+[gd_scene load_steps=68 format=3 uid="uid://ccwvv1mhn4g3q"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_c88le"]
 [ext_resource type="Texture2D" uid="uid://6qpbetvcy4gq" path="res://graphics/characters/tall_enemy/tall_attack_down.png" id="2_tb6ua"]
@@ -356,6 +356,14 @@ alpha_curve = SubResource("CurveTexture_0lwfn")
 hue_variation_min = -0.100000024
 hue_variation_max = 0.09999997
 
+[sub_resource type="Curve" id="Curve_ux3nx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.46491233, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_bcdfi"]
+offsets = PackedFloat32Array(0, 0.17721519, 0.74050635, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.8054744, 1, 1, 1, 0.60759497, 1, 1, 1, 0)
+
 [node name="tall" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_c88le")
@@ -376,12 +384,14 @@ sprite_frames = SubResource("SpriteFrames_0lwfn")
 animation = &"attack_down"
 offset = Vector2(0, 20)
 
-[node name="move" type="Node2D" parent="."]
+[node name="move" type="Node2D" parent="." node_paths=PackedStringArray("step_particles")]
 script = ExtResource("8_ih6le")
 default_speed = 80.0
 sprint_speed = 120.0
 knockback_resistance = 800.0
+step_particles = NodePath("../step_particles")
 step_sounds = Array[AudioStream]([ExtResource("9_3lga6"), ExtResource("10_quekf"), ExtResource("11_yxmnk")])
+step_cooldown = 0.25
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
 [node name="attack" type="Node2D" parent="."]
@@ -438,3 +448,24 @@ one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_yxmnk")
+
+[node name="step_particles" type="CPUParticles2D" parent="."]
+z_as_relative = false
+emitting = false
+amount = 12
+texture = ExtResource("20_ux3nx")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 4.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 8.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.75
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_ux3nx")
+color_ramp = SubResource("Gradient_bcdfi")

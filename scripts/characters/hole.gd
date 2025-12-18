@@ -2,6 +2,7 @@ extends AnimatedSprite2D
 
 @onready var convert_sound: AudioStreamPlayer2D = %convert_sound
 @onready var area: Area2D = %area
+@onready var convert_particles: CPUParticles2D = %convert_particles
 
 var convert_speed: float = 0.5
 
@@ -14,6 +15,7 @@ func _physics_process(_delta: float) -> void:
 			has_cores = true
 	if !has_cores:
 		return
+	convert_particles.emitting = true
 	play(&"bring_up")
 	for a: Area2D in area.get_overlapping_areas():
 		_on_area_2d_area_entered(a)
@@ -21,6 +23,7 @@ func _physics_process(_delta: float) -> void:
 	convert_sound.play()
 	GameManager.finish_objective(1)
 	await animation_finished
+	convert_particles.emitting = false
 	play(&"default")
 
 func _on_area_2d_area_entered(a: Area2D) -> void:

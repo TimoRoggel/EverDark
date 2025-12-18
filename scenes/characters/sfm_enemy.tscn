@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://f6apyooo2n66"]
+[gd_scene load_steps=69 format=3 uid="uid://f6apyooo2n66"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_iin56"]
 [ext_resource type="Texture2D" uid="uid://dur74bxgmh7fr" path="res://graphics/characters/small_fast_enemy/attack_forward_sfm.png" id="2_iin56"]
@@ -372,6 +372,14 @@ alpha_curve = SubResource("CurveTexture_6aj6e")
 hue_variation_min = -0.100000024
 hue_variation_max = 0.09999997
 
+[sub_resource type="Curve" id="Curve_f44pb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.46491233, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_vbah2"]
+offsets = PackedFloat32Array(0, 0.17721519, 0.74050635, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.8054744, 1, 1, 1, 0.60759497, 1, 1, 1, 0)
+
 [node name="sfm" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_iin56")
@@ -394,8 +402,9 @@ autoplay = "idle_down"
 centered = false
 offset = Vector2(-24, -8)
 
-[node name="move" type="Node2D" parent="."]
+[node name="move" type="Node2D" parent="." node_paths=PackedStringArray("step_particles")]
 script = ExtResource("8_27k00")
+step_particles = NodePath("../step_particles")
 step_sounds = Array[AudioStream]([ExtResource("9_xdvh2"), ExtResource("10_2gjli"), ExtResource("11_pe0f8")])
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
@@ -453,3 +462,22 @@ one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_27k00")
+
+[node name="step_particles" type="CPUParticles2D" parent="."]
+z_as_relative = false
+emitting = false
+texture = ExtResource("20_f44pb")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 8.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.75
+scale_amount_curve = SubResource("Curve_f44pb")
+color_ramp = SubResource("Gradient_vbah2")

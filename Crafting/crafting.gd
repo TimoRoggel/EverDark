@@ -43,11 +43,16 @@ func _on_pickup() -> void:
 	if not is_interactable or not player_ref:
 		return
 		
-	var crafting_item = DataManager.get_resource_by_id("items", crafting_table_item_id)
-	player_ref.inventory.add(crafting_item.id, 1)
-	player_ref.inventory.set_held_item_id(crafting_item.id)
-	player_ref.build.refresh_held_item()
 	crafting_ui.visible = false
+	is_interactable = false
+	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property(self, "scale", Vector2.ONE * 0.1, 0.2)
+	tween.play()
+	await tween.finished
+	var crafting_item = DataManager.get_resource_by_id("items", crafting_table_item_id)
+	GameManager.player.inventory.add(crafting_item.id, 1)
+	GameManager.player.inventory.set_held_item_id(crafting_item.id)
+	GameManager.player.build.refresh_held_item()
 	WorldStateSaver.placed_items.erase(name)
 	queue_free()
 

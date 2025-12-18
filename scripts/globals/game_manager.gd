@@ -155,6 +155,8 @@ func finish_objective(index: int) -> void:
 				while objectives_done & byte == byte:
 					byte = roundi(pow(2.0, float(OBJECTIVE_ORDER[current_objective])))
 					current_objective += 1
+				if current_objective >= OBJECTIVE_ORDER.size():
+					current_objective = -1
 
 func end() -> void:
 	ending.emit()

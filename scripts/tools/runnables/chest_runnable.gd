@@ -23,7 +23,7 @@ func can_run(param: Dictionary) -> bool:
 	var input: InputComponent = controller.get_component(InputComponent)
 	if input && input.is_pickup_pressed():
 		return controller.inventory.available_space(chest_item_id) > 0
-	return true
+	return param["self"].get_parent().is_interactable
 
 func _toggle_ui(_controller: PlayerController, chest: Chest) -> void:
 	if !chest.chest_inventory.visible:

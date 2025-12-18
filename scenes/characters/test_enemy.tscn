@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://cgmgqctfbwgu3"]
+[gd_scene load_steps=71 format=3 uid="uid://cgmgqctfbwgu3"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_3nmv6"]
 [ext_resource type="Texture2D" uid="uid://b15plonxuayix" path="res://graphics/characters/guardian/guardian_attacking_down.png" id="2_bqtwb"]
@@ -371,6 +371,14 @@ alpha_curve = SubResource("CurveTexture_26or3")
 hue_variation_min = -0.100000024
 hue_variation_max = 0.09999997
 
+[sub_resource type="Curve" id="Curve_n7gwq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.46491233, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_isejs"]
+offsets = PackedFloat32Array(0, 0.17721519, 0.74050635, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.8054744, 1, 1, 1, 0.60759497, 1, 1, 1, 0)
+
 [node name="test_enemy" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_3nmv6")
@@ -390,9 +398,11 @@ sprite_frames = SubResource("SpriteFrames_k34kf")
 animation = &"attack_up"
 autoplay = "idle_down"
 
-[node name="move" type="Node2D" parent="."]
+[node name="move" type="Node2D" parent="." node_paths=PackedStringArray("step_particles")]
 script = ExtResource("2_ehifl")
+step_particles = NodePath("../step_particles")
 step_sounds = Array[AudioStream]([ExtResource("9_y8f4n"), ExtResource("10_4ii8p"), ExtResource("11_s54qa")])
+step_cooldown = 0.3
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
 [node name="attack" type="Node2D" parent="."]
@@ -453,3 +463,25 @@ one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ob85m")
+
+[node name="step_particles" type="CPUParticles2D" parent="."]
+z_as_relative = false
+position = Vector2(0, 4)
+emitting = false
+amount = 20
+texture = ExtResource("21_n7gwq")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 8.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_n7gwq")
+color = Color(0.75158626, 0.70980394, 0.7647059, 1)
+color_ramp = SubResource("Gradient_isejs")

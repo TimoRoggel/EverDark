@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=55 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="SpriteFrames" uid="uid://bk7tcpddsbd8e" path="res://resources/player_sprite_frames.tres" id="2_6ux5t"]
@@ -45,7 +45,6 @@
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
 [ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
 [ext_resource type="Texture2D" uid="uid://d27av85dvlkhi" path="res://map/Art Assets/Player HUD/30x30_inventory_HUD_slot.png" id="49_5bn3a"]
-[ext_resource type="PackedScene" uid="uid://cpxy5tg85w03x" path="res://UI/controls_overlay.tscn" id="52_5bn3a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(7, 8)
@@ -316,8 +315,3 @@ inventory_component = NodePath("../../components/inventory")
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
 visible = false
-
-[node name="controls" type="CanvasLayer" parent="."]
-layer = 0
-
-[node name="ControlsOverlay" parent="controls" instance=ExtResource("52_5bn3a")]

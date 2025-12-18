@@ -57,7 +57,7 @@ func death() -> void:
 		var odds: int = death_drop_odds[i] if death_drop_odds.size() > i else 100
 		if randi_range(0, 100) > odds:
 			continue
-		DroppedItem2D.drop(item_id, 1, global_position)
+		DroppedItem2D.drop(item_id, 1, global_position, true, controller is PlayerController)
 	died.emit()
 	if is_instance_of(controller, EnemyController):
 		GameManager.finish_objective(3)

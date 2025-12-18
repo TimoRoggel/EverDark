@@ -24,14 +24,14 @@ func _exit() -> void:
 	pass
 
 func _on_item_dropped(item: InventoryItem) -> void:
-	DroppedItem2D.drop(item.item.id, item.quantity, global_position)
-	
+	DroppedItem2D.drop(item.item.id, item.quantity, global_position, true, true)
+
 func drop_all():
 	if not is_empty():
 		for slot in container.get_slots():
 			if slot.inventory_item && !slot.inventory_item.locked:
 				var random_vector = random_spread_pos(controller.global_position, 20)
-				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
+				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector, true, true)
 				slot.remove_amount(slot.inventory_item.quantity)
 	container.updated.emit()
 
@@ -64,7 +64,7 @@ func available_space(item_id: int) -> int:
 
 func get_held_item_id() -> int:
 	return held_item
-	
+
 func set_held_item_id(item_id: int) -> void:
 	held_item = item_id
 

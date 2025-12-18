@@ -2608,7 +2608,7 @@ capacity = 1
 min_spawn_rate = 30.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 125.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner2" type="Node2D" parent="enemies"]
@@ -2619,7 +2619,7 @@ capacity = 1
 min_spawn_rate = 25.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 130.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner3" type="Node2D" parent="enemies"]
@@ -2631,7 +2631,7 @@ amount = 2
 min_spawn_rate = 45.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 120.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner4" type="Node2D" parent="enemies"]
@@ -2642,7 +2642,7 @@ capacity = 2
 min_spawn_rate = 45.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 140.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner5" type="Node2D" parent="enemies"]
@@ -2653,7 +2653,7 @@ capacity = 1
 min_spawn_rate = 35.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 140.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner6" type="Node2D" parent="enemies"]
@@ -2665,18 +2665,18 @@ amount = 2
 min_spawn_rate = 30.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 120.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner7" type="Node2D" parent="enemies"]
 position = Vector2(-441, 187)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
-capacity = 1
+capacity = 2
 min_spawn_rate = 55.0
 randomness = 0.2
-min_radius = 160.0
-max_radius = 240.0
+min_radius = 95.0
+max_radius = 160.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="guardian" parent="enemies" instance=ExtResource("12_btahq")]

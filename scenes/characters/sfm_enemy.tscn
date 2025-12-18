@@ -352,12 +352,14 @@ metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 [node name="attack" type="Node2D" parent="."]
 script = ExtResource("12_3a43j")
 attack_id = 12
-max_power = 4.0
+min_power = 1.0
+max_power = 4.5
 damaging_flags = 1
 metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="health" type="Node2D" parent="."]
 script = ExtResource("13_w7n1s")
+max_health = 30.0
 death_sounds = Array[AudioStream]([ExtResource("14_kvest")])
 death_drops = Array[int]([1, 1, 1])
 death_drop_odds = Array[int]([50, 25, 10])

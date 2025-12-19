@@ -31,7 +31,11 @@ var enemies_just_reset : bool = false
 
 var dead = false
 
+var entity_health := 0.0
+var entity_speed := 0.0
+
 func _ready() -> void:
+	set_entity_properties()
 	if Engine.is_editor_hint():
 		return
 	spawn_timer = Timer.new()
@@ -87,6 +91,7 @@ func spawn_entity() -> void:
 	create_entity(spawn_position)
 
 func create_entity(spawn_position: Vector2, health: float = 0.0) -> void:
+	set_entity_properties()
 	var spawned_entity: Node2D = entity.scene.instantiate()
 	spawned_entity.global_position = spawn_position
 	get_tree().current_scene.add_child(spawned_entity)
@@ -94,7 +99,9 @@ func create_entity(spawn_position: Vector2, health: float = 0.0) -> void:
 	spawned_entities.append(spawned_entity)
 	await get_tree().create_timer(0.2).timeout
 	if health > 0.0:
-		spawned_entity.health.current_health = health
+		spawned_entity.health.current_health = entity_health
+	if spawned_entity.movement:
+		spawned_entity.movement.sprint_speed = entity_speed
 	await get_tree().create_timer(120.0, false).timeout
 	if !spawned_entity:
 		return
@@ -155,3 +162,10 @@ func set_entity_data(data: Dictionary) -> void:
 	for d: Dictionary in data["entities"]:
 		create_entity(d["position"], d["health"])
 	spawn_timer.start(data["time"])
+
+func set_entity_properties():
+	var properties = GameSettings.difficulty_settings[GameSettings.current_difficulty]
+	entity_health = properties.enemy_health
+	entity_speed = properties.sprint_speed
+	min_radius = properties.min_radius
+	max_radius = properties.max_radius

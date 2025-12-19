@@ -13,5 +13,3 @@ func _ready() -> void:
 
 func _on_difficulty_selected(index: int):
 	GameSettings.current_difficulty = index
-	print("Difficulty set to:", GameSettings.current_difficulty)
-	print("Settings:", GameSettings.difficulty_settings[GameSettings.current_difficulty])

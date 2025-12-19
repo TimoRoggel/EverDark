@@ -34,6 +34,8 @@ var dead = false
 var entity_health := 0.0
 var entity_speed := 0.0
 
+var previous_difficulty := -1
+
 func _ready() -> void:
 	set_entity_properties()
 	if Engine.is_editor_hint():
@@ -72,6 +74,11 @@ func _physics_process(_delta: float) -> void:
 					enemies_just_reset = true
 					await get_tree().create_timer(1.0).timeout
 					enemies_just_reset = false
+					
+func _process(delta: float) -> void:
+	if previous_difficulty != GameSettings.current_difficulty:
+		reset_entities()
+		previous_difficulty = GameSettings.current_difficulty
 
 func spawn_entity() -> void:
 	if get_tree().paused:
@@ -98,8 +105,7 @@ func create_entity(spawn_position: Vector2, health: float = 0.0) -> void:
 	spawned_entity.tree_exiting.connect(func() -> void: spawned_entities.erase(spawned_entity))
 	spawned_entities.append(spawned_entity)
 	await get_tree().create_timer(0.2).timeout
-	if health > 0.0:
-		spawned_entity.health.current_health = entity_health
+	spawned_entity.health.current_health = entity_health
 	if spawned_entity.movement:
 		spawned_entity.movement.sprint_speed = entity_speed
 	await get_tree().create_timer(120.0, false).timeout
@@ -169,3 +175,9 @@ func set_entity_properties():
 	entity_speed = properties.sprint_speed
 	min_radius = properties.min_radius
 	max_radius = properties.max_radius
+
+func reset_entities():
+	if !spawned_entities.is_empty():
+		for entity in spawned_entities:
+			entity.health.current_health = entity_health
+			entity.movement.sprint_speed = entity_speed

@@ -14,16 +14,21 @@ func _ready() -> void:
 	hide()
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_notes"):
+		visible = !visible
 	if !visible:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		hide()
 
 func _on_visibility_changed() -> void:
+	get_tree().paused = !get_tree().paused
 	if !visible:
 		return
 	notes_list.clear()
 	notes = LoreSystem.get_unlocked_notes()
+	if notes.is_empty():
+		return
 	for note: Note in notes:
 		notes_list.add_item(note.display_name)
 	notes_list.select(0)

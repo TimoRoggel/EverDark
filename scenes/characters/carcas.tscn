@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3uq6e0ebj040"]
+[gd_scene load_steps=21 format=3 uid="uid://c3uq6e0ebj040"]
 
 [ext_resource type="Script" uid="uid://c0n6qqwj4c4lm" path="res://scripts/characters/character_controller.gd" id="1_6vuch"]
 [ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_167py"]
@@ -12,6 +12,61 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhl18"]
 size = Vector2(1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_167py"]
+atlas = ExtResource("8_167py")
+region = Rect2(17, 40, 2, 2)
+
+[sub_resource type="Curve" id="Curve_vc1qw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.397351, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_x137r"]
+width = 32
+curve = SubResource("Curve_vc1qw")
+
+[sub_resource type="Gradient" id="Gradient_m3adp"]
+colors = PackedColorArray(0.3981701, 0.3981701, 0.3981701, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dsqkk"]
+gradient = SubResource("Gradient_m3adp")
+width = 32
+
+[sub_resource type="Gradient" id="Gradient_3q0ru"]
+colors = PackedColorArray(1, 1, 1, 1, 0.6493505, 0.6493505, 0.6493505, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vjnd5"]
+gradient = SubResource("Gradient_3q0ru")
+width = 32
+
+[sub_resource type="Curve" id="Curve_n34bn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16225165, 1), 0.0, 0.0, 0, 0, Vector2(0.80794704, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ubb8h"]
+width = 32
+curve = SubResource("Curve_n34bn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xnqs5"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -4, 0)
+emission_shape = 3
+emission_box_extents = Vector3(2, 4, 1)
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 0.1
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 80.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.79999995
+scale_curve = SubResource("CurveTexture_ubb8h")
+color_ramp = SubResource("GradientTexture1D_vjnd5")
+color_initial_ramp = SubResource("GradientTexture1D_dsqkk")
+alpha_curve = SubResource("CurveTexture_x137r")
+hue_variation_min = -0.010000022
+hue_variation_max = 0.009999977
 
 [node name="carcas" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 z_as_relative = false
@@ -29,11 +84,12 @@ disabled = true
 
 [node name="components" type="Node2D" parent="."]
 
-[node name="health_component" type="Node2D" parent="components"]
+[node name="health_component" type="Node2D" parent="components" node_paths=PackedStringArray("hit_particles")]
 script = ExtResource("2_167py")
 death_sounds = Array[AudioStream]([ExtResource("3_bhl18")])
 death_drops = Array[int]([1, 1, 1])
 death_drop_odds = Array[int]([100, 50, 50])
+hit_particles = NodePath("../../damage_particles")
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="hitbox" type="Node2D" parent="components"]
@@ -58,3 +114,15 @@ texture = ExtResource("6_6vuch")
 script = ExtResource("7_qkm1l")
 textures = Array[Texture2D]([ExtResource("6_6vuch"), ExtResource("8_167py")])
 metadata/_custom_type_script = "uid://m6vcvhqhntsq"
+
+[node name="damage_particles" type="GPUParticles2D" parent="."]
+z_index = 100
+z_as_relative = false
+emitting = false
+amount = 6
+texture = SubResource("AtlasTexture_167py")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xnqs5")

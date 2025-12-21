@@ -53,6 +53,8 @@ func _update(_delta: float) -> void:
 	if Input.is_action_just_released("dash"):
 		walk.emit()
 	movement = Input.get_vector("left", "right", "up", "down")
+	if movement.length() > 0.0:
+		GameManager.finish_objective(7)
 	attacking = Input.is_action_pressed("attack") && !GameManager.is_ui_open()
 	blocking = Input.is_action_pressed("block") && !GameManager.is_ui_open()
 	#dashing = Input.is_action_pressed("dash")

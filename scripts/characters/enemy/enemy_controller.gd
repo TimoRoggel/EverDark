@@ -3,12 +3,8 @@ class_name EnemyController extends CharacterController
 @export var charge_time: float = 0.25
 @export var min_distance_to_target: float = 8.0
 @export var attack_distance: float = 48.0
+@export var max_wander_distance: float = 48.0
 @export var predictive_attacking: bool = false
-@export var stuck_velocity_threshold: float = 5.0
-@export var stuck_time_before_unstuck: float = 0.5
-#radius where enemies will maximum go to, after they walk back to their spawn location
-@export var max_wander_distance: float = 200.0
-@export var return_speed: float = 120.0
 
 var target: TargetComponent = null
 var attack: SpawnAttackComponent = null
@@ -17,9 +13,8 @@ var health: HealthComponent = null
 var animation: AnimationComponent = null
 
 var charging: bool = false
-var stuck_time: float = 0.0
-var spawn_origin: Vector2 = Vector2.ZERO
 var returning_home: bool = false
+var spawn_origin: Vector2 = Vector2.ZERO
 
 func _init() -> void:
 	flags = CharacterFlags.Enemy
@@ -60,8 +55,6 @@ func _custom_process(delta: float) -> void:
 	var current_target: CharacterController = get_target()
 	var angle_to_target: float = 0.0
 	var distance: float = INF
-	var vel: Vector2 = get_real_velocity()
-
 	if current_target:
 		var intercept_angle: float = prediction_angle()
 		if intercept_angle != 0.0 and predictive_attacking:
@@ -72,7 +65,7 @@ func _custom_process(delta: float) -> void:
 
 		if !charging:
 			attack.attack_angle = angle_to_target
-			movement.desired_movement = Vector2.from_angle(angle_to_target)
+			movement.desired_movement = target.get_target_direction()
 		else:
 			movement.desired_movement = Vector2.ZERO
 
@@ -86,28 +79,14 @@ func _custom_process(delta: float) -> void:
 			movement.desired_movement = Vector2.ZERO
 			if distance <= min_distance_to_target * 0.5:
 				movement.desired_movement = -Vector2.from_angle(angle_to_target)
-
-		if movement.desired_movement.length() > 0.1 and distance > min_distance_to_target:
-			if vel.length() < stuck_velocity_threshold:
-				stuck_time += delta
-			else:
-				stuck_time = 0.0
-			if stuck_time >= stuck_time_before_unstuck:
-				var dir2: Vector2 = Vector2.from_angle(angle_to_target)
-				var side: float = (1.0 if randf() > 0.5 else -1.0)
-				movement.desired_movement = dir2.rotated(side * PI * 0.5)
-				stuck_time = 0.0
-		else:
-			stuck_time = 0.0
 	else:
 		movement.desired_movement = Vector2.ZERO
-		stuck_time = 0.0
-
 	if animation:
 		animation.direction = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
 		animation.should_flip = animation.direction.x < 0.0
 		animation.attacking = charging
-
+		if animation.animated_sprite.animation.begins_with(animation.ANIMS[2]):
+			movement.desired_movement = Vector2.ZERO
 	super(delta)
 
 func get_target() -> CharacterController:

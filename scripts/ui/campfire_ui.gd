@@ -37,8 +37,11 @@ func _ready() -> void:
 		items.set_item_metadata(items.item_count - 1, r)
 		items.set_item_tooltip(items.item_count - 1, r.rewards[0].display_name + "\n" + r.rewards[0].description)
 	fuel_slot.filters = 1
-	items.select(0)
-	select(0)
+	
+	if items.item_count > 0:
+		items.select(0)
+		select(0)
+		
 	leave_area_check.body_exited.connect(func(body: Node) -> void:
 		if body != GameManager.player:
 			return
@@ -49,8 +52,44 @@ func _ready() -> void:
 	fuel_amount.text = str(String.num(fuel_progress.value, 0), "%")
 	interactable.input_event.connect(_on_input_event)
 
+func _input(event: InputEvent) -> void:
+	if !get_parent().visible:
+		return
+	
+	if items.item_count == 0:
+		return
+
+	if event.is_action_pressed("down"):
+		var next_index = selected + 1
+		if next_index >= items.item_count:
+			next_index = 0
+		
+		items.select(next_index)
+		items.ensure_current_is_visible()
+		select(next_index)
+		get_viewport().set_input_as_handled()
+		
+	elif event.is_action_pressed("up"):
+		var next_index = selected - 1
+		if next_index < 0:
+			next_index = items.item_count - 1
+			
+		items.select(next_index)
+		items.ensure_current_is_visible()
+		select(next_index)
+		get_viewport().set_input_as_handled()
+
+	elif event.is_action_pressed("ui_accept") or (event is InputEventKey and event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_SPACE)):
+		_on_craft_button_pressed()
+		get_viewport().set_input_as_handled()
+
 func _on_input_event(_viewport: Node, event: InputEvent, _idx: int) -> void:
 	if event.is_action_pressed("pickup"):
+		interactable.active = false
+		var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+		tween.tween_property(interactable, "scale", Vector2.ONE * 0.1, 0.2)
+		tween.play()
+		await tween.finished
 		var remainder: int = GameManager.player.inventory.add(26)
 		if remainder > 0:
 			DroppedItem2D.drop(26, 1, interactable.global_position)

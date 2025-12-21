@@ -1,7 +1,7 @@
 "id","name","icon","stack_size","description","weapon_id","absorbtion","fuel_cost","fuel_strength","glows"
 "0","Lumin","uid://dohxaqpdlgg4q","99","You can use Lumin in crafting.","-1","0","0","1","TRUE"
 "1","VOID Core","uid://cqjwqvliyrbnj","99","You can use VOID Core in crafting.","-1","0","0","10","FALSE"
-"2","Potion","uid://dnuwufcil11o0","99","Use a Potion to heal.","-1","5","0","0","FALSE"
+"2","Potion","uid://dnuwufcil11o0","99","Use a Potion to heal.","-1","8","0","0","FALSE"
 "3","Crafting Table","uid://c3jgcwc5lwenq","1","Use a Crafting Table to craft items.","-1","0","0","25","FALSE"
 "4","Chest","uid://dh0rj8oyd78hu","1","Use a Chest to store items.","-1","0","0","25","FALSE"
 "5","Wood","uid://bsrq010lr57bc","99","You can use Wood in crafting.","-1","0","0","15","FALSE"

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://70dkdtrfhojs"]
+
+[ext_resource type="Script" uid="uid://do1mq1b78epne" path="res://UI/Settings/difficulty_settngs.gd" id="1_gxw13"]
+
+[node name="DifficultySettngs" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gxw13")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Difficulty"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+layout_mode = 2

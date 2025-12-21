@@ -11,6 +11,8 @@ const INTERACT_SPRITE_OFFSET: Vector2 = Vector2(0.0, -12.0)
 		queue_redraw()
 @export var interact_texture: Texture2D = null
 
+@export var auto_pickup_wait_time : float = .5
+
 var area: Area2D = Area2D.new()
 var shape: CollisionShape2D = CollisionShape2D.new()
 var inventory: InventoryComponent = null
@@ -59,6 +61,10 @@ func _update(_delta: float) -> void:
 	if closest_interactable == interactables[0]:
 		return
 	closest_interactable = interactables[0]
+	await get_tree().create_timer(auto_pickup_wait_time).timeout
+	if closest_interactable is DroppedItem2D:
+		if !inventory.is_full():
+			_on_interact()
 
 func _on_interact() -> void:
 	if !closest_interactable:

@@ -118,6 +118,7 @@ func _on_visibility_changed() -> void:
 		
 		if not all_recipe_items.is_empty():
 			all_recipe_items[0].select(0)
+		craft_button.visible = false
 
 func build_recipe_tree() -> void:
 	tree.clear()
@@ -194,6 +195,7 @@ func _on_tree_cell_selected() -> void:
 func build_recipe_material_window(selected_recipe: Recipe) -> void:
 	current_recipe = selected_recipe
 	clean_material_window()
+	craft_button.visible = can_craft(selected_recipe)
 	
 	if selected_recipe.rewards.size() > 0:
 		title_label.text = selected_recipe.rewards[0].display_name
@@ -261,6 +263,7 @@ func _on_CraftButton_pressed() -> void:
 
 	build_recipe_material_window(current_recipe)
 	build_recipe_tree()
+	craft_button.visible = can_craft(current_recipe)
 
 func _show_warning(text: String) -> void:
 	if warning_label:

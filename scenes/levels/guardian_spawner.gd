@@ -61,3 +61,10 @@ func spawn_entity() -> void:
 		if attack_comp:
 			attack_comp.min_power = boss_min_power
 			attack_comp.max_power = boss_max_power
+			
+func despawn_guardian() -> void:
+	for enemy in spawned_entities:
+		if enemy is EnemyController:
+			enemy.queue_free()
+	await get_tree().create_timer(entitiy_spawn_wait_time).timeout
+	spawn_entity()

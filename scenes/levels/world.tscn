@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
 [ext_resource type="PackedScene" uid="uid://cgmgqctfbwgu3" path="res://scenes/characters/test_enemy.tscn" id="12_btahq"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
-[ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="Script" uid="uid://k2h8hdh738wa" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="AudioStream" uid="uid://dyklopfm0j5up" path="res://audio/ambience/forest_ambience_0.wav" id="14_8c33x"]
 [ext_resource type="TileSet" uid="uid://cyqg6ktxfoknu" path="res://resources/tile_set.tres" id="14_q418o"]
 
@@ -2605,11 +2605,10 @@ position = Vector2(-405, -208)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 1
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+min_spawn_rate = 30.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 125.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner2" type="Node2D" parent="enemies"]
@@ -2618,35 +2617,32 @@ script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 1
 min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 130.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner3" type="Node2D" parent="enemies"]
-position = Vector2(200, -408)
+position = Vector2(196, -410)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
-capacity = 10
-amount = 10
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+capacity = 3
+amount = 2
+min_spawn_rate = 45.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 120.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner4" type="Node2D" parent="enemies"]
-position = Vector2(0, 361)
+position = Vector2(-117, 426)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
-amount = 4
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+capacity = 2
+min_spawn_rate = 45.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 140.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner5" type="Node2D" parent="enemies"]
@@ -2654,11 +2650,10 @@ position = Vector2(541, 57)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 1
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+min_spawn_rate = 35.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 140.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner6" type="Node2D" parent="enemies"]
@@ -2667,23 +2662,21 @@ script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 2
 amount = 2
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+min_spawn_rate = 30.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 120.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner7" type="Node2D" parent="enemies"]
-position = Vector2(10, 7)
+position = Vector2(-441, 187)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
-capacity = 1
-min_spawn_rate = 25.0
-initial_spawn_rate = 10.0
+capacity = 2
+min_spawn_rate = 55.0
 randomness = 0.2
-min_radius = 160.0
-max_radius = 240.0
+min_radius = 95.0
+max_radius = 160.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="guardian" parent="enemies" instance=ExtResource("12_btahq")]
@@ -2691,7 +2684,7 @@ position = Vector2(448, -575)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 visible = false
-position = Vector2(-959, -141)
+position = Vector2(-712, -293)
 
 [node name="note_0" type="Area2D" parent="."]
 visible = false

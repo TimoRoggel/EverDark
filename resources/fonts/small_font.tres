@@ -1,0 +1,5 @@
+[gd_resource type="SystemFont" format=3 uid="uid://dtov1tkoajpah"]
+
+[resource]
+subpixel_positioning = 0
+keep_rounding_remainders = false

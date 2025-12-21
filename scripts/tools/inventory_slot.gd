@@ -1,8 +1,6 @@
 @tool
 class_name InventorySlot extends PanelContainer
 
-const ITEM_GLOW: ShaderMaterial = preload("uid://cxwuww81e8unb")
-
 @export var inventory_item: InventoryItem = null:
 	set(value):
 		if value:
@@ -25,32 +23,36 @@ signal pressed(item: InventoryItem)
 signal item_dropped(item: InventoryItem)
 signal item_changed
 
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAG_END:
 		if !dragging_item:
 			return
 		if !is_drag_successful():
-			item_dropped.emit(dragging_item)
+			if dragging_item.locked:
+				_restore_dragged_item(dragging_item)
+			else:
+				item_dropped.emit(dragging_item)
 		dragging_item = null
 
 func _init() -> void:
+	var vbox: VBoxContainer = VBoxContainer.new()
+	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(vbox)
 	icon = TextureRect.new()
 	icon.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(icon)
+	vbox.add_child(icon)
 	label = Label.new()
 	label.text = ""
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-	label.size_flags_vertical = Control.SIZE_SHRINK_END
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.label_settings = LabelSettings.new()
-	label.label_settings.outline_color = Color.BLACK
-	label.label_settings.outline_size = 8
-	add_child(label)
+	vbox.add_child(label)
 	mouse_entered.connect(func() -> void: hovered = true)
 	mouse_exited.connect(func() -> void: hovered = false)
 
@@ -58,15 +60,19 @@ func _ready() -> void:
 	_setup_item()
 	custom_minimum_size = Vector2i.ONE * 48
 
-func _unhandled_input(event: InputEvent) -> void:
-	if !hovered:
-		return
+func _gui_input(event: InputEvent) -> void:
 	if !is_instance_of(event, InputEventMouseButton):
 		return
 	if !event.pressed:
 		return
+
 	match event.button_index:
 		MouseButton.MOUSE_BUTTON_LEFT:
+			if inventory_item && event.alt_pressed:
+				inventory_item.locked = !inventory_item.locked
+				_setup_item()
+				accept_event()
+				return
 			pressed.emit(inventory_item)
 		MouseButton.MOUSE_BUTTON_WHEEL_UP:
 			if dragging_item && inventory_item:
@@ -89,6 +95,8 @@ func _get_drag_data(_pos: Vector2) -> Variant:
 	if input_only:
 		return {}
 	if !inventory_item:
+		return {}
+	if inventory_item.locked:
 		return {}
 	dragging_item = inventory_item.duplicate()
 	if Input.is_key_pressed(KEY_SHIFT):
@@ -114,7 +122,10 @@ func _update_drag_preview() -> void:
 	drag_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	drag_icon.size = Vector2i.ONE * 32
 	var drag_label: Label = Label.new()
-	drag_label.text = str(dragging_item.quantity, "x")
+	if dragging_item.item.stack_size == 1:
+		drag_label.text = ""
+	else:
+		drag_label.text = str(dragging_item.quantity, "x")
 	drag_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	drag_label.position += Vector2(8.0, 32.0)
 	drag_icon.add_child(drag_label)
@@ -147,7 +158,7 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 	elif inventory_item.item == i_item.item:
 		var result: Dictionary[String, int] = merge(i_item)
 		if result["remainder"] > 0:
-			i_slot.inventory_item = InventoryItem.new(i_item.item, result["remainder"])
+			i_slot.inventory_item = InventoryItem.new(i_item.item, result["remainder"], i_item.locked)
 			i_slot._setup_item()
 	else:
 		i_slot.inventory_item = inventory_item
@@ -158,34 +169,22 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 func _is_valid_item(item: Item) -> bool:
 	return item.flags & filters == filters
 
-func _make_custom_tooltip(_for_text: String) -> Object:
-	if !inventory_item:
-		return null
-	var vbox: VBoxContainer = VBoxContainer.new()
-	var title_label: Label = Label.new()
-	title_label.text = inventory_item.item.display_name
-	title_label.label_settings = LabelSettings.new()
-	title_label.label_settings.font_size = 24
-	vbox.add_child(title_label)
-	if !inventory_item.item.description.is_empty():
-		vbox.custom_minimum_size.x = 256.0
-		var desc_label: Label = Label.new()
-		desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		desc_label.set_text.call_deferred(inventory_item.item.description)
-		desc_label.modulate.a = 0.75
-		vbox.add_child(desc_label)
-	return vbox
-
 func _setup_item() -> void:
-	icon.material = null
 	if inventory_item:
 		icon.texture = inventory_item.item.icon
-		label.text = str(inventory_item.quantity, "x")
+		if inventory_item.item.stack_size == 1:
+			label.text = ""
+		else:
+			label.text = str(inventory_item.quantity, "x")
 		if inventory_item.item.glows:
 			icon.material = ITEM_GLOW
+		if inventory_item.locked:
+			label.text = str("🔒 ", inventory_item.quantity, "x")
+		tooltip_text = inventory_item.item.display_name
 	else:
 		icon.texture = null
 		label.text = ""
+		tooltip_text = ""
 
 func _update_item() -> void:
 	_setup_item()
@@ -223,7 +222,7 @@ func merge(other: InventoryItem, custom_amount: int = -1) -> Dictionary[String, 
 			if custom_amount < 0:
 				custom_amount = other.quantity
 			remainder = max(0, custom_amount - other.item.stack_size)
-			inventory_item = InventoryItem.new(other.item, custom_amount - remainder)
+			inventory_item = InventoryItem.new(other.item, custom_amount - remainder, other.locked)
 		else:
 			if other.item != inventory_item.item:
 				status = FAILED
@@ -236,10 +235,13 @@ func merge(other: InventoryItem, custom_amount: int = -1) -> Dictionary[String, 
 					inventory_item.quantity = max_stack
 				else:
 					inventory_item.quantity += custom_amount
+				inventory_item.locked = inventory_item.locked or other.locked
 	return { "status": status, "remainder": remainder }
 
 func drop_item_manually(drop_all: bool = false) -> void:
 	if !inventory_item:
+		return
+	if inventory_item.locked:
 		return
 	var amount_to_drop: int = 1
 	if drop_all:
@@ -247,5 +249,21 @@ func drop_item_manually(drop_all: bool = false) -> void:
 	var dropped_item_data = inventory_item.duplicate()
 	dropped_item_data.quantity = amount_to_drop
 	remove_amount(amount_to_drop)
-	_setup_item() 
+	_setup_item()
 	item_dropped.emit(dropped_item_data)
+
+func _restore_dragged_item(item: InventoryItem) -> void:
+	if !inventory_item:
+		inventory_item = item
+		_setup_item()
+		item_changed.emit()
+		return
+	if inventory_item.item == item.item:
+		inventory_item.quantity += item.quantity
+		inventory_item.locked = inventory_item.locked or item.locked
+		_setup_item()
+		item_changed.emit()
+		return
+	inventory_item = item
+	_setup_item()
+	item_changed.emit()

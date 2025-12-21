@@ -2,6 +2,7 @@ class_name BuildComponent extends Component
 
 const MIN_DISTANCE: float = 40.0
 const PREVIEW_OFFSET: Vector2 = Vector2(0.0, -8.0)
+const LUMIN_PARTICLES: PackedScene = preload("uid://hr08sa6g5b4v")
 
 @export var hotbar_container : HBoxContainer
 
@@ -24,6 +25,11 @@ static func place_item(item: int, pos: Vector2) -> void:
 	Engine.get_main_loop().current_scene.add_child.call_deferred(scene)
 	scene.global_position = pos
 	WorldStateSaver.placed_items[scene.name] = [item, pos]
+	scene.scale = Vector2.ONE * 0.1
+	var tween: Tween = scene.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property(scene, "scale", Vector2.ONE, 0.5)
+	tween.play()
+	await tween.finished
 
 func _enter() -> void:
 	input = controller.get_component(InputComponent)
@@ -90,6 +96,10 @@ func use_lumin(at: Vector2, held_slot_item: int, size: float) -> void:
 	for coords: Vector2 in current_lumin_positions:
 		if coords.distance_squared_to(at) < MIN_DISTANCE:
 			return
+	var particles: GPUParticles2D = LUMIN_PARTICLES.instantiate()
+	particles.global_position = at
+	get_tree().current_scene.add_child(particles)
+	particles.emitting = true
 	GameManager.finish_objective(5)
 	lumin_player.global_position = at
 	lumin_player.play_randomized()
@@ -98,6 +108,9 @@ func use_lumin(at: Vector2, held_slot_item: int, size: float) -> void:
 	grow_lumin(Generator.lumin_sizes.size() - 1, size)
 	current_lumin_positions.append(at)
 	inventory.remove(held_slot_item)
+	await particles.finished
+	if particles:
+		particles.queue_free()
 
 func grow_lumin(index: int, target_size: float) -> void:
 	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SPRING)

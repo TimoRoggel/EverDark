@@ -5,6 +5,7 @@ class_name MoveComponent extends Component
 @export var accelleration: float = 4.0
 @export var decelleration: float = 8.0
 @export var knockback_resistance: float = 1.0
+@export var step_particles: CPUParticles2D = null
 @export_group("Sounds")
 @export var step_sounds: Array[AudioStream] = []
 @export var step_cooldown: float = 0.1
@@ -69,14 +70,17 @@ func add_force(direction: Vector2) -> void:
 func step(delta: float) -> void:
 	if !step_player:
 		return
-	if step_player.playing:
-		return
 	if controller.velocity.length() <= 4.0:
 		return
 	if step_timestamp <= step_cooldown:
 		step_timestamp += delta
+		if sprinting:
+			step_timestamp += delta
 		return
 	step_player.play_randomized()
+	if step_particles:
+		step_particles.restart()
+		step_particles.emitting = true
 	step_timestamp = 0.0
 	
 func sprint():
@@ -109,8 +113,9 @@ func cooldown():
 	is_in_cooldown = false
 	
 func stop_sprint_timer():
-	sprint_timer.stop()
-	sprint_timer.queue_free()
+	if sprint_timer:
+		sprint_timer.stop()
+		sprint_timer.queue_free()
 
 func _exit() -> void:
 	pass

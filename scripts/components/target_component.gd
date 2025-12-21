@@ -16,6 +16,8 @@ var valid_targets: Array[CharacterController] = []
 
 var area: Area2D = null
 var shape: CollisionShape2D = null
+var agent: NavigationAgent2D = NavigationAgent2D.new()
+var obstacle: NavigationObstacle2D = NavigationObstacle2D.new()
 
 signal target_changed
 
@@ -28,6 +30,8 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, Color(0.305, 0.87, 0.646, 0.502))
 
 func _enter() -> void:
+	if Engine.is_editor_hint():
+		return
 	area = Area2D.new()
 	add_child(area)
 	area.body_entered.connect(on_body_entered)
@@ -36,12 +40,26 @@ func _enter() -> void:
 	shape.shape = CircleShape2D.new()
 	shape.shape.radius = radius
 	area.add_child(shape)
+	agent.avoidance_enabled = true
+	agent.neighbor_distance = 120.0
+	agent.radius = 16.0
+	agent.max_neighbors = 5
+	add_child(agent)
+	obstacle.radius = 12.0
+	add_child(obstacle)
 
 func _update(_delta: float) -> void:
-	pass
+	if !target:
+		return
+	agent.target_position = target.global_position
 
 func _exit() -> void:
 	pass
+
+func get_target_direction() -> Vector2:
+	if agent.is_target_reached():
+		return Vector2.ZERO
+	return global_position.direction_to(agent.get_next_path_position())
 
 func on_body_entered(body: Node) -> void:
 	if body == controller:

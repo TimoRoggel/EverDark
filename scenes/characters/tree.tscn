@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ben57b4iih2at"]
+[gd_scene load_steps=24 format=3 uid="uid://ben57b4iih2at"]
 
 [ext_resource type="Script" uid="uid://cnjj587sudseu" path="res://scripts/characters/tree_controller.gd" id="1_i8pcy"]
 [ext_resource type="Script" uid="uid://cdmb82h3irdnt" path="res://scripts/components/health_component.gd" id="2_l03xu"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://c3ccrxbg71f86" path="res://graphics/harvestables/64x64_tree_5_cut.png" id="15_1pumn"]
 [ext_resource type="Texture2D" uid="uid://dy2aib1s3yjxm" path="res://graphics/harvestables/64x64_tree_6_cut.png" id="16_jiam6"]
 [ext_resource type="Texture2D" uid="uid://dt5x6gtwh7b20" path="res://graphics/harvestables/64x64_tree_7_cut.png" id="17_gae32"]
+[ext_resource type="PackedScene" uid="uid://brxm7rsbv1b8w" path="res://scenes/effects/particles/harvest_shrub_particles.tscn" id="22_kce03"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ar8js"]
 size = Vector2(34, 9)
@@ -44,13 +45,14 @@ shape = SubResource("RectangleShape2D_ar8js")
 
 [node name="components" type="Node2D" parent="."]
 
-[node name="health_component" type="Node2D" parent="components"]
+[node name="health_component" type="Node2D" parent="components" node_paths=PackedStringArray("hit_particles")]
 script = ExtResource("2_l03xu")
 max_health = 20.0
 death_sounds = Array[AudioStream]([ExtResource("3_i8pcy")])
 persistent = true
 death_drops = Array[int]([5, 5, 5, 5])
 death_drop_odds = Array[int]([100, 100, 50, 50])
+hit_particles = NodePath("../../harvest_shrub_particles")
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
 [node name="hitbox" type="Node2D" parent="components"]
@@ -70,3 +72,11 @@ position = Vector2(0, -5)
 texture = ExtResource("6_nu063")
 offset = Vector2(0, -24)
 region_rect = Rect2(4, 36, 59, 58)
+
+[node name="obstacle" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -14)
+radius = 24.0
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="harvest_shrub_particles" parent="." instance=ExtResource("22_kce03")]

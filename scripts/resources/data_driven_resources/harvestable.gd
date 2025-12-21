@@ -7,6 +7,7 @@ class_name Harvestable extends DataDrivenResource
 @export var reward_odds: PackedInt32Array = []
 @export var min_recover_time: int = 0
 @export var max_recover_time: int = 0
+@export var particle_scene: PackedScene = null
 
 var rewards: Array[Item] = []
 
@@ -21,6 +22,7 @@ static func from_data(data: Dictionary) -> Harvestable:
 	harvestable.reward_odds = data["reward_odds"]
 	harvestable.min_recover_time = data["min_recover_time"]
 	harvestable.max_recover_time = data["max_recover_time"]
+	harvestable.particle_scene = DataDrivenResource.get_loaded(data, "particles")
 	
 	harvestable.rewards = harvestable.get_rewards()
 	

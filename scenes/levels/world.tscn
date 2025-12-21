@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=26 format=4 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="Script" uid="uid://cgowfsimcmpcr" path="res://scripts/tools/world_state.gd" id="1_px3xn"]
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
@@ -14,11 +14,13 @@
 [ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="10_q418o"]
 [ext_resource type="Resource" uid="uid://ylhc2g4awx42" path="res://resources/entities/sfm_entity.tres" id="11_8cjxf"]
 [ext_resource type="Script" uid="uid://c75e74dnbg0do" path="res://scripts/tools/lore_note_2d.gd" id="11_de0io"]
+[ext_resource type="Resource" uid="uid://cjgxyq5fctx1b" path="res://resources/entities/tall_entity.tres" id="12_8cjxf"]
 [ext_resource type="PackedScene" uid="uid://cgmgqctfbwgu3" path="res://scenes/characters/test_enemy.tscn" id="12_btahq"]
 [ext_resource type="PackedScene" uid="uid://crldfontpnyvr" path="res://scenes/monolith.tscn" id="12_de0io"]
-[ext_resource type="Script" uid="uid://k2h8hdh738wa" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
+[ext_resource type="Script" path="res://scripts/tools/runnables/lore_note_runnable.gd" id="12_xidr1"]
 [ext_resource type="AudioStream" uid="uid://dyklopfm0j5up" path="res://audio/ambience/forest_ambience_0.wav" id="14_8c33x"]
 [ext_resource type="TileSet" uid="uid://cyqg6ktxfoknu" path="res://resources/tile_set.tres" id="14_q418o"]
+[ext_resource type="Script" uid="uid://cjxo6ci4ie85c" path="res://scripts/tools/game_map.gd" id="17_8cjxf"]
 
 [sub_resource type="Environment" id="Environment_w2p53"]
 ambient_light_source = 1
@@ -27,15 +29,15 @@ tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_btahq"]
-shader = ExtResource("10_q418o")
-shader_parameter/highlighted = false
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_px3xn"]
-shader = ExtResource("10_q418o")
-shader_parameter/highlighted = false
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8cjxf"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtmcs"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lsws"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
@@ -50,7 +52,7 @@ metadata/_custom_type_script = "uid://cgowfsimcmpcr"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_w2p53")
 
-[node name="hole" parent="." instance=ExtResource("8_dp8al")]
+[node name="hole" parent="." groups=["map_nav"] instance=ExtResource("8_dp8al")]
 position = Vector2(58.55, 33.99)
 
 [node name="world_assets" type="Node2D" parent="."]
@@ -2394,119 +2396,119 @@ metadata/_custom_type_script = "uid://dkt222qwdgnfh"
 z_as_relative = false
 y_sort_enabled = true
 
-[node name="rock1" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock1" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-236, -71)
 
-[node name="rock2" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock2" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-397, -232)
 
-[node name="rock3" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock3" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-152, -358)
 
-[node name="rock4" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock4" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(117, -508)
 
-[node name="rock5" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock5" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(486, -630)
 
-[node name="rock6" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock6" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(354, -392)
 
-[node name="rock7" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock7" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(628, -41)
 
-[node name="rock8" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock8" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(213, 154)
 
-[node name="rock9" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock9" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(431, 392)
 
-[node name="rock10" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock10" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(146, 600)
 
-[node name="rock11" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock11" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-124, 424)
 
-[node name="rock12" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock12" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-162, 340)
 
-[node name="rock13" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock13" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-216, 342)
 
-[node name="rock14" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock14" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-443, 185)
 
-[node name="rock15" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock15" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-588, 23)
 
-[node name="rock16" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock16" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-223, 100)
 
-[node name="rock17" parent="world_assets/rocks" instance=ExtResource("4_xidr1")]
+[node name="rock17" parent="world_assets/rocks" groups=["map_nav"] instance=ExtResource("4_xidr1")]
 position = Vector2(-79, 183)
 
 [node name="metal" type="Node2D" parent="world_assets"]
 z_as_relative = false
 y_sort_enabled = true
 
-[node name="metal1" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal1" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-431, -302)
 
-[node name="metal2" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal2" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-423, -348)
 
-[node name="metal3" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal3" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-496, 123)
 
-[node name="metal4" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal4" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-539, 251)
 
-[node name="metal5" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal5" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-364, 467)
 
-[node name="metal6" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal6" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-190, 528)
 
-[node name="metal7" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal7" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-163, 512)
 
-[node name="metal8" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal8" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(159, 400)
 
-[node name="metal9" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal9" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(517, 161)
 
-[node name="metal10" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal10" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(462, 189)
 
-[node name="metal11" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal11" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(526, -13)
 
-[node name="metal12" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal12" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(365, -213)
 
-[node name="metal13" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal13" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(537, -415)
 
-[node name="metal14" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal14" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(310, -592)
 
-[node name="metal15" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal15" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(177, -613)
 
-[node name="metal16" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal16" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(230, -629)
 
-[node name="metal17" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal17" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(23, -590)
 
-[node name="metal18" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal18" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-60, -602)
 
-[node name="metal19" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal19" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(4, -496)
 
-[node name="metal20" parent="world_assets/metal" instance=ExtResource("5_y40x4")]
+[node name="metal20" parent="world_assets/metal" groups=["map_nav"] instance=ExtResource("5_y40x4")]
 position = Vector2(-148, -572)
 
 [node name="carcas" type="Node2D" parent="world_assets"]
@@ -2544,58 +2546,58 @@ position = Vector2(-587, 235)
 z_as_relative = false
 y_sort_enabled = true
 
-[node name="tree1" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree1" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(268, -9)
 
-[node name="tree2" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree2" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(228, 58)
 
-[node name="tree3" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree3" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(307, 57)
 
-[node name="tree4" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree4" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(314, 308)
 
-[node name="tree5" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree5" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(502, -117)
 
-[node name="tree6" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree6" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-348, 272)
 
-[node name="tree7" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree7" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-100, 501)
 
-[node name="tree8" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree8" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(76, 555)
 
-[node name="tree9" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree9" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-64, -392)
 
-[node name="tree10" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree10" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-140, -371)
 
-[node name="tree11" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree11" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(302, -338)
 
-[node name="tree12" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
-position = Vector2(-36, -578)
+[node name="tree12" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
+position = Vector2(-36, -579)
 
-[node name="tree13" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree13" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-430, -157)
 
-[node name="tree14" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree14" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-297, 39)
 
-[node name="tree15" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree15" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(56, -138)
 
-[node name="tree16" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree16" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-189, -6)
 
-[node name="tree17" parent="world_assets/tree" instance=ExtResource("7_pj0xw")]
+[node name="tree17" parent="world_assets/tree" groups=["map_nav"] instance=ExtResource("7_pj0xw")]
 position = Vector2(-156, 301)
 
-[node name="Monolith" parent="world_assets" instance=ExtResource("12_de0io")]
+[node name="Monolith" parent="world_assets" groups=["map_nav"] instance=ExtResource("12_de0io")]
 position = Vector2(561, -663)
 
 [node name="enemies" type="Node2D" parent="."]
@@ -2605,11 +2607,10 @@ position = Vector2(-405, -208)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 1
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+min_spawn_rate = 30.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 125.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner2" type="Node2D" parent="enemies"]
@@ -2618,35 +2619,20 @@ script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 1
 min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
-metadata/_custom_type_script = "uid://chjcoikfv18ob"
-
-[node name="sfm_spawner3" type="Node2D" parent="enemies"]
-position = Vector2(200, -408)
-script = ExtResource("9_btahq")
-entity = ExtResource("11_8cjxf")
-capacity = 10
-amount = 10
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
-randomness = 0.2
-min_radius = 80.0
-max_radius = 160.0
+max_radius = 130.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner4" type="Node2D" parent="enemies"]
-position = Vector2(0, 361)
+position = Vector2(-117, 426)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
-amount = 4
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+capacity = 2
+min_spawn_rate = 45.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 140.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner5" type="Node2D" parent="enemies"]
@@ -2654,11 +2640,10 @@ position = Vector2(541, 57)
 script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 1
-min_spawn_rate = 25.0
-initial_spawn_rate = 35.0
+min_spawn_rate = 35.0
 randomness = 0.2
 min_radius = 80.0
-max_radius = 160.0
+max_radius = 140.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="sfm_spawner6" type="Node2D" parent="enemies"]
@@ -2667,23 +2652,45 @@ script = ExtResource("9_btahq")
 entity = ExtResource("11_8cjxf")
 capacity = 2
 amount = 2
-min_spawn_rate = 25.0
+min_spawn_rate = 30.0
+randomness = 0.2
+min_radius = 80.0
+max_radius = 120.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="sfm_spawner7" type="Node2D" parent="enemies"]
+position = Vector2(-441, 187)
+script = ExtResource("9_btahq")
+entity = ExtResource("11_8cjxf")
+capacity = 2
+min_spawn_rate = 55.0
+randomness = 0.2
+min_radius = 95.0
+max_radius = 160.0
+metadata/_custom_type_script = "uid://chjcoikfv18ob"
+
+[node name="tall_spawner" type="Node2D" parent="enemies"]
+position = Vector2(200, -408)
+script = ExtResource("9_btahq")
+entity = ExtResource("12_8cjxf")
+capacity = 1
 initial_spawn_rate = 35.0
+min_spawn_rate = 25.0
 randomness = 0.2
 min_radius = 80.0
 max_radius = 160.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
-[node name="sfm_spawner7" type="Node2D" parent="enemies"]
-position = Vector2(10, 7)
+[node name="tall_spawner2" type="Node2D" parent="enemies"]
+position = Vector2(-474, 245)
 script = ExtResource("9_btahq")
-entity = ExtResource("11_8cjxf")
+entity = ExtResource("12_8cjxf")
 capacity = 1
+initial_spawn_rate = 35.0
 min_spawn_rate = 25.0
-initial_spawn_rate = 10.0
 randomness = 0.2
-min_radius = 160.0
-max_radius = 240.0
+min_radius = 80.0
+max_radius = 160.0
 metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="guardian" parent="enemies" instance=ExtResource("12_btahq")]
@@ -2691,13 +2698,13 @@ position = Vector2(448, -575)
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 visible = false
-position = Vector2(-959, -141)
+position = Vector2(-712, -293)
 
 [node name="note_0" type="Area2D" parent="."]
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_btahq")
+material = SubResource("ShaderMaterial_8cjxf")
 position = Vector2(-946, -138)
 collision_layer = 4
 collision_mask = 4
@@ -2709,7 +2716,7 @@ custom_parameter = "{\"note\": 0}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_px3xn")
+material = SubResource("ShaderMaterial_jtmcs")
 position = Vector2(-908, -129)
 collision_layer = 4
 collision_mask = 4
@@ -2722,7 +2729,7 @@ custom_parameter = "{\"note\": 1}"
 visible = false
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_8cjxf")
+material = SubResource("ShaderMaterial_3lsws")
 position = Vector2(-913, -100)
 collision_layer = 4
 collision_mask = 4
@@ -2736,6 +2743,8 @@ z_index = -1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-780.5, -820.5)
+script = ExtResource("17_8cjxf")
+metadata/_custom_type_script = "uid://cjxo6ci4ie85c"
 
 [node name="map" type="TileMapLayer" parent="world"]
 z_index = -1

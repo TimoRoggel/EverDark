@@ -2,6 +2,9 @@ class_name DeathComponent extends Component
 
 @export_category("Death properties")
 @export var respawn_point := Vector2.ZERO
+@export_category("Drop properties")
+@export var inventory_drop_percentage : float = 50.0
+@export var slot_drop_percentage : float = 20.0
 
 var entity: CharacterController
 var inventory: InventoryComponent
@@ -29,7 +32,7 @@ func entity_died():
 	entity.health.reset()
 	inventory = controller.inventory
 	if inventory:
-		inventory.drop_all()
+		inventory.drop_items(inventory_drop_percentage, slot_drop_percentage)
 	if controller.hotbar:
 		controller.hotbar.update_hotbar()
 	controller.hitbox.is_active = false
@@ -37,7 +40,12 @@ func entity_died():
 	await animation.play("death")
 	entity.target_sprite.hide()
 	controller.death_view.show()
-	
+	var enemies := controller.get_node_or_null("../enemies").get_children()
+	if enemies:
+		for spawner in enemies:
+			if spawner is not EnemyController:
+				spawner.despawn_enemies()
+		
 func respawn():
 	controller.death_view.hide()
 	await get_tree().create_timer(.5).timeout

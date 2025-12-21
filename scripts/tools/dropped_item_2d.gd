@@ -8,10 +8,13 @@ const MERGE_DISTANCE: float = 16.0
 	set(value):
 		item = value
 		update_param()
+
 @export var amount: int = 1:
 	set(value):
 		amount = value
 		update_param()
+
+@export var dropped_by_player: bool = false
 
 @export var float_hieght: float = 5.0
 @export var float_speed: float = 2.0
@@ -21,19 +24,23 @@ var sprite: Sprite2D = Sprite2D.new()
 var base_y: float
 var time: float = 0.0
 
-static func drop(item_id: int, count: int, pos: Vector2, play_sound: bool = true) -> void:
+static func drop(item_id: int, count: int, pos: Vector2, play_sound: bool = true, dropped_by_player: bool = false) -> void:
 	var dropped_item: DroppedItem2D = DroppedItem2D.new()
 	dropped_item.item = DataManager.get_resource_by_id("items", item_id)
 	dropped_item.amount = count
+	dropped_item.dropped_by_player = dropped_by_player
+
 	Engine.get_main_loop().current_scene.add_child(dropped_item)
 	dropped_item.global_position = pos
+
 	if play_sound:
 		dropped_item.timeout(0.75)
 		var dropped_sound: RandomAudioStreamPlayer2D = GameManager.create_audio_player(&"SFX", [preload("uid://dwfwgrm6ia01k")], dropped_item)
 		dropped_sound.play_randomized()
 		await dropped_sound.finished
 		dropped_sound.queue_free()
-	WorldStateSaver.dropped_items[dropped_item.name] = [item_id, count, pos]
+
+	WorldStateSaver.dropped_items[dropped_item.name] = [item_id, count, pos, dropped_by_player]
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:

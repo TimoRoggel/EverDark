@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpxy5tg85w03x"]
+[gd_scene load_steps=6 format=3 uid="uid://cpxy5tg85w03x"]
 
 [ext_resource type="Script" uid="uid://c1ji8ytcp5klg" path="res://UI/controls_overlay.gd" id="1_hav85"]
-[ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="2_h8wm8"]
-
-[sub_resource type="SystemFont" id="SystemFont_2vuwk"]
-subpixel_positioning = 0
-keep_rounding_remainders = false
+[ext_resource type="Texture2D" uid="uid://mx75wp8hgl7p" path="res://UI/Medium_keybind.png" id="2_2vuwk"]
+[ext_resource type="Texture2D" uid="uid://bphtr1i1w6ii5" path="res://UI/Small_keybind.png" id="3_qhm3f"]
+[ext_resource type="Texture2D" uid="uid://jo2qnl53tt2p" path="res://UI/mouse-left-button-svgrepo-com.svg" id="4_qhm3f"]
+[ext_resource type="Texture2D" uid="uid://dnb3n3v10logc" path="res://UI/mouse-right-button-svgrepo-com.svg" id="5_adbd0"]
 
 [node name="ControlsOverlay" type="Control"]
 modulate = Color(0.8733763, 0.8680402, 0.7525956, 0.5019608)
@@ -20,47 +19,387 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_hav85")
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 444.12018
+offset_top = 48.0269
+offset_right = 633.1202
+offset_bottom = 70.0269
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer3"]
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+texture = ExtResource("2_2vuwk")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer3/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Shift"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer3"]
+layout_mode = 2
+text = "Sprint"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 444.12018
+offset_top = 154.99352
+offset_right = 633.1202
+offset_bottom = 186.99352
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer9"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer9/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer9"]
+layout_mode = 2
+text = "+"
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer9"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+texture = ExtResource("2_2vuwk")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer9/TextureRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Ctrl"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer9"]
+layout_mode = 2
+text = "Drop All"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 444.12018
+offset_top = 21.285252
+offset_right = 633.1202
+offset_bottom = 73.28525
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Move"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 444.12018
+offset_top = 21.285252
+offset_right = 633.1202
+offset_bottom = 43.28525
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+texture = ExtResource("2_2vuwk")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer2/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Esc"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "Pause/Exit"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 444.12018
+offset_top = 21.285252
+offset_right = 670.1202
+offset_bottom = 409.28525
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer8"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer8/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer8"]
+layout_mode = 2
+text = "Use/Harvest"
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -258.0
 offset_top = -144.0
-offset_right = 169.0
-offset_bottom = 144.0
-grow_vertical = 2
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.0120171, 1.0285251)
 mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 14
 
-[node name="Label" type="RichTextLabel" parent="MarginContainer"]
-visible = false
-z_index = -14
-z_as_relative = false
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/paragraph_separation = -4
-theme_override_fonts/normal_font = SubResource("SystemFont_2vuwk")
-theme_override_fonts/bold_font = ExtResource("2_h8wm8")
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 8
-bbcode_enabled = true
-text = "[b]MOVEMENT[/b]
-Move: WASD
-Sprint: L-Shift
+size_flags_vertical = 8
+theme_override_constants/separation = 24
 
-[b]INTERACTIONS[/b]
-Use/Grab: F
-Eat: Left Mouse
-Pause/Exit: Escape
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
 
-[b]COMBAT[/b]
-Attack: Left Mouse
-Block: Right Mouse
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
 
-[b]INVENTORY[/b]
-Open: E
-Drop: Q (+Ctrl for stack)
-Select Item: 1-5 / Wheel"
-scroll_active = false
-autowrap_mode = 0
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("4_qhm3f")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4/TextureRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LMB"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Attack/Eat"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+texture = ExtResource("5_adbd0")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer5/TextureRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RMB"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Block"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer6/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Drop"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer7/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+text = "Inventory"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="WASD_group" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group"]
+visible = false
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group"]
+visible = false
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group"]
+visible = false
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group"]
+visible = false
+layout_mode = 2
+
+[node name="Control5" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group"]
+visible = false
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="key_w" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/CenterContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/CenterContainer/key_w"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group"]
+layout_mode = 2
+
+[node name="key_a" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/HBoxContainer/key_a"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="key_s" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/HBoxContainer/key_s"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="key_d" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_qhm3f")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/WASD_group/HBoxContainer/key_d"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1

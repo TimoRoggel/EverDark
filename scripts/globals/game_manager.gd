@@ -1,5 +1,18 @@
 extends Node
 
+const OBJECTIVE_DESCRIPTIONS: PackedStringArray = [
+	"\"Bring back the light\" by healing the monolith",
+	"Throw a VOID Core in the hole",
+	"Gather sticks and stone",
+	"Kill a monster",
+	"Upgrade a tool",
+	"Use a torch",
+	"Cook a berry or mushroom",
+	"Use WASD to move",
+	"Use E to open your inventory",
+]
+const OBJECTIVE_ORDER: PackedInt32Array = [7,8,1,2,3,6,4,5,0]
+
 var stored_values: Dictionary[Node, Variant] = {}
 var fetched_types: Dictionary[Variant, Array] = {}
 var slowdown_timer: int = 0
@@ -9,9 +22,11 @@ var ui_opened_conditions: Dictionary[String, Callable] = {}
 var paused : bool = false
 var ui_open : bool = false
 var objectives_done: int = 0
+var current_objective: int = 0
 var is_chest_open : bool = false
 
 signal ending
+signal objective_finished
 
 func _process(_delta: float) -> void:
 	if slowdown_timer <= Time.get_ticks_msec():
@@ -114,10 +129,35 @@ func set_controls_visibility(value: bool) -> void:
 	show_controls_overlay = value
 	controls_visibility_changed.emit(show_controls_overlay)
 
+func set_objectives(val: int) -> void: 
+	objectives_done = val
+	
+	var index: int = 0
+	for i: int in OBJECTIVE_ORDER:
+		var byte: int = roundi(pow(2.0, float(i)))
+		if !(objectives_done & byte == byte):
+			current_objective = index
+			return
+		index += 1
+	current_objective = -1
+
 func finish_objective(index: int) -> void:
 	var byte: int = roundi(pow(2.0, float(index)))
 	if !(objectives_done & byte == byte):
 		objectives_done += byte
+		var current_index: int = OBJECTIVE_ORDER.find(index)
+		if current_objective == current_index:
+			objective_finished.emit()
+			if current_objective == OBJECTIVE_ORDER.size() - 1:
+				current_objective = -1
+			else:
+				current_objective += 1
+				byte = roundi(pow(2.0, float(OBJECTIVE_ORDER[current_objective])))
+				while objectives_done & byte == byte:
+					byte = roundi(pow(2.0, float(OBJECTIVE_ORDER[current_objective])))
+					current_objective += 1
+				if current_objective >= OBJECTIVE_ORDER.size():
+					current_objective = -1
 
 func end() -> void:
 	ending.emit()

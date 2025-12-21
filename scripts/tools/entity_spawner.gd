@@ -8,6 +8,7 @@ const TRIES: int = 20
 @export_range(0, 80) var amount: int = 1
 ## Beyond this distance from (0,0) the entity spawn rate is at its lowest.
 @export var max_spawn_distance: float = 6400.0
+@export var initial_spawn_rate: float = 10.0
 ## At (0,0) this is the spawn rate (spawns 1 entity per [member min_spawn_rate] seconds), at [member max_spawn_distance] this value is 0.1%.
 @export_range(0.0, 800.0, 0.01) var min_spawn_rate: float = 1.0
 ## How long until the first entity spawns when the game starts.
@@ -35,9 +36,9 @@ var entity_speed := 0.0
 var previous_difficulty := -1
 
 func _ready() -> void:
-	set_entity_properties()
 	if Engine.is_editor_hint():
 		return
+	set_entity_properties()
 	spawn_timer = Timer.new()
 	spawn_timer.one_shot = true
 	add_child(spawn_timer)
@@ -72,7 +73,9 @@ func _physics_process(_delta: float) -> void:
 					await get_tree().create_timer(1.0).timeout
 					enemies_just_reset = false
 					
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	if previous_difficulty != GameSettings.current_difficulty:
 		reset_entities()
 		previous_difficulty = GameSettings.current_difficulty
@@ -181,6 +184,6 @@ func set_entity_properties():
 
 func reset_entities():
 	if !spawned_entities.is_empty():
-		for entity in spawned_entities:
-			entity.health.current_health = entity_health
-			entity.movement.sprint_speed = entity_speed
+		for e: Node2D in spawned_entities:
+			e.health.current_health = entity_health
+			e.movement.sprint_speed = entity_speed

@@ -76,25 +76,31 @@ func _on_pickup() -> void:
 
 	if chest_inventory.visible:
 		close()
+	
+	is_interactable = false
+	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property(self, "scale", Vector2.ONE * 0.1, 0.2)
+	tween.play()
+	await tween.finished
 
 	for item in chest_inventory.get_items():
-		var leftover = player_ref_inventory.container.add(item.item.id, item.quantity)
+		var leftover = GameManager.player.inventory.container.add(item.item.id, item.quantity)
 		if leftover > 0:
-			DroppedItem2D.drop(item.item.id, leftover, player_ref.global_position)
+			DroppedItem2D.drop(item.item.id, leftover, GameManager.player.global_position)
 
 	var chest_item = DataManager.get_resource_by_id("items", chest_item_id)
-	var leftover_chest = player_ref_inventory.add(chest_item.id, 1)
-	player_ref_inventory.set_held_item_id(chest_item.id)
+	var leftover_chest = GameManager.player.inventory.add(chest_item.id, 1)
+	GameManager.player.inventory.set_held_item_id(chest_item.id)
 
 	if leftover_chest > 0:
-		DroppedItem2D.drop(chest_item_id, leftover_chest, player_ref.global_position)
+		DroppedItem2D.drop(chest_item_id, leftover_chest, GameManager.player.global_position)
 
 	for slot in chest_inventory.get_slots():
 		slot.inventory_item = null
 	
 	chest_inventory.visible = false
-	player_ref_inventory.container.visible = false
+	GameManager.player.inventory.container.visible = false
 	WorldStateSaver.placed_items.erase(name)
 
 	queue_free()
-	player_ref.get_component(BuildComponent).refresh_held_item()
+	GameManager.player.get_component(BuildComponent).refresh_held_item()

@@ -5,6 +5,8 @@ class_name HealthComponent extends Component
 @export var persistent: bool = false
 @export var death_drops: Array[int] = []
 @export var death_drop_odds: Array[int] = []
+@export var hit_particles: GPUParticles2D = null
+@export var hit_particles_environment: GPUParticles2D = null
 
 var current_health: float = max_health:
 	set(value):
@@ -51,6 +53,8 @@ func death() -> void:
 		return
 	alive = false
 	if !persistent:
+		if hit_particles:
+			hit_particles.reparent(get_tree().current_scene)
 		controller.visible = false
 	for i: int in death_drops.size():
 		var item_id: int = death_drops[i]
@@ -69,6 +73,9 @@ func death() -> void:
 	if !persistent:
 		controller.process_mode = Node.PROCESS_MODE_DISABLED
 		controller.queue_free()
+		if hit_particles && hit_particles.emitting:
+			await hit_particles.finished
+			hit_particles.queue_free()
 
 func can_get_damaged(attack: AttackController) -> bool:
 	return alive && (controller.flags & attack.damage_flags) == controller.flags
@@ -78,6 +85,9 @@ func take_damage(attack: AttackController) -> void:
 		return
 	var proj: Attack = attack.attack
 	damage_taken.emit(attack)
+	if hit_particles:
+		hit_particles.restart()
+		hit_particles.emitting = true
 	current_health -= proj.power
 	GameManager.camera_shake(screen_shake_amount * proj.power * 8.0 * proj.shake_amount, proj.shake_duration, proj.shake_addative)
 	if current_health <= 0:
@@ -99,6 +109,9 @@ func take_damage(attack: AttackController) -> void:
 func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 	damage_taken.emit(null)
 	current_health -= env.power
+	if hit_particles_environment:
+		hit_particles_environment.restart()
+		hit_particles_environment.emitting = true
 	GameManager.camera_shake(screen_shake_amount * env.power * 8.0 * env.shake_amount, env.shake_duration, env.shake_addative)
 	if current_health <= 0:
 		return
@@ -116,6 +129,9 @@ func apply_environmental_damage(env: EverdarkDamageComponent) -> void:
 func take_damage_anim() -> void:
 	controller.set_damaged(true)
 	hitbox.play_damaged()
+	if hit_particles:
+		hit_particles.restart()
+		hit_particles.emitting = true
 	await get_tree().create_timer(0.25).timeout
 	controller.set_damaged(false)
 

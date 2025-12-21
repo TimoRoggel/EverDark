@@ -12,4 +12,4 @@ func _ready() -> void:
 	option_button.item_selected.connect(_on_difficulty_selected)
 
 func _on_difficulty_selected(index: int):
-	GameSettings.current_difficulty = index
+	GameSettings.current_difficulty = index as GameSettings.Difficulty

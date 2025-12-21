@@ -404,8 +404,8 @@ offset = Vector2(-24, -8)
 
 [node name="move" type="Node2D" parent="." node_paths=PackedStringArray("step_particles")]
 script = ExtResource("8_27k00")
-step_particles = NodePath("../step_particles")
 knockback_resistance = 2.0
+step_particles = NodePath("../step_particles")
 step_sounds = Array[AudioStream]([ExtResource("9_xdvh2"), ExtResource("10_2gjli"), ExtResource("11_pe0f8")])
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 

@@ -9,11 +9,7 @@ signal updated
 func _enter() -> void:
 	for slot: InventorySlot in container.get_slots():
 		slot.item_dropped.connect(_on_item_dropped)
-	controller.get_component(InputComponent).inventory_toggled.connect(func() -> void:
-		container.visible = !container.visible
-		if controller.hotbar:
-			controller.hotbar.visible = !container.visible
-	)
+	controller.get_component(InputComponent).inventory_toggled.connect(toggle_inventory)
 	SaveSystem.track("inventory", get_inventory, set_inventory, [])
 	container.updated.connect(updated.emit)
 	SaveSystem.track("inventory", get_inventory, set_inventory.call_deferred, [[7, 1], [1, 1]])
@@ -134,6 +130,9 @@ func set_inventory(new_inventory: Array) -> void:
 			s[i] = null
 		else:
 			var item: Array = new_inventory[i]
+			if item.is_empty():
+				s[i] = null
+				continue
 			var locked_val: bool = false
 			if item.size() >= 3:
 				locked_val = bool(item[2])

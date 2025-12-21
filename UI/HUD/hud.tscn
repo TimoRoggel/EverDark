@@ -1,14 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://beguyjw3ooy0v"]
+[gd_scene load_steps=15 format=3 uid="uid://beguyjw3ooy0v"]
 
 [ext_resource type="Script" uid="uid://b0d0063dp6gts" path="res://UI/HUD/hud.gd" id="1_ing8j"]
 [ext_resource type="Script" uid="uid://cd3a88w0gqwch" path="res://UI/HUD/health_bar.gd" id="2_te8l2"]
 [ext_resource type="Texture2D" uid="uid://cu6f32nh6t6ls" path="res://graphics/160x32_healthbar_01.png" id="3_te8l2"]
 [ext_resource type="Texture2D" uid="uid://dte73mhyjrmiu" path="res://graphics/160x32_virusbar_01.png" id="4_qdh7y"]
+[ext_resource type="Texture2D" uid="uid://cutgeh5r6fune" path="res://graphics/ui_icons/hotbar_slot_normal.png" id="5_7sg86"]
 [ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="5_radol"]
 [ext_resource type="Script" uid="uid://e1vt54wi3f2r" path="res://UI/HUD/current_objective.gd" id="6_s83ig"]
-[ext_resource type="Texture2D" uid="uid://cutgeh5r6fune" path="res://graphics/ui_icons/hotbar_slot_normal.png" id="7_s83ig"]
-[ext_resource type="AudioStream" uid="uid://h0w1am78p3li" path="res://audio/sounds/objective_complete.wav" id="8_db5ks"]
 [ext_resource type="PackedScene" uid="uid://cpxy5tg85w03x" path="res://UI/controls_overlay.tscn" id="7_s83ig"]
+[ext_resource type="AudioStream" uid="uid://h0w1am78p3li" path="res://audio/sounds/objective_complete.wav" id="8_db5ks"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdh7y"]
 bg_color = Color(1, 1, 1, 1)
@@ -122,7 +122,7 @@ offset_left = 645.0
 offset_top = 9.0
 offset_right = 932.0
 offset_bottom = 49.0
-texture = ExtResource("7_s83ig")
+texture = ExtResource("5_7sg86")
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8

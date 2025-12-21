@@ -3,6 +3,7 @@ class_name EnemyController extends CharacterController
 @export var charge_time: float = 0.25
 @export var min_distance_to_target: float = 8.0
 @export var attack_distance: float = 48.0
+@export var max_wander_distance: float = 48.0
 @export var predictive_attacking: bool = false
 
 var target: TargetComponent = null
@@ -12,6 +13,8 @@ var health: HealthComponent = null
 var animation: AnimationComponent = null
 
 var charging: bool = false
+var returning_home: bool = false
+var spawn_origin: Vector2 = Vector2.ZERO
 
 func _init() -> void:
 	flags = CharacterFlags.Enemy

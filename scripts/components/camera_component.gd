@@ -39,8 +39,8 @@ func shake(amount: float, duration: float = 0.1, addative: bool = false) -> void
 		duration += current_shake.remaining_time()
 		current_shake.end()
 		current_shake = null
-	amount = min(amount, 24.0)
-	duration = min(amount, 0.15)
+	amount = min(amount, 20.0)
+	duration = min(amount, 0.08)
 	var tween: Tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE)
 	var shake_tween: CameraTween = CameraTween.new(tween, amount, duration)
 	current_shake = shake_tween

@@ -82,6 +82,7 @@ func spawn_entity() -> void:
 		await get_tree().create_timer(entity.time_to_spawn, false).timeout
 	var spawned_entity: Node2D = entity.scene.instantiate()
 	spawned_entity.global_position = spawn_position
+	spawned_entity.set("spawn_origin", spawn_position)
 	get_tree().current_scene.add_child(spawned_entity)
 	spawned_entity.tree_exiting.connect(func() -> void:
 		spawned_entities.erase(spawned_entity)

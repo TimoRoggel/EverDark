@@ -1,0 +1,117 @@
+[gd_scene load_steps=4 format=3 uid="uid://m0rp0m46f5ut"]
+
+[ext_resource type="Script" uid="uid://h66u3ihrp4ld" path="res://UI/tutorial_overlay.gd" id="1_lamng"]
+[ext_resource type="Texture2D" uid="uid://bphtr1i1w6ii5" path="res://UI/Small_keybind.png" id="2_lplcd"]
+[ext_resource type="Texture2D" uid="uid://mx75wp8hgl7p" path="res://UI/Medium_keybind.png" id="3_sg57h"]
+
+[node name="TutorialOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lamng")
+square_bg = ExtResource("2_lplcd")
+wide_bg = ExtResource("3_sg57h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 12
+
+[node name="WASD_group" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/WASD_group"]
+layout_mode = 2
+
+[node name="key_w" type="TextureRect" parent="HBoxContainer/WASD_group/CenterContainer"]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+texture = ExtResource("2_lplcd")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/WASD_group/CenterContainer/key_w"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/WASD_group"]
+layout_mode = 2
+
+[node name="key_a" type="TextureRect" parent="HBoxContainer/WASD_group/HBoxContainer"]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+texture = ExtResource("2_lplcd")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/WASD_group/HBoxContainer/key_a"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="key_s" type="TextureRect" parent="HBoxContainer/WASD_group/HBoxContainer"]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+texture = ExtResource("2_lplcd")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/WASD_group/HBoxContainer/key_s"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="key_d" type="TextureRect" parent="HBoxContainer/WASD_group/HBoxContainer"]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+texture = ExtResource("2_lplcd")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/WASD_group/HBoxContainer/key_d"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="keyicon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+expand_mode = 1
+
+[node name="keylbl" type="Label" parent="HBoxContainer/keyicon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="actionlbl" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "111"

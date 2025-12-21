@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://beguyjw3ooy0v"]
+[gd_scene load_steps=14 format=3 uid="uid://beguyjw3ooy0v"]
 
 [ext_resource type="Script" uid="uid://b0d0063dp6gts" path="res://UI/HUD/hud.gd" id="1_ing8j"]
 [ext_resource type="Script" uid="uid://cd3a88w0gqwch" path="res://UI/HUD/health_bar.gd" id="2_te8l2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dte73mhyjrmiu" path="res://graphics/160x32_virusbar_01.png" id="4_qdh7y"]
 [ext_resource type="Script" uid="uid://cad38seickdtu" path="res://UI/HUD/objectives.gd" id="5_dhie7"]
 [ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="5_radol"]
+[ext_resource type="PackedScene" uid="uid://cpxy5tg85w03x" path="res://UI/controls_overlay.tscn" id="7_s83ig"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdh7y"]
 bg_color = Color(1, 1, 1, 1)
@@ -213,4 +214,13 @@ custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Cook a berry or mushroom"
 label_settings = SubResource("LabelSettings_s83ig")
+horizontal_alignment = 2
 autowrap_mode = 3
+
+[node name="ControlsOverlay" parent="." instance=ExtResource("7_s83ig")]
+layout_mode = 1
+offset_left = 241.0
+offset_top = 156.00002
+offset_right = 241.0
+offset_bottom = 156.0
+scale = Vector2(0.75, 0.542)

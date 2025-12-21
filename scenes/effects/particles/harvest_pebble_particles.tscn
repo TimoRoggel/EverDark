@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://cs8cbecy83533"]
+
+[ext_resource type="Texture2D" uid="uid://e1qnrldsm560" path="res://map/Art Assets/Map Objects (colision)/Rocks/16x16_rocks_02.png" id="1_aypja"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pe54"]
+atlas = ExtResource("1_aypja")
+region = Rect2(2, 10, 3, 3)
+
+[sub_resource type="Curve" id="Curve_vc1qw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.397351, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_x137r"]
+width = 32
+curve = SubResource("Curve_vc1qw")
+
+[sub_resource type="Gradient" id="Gradient_m3adp"]
+colors = PackedColorArray(0.3981701, 0.3981701, 0.3981701, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dsqkk"]
+gradient = SubResource("Gradient_m3adp")
+width = 32
+
+[sub_resource type="Gradient" id="Gradient_3q0ru"]
+colors = PackedColorArray(1, 1, 1, 1, 0.6493505, 0.6493505, 0.6493505, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vjnd5"]
+gradient = SubResource("Gradient_3q0ru")
+width = 32
+
+[sub_resource type="Curve" id="Curve_n34bn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16225165, 1), 0.0, 0.0, 0, 0, Vector2(0.80794704, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ubb8h"]
+width = 32
+curve = SubResource("Curve_n34bn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xnqs5"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -4, 0)
+emission_shape = 3
+emission_box_extents = Vector3(2, 4, 1)
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 0.1
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 80.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.79999995
+scale_curve = SubResource("CurveTexture_ubb8h")
+color_ramp = SubResource("GradientTexture1D_vjnd5")
+color_initial_ramp = SubResource("GradientTexture1D_dsqkk")
+alpha_curve = SubResource("CurveTexture_x137r")
+hue_variation_min = -0.010000022
+hue_variation_max = 0.009999977
+
+[node name="harvest_pebble_particles" type="GPUParticles2D"]
+z_index = 100
+z_as_relative = false
+emitting = false
+amount = 6
+texture = SubResource("AtlasTexture_2pe54")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xnqs5")

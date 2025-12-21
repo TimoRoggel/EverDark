@@ -32,6 +32,7 @@ func _ready() -> void:
 	SaveSystem.track("lumin_positions", Generator.get_lumin_positions, Generator.set_lumin_positions, [Vector2(8,8)])
 	SaveSystem.track("lumin_sizes", Generator.get_lumin_sizes, Generator.set_lumin_sizes, [Generator.LUMIN_START_SIZE])
 	SaveSystem.track("seed", Generator.get_seed, Generator.set_seed, randi())
+	SaveSystem.track("objectives_done", func() -> int: return GameManager.objectives_done, GameManager.set_objectives, 0)
 	super()
 	GameManager.player = self
 	await get_tree().process_frame

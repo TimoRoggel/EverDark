@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=3 format=3 uid="uid://cjgxyq5fctx1b"]
+
+[ext_resource type="PackedScene" uid="uid://ccwvv1mhn4g3q" path="res://scenes/characters/tall_enemy.tscn" id="1_ma5km"]
+[ext_resource type="Script" uid="uid://bpocxgk144uxc" path="res://scripts/resources/entity.gd" id="2_6xutj"]
+
+[resource]
+script = ExtResource("2_6xutj")
+entity_name = "tall"
+scene = ExtResource("1_ma5km")
+metadata/_custom_type_script = "uid://bpocxgk144uxc"

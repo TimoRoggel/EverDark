@@ -1,6 +1,8 @@
 @tool
 class_name InventorySlot extends PanelContainer
 
+const ITEM_GLOW = preload("uid://cxwuww81e8unb")
+
 @export var inventory_item: InventoryItem = null:
 	set(value):
 		if value:
@@ -36,23 +38,23 @@ func _notification(what: int) -> void:
 		dragging_item = null
 
 func _init() -> void:
-	var vbox: VBoxContainer = VBoxContainer.new()
-	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(vbox)
 	icon = TextureRect.new()
 	icon.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vbox.add_child(icon)
+	add_child(icon)
 	label = Label.new()
 	label.text = ""
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	label.size_flags_vertical = Control.SIZE_SHRINK_END
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vbox.add_child(label)
+	label.label_settings = LabelSettings.new()
+	label.label_settings.outline_color = Color.BLACK
+	label.label_settings.outline_size = 8
+	add_child(label)
 	mouse_entered.connect(func() -> void: hovered = true)
 	mouse_exited.connect(func() -> void: hovered = false)
 
@@ -179,7 +181,7 @@ func _setup_item() -> void:
 		if inventory_item.item.glows:
 			icon.material = ITEM_GLOW
 		if inventory_item.locked:
-			label.text = str("🔒 ", inventory_item.quantity, "x")
+			label.text = "🔒 " + label.text
 		tooltip_text = inventory_item.item.display_name
 	else:
 		icon.texture = null

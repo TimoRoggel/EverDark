@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=76 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="SpriteFrames" uid="uid://bk7tcpddsbd8e" path="res://resources/player_sprite_frames.tres" id="2_6ux5t"]
@@ -44,6 +44,7 @@
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
 [ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
+[ext_resource type="Texture2D" uid="uid://g7a2she3ktpw" path="res://graphics/particle.png" id="47_nktl3"]
 [ext_resource type="Texture2D" uid="uid://d27av85dvlkhi" path="res://map/Art Assets/Player HUD/30x30_inventory_HUD_slot.png" id="49_5bn3a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
@@ -89,6 +90,115 @@ texture = ExtResource("49_5bn3a")
 [sub_resource type="Theme" id="Theme_qmarm"]
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_as8yd")
 
+[sub_resource type="Curve" id="Curve_yyjep"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.397351, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6aj6e"]
+width = 32
+curve = SubResource("Curve_yyjep")
+
+[sub_resource type="Gradient" id="Gradient_n7k00"]
+colors = PackedColorArray(0.7529412, 0, 0, 1, 0.4627451, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lnpl6"]
+gradient = SubResource("Gradient_n7k00")
+width = 32
+
+[sub_resource type="Gradient" id="Gradient_5bn3a"]
+colors = PackedColorArray(1, 1, 1, 1, 0.24313726, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tnye5"]
+gradient = SubResource("Gradient_5bn3a")
+width = 32
+
+[sub_resource type="Curve" id="Curve_as8yd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16225165, 1), 0.0, 0.0, 0, 0, Vector2(0.80794704, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_qmarm"]
+width = 32
+curve = SubResource("Curve_as8yd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w5bca"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 12, 1)
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 0.1
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 80.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.79999995
+scale_curve = SubResource("CurveTexture_qmarm")
+color_ramp = SubResource("GradientTexture1D_tnye5")
+color_initial_ramp = SubResource("GradientTexture1D_lnpl6")
+alpha_curve = SubResource("CurveTexture_6aj6e")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.09999997
+
+[sub_resource type="Curve" id="Curve_nktl3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.397351, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yyjep"]
+width = 32
+curve = SubResource("Curve_nktl3")
+
+[sub_resource type="Gradient" id="Gradient_6aj6e"]
+colors = PackedColorArray(0.32219526, 0, 0.7529412, 1, 0.12123087, 0, 0.4627451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n7k00"]
+gradient = SubResource("Gradient_6aj6e")
+width = 32
+
+[sub_resource type="Gradient" id="Gradient_lnpl6"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5bn3a"]
+gradient = SubResource("Gradient_lnpl6")
+width = 32
+
+[sub_resource type="Curve" id="Curve_tnye5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16225165, 1), 0.0, 0.0, 0, 0, Vector2(0.80794704, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_as8yd"]
+width = 32
+curve = SubResource("Curve_tnye5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qmarm"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 24.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -100.0
+radial_accel_max = -82.43
+tangential_accel_min = -10.000002
+tangential_accel_max = 9.999997
+scale_min = 0.79999995
+scale_curve = SubResource("CurveTexture_as8yd")
+color_ramp = SubResource("GradientTexture1D_5bn3a")
+color_initial_ramp = SubResource("GradientTexture1D_n7k00")
+alpha_curve = SubResource("CurveTexture_yyjep")
+hue_variation_min = -0.050000023
+hue_variation_max = 0.049999975
+
+[sub_resource type="Curve" id="Curve_6aj6e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.46491233, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_tnye5"]
+offsets = PackedFloat32Array(0, 0.17721519, 0.74050635, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.8054744, 1, 1, 1, 0.60759497, 1, 1, 1, 0)
+
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("held_item_sprite", "target_sprite")]
 z_as_relative = false
 y_sort_enabled = true
@@ -110,7 +220,8 @@ z_as_relative = false
 y_sort_enabled = true
 use_parent_material = true
 sprite_frames = ExtResource("2_6ux5t")
-animation = &"attack_right_17"
+animation = &"move_up"
+frame_progress = 0.24464774
 centered = false
 offset = Vector2(-16, -32)
 
@@ -151,13 +262,14 @@ metadata/_custom_type_script = "uid://cqprce2ews2bs"
 script = ExtResource("3_atpat")
 metadata/_custom_type_script = "uid://1ymurug5rwwb"
 
-[node name="movement" type="Node2D" parent="components"]
+[node name="movement" type="Node2D" parent="components" node_paths=PackedStringArray("step_particles")]
 process_mode = 1
 script = ExtResource("4_kqtwu")
 accelleration = 100.0
 decelleration = 100.0
+step_particles = NodePath("../../step_particles")
 step_sounds = Array[AudioStream]([ExtResource("16_yyjep"), ExtResource("17_6aj6e"), ExtResource("18_n7k00"), ExtResource("19_lnpl6"), ExtResource("20_5bn3a"), ExtResource("21_tnye5")])
-step_cooldown = 0.02
+step_cooldown = 0.2
 metadata/_custom_type_script = "uid://cnvj3qt0x6603"
 
 [node name="animation" type="Node2D" parent="components" node_paths=PackedStringArray("animated_sprite")]
@@ -181,9 +293,11 @@ script = ExtResource("6_kqtwu")
 interact_texture = ExtResource("11_rpnd8")
 metadata/_custom_type_script = "uid://dqan6upx40ywc"
 
-[node name="health" type="Node2D" parent="components"]
+[node name="health" type="Node2D" parent="components" node_paths=PackedStringArray("hit_particles", "hit_particles_environment")]
 script = ExtResource("8_xhtjm")
 death_sounds = Array[AudioStream]([ExtResource("28_lnpl6")])
+hit_particles = NodePath("../../damage_particles")
+hit_particles_environment = NodePath("../../damage_particles_everdark")
 metadata/_custom_type_script = "uid://b02oesl53ud3y"
 
 [node name="block_component" type="Node2D" parent="components"]
@@ -314,4 +428,54 @@ inventory = NodePath("../inventory")
 inventory_component = NodePath("../../components/inventory")
 
 [node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
+process_mode = 3
 visible = false
+z_index = 275
+
+[node name="controls" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="damage_particles" type="GPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(0, -13)
+emitting = false
+amount = 12
+texture = ExtResource("47_nktl3")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_w5bca")
+
+[node name="damage_particles_everdark" type="GPUParticles2D" parent="."]
+z_index = 150
+z_as_relative = false
+position = Vector2(0, -13)
+emitting = false
+amount = 24
+texture = ExtResource("47_nktl3")
+one_shot = true
+speed_scale = 3.0
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qmarm")
+
+[node name="step_particles" type="CPUParticles2D" parent="."]
+z_as_relative = false
+emitting = false
+texture = ExtResource("47_nktl3")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 8.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.75
+scale_amount_curve = SubResource("Curve_6aj6e")
+color_ramp = SubResource("Gradient_tnye5")

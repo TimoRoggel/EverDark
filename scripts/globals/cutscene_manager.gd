@@ -66,7 +66,7 @@ func show_cutscene_frame(frame: CutsceneFrame, index: int, cutscene: Cutscene) -
 	# Check for skip
 	while tween.is_running():
 		await get_tree().process_frame
-		if cutscene.skipable && Input.is_action_just_pressed("debug"):
+		if cutscene.skipable && Input.is_action_just_pressed("skip"):
 			tween.stop()
 			return true
 	# Transition
@@ -86,7 +86,7 @@ func show_cutscene_frame(frame: CutsceneFrame, index: int, cutscene: Cutscene) -
 		# Check for skip
 		while trans_tween.is_running():
 			await get_tree().process_frame
-			if cutscene.skipable && Input.is_action_just_pressed("debug"):
+			if cutscene.skipable && Input.is_action_just_pressed("skip"):
 				trans_tween.stop()
 				if under_texture:
 					under_texture.queue_free()

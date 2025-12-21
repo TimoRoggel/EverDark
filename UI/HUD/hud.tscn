@@ -1,12 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://beguyjw3ooy0v"]
+[gd_scene load_steps=15 format=3 uid="uid://beguyjw3ooy0v"]
 
 [ext_resource type="Script" uid="uid://b0d0063dp6gts" path="res://UI/HUD/hud.gd" id="1_ing8j"]
 [ext_resource type="Script" uid="uid://cd3a88w0gqwch" path="res://UI/HUD/health_bar.gd" id="2_te8l2"]
 [ext_resource type="Texture2D" uid="uid://cu6f32nh6t6ls" path="res://graphics/160x32_healthbar_01.png" id="3_te8l2"]
 [ext_resource type="Texture2D" uid="uid://dte73mhyjrmiu" path="res://graphics/160x32_virusbar_01.png" id="4_qdh7y"]
-[ext_resource type="Script" uid="uid://cad38seickdtu" path="res://UI/HUD/objectives.gd" id="5_dhie7"]
+[ext_resource type="Texture2D" uid="uid://cutgeh5r6fune" path="res://graphics/ui_icons/hotbar_slot_normal.png" id="5_7sg86"]
 [ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="5_radol"]
+[ext_resource type="Script" uid="uid://e1vt54wi3f2r" path="res://UI/HUD/current_objective.gd" id="6_s83ig"]
 [ext_resource type="PackedScene" uid="uid://cpxy5tg85w03x" path="res://UI/controls_overlay.tscn" id="7_s83ig"]
+[ext_resource type="AudioStream" uid="uid://h0w1am78p3li" path="res://audio/sounds/objective_complete.wav" id="8_db5ks"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdh7y"]
 bg_color = Color(1, 1, 1, 1)
@@ -27,12 +29,13 @@ height = 360
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="SystemFont" id="SystemFont_dhie7"]
-subpixel_positioning = 0
-keep_rounding_remainders = false
+[sub_resource type="FontVariation" id="FontVariation_db5ks"]
+base_font = ExtResource("5_radol")
+spacing_glyph = -1
 
 [sub_resource type="LabelSettings" id="LabelSettings_s83ig"]
-font = ExtResource("5_radol")
+line_spacing = 0.0
+font = SubResource("FontVariation_db5ks")
 font_size = 8
 shadow_size = 2
 shadow_color = Color(0, 0, 0, 0.1254902)
@@ -111,111 +114,64 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_radol")
 
-[node name="objectives" type="MarginContainer" parent="."]
-modulate = Color(0.6900825, 0.576342, 0.49026808, 0.5019608)
-custom_minimum_size = Vector2(140, 0)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 176.0
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_bottom = 8
-script = ExtResource("5_dhie7")
-
-[node name="vbox" type="VBoxContainer" parent="objectives"]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="objectives_label" type="RichTextLabel" parent="objectives/vbox"]
-unique_name_in_owner = true
-z_index = -14
+[node name="current_objective" type="NinePatchRect" parent="."]
+z_index = 10
 z_as_relative = false
-custom_minimum_size = Vector2(160, 8)
-layout_mode = 2
-theme_override_constants/paragraph_separation = -4
-theme_override_fonts/normal_font = SubResource("SystemFont_dhie7")
-theme_override_fonts/bold_font = ExtResource("5_radol")
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 8
-bbcode_enabled = true
-text = "[b]Main[/b]"
-fit_content = true
-scroll_active = false
+layout_mode = 0
+offset_left = 645.0
+offset_top = 9.0
+offset_right = 932.0
+offset_bottom = 49.0
+texture = ExtResource("5_7sg86")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+script = ExtResource("6_s83ig")
 
-[node name="main_objective" type="Label" parent="objectives/vbox"]
+[node name="margin" type="MarginContainer" parent="current_objective"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 0
+
+[node name="hbox" type="HBoxContainer" parent="current_objective/margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="description" type="Label" parent="current_objective/margin/hbox"]
 unique_name_in_owner = true
+z_index = 10
+z_as_relative = false
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "\"Bring back the light\" by healing the monolith"
 label_settings = SubResource("LabelSettings_s83ig")
 autowrap_mode = 3
 
-[node name="side_label" type="RichTextLabel" parent="objectives/vbox"]
+[node name="check" type="CheckBox" parent="current_objective/margin/hbox"]
 unique_name_in_owner = true
-z_index = -14
-z_as_relative = false
-custom_minimum_size = Vector2(160, 8)
 layout_mode = 2
-theme_override_constants/paragraph_separation = -4
-theme_override_fonts/normal_font = SubResource("SystemFont_dhie7")
-theme_override_fonts/bold_font = ExtResource("5_radol")
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 8
-bbcode_enabled = true
-text = "[b]Side[/b]"
-fit_content = true
-scroll_active = false
+size_flags_horizontal = 0
+mouse_filter = 2
+button_mask = 0
+flat = true
 
-[node name="side_make_lumin" type="Label" parent="objectives/vbox"]
+[node name="complete_player" type="AudioStreamPlayer" parent="current_objective"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-text = "Throw a VOID Core in the hole"
-label_settings = SubResource("LabelSettings_s83ig")
-autowrap_mode = 3
-
-[node name="side_gather" type="Label" parent="objectives/vbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-text = "Gather sticks and stone"
-label_settings = SubResource("LabelSettings_s83ig")
-autowrap_mode = 3
-
-[node name="side_kill" type="Label" parent="objectives/vbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-text = "Kill a monster"
-label_settings = SubResource("LabelSettings_s83ig")
-autowrap_mode = 3
-
-[node name="side_upgrade" type="Label" parent="objectives/vbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-text = "Upgrade a tool"
-label_settings = SubResource("LabelSettings_s83ig")
-autowrap_mode = 3
-
-[node name="side_expand" type="Label" parent="objectives/vbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-text = "Use a torch"
-label_settings = SubResource("LabelSettings_s83ig")
-autowrap_mode = 3
-
-[node name="side_cook" type="Label" parent="objectives/vbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-text = "Cook a berry or mushroom"
-label_settings = SubResource("LabelSettings_s83ig")
-horizontal_alignment = 2
-autowrap_mode = 3
+stream = ExtResource("8_db5ks")
+volume_db = -6.0
+bus = &"SFX"
 
 [node name="ControlsOverlay" parent="." instance=ExtResource("7_s83ig")]
 layout_mode = 1

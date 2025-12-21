@@ -11,6 +11,7 @@ const HARVESTABLE_RUNNABLE: GDScript = preload("res://scripts/tools/runnables/ha
 
 var recover_timer: Timer = Timer.new()
 var sprite: Sprite2D = Sprite2D.new()
+var particles: GPUParticles2D = null
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -31,6 +32,9 @@ func _ready() -> void:
 
 func deplete(time: float = randi_range(harvestable.min_recover_time, harvestable.max_recover_time)) -> void:
 	recover_timer.start(time)
+	if particles:
+		particles.restart()
+		particles.emitting = true
 	update_texture()
 
 func update_texture() -> void:
@@ -43,6 +47,11 @@ func update_texture() -> void:
 
 func update_param() -> void:
 	custom_parameter = str("{\"harvestable\": ", harvestable.id, "}")
+	if particles:
+		particles.queue_free()
+	if harvestable.particle_scene:
+		particles = harvestable.particle_scene.instantiate()
+		add_child(particles)
 	update_texture()
 
 func is_depleted() -> bool:

@@ -136,7 +136,12 @@ func update_hotbar() -> void:
 			var item_icon: Texture2D = inventory_slots[i].inventory_item.item.icon
 			var quantity: int = inventory_slots[i].inventory_item.quantity
 			slot_node.item = inventory_slots[i].inventory_item.item
-			slot_node.get_child(1).text = str(quantity) + "x"
+			if inventory_slots[i].inventory_item.item.stack_size > 1:
+				slot_node.get_child(1).text = str(quantity) + "x"
+			else:
+				slot_node.get_child(1).text = ""
+			if inventory_slots[i].inventory_item.locked:
+				slot_node.get_child(1).text = "🔒 " + slot_node.get_child(1).text
 			slot_node.get_child(0).texture = item_icon
 			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
 			hotbar_just_emptied = false

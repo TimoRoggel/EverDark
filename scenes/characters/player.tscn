@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=76 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="SpriteFrames" uid="uid://bk7tcpddsbd8e" path="res://resources/player_sprite_frames.tres" id="2_6ux5t"]
@@ -434,8 +434,6 @@ z_index = 275
 
 [node name="controls" type="CanvasLayer" parent="."]
 layer = 0
-
-[node name="ControlsOverlay" parent="controls" instance=ExtResource("52_5bn3a")]
 
 [node name="damage_particles" type="GPUParticles2D" parent="."]
 z_index = 1

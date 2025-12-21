@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dl655ix05mcka"]
+[gd_scene load_steps=19 format=3 uid="uid://dl655ix05mcka"]
 
 [ext_resource type="Texture2D" uid="uid://c7no50c4ocbgy" path="res://map/Art Assets/Map Objects (colision)/hole.png" id="1_ghnae"]
 [ext_resource type="Script" uid="uid://baqo7v8egwrlj" path="res://scripts/characters/hole.gd" id="1_iyxdx"]
 [ext_resource type="AudioStream" uid="uid://bonm36v6gqqe1" path="res://audio/sounds/player/lumin_convert.wav" id="3_ghnae"]
+[ext_resource type="Texture2D" uid="uid://cntskg5ujigsi" path="res://graphics/interact_convert_texture.png" id="4_yf0wu"]
+[ext_resource type="Texture2D" uid="uid://dnyg06ftafuri" path="res://graphics/particle_sparkle.png" id="5_cnnwx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghnae"]
 atlas = ExtResource("1_ghnae")
@@ -68,9 +70,46 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s4x63"]
-radius = 12.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7mh0n"]
+radius = 42.0
+height = 210.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yf0wu"]
+radius = 11.0
 height = 182.0
+
+[sub_resource type="GDScript" id="GDScript_cnnwx"]
+resource_name = "interact_popup"
+script/source = "extends Area2D
+
+@onready var interact_popup: Sprite2D = %interact_popup
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+	interact_popup.visible = false
+
+func _on_body_entered(body: Node2D) -> void:
+	if !is_instance_of(body, PlayerController):
+		return
+	interact_popup.visible = true
+
+func _on_body_exited(body: Node2D) -> void:
+	if !is_instance_of(body, PlayerController):
+		return
+	interact_popup.visible = false
+"
+
+[sub_resource type="Curve" id="Curve_s4x63"]
+_data = [Vector2(0, 0.5190752), 0.0, 0.0, 0, 0, Vector2(0.24853802, 1), 0.0, 0.0, 0, 0, Vector2(0.76900595, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_7mh0n"]
+offsets = PackedFloat32Array(0.5316456, 0.76265824, 0.914557)
+colors = PackedColorArray(0.1723228, 0.093166225, 0.33707213, 1, 1, 0.96334964, 0.78936666, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_cj4tr"]
+colors = PackedColorArray(0.58168674, 0.654014, 0.73081446, 1, 1, 1, 1, 1)
 
 [node name="hole" type="AnimatedSprite2D"]
 z_as_relative = false
@@ -89,11 +128,9 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="collision" type="CollisionShape2D" parent="area"]
-z_index = -1
-z_as_relative = false
-position = Vector2(-2, 20)
+position = Vector2(0, 10)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_s4x63")
+shape = SubResource("CapsuleShape2D_7mh0n")
 
 [node name="convert_sound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
@@ -107,4 +144,36 @@ z_index = -1
 z_as_relative = false
 position = Vector2(-2, 20)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_s4x63")
+shape = SubResource("CapsuleShape2D_yf0wu")
+
+[node name="interact_area" type="Area2D" parent="."]
+script = SubResource("GDScript_cnnwx")
+
+[node name="interact_collision" type="CollisionShape2D" parent="interact_area"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_7mh0n")
+
+[node name="interact_popup" type="Sprite2D" parent="interact_area"]
+unique_name_in_owner = true
+z_index = 150
+z_as_relative = false
+position = Vector2(0, -71)
+texture = ExtResource("4_yf0wu")
+
+[node name="convert_particles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 3)
+emitting = false
+amount = 20
+texture = ExtResource("5_cnnwx")
+preprocess = 0.25
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(90, 8)
+gravity = Vector2(0, -30)
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_s4x63")
+color_ramp = SubResource("Gradient_7mh0n")
+color_initial_ramp = SubResource("Gradient_cj4tr")

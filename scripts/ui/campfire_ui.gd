@@ -85,6 +85,11 @@ func _input(event: InputEvent) -> void:
 
 func _on_input_event(_viewport: Node, event: InputEvent, _idx: int) -> void:
 	if event.is_action_pressed("pickup"):
+		interactable.active = false
+		var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+		tween.tween_property(interactable, "scale", Vector2.ONE * 0.1, 0.2)
+		tween.play()
+		await tween.finished
 		var remainder: int = GameManager.player.inventory.add(26)
 		if remainder > 0:
 			DroppedItem2D.drop(26, 1, interactable.global_position)

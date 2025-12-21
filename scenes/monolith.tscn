@@ -1,11 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://crldfontpnyvr"]
+[gd_scene load_steps=9 format=3 uid="uid://crldfontpnyvr"]
 
 [ext_resource type="Script" uid="uid://dic0q4sfobcxm" path="res://scenes/monolith.gd" id="1_n6xs4"]
 [ext_resource type="Texture2D" uid="uid://btauhoynl5xpj" path="res://map/map assets/image-1.png (3) 1 2_active.png" id="2_picja"]
 [ext_resource type="Texture2D" uid="uid://dicsafc0tyspr" path="res://map/map assets/image-1.png (3) 1 2.png" id="3_picja"]
+[ext_resource type="Texture2D" uid="uid://dnyg06ftafuri" path="res://graphics/particle_sparkle.png" id="4_p6m4c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uudca"]
 size = Vector2(56, 116)
+
+[sub_resource type="Curve" id="Curve_oh1xg"]
+_data = [Vector2(0, 0.5190752), 0.0, 0.0, 0, 0, Vector2(0.24853802, 1), 0.0, 0.0, 0, 0, Vector2(0.76900595, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_orv1t"]
+offsets = PackedFloat32Array(0.5316456, 0.76265824, 0.914557)
+colors = PackedColorArray(0.1723228, 0.093166225, 0.33707213, 1, 1, 0.96334964, 0.78936666, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_0yjp5"]
+colors = PackedColorArray(0.58168674, 0.654014, 0.73081446, 1, 1, 1, 1, 1)
 
 [node name="Monolith" type="Node2D"]
 script = ExtResource("1_n6xs4")
@@ -22,5 +34,25 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(3, 2)
 shape = SubResource("RectangleShape2D_uudca")
+
+[node name="convert_particles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(5, -21)
+emitting = false
+amount = 20
+texture = ExtResource("4_p6m4c")
+preprocess = 0.25
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(24, 80)
+gravity = Vector2(0, -10)
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_oh1xg")
+color_ramp = SubResource("Gradient_orv1t")
+color_initial_ramp = SubResource("Gradient_0yjp5")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

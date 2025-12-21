@@ -16,8 +16,8 @@ func run(param: Dictionary) -> void:
 	
 	interactable.set_active(0.1)
 
-func can_run(_param: Dictionary) -> bool:
-	return true
+func can_run(param: Dictionary) -> bool:
+	return param["self"].get_parent().is_interactable
 
 func pickup(param: Dictionary) -> void:
 	var interactable = param["self"]

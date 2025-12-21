@@ -59,7 +59,7 @@ func _process(_delta: float) -> void:
 func add_slots() -> void:
 	if inventory && self.get_child_count() == 0:
 		for i: int in hotbar_slots:
-			var slot_texture: TextureButton = create_slot()
+			var slot_texture: HotbarTextureButton = create_slot()
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()
 			var key_label: Label = create_key_index_label(i)
@@ -70,12 +70,12 @@ func add_slots() -> void:
 			slot_texture.add_child(key_label)
 			add_child(slot_texture)
 
-func create_slot() -> TextureButton:
-	var slot_texture: TextureButton = TextureButton.new()
+func create_slot() -> HotbarTextureButton:
+	var slot_texture: HotbarTextureButton = HotbarTextureButton.new()
 	slot_texture.texture_normal = preload("res://graphics/32x32_inventory_HUD_01_transp.png")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
-	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	slot_texture.focus_mode = Control.FOCUS_CLICK
+	#slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot_texture.focus_mode = Control.FOCUS_ACCESSIBILITY
 	return slot_texture
 
 func create_item_texture() -> TextureRect:
@@ -130,11 +130,12 @@ func update_hotbar() -> void:
 
 	var inventory_slots: Array[InventorySlot] = inventory.get_slots()
 	for i: int in hotbar_slots:
-		var slot_node: TextureButton = get_child(i)
+		var slot_node: HotbarTextureButton = get_child(i)
 		#var inventory_pos = (inventory_slots.size()-(slots_per_row))+i
 		if i < inventory_slots.size() && inventory_slots[i].inventory_item:
 			var item_icon: Texture2D = inventory_slots[i].inventory_item.item.icon
 			var quantity: int = inventory_slots[i].inventory_item.quantity
+			slot_node.item = inventory_slots[i].inventory_item.item
 			slot_node.get_child(1).text = str(quantity) + "x"
 			slot_node.get_child(0).texture = item_icon
 			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
@@ -142,11 +143,13 @@ func update_hotbar() -> void:
 		if !items:
 			if !hotbar_just_emptied:
 				for slot: Node in get_children():
-					if is_instance_of(slot, TextureButton):
+					if is_instance_of(slot, HotbarTextureButton):
 						slot.get_child(0).texture = null
 						slot.get_child(1).text = ""
+						slot_node.item = null
 				hotbar_just_emptied = true
 		elif !inventory_slots[i].inventory_item:
+				slot_node.item = null
 				slot_node.get_child(0).texture = null
 				slot_node.get_child(1).text = ""
 	

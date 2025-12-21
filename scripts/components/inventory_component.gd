@@ -30,6 +30,7 @@ func open() -> void:
 	container.visible = true
 	if controller.hotbar:
 		controller.hotbar.visible = false
+	GameManager.finish_objective(8)
 	GameManager.paused = true
 	get_tree().paused = true
 	GameManager.set_active_ui(self)

@@ -1,6 +1,6 @@
 class_name InventoryComponent extends Component
 
-@export var slots: int = 15
+@export var slots: int = 30
 @export var container: InventoryContainer = null
 var held_item: int = 0
 
@@ -9,7 +9,12 @@ signal updated
 func _enter() -> void:
 	for slot: InventorySlot in container.get_slots():
 		slot.item_dropped.connect(_on_item_dropped)
-	controller.get_component(InputComponent).inventory_toggled.connect(toggle_inventory)
+	controller.get_component(InputComponent).inventory_toggled.connect(func() -> void:
+		container.visible = !container.visible
+		if controller.hotbar:
+			controller.hotbar.visible = !container.visible
+	)
+	SaveSystem.track("inventory", get_inventory, set_inventory, [])
 	container.updated.connect(updated.emit)
 	SaveSystem.track("inventory", get_inventory, set_inventory.call_deferred, [[7, 1], [1, 1]])
 	#await get_tree().create_timer(0.25).timeout
@@ -44,17 +49,16 @@ func _exit() -> void:
 	pass
 
 func _on_item_dropped(item: InventoryItem) -> void:
-	DroppedItem2D.drop(item.item.id, item.quantity, global_position)
-	if !controller.animation.forced_animation_playing:
-		controller.animation.play("pickdrop")
-	
+	DroppedItem2D.drop(item.item.id, item.quantity, global_position, true, true)
+
 func drop_all():
 	if not is_empty():
 		for slot in container.get_slots():
 			var random_vector = random_spread_pos(controller.global_position, 20)
-			if slot.inventory_item:
+			if slot.inventory_item && !slot.inventory_item.locked:
 				DroppedItem2D.drop(slot.inventory_item.item.id, slot.inventory_item.quantity, random_vector)
-	container.clear_all()
+				slot.remove_amount(slot.inventory_item.quantity)
+	container.updated.emit()
 	
 func drop_items(inventory_drop_percent: float, slot_drop_percent: float):
 	var filled_slots: Array = []
@@ -76,8 +80,6 @@ func drop_items(inventory_drop_percent: float, slot_drop_percent: float):
 	container.clear_all()
 
 func add(item_id: int, quantity: int = 1) -> int:
-	if (item_id == 6 && has(18)) || (item_id == 18 && has(6)):
-		GameManager.finish_objective(2)
 	return container.add(item_id, quantity)
 
 func remove(item_id: int, quantity: int = 1) -> int:
@@ -106,7 +108,7 @@ func available_space(item_id: int) -> int:
 
 func get_held_item_id() -> int:
 	return held_item
-	
+
 func set_held_item_id(item_id: int) -> void:
 	held_item = item_id
 
@@ -114,29 +116,25 @@ func is_placeable(item_id: int) -> bool:
 	return item_id in [3, 4, 26]
 
 func random_spread_pos(entity_location, item_spread_radius) -> Vector2:
-	var rand_x = randf_range(entity_location.x - item_spread_radius, entity_location.x + item_spread_radius) 
+	var rand_x = randf_range(entity_location.x - item_spread_radius, entity_location.x + item_spread_radius)
 	var rand_y = randf_range(entity_location.y + item_spread_radius, entity_location.y - item_spread_radius)
 	var random_vector = Vector2(rand_x, rand_y)
 	return random_vector
 
 func get_inventory() -> Array:
-	var items: Array = []
-	for slot: InventorySlot in container.get_slots():
-		if slot.is_empty():
-			items.append([])
-			continue
-		var item: InventoryItem = slot.inventory_item
-		items.append([item.item.id, item.quantity])
-	return items
+	return list().map(func(i: InventoryItem) -> Array: return [i.item.id, i.quantity, i.locked])
 
 func set_inventory(new_inventory: Array) -> void:
 	var s: Array[InventoryItem] = []
 	s.resize(slots)
 	new_inventory.resize(slots)
 	for i: int in slots:
-		if new_inventory[i] == null || new_inventory[i].is_empty():
+		if new_inventory[i] == null:
 			s[i] = null
 		else:
 			var item: Array = new_inventory[i]
-			s[i] = InventoryItem.new(DataManager.get_resource_by_id("items", item[0]), item[1])
+			var locked_val: bool = false
+			if item.size() >= 3:
+				locked_val = bool(item[2])
+			s[i] = InventoryItem.new(DataManager.get_resource_by_id("items", item[0]), item[1], locked_val)
 	container.set_slots(s)

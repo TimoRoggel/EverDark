@@ -31,7 +31,11 @@ func drop_items() -> void:
 	var copy: Dictionary = dropped_items.duplicate()
 	dropped_items.clear()
 	for item: Array in copy.values():
-		DroppedItem2D.drop(item[0], item[1], item[2], false)
+		var from_player: bool = false
+		if item.size() >= 4:
+			from_player = bool(item[3])
+		DroppedItem2D.drop(item[0], item[1], item[2], false, from_player)
+
 
 func place_items() -> void:
 	var copy: Dictionary = placed_items.duplicate()

@@ -11,7 +11,6 @@ const TRIES: int = 20
 ## At (0,0) this is the spawn rate (spawns 1 entity per [member min_spawn_rate] seconds), at [member max_spawn_distance] this value is 0.1%.
 @export_range(0.0, 800.0, 0.01) var min_spawn_rate: float = 1.0
 ## How long until the first entity spawns when the game starts.
-@export_range(0.0, 800.0, 0.01) var initial_spawn_rate: float = 1.0
 @export_range(0.0, 1.0, 0.01) var randomness: float = 0.0
 @export var min_radius: float = 250.0:
 	set(value):
@@ -27,9 +26,8 @@ const TRIES: int = 20
 
 var spawn_timer: Timer = null
 var spawned_entities: Array[Node2D] = []
-var enemies_just_reset : bool = false
-
-var dead = false
+var enemies_just_reset: bool = false
+var dead: bool = false
 
 var entity_health := 0.0
 var entity_speed := 0.0
@@ -44,8 +42,7 @@ func _ready() -> void:
 	spawn_timer.one_shot = true
 	add_child(spawn_timer)
 	spawn_timer.timeout.connect(spawn)
-	spawn_timer.start(initial_spawn_rate)
-	SaveSystem.track(name, get_entity_data, set_entity_data, {})
+	spawn_timer.start(0.01)
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():
@@ -69,7 +66,7 @@ func _physics_process(_delta: float) -> void:
 			if dead != GameManager.player.death.is_dead:
 				dead = GameManager.player.death.is_dead
 			if GameManager.player.death.is_dead:
-				if not enemies_just_reset:
+				if !enemies_just_reset:
 					reset_enemies()
 					enemies_just_reset = true
 					await get_tree().create_timer(1.0).timeout
@@ -101,8 +98,14 @@ func create_entity(spawn_position: Vector2, health: float = 0.0) -> void:
 	set_entity_properties()
 	var spawned_entity: Node2D = entity.scene.instantiate()
 	spawned_entity.global_position = spawn_position
+	spawned_entity.set("spawn_origin", spawn_position)
 	get_tree().current_scene.add_child(spawned_entity)
-	spawned_entity.tree_exiting.connect(func() -> void: spawned_entities.erase(spawned_entity))
+	spawned_entity.tree_exiting.connect(func() -> void:
+		spawned_entities.erase(spawned_entity)
+		if spawn_timer:
+			spawn_timer.stop()
+			restart_timer()
+	)
 	spawned_entities.append(spawned_entity)
 	await get_tree().create_timer(0.2).timeout
 	spawned_entity.health.current_health = entity_health
@@ -114,10 +117,10 @@ func create_entity(spawn_position: Vector2, health: float = 0.0) -> void:
 	if spawned_entity.is_queued_for_deletion():
 		return
 	spawned_entity.queue_free()
-	
+
 func reset_enemies() -> void:
 	for enemy in spawned_entities:
-		if not is_instance_valid(enemy):
+		if !is_instance_valid(enemy):
 			continue
 		var spawn_position: Vector2 = get_randomized_spawn_location()
 		for i in TRIES:

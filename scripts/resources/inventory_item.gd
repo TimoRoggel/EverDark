@@ -8,11 +8,16 @@ class_name InventoryItem extends Resource
 	set(value):
 		quantity = value
 		changed.emit()
+@export var locked: bool = false:
+	set(value):
+		locked = value
+		changed.emit()
 
-func _init(_item: Item = null, _quantity: int = 1) -> void:
+func _init(_item: Item = null, _quantity: int = 1, _locked: bool = false) -> void:
 	if _item:
 		item = _item
 	quantity = _quantity
+	locked = _locked
 
 func add(amount: int) -> int:
 	if is_full():

@@ -9,16 +9,19 @@ var convert_speed: float = 0.5
 func _physics_process(_delta: float) -> void:
 	if animation == &"bring_up":
 		return
+
 	var has_cores: bool = false
 	for a: Area2D in area.get_overlapping_areas():
-		if is_instance_of(a, DroppedItem2D) && a.item.id == 1:
+		if is_instance_of(a, DroppedItem2D) && a.item.id == 1 && a.dropped_by_player:
 			has_cores = true
+
 	if !has_cores:
 		return
 	convert_particles.emitting = true
 	play(&"bring_up")
 	for a: Area2D in area.get_overlapping_areas():
 		_on_area_2d_area_entered(a)
+
 	await get_tree().create_timer(convert_speed, false).timeout
 	convert_sound.play()
 	GameManager.finish_objective(1)
@@ -29,8 +32,13 @@ func _physics_process(_delta: float) -> void:
 func _on_area_2d_area_entered(a: Area2D) -> void:
 	if !is_instance_of(a, DroppedItem2D):
 		return
+
+	if !a.dropped_by_player:
+		return
+
 	if a.item.id != 1:
 		return
+
 	a.visible = false
 	a.set_active(convert_speed)
 	a.item = DataManager.get_resource_by_id("items", 0)

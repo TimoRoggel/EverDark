@@ -28,6 +28,7 @@ LoreSystem="*res://scripts/globals/lore_system.gd"
 CutsceneManager="*res://scripts/globals/cutscene_manager.gd"
 SceneTransitionController="*res://Transitions/SceneTransitionController.gd"
 WorldStateSaver="*res://scripts/globals/world_state_saver.gd"
+GameSettings="*res://scripts/globals/game_settings.gd"
 
 [display]
 

@@ -62,8 +62,12 @@ func add_slots() -> void:
 			var slot_texture: HotbarTextureButton = create_slot()
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()
+			var key_label: Label = create_key_index_label(i)
+			#var key_texxture: TextureRect = create_index_texture()
 			slot_texture.add_child(item_texture)
 			slot_texture.add_child(amount_label)
+			#key_label.add_child(key_texxture)
+			slot_texture.add_child(key_label)
 			add_child(slot_texture)
 
 func create_slot() -> HotbarTextureButton:
@@ -93,6 +97,30 @@ func create_amount_label() -> Label:
 	amount_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	amount_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	return amount_label
+	
+func create_key_index_label(index: int) -> Label:
+	var key_label := Label.new()
+	key_label.text = str(index + 1)
+	key_label.anchor_left = 0.0
+	key_label.anchor_top = -0.5
+	key_label.anchor_right = 1.0
+	key_label.anchor_bottom = 0.0
+	key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	key_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+	key_label.add_theme_color_override("font_color", Color.WHITE)
+	return key_label
+	
+func create_index_texture() -> TextureRect:
+	var item_texture: TextureRect = TextureRect.new()
+	item_texture.texture = preload("res://map/Art Assets/Player HUD/Small_keybind.png")
+	item_texture.z_index = -1
+	item_texture.anchor_left = 0.0
+	item_texture.scale = Vector2(0.2, 0.2)
+	item_texture.set_anchors_preset(Control.PRESET_CENTER)
+	item_texture.ready.connect(func():
+		item_texture.pivot_offset = item_texture.size / 2
+	)
+	return item_texture
 
 func update_hotbar() -> void:
 	if !inventory:

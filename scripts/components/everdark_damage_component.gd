@@ -20,7 +20,7 @@ signal virus_effect(value: float)
 signal everdark_entered(yes: bool)
 signal virusbar_setup(min)
 
-var virus_timer: Timer = null
+var virus_timer: Timer = null # counts small time steps and based on those steps health and virsubar are updated
 var elapsed_time := 0.0
 var damage_player: RandomAudioStreamPlayer2D = null
 var health: HealthComponent
@@ -32,17 +32,23 @@ func _enter() -> void:
 		health = controller.health
 
 func _update(_delta: float) -> void:
-	if controller.death:
-		if controller.death.is_dead:
+	if virus_timer:
+		if controller.death and controller.death.is_dead:
+			if virus_timer:
+				virus_timer.stop()
+			elapsed_time = 0.0
 			return
 		var in_everdark: bool = Generator.is_in_everdark(controller.global_position)
-		if in_everdark && virus_timer.is_stopped():
+		# Start timer on enter everdark
+		if in_everdark and virus_timer.is_stopped():
+			virus_timer.start()
 			everdark_entered.emit(true)
-			virus_timer.start()
-		if in_everdark && elapsed_time >= total_time:
-			virus_timer.start()
-			var health_percentage = health.max_health / 100 * health.current_health
-			virus_effect.emit(elapsed_time * health_percentage)
+
+		# stop timer on everdark exit
+		elif not in_everdark and not virus_timer.is_stopped():
+			virus_timer.stop()
+			elapsed_time = 0.0
+			everdark_entered.emit(false)
 	
 func _exit() -> void:
 	pass
@@ -58,35 +64,26 @@ func create_virus_timer() -> void:
 	virus_timer.timeout.connect(on_virus_timer_timeout)
 	self.add_child(virus_timer)
 	
-func on_virus_timer_timeout() -> void:
-	# increasing or decreasing virusbar based on players postition
-	var in_everdark: bool = Generator.is_in_everdark(controller.global_position)
-	if in_everdark:
-		elapsed_time += virus_timer.wait_time
-	else:
-		elapsed_time -= virus_timer.wait_time
-	var health_percentage = controller.health.max_health / 100 * controller.health.current_health
-	virus_effect.emit(elapsed_time * health_percentage)
-	controller.hud.update_virusbar_color(Color(0.486, 0.003, 0.993, 1.0), elapsed_time/total_time)
 
-	# damage player if virusbar is full
-	if elapsed_time >= total_time:
-		virus_timer.stop()
+func on_virus_timer_timeout() -> void:
+	var in_everdark: bool = Generator.is_in_everdark(controller.global_position)
+
+	# Adjust virus bar
+	if in_everdark:
+		elapsed_time = min(elapsed_time + virus_timer.wait_time, total_time)
+	else:
+		elapsed_time = max(elapsed_time - virus_timer.wait_time, 0.0)
+	# Update HUD
+	controller.hud.update_virusbar_color(
+		Color(0.486, 0.003, 0.993, 1.0),
+		elapsed_time / total_time
+	)
+	virus_effect.emit(elapsed_time)
+
+	# Apply damage when bar is full
+	if in_everdark and elapsed_time >= total_time:
+		if damage_player:
+			damage_player.play_randomized()
 		if controller.health:
-			var just_hurt = false
-			while (Generator.is_in_everdark(controller.global_position) && !controller.death.is_dead): # blijft wws doorgaan na dood gaan
-				if !just_hurt:
-					if damage_player:
-						damage_player.play_randomized()
-					controller.health.apply_environmental_damage(self)
-					just_hurt = true
-				await get_tree().create_timer(1.0).timeout
-				just_hurt = false
-		else:
-			# No health component attached!
-			pass
-		
-	# hide virusbar if virusbar reaches zero
-	if elapsed_time <= 0.0:
-		virus_timer.stop()
-		everdark_entered.emit(false)
+			controller.health.apply_environmental_damage(self)
+		elapsed_time = 0.0  # reset bar after damage

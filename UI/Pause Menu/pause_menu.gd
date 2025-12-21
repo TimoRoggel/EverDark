@@ -30,6 +30,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		_toggle_pause()
 		get_viewport().set_input_as_handled()
+	if event.is_action_pressed("toggle_inventory"):
+		if GameManager.ui_open and GameManager.player.inventory.container.visible and !GameManager.is_chest_open:
+			GameManager.player.get_tree().paused = false
+	if event.is_action_pressed("interact") and GameManager.is_chest_open:
+		if GameManager.ui_open:
+			GameManager.player.get_tree().paused = false
 
 func _toggle_pause() -> void:
 	if is_paused:

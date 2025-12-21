@@ -5,9 +5,8 @@ class_name SpawnAttackComponent extends Component
 	set(value):
 		attack_id = value
 		if !Engine.is_editor_hint():
-			attack_type = DataManager.get_resource_by_id("attacks", attack_id)
-			if attack_type && attack_type.attack_sound:
-				sound_player = GameManager.create_audio_player(&"SFX", [attack_type.attack_sound], self)
+			_init_attack_type()
+
 @export var min_power: float = 0.1
 @export var max_power: float = 1.0
 
@@ -26,8 +25,16 @@ var attack_active: bool = false
 func _get_property_list() -> Array[Dictionary]:
 	return CharacterController.get_flag_properties("damaging_flags")
 
+func _init_attack_type() -> void:
+	attack_type = DataManager.get_resource_by_id("attacks", attack_id)
+	if attack_type && attack_type.attack_sound:
+		sound_player = GameManager.create_audio_player(&"SFX", [attack_type.attack_sound], self)
+
 func _enter() -> void:
-	pass
+	if Engine.is_editor_hint():
+		return
+	if attack_type == null:
+		_init_attack_type()
 
 func _update(delta: float) -> void:
 	attack_timeout -= delta
@@ -40,6 +47,10 @@ func _exit() -> void:
 func can_attack() -> bool:
 	if attack_id < 0:
 		return false
+	if attack_type == null:
+		_init_attack_type()
+		if attack_type == null:
+			return false
 	if attack_type.cost > -1:
 		if controller.inventory:
 			if !controller.inventory.has(attack_type.cost):
@@ -52,6 +63,8 @@ func try_attack() -> void:
 	attack()
 
 func attack() -> void:
+	if attack_type == null:
+		return
 	if attack_type.cost > -1:
 		if controller.inventory:
 			controller.inventory.remove(attack_type.cost)

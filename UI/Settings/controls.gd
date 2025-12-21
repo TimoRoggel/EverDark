@@ -15,10 +15,12 @@ var input_actions: Dictionary[String, String] = {
 	"pause": "Pause menu",
 	"attack": "Attack",
 	"block": "Block",
-	"dash": "Dash",
+	"dash": "Sprint",
 	"toggle_inventory": "Open inventory",
 	"interact": "Interact",
+	"drop_item": "Drop Item",
 }
+
 
 func _ready() -> void:
 	_create_action_list()

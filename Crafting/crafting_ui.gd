@@ -11,6 +11,7 @@ const INVENTORY_SLOT: PackedScene = preload("uid://chgdmhkgaavft")
 @onready var item_texture: TextureRect = %ItemTexture
 @onready var craft_button: Button = %CraftButton
 @onready var audio_stream_player: AudioStreamPlayer = %AudioStreamPlayer
+@onready var warning_label: Label = $WarningLabel
 
 var color_active_text: Color = Color("5e412f")
 var color_active_icon: Color = Color.WHITE
@@ -21,23 +22,77 @@ var recipe_material_dict: Dictionary[Item, int] = {}
 var inventory: InventoryComponent = null
 var current_recipe: Recipe = null
 var unique_id: int = ResourceUID.create_id()
-var opened: Array[bool] = [false, false, false, false, false]
+var opened: Array[bool] = [true, true, true, true, true]
+
+var all_recipe_items: Array[TreeItem] = []
 
 func _ready() -> void:
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
 	
 	craft_button.pressed.connect(_on_CraftButton_pressed)
 	visibility_changed.connect(_on_visibility_changed)
 	tree.item_selected.connect(_on_tree_cell_selected)
+	
 	tree.item_collapsed.connect(func(item: TreeItem) -> void:
 		if !item: return
 		if !item.has_meta(&"index"): return
 		opened[item.get_meta(&"index")] = !item.collapsed
 	)
+	
+	if warning_label:
+		warning_label.visible = false
 
 func _exit_tree() -> void:
 	if is_instance_valid(GameManager):
 		GameManager.ui_opened_conditions.erase(name + str(unique_id))
+
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	
+	if event.is_echo():
+		return
+	
+	if event.is_action_pressed("down"):
+		_navigate_list(1)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("up"):
+		_navigate_list(-1)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_accept") or (event is InputEventKey and event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_SPACE)):
+		_on_CraftButton_pressed()
+		get_viewport().set_input_as_handled()
+
+func _navigate_list(direction: int) -> void:
+	if all_recipe_items.is_empty():
+		return
+		
+	if not tree.has_focus():
+		tree.grab_focus()
+
+	var selected_item = tree.get_selected()
+	var current_index = -1
+	
+	if selected_item:
+		current_index = all_recipe_items.find(selected_item)
+	
+	var new_index = current_index + direction
+	
+	if current_index == -1:
+		if direction > 0: new_index = 0
+		else: new_index = all_recipe_items.size() - 1
+	
+	if new_index >= 0 and new_index < all_recipe_items.size():
+		var target_item = all_recipe_items[new_index]
+		var parent = target_item.get_parent()
+		if parent and parent.collapsed:
+			parent.collapsed = false
+			if parent.has_meta(&"index"):
+				opened[parent.get_meta(&"index")] = true
+		
+		target_item.select(0)
+		tree.scroll_to_item(target_item)
 
 func _on_visibility_changed() -> void:
 	if visible:
@@ -55,9 +110,20 @@ func _on_visibility_changed() -> void:
 		
 		item_texture.texture = null
 		current_recipe = null
+		
+		if warning_label:
+			warning_label.visible = false
+			
+		tree.grab_focus()
+		
+		if not all_recipe_items.is_empty():
+			all_recipe_items[0].select(0)
+		craft_button.visible = false
 
 func build_recipe_tree() -> void:
 	tree.clear()
+	all_recipe_items.clear()
+	
 	tree.hide_root = true
 	var tree_root: TreeItem = tree.create_item()
 	var categories: Dictionary = {}
@@ -102,13 +168,12 @@ func build_recipe_tree() -> void:
 			var parent_item = categories[cat_name]
 			var item_slot: TreeItem = tree.create_item(parent_item)
 			
+			all_recipe_items.append(item_slot)
+			
 			if recipe.rewards.size() > 0:
 				item_slot.set_text(0, recipe.rewards[0].display_name)
-				item_slot.set_description(0, recipe.rewards[0].description)
-				item_slot.set_tooltip_text(0, recipe.rewards[0].display_name + "\n" + recipe.rewards[0].description)
+				item_slot.set_metadata(0, recipe)
 				item_slot.set_icon(0, recipe.rewards[0].icon)
-			
-			item_slot.set_metadata(0, recipe)
 			
 			if can_craft(recipe):
 				item_slot.set_custom_color(0, color_active_text)
@@ -130,6 +195,7 @@ func _on_tree_cell_selected() -> void:
 func build_recipe_material_window(selected_recipe: Recipe) -> void:
 	current_recipe = selected_recipe
 	clean_material_window()
+	craft_button.visible = can_craft(selected_recipe)
 	
 	if selected_recipe.rewards.size() > 0:
 		title_label.text = selected_recipe.rewards[0].display_name
@@ -176,6 +242,13 @@ func _on_CraftButton_pressed() -> void:
 
 	for item_id: int in required_materials.keys():
 		if not inventory.has(item_id, required_materials[item_id]):
+			_show_warning("Not enough resources!")
+			return
+
+	if current_recipe.reward_ids.size() > 0:
+		var reward_id = current_recipe.reward_ids[0]
+		if not inventory.can_add(reward_id, 1):
+			_show_warning("Inventory is full! Free up space.")
 			return
 
 	for item_id: int in required_materials.keys():
@@ -190,6 +263,21 @@ func _on_CraftButton_pressed() -> void:
 
 	build_recipe_material_window(current_recipe)
 	build_recipe_tree()
+	craft_button.visible = can_craft(current_recipe)
+
+func _show_warning(text: String) -> void:
+	if warning_label:
+		warning_label.text = text
+		warning_label.visible = true
+		craft_button.disabled = true
+		
+		await get_tree().create_timer(2.0).timeout
+		
+		if is_instance_valid(self):
+			if is_instance_valid(craft_button):
+				craft_button.disabled = false
+			if is_instance_valid(warning_label):
+				warning_label.visible = false
 
 func _on_button_exit_pressed() -> void:
 	close_requested.emit()

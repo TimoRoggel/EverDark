@@ -18,7 +18,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	super()
-	#set_damage_color(Color("8b7d9c"))
 	target = get_component(TargetComponent)
 	attack = get_component(SpawnAttackComponent)
 	movement = get_component(MoveComponent)
@@ -26,30 +25,53 @@ func _ready() -> void:
 	health.damage_taken.connect(on_damage_taken)
 	animation = get_component(AnimationComponent)
 	GameManager.ending.connect(func() -> void: health.current_health = 0.0)
+	if has_method("get"):
+		if get("spawn_origin") != null:
+			spawn_origin = get("spawn_origin")
 
 func _custom_process(delta: float) -> void:
 	if !health.alive:
 		return
+
+	if spawn_origin != Vector2.ZERO:
+		var d = global_position.distance_to(spawn_origin)
+		if d > max_wander_distance:
+			returning_home = true
+		if returning_home:
+			var dir = (spawn_origin - global_position).normalized()
+			movement.desired_movement = dir
+			if animation:
+				animation.direction = dir
+				animation.should_flip = animation.direction.x < 0.0
+				animation.attacking = false
+			if d < max_wander_distance * 0.4:
+				returning_home = false
+			super(delta)
+			return
+
 	var current_target: CharacterController = get_target()
 	var angle_to_target: float = 0.0
 	var distance: float = INF
 	if current_target:
 		var intercept_angle: float = prediction_angle()
-		if intercept_angle != 0.0 && predictive_attacking:
+		if intercept_angle != 0.0 and predictive_attacking:
 			angle_to_target = intercept_angle
 		else:
 			angle_to_target = global_position.angle_to_point(current_target.global_position)
 		distance = distance_to_target()
+
 		if !charging:
 			attack.attack_angle = angle_to_target
 			movement.desired_movement = target.get_target_direction()
 		else:
 			movement.desired_movement = Vector2.ZERO
-		if !charging && attack.can_attack() && distance <= attack_distance:
+
+		if !charging and attack.can_attack() and distance <= attack_distance:
 			charging = true
 			await get_tree().create_timer(charge_time).timeout
 			attack.attack()
 			charging = false
+
 		if distance <= min_distance_to_target:
 			movement.desired_movement = Vector2.ZERO
 			if distance <= min_distance_to_target * 0.5:
@@ -75,7 +97,6 @@ func on_damage_taken(from: AttackController) -> void:
 	if !from.spawner or !is_instance_valid(from.spawner):
 		return
 	target.try_add_target(from.spawner)
-
 
 func distance_to_target() -> float:
 	var current_target: CharacterController = get_target()
@@ -113,9 +134,9 @@ func calc_intercept(t: CharacterController) -> Vector2:
 	var i1: float = (-b + ccb) / da
 	var i2: float = (-b - ccb) / da
 	var i: float = 0.0
-	if i1 < 0.0 && i2 > 0.0:
+	if i1 < 0.0 and i2 > 0.0:
 		i = i2
-	elif i1 > 0.0 && i2 < 0.0:
+	elif i1 > 0.0 and i2 < 0.0:
 		i = i2
 	elif i1 < i2:
 		i = i1

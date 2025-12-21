@@ -52,6 +52,8 @@ func open() -> void:
 	if player_ref:
 		player_ref.hotbar.visible = false
 		player_ref_inventory.container.visible = true
+	GameManager.paused = true
+	get_tree().paused = true
 	GameManager.set_active_ui(self)
 
 func close() -> void:
@@ -64,6 +66,8 @@ func close() -> void:
 		open_close_sound.stream = CLOSE_SOUND
 		open_close_sound.play()
 		
+	GameManager.paused = false
+	get_tree().paused = false
 	GameManager.clear_active_ui()
 
 func _on_pickup() -> void:

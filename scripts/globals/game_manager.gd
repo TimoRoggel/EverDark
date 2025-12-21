@@ -23,6 +23,7 @@ var paused : bool = false
 var ui_open : bool = false
 var objectives_done: int = 0
 var current_objective: int = 0
+var is_chest_open : bool = false
 
 signal ending
 signal objective_finished

@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://e1vt54wi3f2r" path="res://UI/HUD/current_objective.gd" id="6_s83ig"]
 [ext_resource type="Texture2D" uid="uid://cutgeh5r6fune" path="res://graphics/ui_icons/hotbar_slot_normal.png" id="7_s83ig"]
 [ext_resource type="AudioStream" uid="uid://h0w1am78p3li" path="res://audio/sounds/objective_complete.wav" id="8_db5ks"]
+[ext_resource type="PackedScene" uid="uid://cpxy5tg85w03x" path="res://UI/controls_overlay.tscn" id="7_s83ig"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdh7y"]
 bg_color = Color(1, 1, 1, 1)
@@ -171,3 +172,11 @@ unique_name_in_owner = true
 stream = ExtResource("8_db5ks")
 volume_db = -6.0
 bus = &"SFX"
+
+[node name="ControlsOverlay" parent="." instance=ExtResource("7_s83ig")]
+layout_mode = 1
+offset_left = 241.0
+offset_top = 156.00002
+offset_right = 241.0
+offset_bottom = 156.0
+scale = Vector2(0.75, 0.542)

@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+const ITEM_MATERIAL = preload("uid://cxwuww81e8unb")
+
 @export var inventory: InventoryContainer
 @export var inventory_component: InventoryComponent
 
@@ -85,6 +87,7 @@ func create_item_texture() -> TextureRect:
 	item_texture.anchor_top = 0.0
 	item_texture.anchor_right = 0.8
 	item_texture.anchor_bottom = 0.8
+	item_texture.material = ITEM_MATERIAL.duplicate()
 	return item_texture
 
 func create_amount_label() -> Label:
@@ -135,15 +138,21 @@ func update_hotbar() -> void:
 		if i < inventory_slots.size() && inventory_slots[i].inventory_item:
 			var item_icon: Texture2D = inventory_slots[i].inventory_item.item.icon
 			var quantity: int = inventory_slots[i].inventory_item.quantity
+			var slot: TextureRect = slot_node.get_child(0)
+			var quantity_label: Label = slot_node.get_child(1)
+			if slot.texture != item_icon:
+				popup_animation.call_deferred(slot)
 			slot_node.item = inventory_slots[i].inventory_item.item
 			if inventory_slots[i].inventory_item.item.stack_size > 1:
-				slot_node.get_child(1).text = str(quantity) + "x"
+				if !quantity_label.text.contains(str(quantity)):
+					popup_animation.call_deferred(slot)
+				quantity_label.text = str(quantity) + "x"
 			else:
-				slot_node.get_child(1).text = ""
+				quantity_label.text = ""
 			if inventory_slots[i].inventory_item.locked:
-				slot_node.get_child(1).text = "🔒 " + slot_node.get_child(1).text
-			slot_node.get_child(0).texture = item_icon
-			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
+				quantity_label.text = "🔒 " + quantity_label.text
+			slot.texture = item_icon
+			scale_texture_rect(slot, slot_node.size * 0.8)
 			hotbar_just_emptied = false
 		if !items:
 			if !hotbar_just_emptied:
@@ -154,10 +163,20 @@ func update_hotbar() -> void:
 						slot_node.item = null
 				hotbar_just_emptied = true
 		elif !inventory_slots[i].inventory_item:
-				slot_node.item = null
-				slot_node.get_child(0).texture = null
-				slot_node.get_child(1).text = ""
-	
+			slot_node.item = null
+			slot_node.get_child(0).texture = null
+			slot_node.get_child(1).text = ""
+
+func popup_animation(item_icon: Control) -> void:
+	var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_method(scale_icon.bind(item_icon), Vector2.ONE, Vector2.ONE * 1.25, 0.05)
+	tween.tween_method(scale_icon.bind(item_icon), Vector2.ONE * 1.25, Vector2.ONE * 0.75, 0.05)
+	tween.tween_method(scale_icon.bind(item_icon), Vector2.ONE * 0.75, Vector2.ONE, 0.05)
+	tween.play()
+
+func scale_icon(s: Vector2, item_icon: Control) -> void:
+	item_icon.material.set_shader_parameter("scale", s)
+
 func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2) -> void:
 	if texture_rect.texture:
 		var tex_size: Vector2 = texture_rect.texture.get_size()

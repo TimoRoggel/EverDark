@@ -81,7 +81,11 @@ func receive_hit(from: AttackController) -> void:
 	if from.attack.flags & damage_flag_filters != damage_flag_filters:
 		return
 	if block_component:
-		if block_component.did_block(global_position.angle_to(from.global_position)):
+		var target: Node2D = from
+		if from.attack.attached_to_owner:
+			target = from.spawner
+		if block_component.did_block(target.global_position):
+			invulnerabilities[from.attack] = 1.0
 			return
 	play_damaged()
 	health_component.take_damage(from)

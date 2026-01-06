@@ -386,6 +386,9 @@ script = ExtResource("1_iin56")
 charge_time = 0.1
 min_distance_to_target = 4.0
 attack_distance = 64.0
+predictive_attacking = true
+skirmisher_mode = true
+dash_sidestep_enabled = true
 target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bhkah5ac48rty"
 

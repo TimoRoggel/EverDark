@@ -4,6 +4,7 @@ class_name EnemyController extends CharacterController
 @export var min_distance_to_target: float = 8.0
 @export var attack_distance: float = 48.0
 @export var max_wander_distance: float = 48.0
+@export var hard_leash_multiplier: float = 5.0
 @export var predictive_attacking: bool = false
 
 var target: TargetComponent = null
@@ -16,8 +17,9 @@ var charging: bool = false
 var returning_home: bool = false
 var spawn_origin: Vector2 = Vector2.ZERO
 
-func _init() -> void:
-	flags = CharacterFlags.Enemy
+func _get_property_list() -> Array:
+	var properties: Array = []
+	return properties
 
 func _ready() -> void:
 	super()
@@ -36,26 +38,39 @@ func _custom_process(delta: float) -> void:
 	if !health.alive:
 		return
 
-	if spawn_origin != Vector2.ZERO:
-		var d = global_position.distance_to(spawn_origin)
-		if d > max_wander_distance:
-			returning_home = true
-		if returning_home:
-			var dir = (spawn_origin - global_position).normalized()
-			movement.desired_movement = dir
-			if animation:
-				animation.direction = dir
-				animation.should_flip = animation.direction.x < 0.0
-				animation.attacking = false
-			if d < max_wander_distance * 0.4:
-				returning_home = false
-			super(delta)
-			return
-
 	var current_target: CharacterController = get_target()
+	var has_target: bool = current_target != null and is_instance_valid(current_target) and !current_target.is_queued_for_deletion()
+
+	if spawn_origin != Vector2.ZERO:
+		var d: float = global_position.distance_to(spawn_origin)
+
+		if has_target and hard_leash_multiplier > 0.0 and d > max_wander_distance * hard_leash_multiplier:
+			if target:
+				target.clear_target()
+			has_target = false
+			current_target = null
+			returning_home = true
+
+		if !has_target:
+			if d > max_wander_distance:
+				returning_home = true
+			if returning_home:
+				var dir: Vector2 = (spawn_origin - global_position).normalized()
+				movement.desired_movement = dir
+				if animation:
+					animation.direction = dir
+					animation.should_flip = animation.direction.x < 0.0
+					animation.attacking = false
+				if d < max_wander_distance * 0.4:
+					returning_home = false
+				super(delta)
+				return
+		else:
+			returning_home = false
+
 	var angle_to_target: float = 0.0
 	var distance: float = INF
-	if current_target:
+	if has_target:
 		var intercept_angle: float = prediction_angle()
 		if intercept_angle != 0.0 and predictive_attacking:
 			angle_to_target = intercept_angle
@@ -72,6 +87,8 @@ func _custom_process(delta: float) -> void:
 		if !charging and attack.can_attack() and distance <= attack_distance:
 			charging = true
 			await get_tree().create_timer(charge_time).timeout
+			if !is_instance_valid(self) or !health.alive:
+				return
 			attack.attack()
 			charging = false
 
@@ -81,12 +98,14 @@ func _custom_process(delta: float) -> void:
 				movement.desired_movement = -Vector2.from_angle(angle_to_target)
 	else:
 		movement.desired_movement = Vector2.ZERO
+
 	if animation:
 		animation.direction = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
 		animation.should_flip = animation.direction.x < 0.0
 		animation.attacking = charging
 		if animation.animated_sprite.animation.begins_with(animation.ANIMS[2]):
 			movement.desired_movement = Vector2.ZERO
+
 	super(delta)
 
 func get_target() -> CharacterController:
@@ -108,10 +127,6 @@ func distance_to_target() -> float:
 	return current_target.global_position.distance_to(global_position)
 
 func prediction_angle() -> float:
-	if !attack:
-		return 0.0
-	if !attack.attack_type:
-		return 0.0
 	var current_target: CharacterController = get_target()
 	if !current_target:
 		return 0.0

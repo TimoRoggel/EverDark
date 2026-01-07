@@ -26,7 +26,7 @@ layout_mode = 2
 [node name="LabelAction" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
-theme_override_font_sizes/font_size = 10
+theme_override_constants/line_spacing = 3
 text = "Action Name"
 horizontal_alignment = 1
 
@@ -38,6 +38,5 @@ mouse_filter = 1
 [node name="LabelInput" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
-theme_override_font_sizes/font_size = 10
 text = "Input Key"
 horizontal_alignment = 1

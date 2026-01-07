@@ -2701,7 +2701,6 @@ visible = false
 position = Vector2(-712, -293)
 
 [node name="note_0" type="Area2D" parent="."]
-visible = false
 z_as_relative = false
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_8cjxf")
@@ -2713,7 +2712,6 @@ interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 0}"
 
 [node name="note_1" type="Area2D" parent="."]
-visible = false
 z_as_relative = false
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_jtmcs")
@@ -2726,7 +2724,6 @@ interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 1}"
 
 [node name="note_2" type="Area2D" parent="."]
-visible = false
 z_as_relative = false
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_3lsws")
@@ -2734,9 +2731,9 @@ position = Vector2(-49, 54)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("11_de0io")
-note_id = 2
+note_id = 5
 interact_script = ExtResource("12_xidr1")
-custom_parameter = "{\"note\": 2}"
+custom_parameter = "{\"note\": 5}"
 
 [node name="world" type="Node2D" parent="."]
 z_index = -1

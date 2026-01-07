@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://71hfrvx8a8j5" path="res://scripts/ui/lore_note_screen.gd" id="1_d5pwv"]
 
 [node name="lore_note_screen" type="MarginContainer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

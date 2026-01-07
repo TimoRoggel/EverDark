@@ -9,12 +9,6 @@ const LORE_NOTE_RUNNABLE: GDScript = preload("res://scripts/tools/runnables/lore
 var sprite: Sprite2D = Sprite2D.new()
 
 func _ready() -> void:
-	monitoring = true
-	z_as_relative = false
-	y_sort_enabled = true
-	sprite.texture = TEXTURE
-	sprite.use_parent_material = true
-	add_child(sprite)
 	custom_parameter = str("{\"note\": ", note_id, "}")
 	interact_script = LORE_NOTE_RUNNABLE
 	active = true

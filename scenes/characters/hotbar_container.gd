@@ -32,15 +32,6 @@ func _input(event: InputEvent) -> void:
 	if not is_active:
 		return
 	
-	if event.is_action_pressed("lock"):
-		if inventory:
-			var slots = inventory.get_slots()
-			if currently_selected_slot < slots.size():
-				var current_slot: InventorySlot = slots[currently_selected_slot]
-				if current_slot.inventory_item:
-					current_slot.inventory_item.locked = !current_slot.inventory_item.locked
-					popup_animation(get_child(currently_selected_slot).get_child(0))
-	
 	if event.is_action_pressed("drop_item"):
 		if inventory:
 			var slots = inventory.get_slots()
@@ -67,10 +58,21 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	update_hotbar()
 
+func lock_slot(index: int) -> void:
+	if !inventory:
+		return
+	var slots = inventory.get_slots()
+	if index >= slots.size():
+		return
+	var slot: InventorySlot = slots[index]
+	if slot.inventory_item:
+		slot.inventory_item.locked = !slot.inventory_item.locked
+		popup_animation(get_child(index).get_child(0))
+
 func add_slots() -> void:
 	if inventory && self.get_child_count() == 0:
 		for i: int in hotbar_slots:
-			var slot_texture: HotbarTextureButton = create_slot()
+			var slot_texture: HotbarTextureButton = create_slot(i)
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()
 			var key_label: Label = create_key_index_label(i)
@@ -81,10 +83,12 @@ func add_slots() -> void:
 			slot_texture.add_child(key_label)
 			add_child(slot_texture)
 
-func create_slot() -> HotbarTextureButton:
+func create_slot(index: int = 0) -> HotbarTextureButton:
 	var slot_texture: HotbarTextureButton = HotbarTextureButton.new()
 	slot_texture.texture_normal = preload("res://graphics/32x32_inventory_HUD_01_transp.png")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
+	slot_texture.container = self
+	slot_texture.index = index
 	#slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	slot_texture.focus_mode = Control.FOCUS_ACCESSIBILITY
 	return slot_texture

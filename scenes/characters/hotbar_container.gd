@@ -32,6 +32,15 @@ func _input(event: InputEvent) -> void:
 	if not is_active:
 		return
 	
+	if event.is_action_pressed("lock"):
+		if inventory:
+			var slots = inventory.get_slots()
+			if currently_selected_slot < slots.size():
+				var current_slot: InventorySlot = slots[currently_selected_slot]
+				if current_slot.inventory_item:
+					current_slot.inventory_item.locked = !current_slot.inventory_item.locked
+					popup_animation(get_child(currently_selected_slot).get_child(0))
+	
 	if event.is_action_pressed("drop_item"):
 		if inventory:
 			var slots = inventory.get_slots()

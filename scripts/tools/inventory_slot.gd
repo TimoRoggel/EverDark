@@ -73,7 +73,7 @@ func _gui_input(event: InputEvent) -> void:
 
 	match event.button_index:
 		MouseButton.MOUSE_BUTTON_LEFT:
-			if inventory_item && event.alt_pressed:
+			if inventory_item && Input.is_action_pressed("lock"):
 				inventory_item.locked = !inventory_item.locked
 				_setup_item()
 				accept_event()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://dgp8wphrgdusy"]
+[gd_scene load_steps=37 format=4 uid="uid://dgp8wphrgdusy"]
 
 [ext_resource type="Script" uid="uid://cgowfsimcmpcr" path="res://scripts/tools/world_state.gd" id="1_px3xn"]
 [ext_resource type="PackedScene" uid="uid://ymxr4fas105j" path="res://scenes/characters/player.tscn" id="2_7k8c1"]
@@ -29,15 +29,59 @@ tonemap_mode = 3
 glow_enabled = true
 glow_bloom = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cjxf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yywnm"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtmcs"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rny25"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lsws"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gc5je"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxm4g"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ues0t"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0e0f6"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_68ntl"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjsu1"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1wn0"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rm5ru"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ocgkh"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6gyxr"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_usygc"]
+shader = ExtResource("10_q418o")
+shader_parameter/highlighted = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfpb5"]
 shader = ExtResource("10_q418o")
 shader_parameter/highlighted = false
 
@@ -2703,7 +2747,7 @@ position = Vector2(-712, -293)
 [node name="note_0" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_8cjxf")
+material = SubResource("ShaderMaterial_yywnm")
 position = Vector2(-32, -5)
 collision_layer = 4
 collision_mask = 4
@@ -2714,7 +2758,7 @@ custom_parameter = "{\"note\": 0}"
 [node name="note_1" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_jtmcs")
+material = SubResource("ShaderMaterial_rny25")
 position = Vector2(-46, 16)
 collision_layer = 4
 collision_mask = 4
@@ -2726,14 +2770,146 @@ custom_parameter = "{\"note\": 1}"
 [node name="note_2" type="Area2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_3lsws")
+material = SubResource("ShaderMaterial_gc5je")
 position = Vector2(-49, 54)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 2
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 2}"
+
+[node name="note_3" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_yxm4g")
+position = Vector2(-69, 55)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 3
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 3}"
+
+[node name="note_4" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_ues0t")
+position = Vector2(-90, 55)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 4
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 4}"
+
+[node name="note_5" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_0e0f6")
+position = Vector2(-90, 73)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("11_de0io")
 note_id = 5
 interact_script = ExtResource("12_xidr1")
 custom_parameter = "{\"note\": 5}"
+
+[node name="note_6" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_68ntl")
+position = Vector2(-70, 73)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 6
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 6}"
+
+[node name="note_7" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_jjsu1")
+position = Vector2(-47, 72)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 7
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 7}"
+
+[node name="note_8" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_c1wn0")
+position = Vector2(-47, 90)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 8
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 8}"
+
+[node name="note_9" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_rm5ru")
+position = Vector2(-67, 91)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 9
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 9}"
+
+[node name="note_10" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_ocgkh")
+position = Vector2(-88, 92)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 10
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 10}"
+
+[node name="note_11" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_6gyxr")
+position = Vector2(-88, 107)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 11
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 11}"
+
+[node name="note_12" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_usygc")
+position = Vector2(-69, 107)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 12
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 12}"
+
+[node name="note_13" type="Area2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_jfpb5")
+position = Vector2(-49, 107)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_de0io")
+note_id = 13
+interact_script = ExtResource("12_xidr1")
+custom_parameter = "{\"note\": 13}"
 
 [node name="world" type="Node2D" parent="."]
 z_index = -1

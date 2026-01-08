@@ -34,7 +34,6 @@
 [ext_resource type="AudioStream" uid="uid://crp6n5kbiq0fl" path="res://audio/sounds/player/footstep_5.wav" id="21_tnye5"]
 [ext_resource type="Script" uid="uid://ckc36i68yr744" path="res://scripts/components/everdark_damage_component.gd" id="21_tswxa"]
 [ext_resource type="Script" uid="uid://cjgnvaeld4mww" path="res://scripts/components/eat_component.gd" id="22_5jukt"]
-[ext_resource type="PackedScene" uid="uid://bcg10wp7uqawx" path="res://scenes/lore_system/lore_note_screen.tscn" id="23_inhyd"]
 [ext_resource type="AudioStream" uid="uid://cuuwo68me0x7" path="res://audio/sounds/player/death.wav" id="28_lnpl6"]
 [ext_resource type="Material" uid="uid://dpfoqgjxxik6t" path="res://shaders/materials/everdark_overlay_material.tres" id="28_tswxa"]
 [ext_resource type="PackedScene" uid="uid://dqs6qujeopigy" path="res://UI/death_view_ui.tscn" id="30_yhyq5"]
@@ -44,6 +43,7 @@
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
 [ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
+[ext_resource type="PackedScene" uid="uid://blvliryx7puul" path="res://UI/JournalMenu.tscn" id="45_lvr6b"]
 [ext_resource type="Texture2D" uid="uid://g7a2she3ktpw" path="res://graphics/particle.png" id="47_nktl3"]
 [ext_resource type="Texture2D" uid="uid://d27av85dvlkhi" path="res://map/Art Assets/Player HUD/30x30_inventory_HUD_slot.png" id="49_5bn3a"]
 
@@ -427,10 +427,8 @@ script = ExtResource("20_eir2k")
 inventory = NodePath("../inventory")
 inventory_component = NodePath("../../components/inventory")
 
-[node name="lore_note_screen" parent="CanvasLayer" instance=ExtResource("23_inhyd")]
-process_mode = 3
+[node name="JournalMenu" parent="CanvasLayer" instance=ExtResource("45_lvr6b")]
 visible = false
-z_index = 275
 
 [node name="controls" type="CanvasLayer" parent="."]
 layer = 0

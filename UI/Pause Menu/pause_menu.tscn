@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn1esnd74d0hh"]
+[gd_scene load_steps=4 format=3 uid="uid://bn1esnd74d0hh"]
 
 [ext_resource type="Script" uid="uid://b0thq0tp2rp14" path="res://UI/Pause Menu/pause_menu.gd" id="1_ltd3m"]
 [ext_resource type="PackedScene" uid="uid://cv3ukf3px2kp3" path="res://UI/Settings/settings_pause_menu.tscn" id="2_jfm1e"]
+[ext_resource type="PackedScene" uid="uid://blvliryx7puul" path="res://UI/JournalMenu.tscn" id="3_3ol4c"]
 
 [node name="Pause Menu" type="Control"]
 layout_mode = 3
@@ -35,6 +36,11 @@ custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 text = "Resume"
 
+[node name="Journal" type="Button" parent="MarginContainer/Buttons"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Journal"
+
 [node name="Options" type="Button" parent="MarginContainer/Buttons"]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
@@ -53,7 +59,12 @@ text = "Quit game"
 visible = false
 layout_mode = 1
 
+[node name="JournalMenu" parent="." instance=ExtResource("3_3ol4c")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="MarginContainer/Buttons/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/Buttons/Journal" to="." method="_on_journal_pressed"]
 [connection signal="pressed" from="MarginContainer/Buttons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/Buttons/Back to main menu" to="." method="_on_back_to_main_menu_pressed"]
 [connection signal="pressed" from="MarginContainer/Buttons/Quit" to="." method="_on_quit_pressed"]

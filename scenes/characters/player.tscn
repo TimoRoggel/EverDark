@@ -387,6 +387,9 @@ layer = 10
 process_mode = 3
 visible = false
 
+[node name="JournalMenu" parent="pause" instance=ExtResource("45_lvr6b")]
+visible = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("20_kmyvj")]
@@ -426,9 +429,6 @@ alignment = 1
 script = ExtResource("20_eir2k")
 inventory = NodePath("../inventory")
 inventory_component = NodePath("../../components/inventory")
-
-[node name="JournalMenu" parent="CanvasLayer" instance=ExtResource("45_lvr6b")]
-visible = false
 
 [node name="controls" type="CanvasLayer" parent="."]
 layer = 0

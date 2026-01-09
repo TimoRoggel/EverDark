@@ -9,7 +9,6 @@ var unique_id: int = ResourceUID.create_id()
 
 func _ready() -> void:
 	GameManager.ui_opened_conditions[name + str(unique_id)] = func() -> bool: return visible
-	
 	visible = false
 	settings_pause_menu.visible = false
 	journal_menu.visible = false
@@ -17,6 +16,7 @@ func _ready() -> void:
 	
 	if journal_menu.has_signal("back_requested"):
 		journal_menu.back_requested.connect(_on_journal_back_to_pause)
+	journal_menu.visibility_changed.connect(_on_journal_visibility_changed)
 
 func _exit_tree() -> void:
 	GameManager.ui_opened_conditions.erase(name + str(unique_id))
@@ -81,21 +81,22 @@ func _on_resume_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	buttons.visible = false
-	settings_pause_menu.visible = true 
+	settings_pause_menu.visible = true
 
 func _on_settings_pause_menu_exit_settings_pause_menu() -> void:
 	buttons.visible = true
-	settings_pause_menu.visible = false 
+	settings_pause_menu.visible = false
 
 func _on_back_to_main_menu_pressed() -> void:
 	SaveSystem.reset()
-	get_tree().paused = false  
+	get_tree().paused = false
 	SceneTransitionController.change_scene("res://UI/Main menu/main_menu.tscn", "fade_layer", 1.0)
 
 func _on_journal_pressed() -> void:
 	buttons.visible = false
 	journal_menu.visible = true
-	
+	if "opened_from_pause" in journal_menu:
+		journal_menu.opened_from_pause = true
 	if journal_menu.has_method("show_menu"):
 		journal_menu.show_menu()
 	elif journal_menu.has_method("open_notes"):
@@ -104,3 +105,9 @@ func _on_journal_pressed() -> void:
 func _on_journal_back_to_pause() -> void:
 	journal_menu.visible = false
 	buttons.visible = true
+
+func _on_journal_visibility_changed() -> void:
+	if not journal_menu.visible and is_paused:
+		buttons.visible = true
+		if not get_tree().paused:
+			get_tree().paused = true

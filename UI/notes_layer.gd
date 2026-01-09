@@ -24,12 +24,7 @@ var active_tween: Tween
 
 func _ready():
 	LoreSystem.screen = self
-	
-	if not l_paper or not r_paper:
-		push_error("Error: PaperImage nodes not found.")
-	
 	load_notes_data()
-	
 	btn_prev.pressed.connect(_on_prev_pressed)
 	btn_next.pressed.connect(_on_next_pressed)
 	btn_back.pressed.connect(_on_back_pressed)

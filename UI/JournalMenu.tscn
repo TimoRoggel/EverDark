@@ -58,11 +58,11 @@ grow_vertical = 2
 
 [node name="Title" type="Label" parent="BookBackground/Menu_Layer"]
 layout_mode = 0
-offset_left = 67.0
-offset_top = 8.0
-offset_right = 154.0
-offset_bottom = 43.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+offset_left = 77.0
+offset_top = 9.0
+offset_right = 144.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 25
 text = "Journal"
 
@@ -72,7 +72,7 @@ offset_left = 54.0
 offset_top = 60.0
 offset_right = 167.0
 offset_bottom = 204.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_constants/line_spacing = 6
 theme_override_font_sizes/font_size = 17
 text = "In the journal you will find discovered notes and the tutorial tips."
@@ -126,7 +126,7 @@ offset_left = 72.0
 offset_top = 6.0
 offset_right = 143.0
 offset_bottom = 34.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 25
 text = "Tutorial"
 autowrap_mode = 2
@@ -137,7 +137,7 @@ offset_left = 29.0
 offset_top = 40.0
 offset_right = 212.0
 offset_bottom = 226.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 16
 text = "Movement
 • Use WASD to move
@@ -155,7 +155,7 @@ offset_left = 237.0
 offset_top = 40.0
 offset_right = 420.0
 offset_bottom = 226.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 16
 text = "Combat
 • Attack with LEFT MOUSE BUTTON
@@ -176,7 +176,7 @@ offset_left = 72.0
 offset_top = 6.0
 offset_right = 143.0
 offset_bottom = 34.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 25
 text = "Tutorial"
 autowrap_mode = 2
@@ -187,7 +187,7 @@ offset_left = 29.0
 offset_top = 40.0
 offset_right = 212.0
 offset_bottom = 226.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 16
 text = "Crafting
 • Use the workbench to craft and upgrade."
@@ -199,7 +199,7 @@ offset_left = 237.0
 offset_top = 40.0
 offset_right = 420.0
 offset_bottom = 226.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 16
 text = "Exploration
 • Drop Voidcore in the hole to receive Lumin.
@@ -269,29 +269,30 @@ offset_left = 79.0
 offset_top = 8.0
 offset_right = 131.0
 offset_bottom = 36.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 25
 text = "NOTES"
 
 [node name="PaperImage" type="TextureRect" parent="BookBackground/Notes_layer/LeftPage_Visuals"]
 material = SubResource("ShaderMaterial_t5rp3")
 layout_mode = 0
-offset_left = 30.0
+offset_left = 39.0
 offset_top = 32.0
-offset_right = 192.0
+offset_right = 187.0
 offset_bottom = 199.0
 expand_mode = 1
 
 [node name="Content text" type="Label" parent="BookBackground/Notes_layer/LeftPage_Visuals"]
 layout_mode = 0
-offset_left = 47.0
+offset_left = 52.0
 offset_top = 43.0
-offset_right = 178.0
+offset_right = 164.0
 offset_bottom = 187.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 16
 text = "111"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="RightPage_Visuals" type="Control" parent="BookBackground/Notes_layer"]
@@ -303,22 +304,23 @@ offset_bottom = 257.0
 [node name="PaperImage" type="TextureRect" parent="BookBackground/Notes_layer/RightPage_Visuals"]
 material = SubResource("ShaderMaterial_ox0w6")
 layout_mode = 0
-offset_left = 12.0
+offset_left = 19.0
 offset_top = 32.0
-offset_right = 174.0
+offset_right = 159.0
 offset_bottom = 199.0
 expand_mode = 1
 
 [node name="Content text" type="Label" parent="BookBackground/Notes_layer/RightPage_Visuals"]
 layout_mode = 0
-offset_left = 19.0
+offset_left = 30.0
 offset_top = 44.0
-offset_right = 150.0
+offset_right = 139.0
 offset_bottom = 188.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_font_sizes/font_size = 16
 text = "111"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="NavButtons" type="Control" parent="BookBackground/Notes_layer"]

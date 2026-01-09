@@ -82,7 +82,7 @@ func generate(where: Vector2) -> void:
 	if generated_chunks.has(where):
 		return
 	generated_chunks.append(where)
-	find_and_place_tile(where)
+	#find_and_place_tile(where)
 	process_terrain_queue(where)
 
 

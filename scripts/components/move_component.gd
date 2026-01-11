@@ -68,6 +68,8 @@ func add_force(direction: Vector2) -> void:
 	controller.velocity += direction
 
 func step(delta: float) -> void:
+	if !controller.visible:
+		return
 	if !step_player:
 		return
 	if controller.velocity.length() <= 4.0:

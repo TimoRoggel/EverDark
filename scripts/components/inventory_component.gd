@@ -77,6 +77,8 @@ func drop_items(inventory_drop_percent: float, slot_drop_percent: float):
 	container.clear_all()
 
 func add(item_id: int, quantity: int = 1) -> int:
+	if (item_id == 6 && has(18)) || (item_id == 18 && has(6)):
+		GameManager.finish_objective(2)
 	return container.add(item_id, quantity)
 
 func remove(item_id: int, quantity: int = 1) -> int:

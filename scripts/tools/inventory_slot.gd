@@ -5,12 +5,14 @@ const ITEM_GLOW = preload("uid://cxwuww81e8unb")
 
 @export var inventory_item: InventoryItem = null:
 	set(value):
+		var old_val: InventoryItem = inventory_item
 		if value:
 			value.changed.connect(_update_item)
 			if inventory_item:
 				inventory_item.changed.disconnect(_update_item)
 		inventory_item = value
-		_update_item()
+		if old_val != value:
+			_update_item()
 
 var index: int = 0
 var icon: TextureRect = null
@@ -24,7 +26,6 @@ var filters: int = 0
 signal pressed(item: InventoryItem)
 signal item_dropped(item: InventoryItem)
 signal item_changed
-
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAG_END:
@@ -44,6 +45,7 @@ func _init() -> void:
 	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.material = ITEM_GLOW.duplicate()
 	add_child(icon)
 	label = Label.new()
 	label.text = ""
@@ -57,6 +59,7 @@ func _init() -> void:
 	add_child(label)
 	mouse_entered.connect(func() -> void: hovered = true)
 	mouse_exited.connect(func() -> void: hovered = false)
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	_setup_item()
@@ -70,7 +73,7 @@ func _gui_input(event: InputEvent) -> void:
 
 	match event.button_index:
 		MouseButton.MOUSE_BUTTON_LEFT:
-			if inventory_item && event.alt_pressed:
+			if inventory_item && Input.is_action_pressed("lock"):
 				inventory_item.locked = !inventory_item.locked
 				_setup_item()
 				accept_event()
@@ -178,11 +181,11 @@ func _setup_item() -> void:
 			label.text = ""
 		else:
 			label.text = str(inventory_item.quantity, "x")
-		if inventory_item.item.glows:
-			icon.material = ITEM_GLOW
+		icon.material.set_shader_parameter("glowing", inventory_item.item.glows)
 		if inventory_item.locked:
 			label.text = "🔒 " + label.text
 		tooltip_text = inventory_item.item.display_name
+		_popup_animation()
 	else:
 		icon.texture = null
 		label.text = ""
@@ -191,6 +194,16 @@ func _setup_item() -> void:
 func _update_item() -> void:
 	_setup_item()
 	item_changed.emit()
+
+func _popup_animation() -> void:
+	var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_method(_scale_icon, Vector2.ONE, Vector2.ONE * 1.25, 0.05)
+	tween.tween_method(_scale_icon, Vector2.ONE * 1.25, Vector2.ONE * 0.75, 0.05)
+	tween.tween_method(_scale_icon, Vector2.ONE * 0.75, Vector2.ONE, 0.05)
+	tween.play()
+
+func _scale_icon(s: Vector2) -> void:
+	icon.material.set_shader_parameter("scale", s)
 
 func add_amount(amount: int = 0) -> void:
 	if !inventory_item:

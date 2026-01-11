@@ -93,11 +93,13 @@ func _on_body_entered(body: Node2D) -> void:
 	if !is_instance_of(body, PlayerController):
 		return
 	interact_popup.visible = true
+	GameManager.is_player_nearby_hole = true
 
 func _on_body_exited(body: Node2D) -> void:
 	if !is_instance_of(body, PlayerController):
 		return
 	interact_popup.visible = false
+	GameManager.is_player_nearby_hole = false
 "
 
 [sub_resource type="Curve" id="Curve_s4x63"]

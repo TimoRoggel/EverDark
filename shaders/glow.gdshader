@@ -1,6 +1,8 @@
 shader_type canvas_item;
 render_mode unshaded;
 
+uniform bool glowing = true;
+uniform vec2 scale = vec2(1.0);
 uniform float thickness : hint_range(0.0, 100.0);
 uniform int ring_count : hint_range(1,128) = 16;
 uniform float ring_offset : hint_range(0.0, 1.0, 0.01);
@@ -15,7 +17,7 @@ uniform sampler2D noise: repeat_enable;
 void vertex(){
 	if (border_clipping_fix){
 		vec2 o = (UV * 2.0 - 1.0);
-		VERTEX += o * thickness - offset;
+		VERTEX += o * thickness * scale - offset;
 		VERTEX.x *= 1.0 + (aspect_ratio-1.0) * (thickness * TEXTURE_PIXEL_SIZE.x) * 2.0;
 	}
 }
@@ -40,37 +42,43 @@ void fragment(){
 	vec2 o = offset / vec2(textureSize(TEXTURE, 0));
 	vec2 uv = UV;
 	uv -= vec2(0.5);
+	uv /= scale;
 	if (border_clipping_fix){
 		uv.x *= 1.0 + (aspect_ratio-1.0) * thickness * TEXTURE_PIXEL_SIZE.x * 2.0;
 		uv *= (1.0 + (thickness * TEXTURE_PIXEL_SIZE * 2.0));
 		uv -= o;
 		}
 	uv += vec2(0.5);
-	vec2 size = vec2(thickness) / vec2(textureSize(TEXTURE, 0));
-	
-	vec4 sprite_color = tex(TEXTURE, uv);
-	float alpha = sprite_color.a;
-	float original_alpha = alpha;
-	if (square_border){
-		for(int i=0;i<ring_count;++i){
-			float r = float(i) / float(ring_count) + ring_offset;
-			alpha = max(alpha,texture(TEXTURE, uv + o + size * square(r) * vec2(aspect_ratio,1.0)).a * outline_color.a);}// texture sampling fix is disabled because both with and without give the same result
-	}else{
-		for(int i=0;i<ring_count;++i){
-			float r = float(i) * 3.14159 / float(ring_count) * 2.0 + ring_offset;
-			if (max_or_add){
-				alpha = alpha+tex(TEXTURE, uv + o +  vec2(size.x * sin(r) * aspect_ratio, size.y * cos(r))).a * outline_color.a;
-			}else{
-				alpha = max(alpha,tex(TEXTURE, uv + o +  vec2(size.x * sin(r) * aspect_ratio, size.y * cos(r))).a * outline_color.a);
+	if (!glowing) {
+		COLOR = tex(TEXTURE, uv);
+	} else {
+		vec2 size = vec2(thickness) / vec2(textureSize(TEXTURE, 0));
+		
+		vec4 sprite_color = tex(TEXTURE, uv);
+		float alpha = sprite_color.a;
+		float original_alpha = alpha;
+		if (square_border){
+			for(int i=0;i<ring_count;++i){
+				float r = float(i) / float(ring_count) + ring_offset;
+				alpha = max(alpha,texture(TEXTURE, uv + o + size * square(r) * vec2(aspect_ratio,1.0)).a * outline_color.a);}// texture sampling fix is disabled because both with and without give the same result
+		}else{
+			for(int i=0;i<ring_count;++i){
+				float r = float(i) * 3.14159 / float(ring_count) * 2.0 + ring_offset;
+				if (max_or_add){
+					alpha = alpha+tex(TEXTURE, uv + o +  vec2(size.x * sin(r) * aspect_ratio, size.y * cos(r))).a * outline_color.a;
+				}else{
+					alpha = max(alpha,tex(TEXTURE, uv + o +  vec2(size.x * sin(r) * aspect_ratio, size.y * cos(r))).a * outline_color.a);
+				}
 			}
 		}
+		vec2 noise_offset;
+		noise_offset.x = texture(noise, uv - vec2(TIME, sin(TIME))).r;
+		noise_offset.y = texture(noise, uv - vec2(TIME, cos(TIME))).r;
+		sprite_color.a = max(sprite_color.a, tex(TEXTURE, noise_offset).a);
+	    vec3 final_color = mix(outline_color.rgb, sprite_color.rgb, sprite_color.a);
+		alpha = min(original_alpha, clamp(alpha, 0.0, 1.0));
+		final_color += alpha * 0.1;
+	    COLOR = vec4(final_color, alpha);
 	}
-	vec2 noise_offset;
-	noise_offset.x = texture(noise, uv - vec2(TIME, sin(TIME))).r;
-	noise_offset.y = texture(noise, uv - vec2(TIME, cos(TIME))).r;
-	sprite_color.a = max(sprite_color.a, tex(TEXTURE, noise_offset).a);
-    vec3 final_color = mix(outline_color.rgb, sprite_color.rgb, sprite_color.a);
-	alpha = min(original_alpha, clamp(alpha, 0.0, 1.0));
-	final_color += alpha * 0.1;
-    COLOR = vec4(final_color, alpha);
+	
 }

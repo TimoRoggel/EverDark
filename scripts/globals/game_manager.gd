@@ -80,6 +80,16 @@ func create_audio_player(bus: StringName, samples: Array[AudioStream], parent: N
 		parent.add_child(audio_player)
 	return audio_player
 
+func create_audio_player_basic(bus: StringName, stream: AudioStream, volume_linear: float = 1.0, parent: Node = null) -> AudioStreamPlayer:
+	var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
+	audio_player.stream = stream
+	audio_player.volume_linear = volume_linear
+	audio_player.bus = bus
+	audio_player.max_polyphony = 4
+	if parent:
+		parent.add_child(audio_player)
+	return audio_player
+
 func get_randomized_value(input: float, randomness: float) -> float:
 	var rand: float = input * randomness
 	return randf_range(input - rand, input + rand)

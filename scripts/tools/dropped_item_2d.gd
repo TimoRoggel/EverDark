@@ -32,6 +32,7 @@ static func drop(item_id: int, count: int, pos: Vector2, play_sound: bool = true
 
 	Engine.get_main_loop().current_scene.add_child(dropped_item)
 	dropped_item.global_position = pos
+	dropped_item.scale_to(1.0)
 
 	if play_sound:
 		dropped_item.timeout(0.75)
@@ -93,6 +94,13 @@ func _physics_process(_delta: float) -> void:
 	for d: DroppedItem2D in nearby_items:
 		amount += d.amount
 		d.queue_free()
+
+func scale_to(size: float) -> void:
+	scale = Vector2.ONE * (1.0 - size)
+	var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property(self, "scale", Vector2.ONE * size, 0.25)
+	tween.play()
+	await tween.finished
 
 func update_param() -> void:
 	custom_parameter = str("{\"item\": ", item.id, ", \"quantity\": ", amount, "}")

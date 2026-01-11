@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://ymxr4fas105j"]
+[gd_scene load_steps=77 format=3 uid="uid://ymxr4fas105j"]
 
 [ext_resource type="Script" uid="uid://bdg3j7sgmdj0n" path="res://scripts/characters/player/player_controller.gd" id="1_yewv4"]
 [ext_resource type="SpriteFrames" uid="uid://bk7tcpddsbd8e" path="res://resources/player_sprite_frames.tres" id="2_6ux5t"]
@@ -40,6 +40,7 @@
 [ext_resource type="AudioStream" uid="uid://dcmre2g8xjn5" path="res://audio/sounds/player/hurt.wav" id="31_6aj6e"]
 [ext_resource type="Script" uid="uid://6a33mecj0khi" path="res://scripts/components/build_component.gd" id="35_5bn3a"]
 [ext_resource type="AudioStream" uid="uid://bxlm1pdy80psk" path="res://audio/ambience/ambience_0.mp3" id="35_hnvwh"]
+[ext_resource type="Material" uid="uid://c1rmdp2uth6ut" path="res://shaders/materials/water.tres" id="36_nktl3"]
 [ext_resource type="Script" uid="uid://c44mah042f13w" path="res://scripts/tools/ambience_player.gd" id="36_rfou0"]
 [ext_resource type="AudioStream" uid="uid://c3arxi2gi81iv" path="res://audio/sounds/player/everdark_damage.wav" id="37_n7k00"]
 [ext_resource type="Texture2D" uid="uid://c1fa8vx4kv8r3" path="res://map/map assets/New Piskel (46).png" id="44_qmarm"]
@@ -220,8 +221,8 @@ z_as_relative = false
 y_sort_enabled = true
 use_parent_material = true
 sprite_frames = ExtResource("2_6ux5t")
-animation = &"move_up"
-frame_progress = 0.24464774
+animation = &"move_right"
+frame_progress = 0.2243734
 centered = false
 offset = Vector2(-16, -32)
 
@@ -371,6 +372,7 @@ follow_viewport = false
 screen_offset = Vector2(-4, 2)
 
 [node name="water" type="Sprite2D" parent="camera/background_water"]
+material = ExtResource("36_nktl3")
 texture = SubResource("AtlasTexture_i42og")
 
 [node name="ambience" type="AudioStreamPlayer" parent="."]

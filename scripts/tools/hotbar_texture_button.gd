@@ -1,6 +1,18 @@
 class_name HotbarTextureButton extends TextureButton
 
 var item: Item = null
+var index: int = 0
+var container: Control = null
+
+func _gui_input(event: InputEvent) -> void:
+	if !is_instance_of(event, InputEventMouseButton):
+		return
+	if !event.pressed:
+		return
+	if event.button_index != MouseButton.MOUSE_BUTTON_LEFT:
+		return
+	
+	container.lock_slot(index)
 
 func _make_custom_tooltip(_for_text: String) -> Object:
 	if !item:

@@ -15,6 +15,8 @@ seamless_blend_skirt = 1.0
 
 [resource]
 shader = ExtResource("1_7m2ab")
+shader_parameter/glowing = false
+shader_parameter/scale = Vector2(1, 1)
 shader_parameter/thickness = 0.50000002375
 shader_parameter/ring_count = 16
 shader_parameter/ring_offset = 0.0

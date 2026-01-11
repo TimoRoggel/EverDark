@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://cgmgqctfbwgu3"]
+[gd_scene load_steps=72 format=3 uid="uid://cgmgqctfbwgu3"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_3nmv6"]
 [ext_resource type="Texture2D" uid="uid://b15plonxuayix" path="res://graphics/characters/guardian/guardian_attacking_down.png" id="2_bqtwb"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://bkbd6vayvuf11" path="res://audio/sounds/enemy/hurt.wav" id="17_4ii8p"]
 [ext_resource type="Script" uid="uid://2p53a8evemdg" path="res://scripts/components/healthbar_component.gd" id="19_c0275"]
 [ext_resource type="Script" uid="uid://dxkedey5xyb5i" path="res://scripts/components/save_removal_component.gd" id="20_ghqqk"]
+[ext_resource type="Script" uid="uid://md61jbc0drys" path="res://scripts/components/guardian_phase_component.gd" id="21_isejs"]
 [ext_resource type="Texture2D" uid="uid://g7a2she3ktpw" path="res://graphics/particle.png" id="21_n7gwq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0275"]
@@ -316,6 +317,66 @@ animations = [{
 "loop": true,
 "name": &"move_up",
 "speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghqqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghqqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}],
+"loop": false,
+"name": &"phase_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghqqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghqqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}],
+"loop": false,
+"name": &"phase_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghqqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghqqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0275")
+}],
+"loop": false,
+"name": &"phase_up",
+"speed": 8.0
 }]
 
 [sub_resource type="Gradient" id="Gradient_ghqqk"]
@@ -395,7 +456,7 @@ shape = SubResource("RectangleShape2D_c0275")
 use_parent_material = true
 position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_k34kf")
-animation = &"attack_up"
+animation = &"phase_up"
 autoplay = "idle_down"
 
 [node name="move" type="Node2D" parent="." node_paths=PackedStringArray("step_particles")]
@@ -450,6 +511,10 @@ metadata/_custom_type_script = "uid://2p53a8evemdg"
 [node name="save_remove" type="Node2D" parent="."]
 script = ExtResource("20_ghqqk")
 metadata/_custom_type_script = "uid://dxkedey5xyb5i"
+
+[node name="phase" type="Node2D" parent="."]
+script = ExtResource("21_isejs")
+metadata/_custom_type_script = "uid://md61jbc0drys"
 
 [node name="damage_particles" type="GPUParticles2D" parent="."]
 z_index = 1

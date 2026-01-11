@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ccsvhx5s8yx0t"]
+[gd_scene load_steps=19 format=3 uid="uid://ccsvhx5s8yx0t"]
 
 [ext_resource type="Script" uid="uid://dricqlote5fbh" path="res://Crafting/crafting_ui.gd" id="1_jp7wa"]
 [ext_resource type="Texture2D" uid="uid://chk5qxglu5xxu" path="res://map/Art Assets/Player HUD/Upgrade_HUD.png" id="2_fpwgh"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://buytc168e0tfc" path="res://audio/sounds/crafting_table/craft.wav" id="3_jp7wa"]
 [ext_resource type="Texture2D" uid="uid://cacifihv143uq" path="res://graphics/ui_icons/close.png" id="3_kplwc"]
 [ext_resource type="Texture2D" uid="uid://ccmx5batu45lf" path="res://graphics/ui_icons/dropdown_toggled.png" id="4_xa482"]
+[ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="6_xa482"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa482"]
 bg_color = Color(0.3529412, 0.2509804, 0.19607843, 1)
@@ -168,6 +169,8 @@ custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Craft"
+script = ExtResource("6_xa482")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -178,6 +181,8 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 icon = ExtResource("3_kplwc")
+script = ExtResource("6_xa482")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="Control6" type="Control" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2

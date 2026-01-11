@@ -35,8 +35,13 @@ func _input(event: InputEvent) -> void:
 			var slots = inventory.get_slots()
 			if currently_selected_slot < slots.size():
 				var current_slot: InventorySlot = slots[currently_selected_slot]
-				current_slot.drop_item_manually(Input.is_key_pressed(KEY_CTRL))
-				update_held_item()
+				if current_slot and current_slot.inventory_item:
+					var current_item: Item = current_slot.inventory_item.item
+					if current_item:
+						if GameManager.is_player_nearby_hole and current_item.id != 1:
+							return
+					current_slot.drop_item_manually(Input.is_key_pressed(KEY_CTRL))
+					update_held_item()
 
 	if is_instance_of(event, InputEventMouseButton):
 		if event.is_pressed():

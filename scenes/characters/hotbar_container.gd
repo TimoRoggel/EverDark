@@ -80,18 +80,25 @@ func add_slots() -> void:
 			var slot_texture: HotbarTextureButton = create_slot(i)
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()
+			var key_rect: TextureRect = create_key_index_rect()
 			var key_label: Label = create_key_index_label(i)
 			#var key_texxture: TextureRect = create_index_texture()
 			slot_texture.add_child(item_texture)
 			slot_texture.add_child(amount_label)
 			#key_label.add_child(key_texxture)
-			slot_texture.add_child(key_label)
+			key_rect.add_child(key_label)
+			slot_texture.add_child(key_rect)
 			add_child(slot_texture)
 
 func create_slot(index: int = 0) -> HotbarTextureButton:
 	var slot_texture: HotbarTextureButton = HotbarTextureButton.new()
-	slot_texture.texture_normal = preload("res://graphics/32x32_inventory_HUD_01_transp.png")
+	slot_texture.texture_normal = preload("uid://c2ycfy4ja5cy1")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
+	slot_texture.stretch_mode = TextureButton.STRETCH_SCALE
+	slot_texture.custom_minimum_size = Vector2(32, 32)
+	slot_texture.ignore_texture_size = true
+	slot_texture.size_flags_vertical = Control.SIZE_SHRINK_END
+	slot_texture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	slot_texture.container = self
 	slot_texture.index = index
 	#slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -118,16 +125,30 @@ func create_amount_label() -> Label:
 	amount_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	amount_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	return amount_label
-	
+
+func create_key_index_rect() -> TextureRect:
+	var slot_texture: TextureRect = TextureRect.new()
+	slot_texture.texture = preload("uid://c2ycfy4ja5cy1")
+	slot_texture.custom_minimum_size = Vector2(16, 16)
+	slot_texture.ignore_texture_size = true
+	slot_texture.anchor_left = 0.25
+	slot_texture.anchor_top = -0.5
+	slot_texture.anchor_right = 0.25
+	slot_texture.anchor_bottom = 0.0
+	slot_texture.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	slot_texture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot_texture.focus_mode = Control.FOCUS_ACCESSIBILITY
+	return slot_texture
+
 func create_key_index_label(index: int) -> Label:
 	var key_label := Label.new()
 	key_label.text = str(index + 1)
-	key_label.anchor_left = 0.0
-	key_label.anchor_top = -0.5
-	key_label.anchor_right = 1.0
-	key_label.anchor_bottom = 0.0
 	key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	key_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+	key_label.position = Vector2(3.0, -3.0)
+	key_label.size = Vector2.ONE * 12.0
+	key_label.focus_mode = Control.FOCUS_ACCESSIBILITY
 	key_label.add_theme_color_override("font_color", Color.WHITE)
 	return key_label
 	

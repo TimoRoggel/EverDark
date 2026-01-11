@@ -26,7 +26,8 @@ func _enter() -> void:
 	# Audio
 	if death_sounds.size() > 0:
 		death_player = GameManager.create_audio_player(&"SFX", death_sounds, self)
-	await get_tree().physics_frame
+	await get_tree().create_timer(1.0).timeout
+	current_health = max_health
 	hitbox = controller.get_component(HitboxComponent)
 
 func _update(_delta: float) -> void:

@@ -32,6 +32,7 @@ func create_material() -> ShaderMaterial:
 	mat.shader = SHADER
 	mat.set_shader_parameter("pivot", size * 0.5)
 	mat.set_shader_parameter("scale", 1.0)
+	mat.set_shader_parameter("pixel_size", Vector2.ONE / size)
 	return mat
 
 func zoom(amount: float = 1.2) -> void:

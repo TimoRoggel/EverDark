@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfo35y24syp7t"]
+[gd_scene load_steps=10 format=3 uid="uid://bfo35y24syp7t"]
 
 [ext_resource type="Script" uid="uid://do6phc3fxdxvq" path="res://UI/Settings/settings_tab_container.gd" id="1_vysk0"]
 [ext_resource type="PackedScene" uid="uid://bubk665qv0ser" path="res://UI/Settings/audio_slider_settings.tscn" id="2_4286n"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bfcogb5focq84" path="res://UI/Settings/checkbox.tscn" id="5_4286n"]
 [ext_resource type="Script" uid="uid://d0rqtukk47lp8" path="res://UI/Settings/controls.gd" id="5_jh3jm"]
 [ext_resource type="PackedScene" uid="uid://c05b5nqv7pwqh" path="res://UI/Settings/input_button.tscn" id="6_0doo3"]
+[ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="9_hseaq"]
 
 [node name="Settings_Tab_Container" type="Control"]
 layout_mode = 3
@@ -241,5 +242,7 @@ custom_minimum_size = Vector2(392, 30)
 layout_mode = 2
 size_flags_vertical = 8
 text = "Reset to default"
+script = ExtResource("9_hseaq")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [connection signal="pressed" from="TabContainer/Controls/MarginContainer2/HBoxContainer/back to def" to="TabContainer/Controls" method="_on_back_to_def_pressed"]

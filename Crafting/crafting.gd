@@ -35,9 +35,9 @@ func _on_body_exited(body: Node2D) -> void:
 		if hotbar and not crafting_ui.visible:
 			hotbar.visible = true
 
-func _process(_delta: float) -> void:
+func _input(event: InputEvent) -> void:
 	if crafting_ui.visible && can_toggle:
-		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("ui_menu"):
+		if event.is_action_pressed("ui_cancel") or event.is_action_pressed("interact") or event.is_action_pressed("ui_menu"):
 			close()
 
 func _on_pickup() -> void:

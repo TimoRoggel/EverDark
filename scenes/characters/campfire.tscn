@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://7cxdqearioco"]
+[gd_scene load_steps=31 format=3 uid="uid://7cxdqearioco"]
 
 [ext_resource type="Shader" uid="uid://b0wqu3tlyguu1" path="res://shaders/interactable_highlight.gdshader" id="1_hhd8y"]
 [ext_resource type="Script" uid="uid://kibtonceriu1" path="res://scripts/tools/interactable_2d.gd" id="2_rpofv"]
@@ -13,8 +13,9 @@
 [ext_resource type="AudioStream" uid="uid://boib6y7qn5037" path="res://audio/sounds/player/cook.wav" id="10_deqxu"]
 [ext_resource type="Texture2D" uid="uid://ck5wjptfftaac" path="res://map/Art Assets/Player HUD/185x12_campfire_fuel.png" id="11_ai4cp"]
 [ext_resource type="Texture2D" uid="uid://dofjltgcxqpdh" path="res://map/Art Assets/Player HUD/185x12_campfire_fuel_fill.png" id="12_ssoka"]
+[ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="13_ai4cp"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b6swb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ssoka"]
 shader = ExtResource("1_hhd8y")
 shader_parameter/highlighted = false
 
@@ -89,7 +90,7 @@ radius = 19.0
 process_mode = 3
 z_as_relative = false
 y_sort_enabled = true
-material = SubResource("ShaderMaterial_b6swb")
+material = SubResource("ShaderMaterial_ssoka")
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("2_rpofv")
@@ -151,6 +152,8 @@ layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
 icon = ExtResource("6_tjd1i")
+script = ExtResource("13_ai4cp")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="hbox" type="HBoxContainer" parent="campfire_layer/center/panel/margin/vbox"]
 layout_mode = 2
@@ -260,6 +263,7 @@ theme_override_constants/separation = -4
 
 [node name="fuel_slot" type="PanelContainer" parent="campfire_layer/center/panel/margin/vbox/fuel_hbox/slot_vbox"]
 unique_name_in_owner = true
+process_mode = 3
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_vertical = 10
@@ -332,6 +336,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Cook"
+script = ExtResource("13_ai4cp")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="inventory_background_panel" type="Panel" parent="campfire_layer"]
 visible = false

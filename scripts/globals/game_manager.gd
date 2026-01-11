@@ -24,6 +24,7 @@ var ui_open : bool = false
 var objectives_done: int = 0
 var current_objective: int = 0
 var is_chest_open : bool = false
+var is_player_nearby_hole := false
 
 signal ending
 signal objective_finished
@@ -75,6 +76,16 @@ func create_audio_player(bus: StringName, samples: Array[AudioStream], parent: N
 	audio_player.panning_strength = 2.0
 	audio_player.samples = samples
 	audio_player.bus = bus
+	if parent:
+		parent.add_child(audio_player)
+	return audio_player
+
+func create_audio_player_basic(bus: StringName, stream: AudioStream, volume_linear: float = 1.0, parent: Node = null) -> AudioStreamPlayer:
+	var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
+	audio_player.stream = stream
+	audio_player.volume_linear = volume_linear
+	audio_player.bus = bus
+	audio_player.max_polyphony = 4
 	if parent:
 		parent.add_child(audio_player)
 	return audio_player

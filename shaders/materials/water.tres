@@ -1,0 +1,53 @@
+[gd_resource type="ShaderMaterial" load_steps=9 format=3 uid="uid://c1rmdp2uth6ut"]
+
+[ext_resource type="Shader" uid="uid://bxbnvsdgp1g0c" path="res://shaders/water.gdshader" id="1_kix6u"]
+[ext_resource type="Texture2D" uid="uid://dgqpe5hgpvmol" path="res://graphics/tile_sheets/caustic_texture.png" id="2_o7uie"]
+
+[sub_resource type="Gradient" id="Gradient_26yn0"]
+colors = PackedColorArray(0, 0.24608599, 0.6561392, 1, 0.6972954, 0.8951217, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_absmq"]
+gradient = SubResource("Gradient_26yn0")
+width = 32
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6qlcb"]
+noise_type = 2
+frequency = 0.0199
+fractal_type = 3
+fractal_octaves = 1
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3vmac"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_6qlcb")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6th0n"]
+frequency = 0.012
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o7uie"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_6th0n")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[resource]
+shader = ExtResource("1_kix6u")
+shader_parameter/water_color = Color(0.15686275, 0.23137255, 0.34117648, 1)
+shader_parameter/foam_color = Color(0.47508907, 0.63562596, 0.9141083, 1)
+shader_parameter/screen_distortion = SubResource("NoiseTexture2D_o7uie")
+shader_parameter/distortion_amount = 1.50000007125
+shader_parameter/distortion_speed = Vector2(0.03, 0.02)
+shader_parameter/caustic_texture = ExtResource("2_o7uie")
+shader_parameter/caustic_noise = SubResource("NoiseTexture2D_3vmac")
+shader_parameter/caustic_scale = 0.050000002375
+shader_parameter/caustic_opacity = 0.50000002375
+shader_parameter/caustic_gradient = SubResource("GradientTexture1D_absmq")
+shader_parameter/caustic_direction = Vector2(0.05, 0.1)
+shader_parameter/caustic_distortion_amount = 8.00000038
+shader_parameter/caustic_distortion_speed = 3.0000001425
+shader_parameter/mask_color = Color(0.024812698, 0, 1, 1)
+shader_parameter/mask_threshold = 0.74

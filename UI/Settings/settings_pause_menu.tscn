@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv3ukf3px2kp3"]
+[gd_scene load_steps=4 format=3 uid="uid://cv3ukf3px2kp3"]
 
 [ext_resource type="Script" uid="uid://cpacr4ptnqt1g" path="res://UI/Settings/settings_pause_menu.gd" id="1_iykpn"]
 [ext_resource type="PackedScene" uid="uid://bfo35y24syp7t" path="res://UI/Settings/settings_tab_container.tscn" id="2_auf4c"]
+[ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="3_auf4c"]
 
 [node name="SettingsPauseMenu" type="Control"]
 layout_mode = 3
@@ -48,5 +49,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Back"
+script = ExtResource("3_auf4c")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

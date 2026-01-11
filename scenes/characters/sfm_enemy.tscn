@@ -1,9 +1,10 @@
-[gd_scene load_steps=69 format=3 uid="uid://f6apyooo2n66"]
+[gd_scene load_steps=78 format=3 uid="uid://f6apyooo2n66"]
 
 [ext_resource type="Script" uid="uid://bhkah5ac48rty" path="res://scripts/characters/enemy/enemy_controller.gd" id="1_iin56"]
 [ext_resource type="Texture2D" uid="uid://dur74bxgmh7fr" path="res://graphics/characters/small_fast_enemy/attack_forward_sfm.png" id="2_iin56"]
 [ext_resource type="Texture2D" uid="uid://danmb5pofhreb" path="res://graphics/characters/small_fast_enemy/attack_side_sfm.png" id="3_r8e03"]
 [ext_resource type="Texture2D" uid="uid://nxk6mvvc1wjj" path="res://graphics/characters/small_fast_enemy/attack_back_sfm.png" id="4_f44pb"]
+[ext_resource type="Texture2D" uid="uid://xeu0gd2nrtkr" path="res://graphics/characters/small_fast_enemy/dig_up.png" id="5_bnovs"]
 [ext_resource type="Texture2D" uid="uid://q8l6akynmua4" path="res://graphics/characters/small_fast_enemy/walking_forward_sfm.png" id="5_vbah2"]
 [ext_resource type="Texture2D" uid="uid://b55n0jyeukypx" path="res://graphics/characters/small_fast_enemy/walking_side_sfm.png" id="6_bnovs"]
 [ext_resource type="Texture2D" uid="uid://b1mrc3j7y16tm" path="res://graphics/characters/small_fast_enemy/walking_back_sfm.png" id="7_o4dxi"]
@@ -20,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://bkbd6vayvuf11" path="res://audio/sounds/enemy/hurt.wav" id="18_m5r20"]
 [ext_resource type="Script" uid="uid://2p53a8evemdg" path="res://scripts/components/healthbar_component.gd" id="19_r8e03"]
 [ext_resource type="Texture2D" uid="uid://g7a2she3ktpw" path="res://graphics/particle.png" id="20_f44pb"]
+[ext_resource type="Script" uid="uid://dk370olsmpgwo" path="res://scripts/components/dig_up_component.gd" id="21_bnovs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8e03"]
 size = Vector2(12, 5)
@@ -99,6 +101,34 @@ region = Rect2(144, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_urh5l"]
 atlas = ExtResource("4_f44pb")
 region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4dxi"]
+atlas = ExtResource("5_bnovs")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8710k"]
+atlas = ExtResource("5_bnovs")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iawlk"]
+atlas = ExtResource("5_bnovs")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mxo7"]
+atlas = ExtResource("5_bnovs")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wuox"]
+atlas = ExtResource("5_bnovs")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18g3s"]
+atlas = ExtResource("5_bnovs")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75ulb"]
+atlas = ExtResource("5_bnovs")
+region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3p0ev"]
 atlas = ExtResource("5_vbah2")
@@ -233,6 +263,84 @@ animations = [{
 "loop": false,
 "name": &"attack_up",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4dxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8710k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iawlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mxo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wuox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18g3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75ulb")
+}],
+"loop": false,
+"name": &"dig_up_down",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4dxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8710k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iawlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mxo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wuox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18g3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75ulb")
+}],
+"loop": false,
+"name": &"dig_up_right",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4dxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8710k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iawlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mxo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wuox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18g3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75ulb")
+}],
+"loop": false,
+"name": &"dig_up_up",
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -385,7 +493,10 @@ motion_mode = 1
 script = ExtResource("1_iin56")
 charge_time = 0.1
 min_distance_to_target = 4.0
-attack_distance = 64.0
+attack_distance = 32.0
+predictive_attacking = true
+skirmisher_mode = true
+dash_sidestep_enabled = true
 target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bhkah5ac48rty"
 
@@ -395,12 +506,10 @@ shape = SubResource("RectangleShape2D_r8e03")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
-position = Vector2(0, -30)
+position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_8710k")
-animation = &"idle_down"
+animation = &"move_down"
 autoplay = "idle_down"
-centered = false
-offset = Vector2(-24, -8)
 
 [node name="move" type="Node2D" parent="." node_paths=PackedStringArray("step_particles")]
 script = ExtResource("8_27k00")
@@ -422,7 +531,7 @@ script = ExtResource("13_w7n1s")
 max_health = 30.0
 death_sounds = Array[AudioStream]([ExtResource("14_kvest")])
 death_drops = Array[int]([1, 1, 1])
-death_drop_odds = Array[int]([50, 25, 10])
+death_drop_odds = Array[int]([85, 25, 10])
 hit_particles = NodePath("../damage_particles")
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 
@@ -452,6 +561,10 @@ position = Vector2(-16, -32)
 script = ExtResource("19_r8e03")
 gradient = SubResource("Gradient_f44pb")
 metadata/_custom_type_script = "uid://2p53a8evemdg"
+
+[node name="dig_up" type="Node2D" parent="."]
+script = ExtResource("21_bnovs")
+metadata/_custom_type_script = "uid://dk370olsmpgwo"
 
 [node name="damage_particles" type="GPUParticles2D" parent="."]
 z_index = 1

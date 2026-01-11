@@ -16,6 +16,7 @@ var components: Array[Component] = []
 var flags: int = 0
 var should_bounce_conditions: Array[Callable] = []
 var bump_player: RandomAudioStreamPlayer2D = null
+var frozen: bool = false
 
 static func get_flag_properties(property: String) -> Array[Dictionary]:
 	var properties: Array[Dictionary] = []
@@ -47,6 +48,8 @@ func _custom_physics_process(_delta: float) -> void:
 func _process(delta: float) -> void:
 	if is_queued_for_deletion():
 		return
+	if frozen:
+		return
 	for c: Component in components:
 		if !c || c.is_queued_for_deletion():
 			continue
@@ -56,6 +59,8 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_queued_for_deletion():
+		return
+	if frozen:
 		return
 	for c: Component in components:
 		if !c || c.is_queued_for_deletion():

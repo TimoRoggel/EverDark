@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bn1esnd74d0hh"]
+[gd_scene load_steps=5 format=3 uid="uid://bn1esnd74d0hh"]
 
 [ext_resource type="Script" uid="uid://b0thq0tp2rp14" path="res://UI/Pause Menu/pause_menu.gd" id="1_ltd3m"]
 [ext_resource type="PackedScene" uid="uid://cv3ukf3px2kp3" path="res://UI/Settings/settings_pause_menu.tscn" id="2_jfm1e"]
+[ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="2_q706g"]
 [ext_resource type="PackedScene" uid="uid://blvliryx7puul" path="res://UI/JournalMenu.tscn" id="3_3ol4c"]
 
 [node name="Pause Menu" type="Control"]
@@ -35,25 +36,35 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 text = "Resume"
+script = ExtResource("2_q706g")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="Journal" type="Button" parent="MarginContainer/Buttons"]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 text = "Journal"
+script = ExtResource("2_q706g")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="Options" type="Button" parent="MarginContainer/Buttons"]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 text = "Settings"
+script = ExtResource("2_q706g")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="Back to main menu" type="Button" parent="MarginContainer/Buttons"]
 layout_mode = 2
 text = "Main menu"
+script = ExtResource("2_q706g")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="Quit" type="Button" parent="MarginContainer/Buttons"]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 text = "Quit game"
+script = ExtResource("2_q706g")
+metadata/_custom_type_script = "uid://dbd3rxj514tf6"
 
 [node name="SettingsPauseMenu" parent="." instance=ExtResource("2_jfm1e")]
 visible = false

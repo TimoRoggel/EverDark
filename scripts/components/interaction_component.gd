@@ -43,12 +43,15 @@ func _enter() -> void:
 func _update(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
-	interact_sprite.visible = closest_interactable != null
-	if closest_interactable:
+	if closest_interactable and is_instance_valid(closest_interactable):
 		interact_sprite.global_position = closest_interactable.global_position + INTERACT_SPRITE_OFFSET
+		interact_sprite.visible = true
+	else:
+		interact_sprite.visible = false
+		closest_interactable = null 
 	var interactables: Array = area.get_overlapping_areas().filter(
 		func(n: Area2D) -> bool: 
-			return is_instance_of(n, Interactable2D) && n.can_interact(controller)
+			return is_instance_valid(n) and is_instance_of(n, Interactable2D) && n.can_interact(controller)
 			)
 	if interactables.is_empty():
 		closest_interactable = null
@@ -61,7 +64,12 @@ func _update(_delta: float) -> void:
 	if closest_interactable == interactables[0]:
 		return
 	closest_interactable = interactables[0]
+	var target_item = closest_interactable
 	await get_tree().create_timer(auto_pickup_wait_time).timeout
+	if not is_instance_valid(target_item):
+		return
+	if target_item != closest_interactable:
+		return
 	if closest_interactable is DroppedItem2D:
 		if !inventory.is_full():
 			_on_interact()

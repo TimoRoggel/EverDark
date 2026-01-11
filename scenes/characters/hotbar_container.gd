@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+const ITEM_MATERIAL = preload("uid://cxwuww81e8unb")
+
 @export var inventory: InventoryContainer
 @export var inventory_component: InventoryComponent
 
@@ -61,24 +63,44 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	update_hotbar()
 
+func lock_slot(index: int) -> void:
+	if !inventory:
+		return
+	var slots = inventory.get_slots()
+	if index >= slots.size():
+		return
+	var slot: InventorySlot = slots[index]
+	if slot.inventory_item:
+		slot.inventory_item.locked = !slot.inventory_item.locked
+		popup_animation(get_child(index).get_child(0))
+
 func add_slots() -> void:
 	if inventory && self.get_child_count() == 0:
 		for i: int in hotbar_slots:
-			var slot_texture: HotbarTextureButton = create_slot()
+			var slot_texture: HotbarTextureButton = create_slot(i)
 			var item_texture: TextureRect = create_item_texture()
 			var amount_label: Label = create_amount_label()
+			var key_rect: TextureRect = create_key_index_rect()
 			var key_label: Label = create_key_index_label(i)
 			#var key_texxture: TextureRect = create_index_texture()
 			slot_texture.add_child(item_texture)
 			slot_texture.add_child(amount_label)
 			#key_label.add_child(key_texxture)
-			slot_texture.add_child(key_label)
+			key_rect.add_child(key_label)
+			slot_texture.add_child(key_rect)
 			add_child(slot_texture)
 
-func create_slot() -> HotbarTextureButton:
+func create_slot(index: int = 0) -> HotbarTextureButton:
 	var slot_texture: HotbarTextureButton = HotbarTextureButton.new()
-	slot_texture.texture_normal = preload("res://graphics/32x32_inventory_HUD_01_transp.png")
+	slot_texture.texture_normal = preload("uid://c2ycfy4ja5cy1")
 	slot_texture.texture_focused = preload("res://graphics/ui_icons/hotbar_slot_focus.png")
+	slot_texture.stretch_mode = TextureButton.STRETCH_SCALE
+	slot_texture.custom_minimum_size = Vector2(32, 32)
+	slot_texture.ignore_texture_size = true
+	slot_texture.size_flags_vertical = Control.SIZE_SHRINK_END
+	slot_texture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	slot_texture.container = self
+	slot_texture.index = index
 	#slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	slot_texture.focus_mode = Control.FOCUS_ACCESSIBILITY
 	return slot_texture
@@ -90,6 +112,7 @@ func create_item_texture() -> TextureRect:
 	item_texture.anchor_top = 0.0
 	item_texture.anchor_right = 0.8
 	item_texture.anchor_bottom = 0.8
+	item_texture.material = ITEM_MATERIAL.duplicate()
 	return item_texture
 
 func create_amount_label() -> Label:
@@ -102,16 +125,30 @@ func create_amount_label() -> Label:
 	amount_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	amount_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	return amount_label
-	
+
+func create_key_index_rect() -> TextureRect:
+	var slot_texture: TextureRect = TextureRect.new()
+	slot_texture.texture = preload("uid://c2ycfy4ja5cy1")
+	slot_texture.custom_minimum_size = Vector2(16, 16)
+	slot_texture.ignore_texture_size = true
+	slot_texture.anchor_left = 0.25
+	slot_texture.anchor_top = -0.5
+	slot_texture.anchor_right = 0.25
+	slot_texture.anchor_bottom = 0.0
+	slot_texture.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	slot_texture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	slot_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot_texture.focus_mode = Control.FOCUS_ACCESSIBILITY
+	return slot_texture
+
 func create_key_index_label(index: int) -> Label:
 	var key_label := Label.new()
 	key_label.text = str(index + 1)
-	key_label.anchor_left = 0.0
-	key_label.anchor_top = -0.5
-	key_label.anchor_right = 1.0
-	key_label.anchor_bottom = 0.0
 	key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	key_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+	key_label.position = Vector2(3.0, -3.0)
+	key_label.size = Vector2.ONE * 12.0
+	key_label.focus_mode = Control.FOCUS_ACCESSIBILITY
 	key_label.add_theme_color_override("font_color", Color.WHITE)
 	return key_label
 	
@@ -140,15 +177,21 @@ func update_hotbar() -> void:
 		if i < inventory_slots.size() && inventory_slots[i].inventory_item:
 			var item_icon: Texture2D = inventory_slots[i].inventory_item.item.icon
 			var quantity: int = inventory_slots[i].inventory_item.quantity
+			var slot: TextureRect = slot_node.get_child(0)
+			var quantity_label: Label = slot_node.get_child(1)
+			if slot.texture != item_icon:
+				popup_animation.call_deferred(slot)
 			slot_node.item = inventory_slots[i].inventory_item.item
 			if inventory_slots[i].inventory_item.item.stack_size > 1:
-				slot_node.get_child(1).text = str(quantity) + "x"
+				if !quantity_label.text.contains(str(quantity)):
+					popup_animation.call_deferred(slot)
+				quantity_label.text = str(quantity) + "x"
 			else:
-				slot_node.get_child(1).text = ""
+				quantity_label.text = ""
 			if inventory_slots[i].inventory_item.locked:
-				slot_node.get_child(1).text = "🔒 " + slot_node.get_child(1).text
-			slot_node.get_child(0).texture = item_icon
-			scale_texture_rect(slot_node.get_child(0), slot_node.size * 0.8)
+				quantity_label.text = "🔒 " + quantity_label.text
+			slot.texture = item_icon
+			scale_texture_rect(slot, slot_node.size * 0.8)
 			hotbar_just_emptied = false
 		if !items:
 			if !hotbar_just_emptied:
@@ -159,10 +202,20 @@ func update_hotbar() -> void:
 						slot_node.item = null
 				hotbar_just_emptied = true
 		elif !inventory_slots[i].inventory_item:
-				slot_node.item = null
-				slot_node.get_child(0).texture = null
-				slot_node.get_child(1).text = ""
-	
+			slot_node.item = null
+			slot_node.get_child(0).texture = null
+			slot_node.get_child(1).text = ""
+
+func popup_animation(item_icon: Control) -> void:
+	var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_method(scale_icon.bind(item_icon), Vector2.ONE, Vector2.ONE * 1.25, 0.05)
+	tween.tween_method(scale_icon.bind(item_icon), Vector2.ONE * 1.25, Vector2.ONE * 0.75, 0.05)
+	tween.tween_method(scale_icon.bind(item_icon), Vector2.ONE * 0.75, Vector2.ONE, 0.05)
+	tween.play()
+
+func scale_icon(s: Vector2, item_icon: Control) -> void:
+	item_icon.material.set_shader_parameter("scale", s)
+
 func scale_texture_rect(texture_rect: TextureRect, parent_size: Vector2) -> void:
 	if texture_rect.texture:
 		var tex_size: Vector2 = texture_rect.texture.get_size()

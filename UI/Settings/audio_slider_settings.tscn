@@ -21,7 +21,6 @@ theme_override_constants/separation = 30
 [node name="Audio_name_lbl" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
 text = "Master Volume"
 
 [node name="HSlider" type="HSlider" parent="HBoxContainer"]
@@ -34,7 +33,6 @@ step = 0.001
 [node name="Audio_num_lbl" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
 text = "99"
 
 [connection signal="value_changed" from="HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]

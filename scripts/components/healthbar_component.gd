@@ -20,6 +20,7 @@ func _draw() -> void:
 		draw_texture(OVER, Vector2.ZERO)
 
 func _enter() -> void:
+	await get_tree().create_timer(1.0).timeout
 	# Health Component
 	health_component = controller.get_component(HealthComponent)
 	health_component.health_changed.connect(_on_health_changed)

@@ -25,6 +25,7 @@ var objectives_done: int = 0
 var current_objective: int = 0
 var is_chest_open : bool = false
 var is_player_nearby_hole := false
+var cached_shaders: bool = false
 
 signal ending
 signal objective_finished

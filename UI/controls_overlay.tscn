@@ -302,6 +302,7 @@ layout_mode = 2
 text = "Inventory"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 alignment = 1
 

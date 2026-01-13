@@ -1,7 +1,11 @@
 "id","name","text","image"
 "0","Monolith","OMG! The monolith lives! And it's getting guarded.",""
 "1","Hole"," Please stay in the hole!",""
+<<<<<<< Updated upstream
 "2","Lighthouse","The north-west lighthouse is emitting some weird fog or something.",""
+=======
+"2","Lighthouse","The north-east lighthouse is emitting some weird fog or something.",""
+>>>>>>> Stashed changes
 "3","Away","it's probably a good idea to stay away from the lighthouse",""
 "4","Food?"," I think the tower is hungry? like it needs food or something...  ",""
 "5","Help","Help!",""

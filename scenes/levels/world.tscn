@@ -2972,7 +2972,11 @@ custom_parameter = "{\"note\": 13}"
 
 [node name="Notes2" type="Node2D" parent="."]
 visible = false
+<<<<<<< Updated upstream
 position = Vector2(-958, -231)
+=======
+position = Vector2(-32, -5)
+>>>>>>> Stashed changes
 
 [node name="note_0" type="Area2D" parent="Notes2"]
 z_as_relative = false

@@ -175,8 +175,7 @@ bus = &"SFX"
 
 [node name="ControlsOverlay" parent="." instance=ExtResource("7_s83ig")]
 layout_mode = 1
-offset_left = 241.0
-offset_top = 156.00002
-offset_right = 241.0
-offset_bottom = 156.0
-scale = Vector2(0.75, 0.542)
+offset_left = 133.0
+offset_top = 3.0
+offset_right = 133.0
+offset_bottom = 3.0

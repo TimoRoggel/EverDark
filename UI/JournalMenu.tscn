@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://blvliryx7puul"]
+[gd_scene load_steps=14 format=3 uid="uid://blvliryx7puul"]
 
 [ext_resource type="Script" uid="uid://dpw3oq22300v5" path="res://UI/journal_menu.gd" id="1_0sl3d"]
 [ext_resource type="Texture2D" uid="uid://chk5qxglu5xxu" path="res://map/Art Assets/Player HUD/Upgrade_HUD.png" id="1_mcuui"]
 [ext_resource type="Texture2D" uid="uid://cacifihv143uq" path="res://graphics/ui_icons/close.png" id="2_m1x0y"]
 [ext_resource type="Script" uid="uid://cta8r1o1ki8gh" path="res://UI/tutorial_layer.gd" id="3_fbqjp"]
+[ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="3_ox0w6"]
 [ext_resource type="Script" uid="uid://dm53cr1nwu850" path="res://UI/notes_layer.gd" id="5_4xhac"]
 [ext_resource type="Shader" uid="uid://cy8u88qu7t1ad" path="res://UI/QuestionSign.gdshader" id="5_bwnxh"]
 [ext_resource type="Texture2D" uid="uid://cef8k6eqvslpb" path="res://graphics/note_1.png" id="6_t5rp3"]
@@ -86,18 +87,18 @@ offset_right = 391.0
 offset_bottom = 154.0
 
 [node name="BtnTutorial" type="Button" parent="BookBackground/Menu_Layer/VBoxContainer"]
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(150, 43)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
 text = "Tutorial"
+script = ExtResource("3_ox0w6")
 
 [node name="BtnNotes" type="Button" parent="BookBackground/Menu_Layer/VBoxContainer"]
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(150, 43)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
 text = "Notes"
+script = ExtResource("3_ox0w6")
 
 [node name="Tutorial_Layer" type="Control" parent="BookBackground"]
 visible = false
@@ -250,8 +251,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Previous page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_Next" type="Button" parent="BookBackground/Tutorial_Layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -261,8 +262,8 @@ offset_top = 205.0
 offset_right = 392.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Next Page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_BackToMenu" type="Button" parent="BookBackground/Tutorial_Layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -272,8 +273,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Back"
+script = ExtResource("3_ox0w6")
 
 [node name="Notes_layer" type="Control" parent="BookBackground"]
 anchors_preset = 0
@@ -408,8 +409,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Previous page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_Next" type="Button" parent="BookBackground/Notes_layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -419,8 +420,8 @@ offset_top = 205.0
 offset_right = 392.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Next Page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_BackToMenu" type="Button" parent="BookBackground/Notes_layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -430,8 +431,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Back"
+script = ExtResource("3_ox0w6")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -440,6 +441,7 @@ offset_top = 75.0
 offset_right = 517.0
 offset_bottom = 91.0
 icon = ExtResource("2_m1x0y")
+script = ExtResource("3_ox0w6")
 
 [connection signal="pressed" from="BookBackground/Menu_Layer/VBoxContainer/BtnTutorial" to="." method="_on_btn_tutorial_pressed"]
 [connection signal="pressed" from="BookBackground/Menu_Layer/VBoxContainer/BtnNotes" to="." method="_on_btn_notes_pressed"]

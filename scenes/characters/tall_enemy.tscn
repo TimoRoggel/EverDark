@@ -402,7 +402,7 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="health" type="Node2D" parent="." node_paths=PackedStringArray("hit_particles")]
 script = ExtResource("13_4c8s2")
-max_health = 6.0
+max_health = 30.0
 death_sounds = Array[AudioStream]([ExtResource("14_syo8h")])
 death_drops = Array[int]([1, 1, 1])
 death_drop_odds = Array[int]([50, 25, 10])

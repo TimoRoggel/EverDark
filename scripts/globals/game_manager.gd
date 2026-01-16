@@ -5,7 +5,7 @@ const OBJECTIVE_DESCRIPTIONS: PackedStringArray = [
 	"Throw a VOID Core in the hole",
 	"Gather sticks and stone",
 	"Kill a monster",
-	"Upgrade a tool",
+	"Make a stone tool at the crafting bench",
 	"Use a torch",
 	"Cook a berry or mushroom",
 	"Use WASD to move",
@@ -25,6 +25,7 @@ var objectives_done: int = 0
 var current_objective: int = 0
 var is_chest_open : bool = false
 var is_player_nearby_hole := false
+var cached_shaders: bool = false
 
 signal ending
 signal objective_finished

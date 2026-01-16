@@ -7,8 +7,11 @@ class_name EnemyController extends CharacterController
 @export var hard_leash_multiplier: float = 5.0
 @export var predictive_attacking: bool = false
 
+@export var force_return_to_spawn: bool = false
+
 @export var skirmisher_mode: bool = false
 @export var orbit_start_distance: float = 120.0 
+@export var orbit_attack_distance: float = 60.0 
 @export var preferred_orbit_distance: float = 80.0   
 @export var orbit_strength: float = 1.0              
 @export var orbit_switch_interval: float = 1.2        
@@ -21,6 +24,7 @@ class_name EnemyController extends CharacterController
 @export var dash_sidestep_min_distance: float = 40.0 
 @export var dash_sidestep_max_distance: float = 150.0
 @export var dash_prefer_when_can_attack: bool = true
+
 var target: TargetComponent = null
 var attack: SpawnAttackComponent = null
 var movement: MoveComponent = null
@@ -60,9 +64,12 @@ func _ready() -> void:
 				health.current_health = 0.0
 		)
 
-	if has_method("get"):
-		if get("spawn_origin") != null:
-			spawn_origin = get("spawn_origin")
+	if force_return_to_spawn:
+		if has_method("get"):
+			if get("spawn_origin") != null:
+				spawn_origin = get("spawn_origin")
+		if spawn_origin == Vector2.ZERO:
+			spawn_origin = global_position
 
 	randomize()
 	_orbit_dir = (randi() % 2) * 2 - 1 
@@ -81,8 +88,14 @@ func _custom_process(delta: float) -> void:
 	var current_target: CharacterController = get_target()
 	var has_target: bool = current_target != null and is_instance_valid(current_target) and !current_target.is_queued_for_deletion()
 
-	if spawn_origin != Vector2.ZERO:
+	if force_return_to_spawn and spawn_origin != Vector2.ZERO:
 		var d: float = global_position.distance_to(spawn_origin)
+
+		if returning_home and has_target:
+			if target:
+				target.clear_target()
+			has_target = false
+			current_target = null
 
 		if has_target and hard_leash_multiplier > 0.0 and d > max_wander_distance * hard_leash_multiplier:
 			if target:
@@ -96,7 +109,8 @@ func _custom_process(delta: float) -> void:
 				returning_home = true
 			if returning_home:
 				var dir_home: Vector2 = (spawn_origin - global_position).normalized()
-				movement.desired_movement = dir_home
+				target.agent.target_position = spawn_origin
+				movement.desired_movement = target.get_target_direction()
 				_apply_animation(dir_home, false)
 				if d < max_wander_distance * 0.4:
 					returning_home = false
@@ -131,7 +145,8 @@ func _custom_process(delta: float) -> void:
 		if dash_sidestep_enabled and _dash_timer > 0.0 and _dash_dir != Vector2.ZERO:
 			desired = _dash_dir
 
-		movement.desired_movement = desired
+		target.agent.target_position = global_position + desired * 5.0
+		movement.desired_movement = target.get_target_direction()
 
 	if attack and !charging and attack.can_attack() and distance <= attack_distance:
 		charging = true
@@ -153,7 +168,8 @@ func _custom_process(delta: float) -> void:
 		if distance <= min_distance_to_target:
 			movement.desired_movement = Vector2.ZERO
 			if distance <= min_distance_to_target * 0.5:
-				movement.desired_movement = -Vector2.from_angle(angle_to_target)
+				target.agent.target_position = target.target.global_position
+				movement.desired_movement = target.get_target_direction()
 
 	var anim_dir: Vector2 = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
 	_apply_animation(anim_dir, charging)
@@ -177,7 +193,7 @@ func _compute_skirmisher_movement(t: CharacterController, distance: float) -> Ve
 	if _retreat_timer > 0.0:
 		return -dir_to
 
-	if distance > orbit_start_distance:
+	if distance > orbit_start_distance || distance < orbit_attack_distance:
 		return dir_to
 
 	var tangent: Vector2 = dir_to.rotated(PI * 0.5) * float(_orbit_dir)
@@ -231,6 +247,8 @@ func get_target() -> CharacterController:
 	return target.target if target else null
 
 func on_damage_taken(from: AttackController) -> void:
+	if force_return_to_spawn and returning_home:
+		return
 	if !target or target.is_queued_for_deletion():
 		return
 	if !is_instance_valid(from):

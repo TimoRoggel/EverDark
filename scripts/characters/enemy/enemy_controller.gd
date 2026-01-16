@@ -7,6 +7,8 @@ class_name EnemyController extends CharacterController
 @export var hard_leash_multiplier: float = 5.0
 @export var predictive_attacking: bool = false
 
+@export var force_return_to_spawn: bool = false
+
 @export var skirmisher_mode: bool = false
 @export var orbit_start_distance: float = 120.0 
 @export var preferred_orbit_distance: float = 80.0   
@@ -21,6 +23,7 @@ class_name EnemyController extends CharacterController
 @export var dash_sidestep_min_distance: float = 40.0 
 @export var dash_sidestep_max_distance: float = 150.0
 @export var dash_prefer_when_can_attack: bool = true
+
 var target: TargetComponent = null
 var attack: SpawnAttackComponent = null
 var movement: MoveComponent = null
@@ -60,9 +63,12 @@ func _ready() -> void:
 				health.current_health = 0.0
 		)
 
-	if has_method("get"):
-		if get("spawn_origin") != null:
-			spawn_origin = get("spawn_origin")
+	if force_return_to_spawn:
+		if has_method("get"):
+			if get("spawn_origin") != null:
+				spawn_origin = get("spawn_origin")
+		if spawn_origin == Vector2.ZERO:
+			spawn_origin = global_position
 
 	randomize()
 	_orbit_dir = (randi() % 2) * 2 - 1 
@@ -81,8 +87,14 @@ func _custom_process(delta: float) -> void:
 	var current_target: CharacterController = get_target()
 	var has_target: bool = current_target != null and is_instance_valid(current_target) and !current_target.is_queued_for_deletion()
 
-	if spawn_origin != Vector2.ZERO:
+	if force_return_to_spawn and spawn_origin != Vector2.ZERO:
 		var d: float = global_position.distance_to(spawn_origin)
+
+		if returning_home and has_target:
+			if target:
+				target.clear_target()
+			has_target = false
+			current_target = null
 
 		if has_target and hard_leash_multiplier > 0.0 and d > max_wander_distance * hard_leash_multiplier:
 			if target:
@@ -231,6 +243,8 @@ func get_target() -> CharacterController:
 	return target.target if target else null
 
 func on_damage_taken(from: AttackController) -> void:
+	if force_return_to_spawn and returning_home:
+		return
 	if !target or target.is_queued_for_deletion():
 		return
 	if !is_instance_valid(from):

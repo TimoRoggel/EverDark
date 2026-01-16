@@ -2795,6 +2795,7 @@ metadata/_custom_type_script = "uid://chjcoikfv18ob"
 
 [node name="guardian" parent="enemies" instance=ExtResource("12_btahq")]
 position = Vector2(448, -575)
+force_return_to_spawn = true
 
 [node name="Chest" parent="." instance=ExtResource("9_f1v6p")]
 visible = false

@@ -2,8 +2,6 @@ class_name AmbiencePlayer extends AudioStreamPlayer
 
 ## How frequent an ambient sound should be played in seconds.
 @export_range(0.0, 600.0, 0.0001) var frequency: float = 50.0
-## Randomness of the sound playing.
-@export_range(0.0, 1.0, 0.0001) var randomness: float = 0.0
 
 var elapsed: float = 0.0
 var area: Area2D = null
@@ -14,7 +12,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	elapsed += delta
-	if elapsed < 25.0:
+	if elapsed < frequency:
 		return
 	var current_enemy_count: int = 0
 	for c: Node2D in area.get_overlapping_bodies():

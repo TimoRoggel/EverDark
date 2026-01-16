@@ -11,6 +11,10 @@ func _ready() -> void:
 	await get_tree().create_timer(0.5).timeout
 	GameManager.player.death.respawning.connect(func() -> void: update_virusbar_color(0.0))
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_ui"):
+		get_parent().visible = !get_parent().visible
+
 func _on_setup_virusbar(max_value: float) -> void:
 	virus_bar.max_value = max_value
 

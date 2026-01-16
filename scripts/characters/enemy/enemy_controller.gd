@@ -109,7 +109,7 @@ func _custom_process(delta: float) -> void:
 				returning_home = true
 			if returning_home:
 				var dir_home: Vector2 = (spawn_origin - global_position).normalized()
-				target.agent.target_position = global_position + dir_home
+				target.agent.target_position = spawn_origin
 				movement.desired_movement = target.get_target_direction()
 				_apply_animation(dir_home, false)
 				if d < max_wander_distance * 0.4:
@@ -145,7 +145,7 @@ func _custom_process(delta: float) -> void:
 		if dash_sidestep_enabled and _dash_timer > 0.0 and _dash_dir != Vector2.ZERO:
 			desired = _dash_dir
 
-		target.agent.target_position = global_position + desired
+		target.agent.target_position = global_position + desired * 5.0
 		movement.desired_movement = target.get_target_direction()
 
 	if attack and !charging and attack.can_attack() and distance <= attack_distance:
@@ -168,7 +168,7 @@ func _custom_process(delta: float) -> void:
 		if distance <= min_distance_to_target:
 			movement.desired_movement = Vector2.ZERO
 			if distance <= min_distance_to_target * 0.5:
-				target.agent.target_position = global_position - Vector2.from_angle(angle_to_target)
+				target.agent.target_position = target.target.global_position
 				movement.desired_movement = target.get_target_direction()
 
 	var anim_dir: Vector2 = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement

@@ -443,8 +443,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.8054744, 1, 1, 1, 0.60759497, 1
 [node name="test_enemy" type="CharacterBody2D" node_paths=PackedStringArray("target_sprite")]
 motion_mode = 1
 script = ExtResource("1_3nmv6")
-min_distance_to_target = 4.0
-attack_distance = 512.0
+min_distance_to_target = 512.0
+attack_distance = 32.0
 target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bhkah5ac48rty"
 

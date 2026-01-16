@@ -368,7 +368,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.8054744, 1, 1, 1, 0.60759497, 1
 motion_mode = 1
 script = ExtResource("1_c88le")
 charge_time = 0.1
-min_distance_to_target = 4.0
+min_distance_to_target = 256.0
 attack_distance = 16.0
 target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bhkah5ac48rty"
@@ -405,7 +405,7 @@ script = ExtResource("13_4c8s2")
 max_health = 30.0
 death_sounds = Array[AudioStream]([ExtResource("14_syo8h")])
 death_drops = Array[int]([1, 1, 1])
-death_drop_odds = Array[int]([50, 25, 10])
+death_drop_odds = Array[int]([100, 50, 10])
 hit_particles = NodePath("../damage_particles")
 metadata/_custom_type_script = "uid://cdmb82h3irdnt"
 

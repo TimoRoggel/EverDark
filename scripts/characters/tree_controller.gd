@@ -1,7 +1,7 @@
 class_name TreeController extends CharacterController
 
-@export var min_recovery_time: float = 20.0
-@export var max_recovery_time: float = 60.0
+@export var min_recovery_time: float = 40.0
+@export var max_recovery_time: float = 120.0
 @export var uncut_textures: Array[Texture2D] = []
 @export var cut_textures: Array[Texture2D] = []
 

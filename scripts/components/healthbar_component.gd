@@ -21,10 +21,8 @@ func _draw() -> void:
 
 func _enter() -> void:
 	await get_tree().create_timer(1.0).timeout
-	# Health Component
 	health_component = controller.get_component(HealthComponent)
 	health_component.health_changed.connect(_on_health_changed)
-	# Healthbar
 	healthbar = TextureProgressBar.new()
 	healthbar.texture_over = OVER
 	healthbar.texture_under = UNDER
@@ -41,6 +39,15 @@ func _update(_delta: float) -> void:
 func _exit() -> void:
 	pass
 
+func refresh() -> void:
+	if !healthbar or !health_component:
+		return
+	healthbar.max_value = health_component.max_health
+	_on_health_changed(health_component.current_health)
+
 func _on_health_changed(new_health: float) -> void:
 	healthbar.value = new_health
-	healthbar.tint_progress = gradient.sample(healthbar.value)
+	var t := 0.0
+	if healthbar.max_value > 0.0:
+		t = healthbar.value / healthbar.max_value
+	healthbar.tint_progress = gradient.sample(clamp(t, 0.0, 1.0))

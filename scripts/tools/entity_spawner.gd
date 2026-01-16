@@ -6,12 +6,9 @@ const TRIES: int = 20
 @export var entity: Entity = null
 @export_range(0, 80) var capacity: int = 4
 @export_range(0, 80) var amount: int = 1
-## Beyond this distance from (0,0) the entity spawn rate is at its lowest.
 @export var max_spawn_distance: float = 6400.0
 @export var initial_spawn_rate: float = 10.0
-## At (0,0) this is the spawn rate (spawns 1 entity per [member min_spawn_rate] seconds), at [member max_spawn_distance] this value is 0.1%.
 @export_range(0.0, 800.0, 0.01) var min_spawn_rate: float = 1.0
-## How long until the first entity spawns when the game starts.
 @export_range(0.0, 1.0, 0.01) var randomness: float = 0.0
 @export var min_radius: float = 250.0:
 	set(value):
@@ -23,7 +20,7 @@ const TRIES: int = 20
 		max_radius = value
 		if Engine.is_editor_hint():
 			queue_redraw()
-@export var entitiy_spawn_wait_time: float = 30.0 
+@export var entitiy_spawn_wait_time: float = 30.0
 
 var spawn_timer: Timer = null
 var spawned_entities: Array[Node2D] = []
@@ -32,6 +29,7 @@ var dead: bool = false
 
 var entity_health := 0.0
 var entity_speed := 0.0
+var health_multiplier := 1.0
 
 var previous_difficulty := -1
 
@@ -72,7 +70,7 @@ func _physics_process(_delta: float) -> void:
 					enemies_just_reset = true
 					await get_tree().create_timer(1.0).timeout
 					enemies_just_reset = false
-					
+
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
@@ -110,10 +108,29 @@ func create_entity(spawn_position: Vector2, health: float = 0.0) -> void:
 			restart_timer()
 	)
 	spawned_entities.append(spawned_entity)
+
 	await get_tree().create_timer(0.2).timeout
-	spawned_entity.health.current_health = entity_health
+
+	if spawned_entity.health:
+		if !spawned_entity.has_meta("base_max_health"):
+			spawned_entity.set_meta("base_max_health", spawned_entity.health.max_health)
+
+		var base_max: float = float(spawned_entity.get_meta("base_max_health"))
+		spawned_entity.health.max_health = base_max * health_multiplier
+
+		if health > 0.0:
+			spawned_entity.health.current_health = clamp(health, 0.0, spawned_entity.health.max_health)
+		else:
+			spawned_entity.health.current_health = spawned_entity.health.max_health
+
+		if spawned_entity.has_method("get_component"):
+			var hb = spawned_entity.get_component(HealthBarComponent)
+			if hb and hb.has_method("refresh"):
+				hb.refresh()
+
 	if spawned_entity.movement:
 		spawned_entity.movement.sprint_speed = entity_speed
+
 	await get_tree().create_timer(120.0, false).timeout
 	if !spawned_entity:
 		return
@@ -132,7 +149,7 @@ func reset_enemies() -> void:
 			spawn_position = get_randomized_spawn_location()
 		enemy.global_position = spawn_position
 		await get_tree().create_timer(1.0).timeout
-		
+
 func despawn_enemies() -> void:
 	for enemy in spawned_entities:
 		if not is_instance_valid(enemy):
@@ -181,9 +198,24 @@ func set_entity_properties():
 	entity_speed = properties.sprint_speed
 	min_radius = properties.min_radius
 	max_radius = properties.max_radius
+	health_multiplier = float(entity_health) / 10.0
 
 func reset_entities():
-	if !spawned_entities.is_empty():
-		for e: Node2D in spawned_entities:
-			e.health.current_health = entity_health
+	if spawned_entities.is_empty():
+		return
+	set_entity_properties()
+	for e: Node2D in spawned_entities:
+		if !is_instance_valid(e):
+			continue
+		if e.health:
+			if !e.has_meta("base_max_health"):
+				e.set_meta("base_max_health", e.health.max_health)
+			var base_max: float = float(e.get_meta("base_max_health"))
+			e.health.max_health = base_max * health_multiplier
+			e.health.current_health = clamp(e.health.current_health, 0.0, e.health.max_health)
+			if e.has_method("get_component"):
+				var hb = e.get_component(HealthBarComponent)
+				if hb and hb.has_method("refresh"):
+					hb.refresh()
+		if e.movement:
 			e.movement.sprint_speed = entity_speed

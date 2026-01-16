@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://blvliryx7puul"]
+[gd_scene load_steps=14 format=3 uid="uid://blvliryx7puul"]
 
 [ext_resource type="Script" uid="uid://dpw3oq22300v5" path="res://UI/journal_menu.gd" id="1_0sl3d"]
 [ext_resource type="Texture2D" uid="uid://chk5qxglu5xxu" path="res://map/Art Assets/Player HUD/Upgrade_HUD.png" id="1_mcuui"]
 [ext_resource type="Texture2D" uid="uid://cacifihv143uq" path="res://graphics/ui_icons/close.png" id="2_m1x0y"]
 [ext_resource type="Script" uid="uid://cta8r1o1ki8gh" path="res://UI/tutorial_layer.gd" id="3_fbqjp"]
+[ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="3_ox0w6"]
 [ext_resource type="Script" uid="uid://dm53cr1nwu850" path="res://UI/notes_layer.gd" id="5_4xhac"]
 [ext_resource type="Shader" uid="uid://cy8u88qu7t1ad" path="res://UI/QuestionSign.gdshader" id="5_bwnxh"]
 [ext_resource type="Texture2D" uid="uid://cef8k6eqvslpb" path="res://graphics/note_1.png" id="6_t5rp3"]
@@ -74,7 +75,6 @@ offset_right = 167.0
 offset_bottom = 204.0
 theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 theme_override_constants/line_spacing = 6
-theme_override_font_sizes/font_size = 17
 text = "In the journal you will find discovered notes and the tutorial tips."
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -87,18 +87,18 @@ offset_right = 391.0
 offset_bottom = 154.0
 
 [node name="BtnTutorial" type="Button" parent="BookBackground/Menu_Layer/VBoxContainer"]
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(150, 43)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
 text = "Tutorial"
+script = ExtResource("3_ox0w6")
 
 [node name="BtnNotes" type="Button" parent="BookBackground/Menu_Layer/VBoxContainer"]
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(150, 43)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
 text = "Notes"
+script = ExtResource("3_ox0w6")
 
 [node name="Tutorial_Layer" type="Control" parent="BookBackground"]
 visible = false
@@ -115,7 +115,6 @@ offset_right = 442.0
 offset_bottom = 257.0
 
 [node name="Page1" type="Control" parent="BookBackground/Tutorial_Layer/PagesContainer"]
-visible = false
 anchors_preset = 0
 offset_right = 440.0
 offset_bottom = 256.0
@@ -133,39 +132,34 @@ autowrap_mode = 2
 
 [node name="Label3" type="Label" parent="BookBackground/Tutorial_Layer/PagesContainer/Page1"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = 40.0
-offset_right = 212.0
-offset_bottom = 226.0
+offset_left = 28.0
+offset_top = 31.0
+offset_right = 211.0
+offset_bottom = 278.0
 theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 19
 text = "Movement
 • Use WASD to move
 • Hold SHIFT and WASD to sprint
 
-Gathering
-• Drop items with Q
-• Pick up items with F
-• Use E to open your inventory"
+"
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="BookBackground/Tutorial_Layer/PagesContainer/Page1"]
 layout_mode = 0
 offset_left = 237.0
-offset_top = 40.0
+offset_top = 34.0
 offset_right = 420.0
-offset_bottom = 226.0
+offset_bottom = 220.0
 theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
-theme_override_font_sizes/font_size = 16
-text = "Combat
-• Attack with LEFT MOUSE BUTTON
-• Use the RIGHT MOUSE BUTTON to block incoming attacks
-
-Healing
-• While holding food or a potion, press left mouse to heal."
+text = "Gathering
+• Drop items with Q
+• Pick up items with F
+• Use E to open your inventory"
 autowrap_mode = 2
 
 [node name="Page2" type="Control" parent="BookBackground/Tutorial_Layer/PagesContainer"]
+visible = false
 anchors_preset = 0
 offset_right = 440.0
 offset_bottom = 256.0
@@ -183,28 +177,65 @@ autowrap_mode = 2
 
 [node name="Label3" type="Label" parent="BookBackground/Tutorial_Layer/PagesContainer/Page2"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = 40.0
-offset_right = 212.0
-offset_bottom = 226.0
+offset_left = 28.0
+offset_top = 29.0
+offset_right = 211.0
+offset_bottom = 215.0
 theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
-theme_override_font_sizes/font_size = 16
-text = "Crafting
-• Use the workbench to craft and upgrade."
+text = "Combat
+• Attack with LEFT MOUSE BUTTON
+• Use the RIGHT MOUSE BUTTON to block incoming attacks"
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="BookBackground/Tutorial_Layer/PagesContainer/Page2"]
 layout_mode = 0
-offset_left = 237.0
-offset_top = 40.0
-offset_right = 420.0
-offset_bottom = 226.0
+offset_left = 236.0
+offset_top = 29.0
+offset_right = 419.0
+offset_bottom = 215.0
 theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
-theme_override_font_sizes/font_size = 16
+text = "Healing
+• While holding food or a potion, press left mouse to heal."
+autowrap_mode = 2
+
+[node name="Page3" type="Control" parent="BookBackground/Tutorial_Layer/PagesContainer"]
+visible = false
+anchors_preset = 0
+offset_right = 440.0
+offset_bottom = 256.0
+
+[node name="Label" type="Label" parent="BookBackground/Tutorial_Layer/PagesContainer/Page3"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 6.0
+offset_right = 143.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
+theme_override_font_sizes/font_size = 25
+text = "Tutorial"
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="BookBackground/Tutorial_Layer/PagesContainer/Page3"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 29.0
+offset_right = 211.0
+offset_bottom = 215.0
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
+text = "Crafting
+• Use the workbench to craft and upgrade."
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="BookBackground/Tutorial_Layer/PagesContainer/Page3"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 29.0
+offset_right = 419.0
+offset_bottom = 215.0
+theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
 text = "Exploration
 • Drop Voidcore in the hole to receive Lumin.
-
-• While holding torches or lanterns place them down with LEFT MOUSE BUTTON to light up your path."
+• While holding torches or lanterns place them down with LMB to light up your path."
 autowrap_mode = 2
 
 [node name="NavButtons" type="Control" parent="BookBackground/Tutorial_Layer"]
@@ -220,8 +251,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Previous page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_Next" type="Button" parent="BookBackground/Tutorial_Layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -231,8 +262,8 @@ offset_top = 205.0
 offset_right = 392.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Next Page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_BackToMenu" type="Button" parent="BookBackground/Tutorial_Layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -242,8 +273,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Back"
+script = ExtResource("3_ox0w6")
 
 [node name="Notes_layer" type="Control" parent="BookBackground"]
 anchors_preset = 0
@@ -282,6 +313,15 @@ offset_right = 187.0
 offset_bottom = 199.0
 expand_mode = 1
 
+[node name="PaperImage_Small_L" type="TextureRect" parent="BookBackground/Notes_layer/LeftPage_Visuals"]
+material = SubResource("ShaderMaterial_t5rp3")
+layout_mode = 0
+offset_left = 46.0
+offset_top = 50.0
+offset_right = 174.0
+offset_bottom = 167.0
+expand_mode = 1
+
 [node name="Content text" type="Label" parent="BookBackground/Notes_layer/LeftPage_Visuals"]
 layout_mode = 0
 offset_left = 52.0
@@ -289,7 +329,19 @@ offset_top = 43.0
 offset_right = 164.0
 offset_bottom = 187.0
 theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
-theme_override_font_sizes/font_size = 16
+text = "111"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Content text_Small_L" type="Label" parent="BookBackground/Notes_layer/LeftPage_Visuals"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 31.0
+offset_right = 164.0
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(0.60784316, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 text = "111"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -310,6 +362,15 @@ offset_right = 159.0
 offset_bottom = 199.0
 expand_mode = 1
 
+[node name="PaperImage_Small_R" type="TextureRect" parent="BookBackground/Notes_layer/RightPage_Visuals"]
+material = SubResource("ShaderMaterial_t5rp3")
+layout_mode = 0
+offset_left = 25.0
+offset_top = 50.0
+offset_right = 153.0
+offset_bottom = 167.0
+expand_mode = 1
+
 [node name="Content text" type="Label" parent="BookBackground/Notes_layer/RightPage_Visuals"]
 layout_mode = 0
 offset_left = 30.0
@@ -317,7 +378,19 @@ offset_top = 44.0
 offset_right = 139.0
 offset_bottom = 188.0
 theme_override_colors/font_color = Color(0.36862746, 0.25490198, 0.18431373, 1)
-theme_override_font_sizes/font_size = 16
+text = "111"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Content text_Small_R" type="Label" parent="BookBackground/Notes_layer/RightPage_Visuals"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 32.0
+offset_right = 139.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0.60784316, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 text = "111"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -336,8 +409,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Previous page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_Next" type="Button" parent="BookBackground/Notes_layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -347,8 +420,8 @@ offset_top = 205.0
 offset_right = 392.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Next Page"
+script = ExtResource("3_ox0w6")
 
 [node name="Btn_BackToMenu" type="Button" parent="BookBackground/Notes_layer/NavButtons"]
 custom_minimum_size = Vector2(150, 30)
@@ -358,8 +431,8 @@ offset_top = 205.0
 offset_right = 189.0
 offset_bottom = 248.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Back"
+script = ExtResource("3_ox0w6")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -368,6 +441,7 @@ offset_top = 75.0
 offset_right = 517.0
 offset_bottom = 91.0
 icon = ExtResource("2_m1x0y")
+script = ExtResource("3_ox0w6")
 
 [connection signal="pressed" from="BookBackground/Menu_Layer/VBoxContainer/BtnTutorial" to="." method="_on_btn_tutorial_pressed"]
 [connection signal="pressed" from="BookBackground/Menu_Layer/VBoxContainer/BtnNotes" to="." method="_on_btn_notes_pressed"]

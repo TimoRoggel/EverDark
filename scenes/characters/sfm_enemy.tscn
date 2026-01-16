@@ -493,10 +493,14 @@ motion_mode = 1
 script = ExtResource("1_iin56")
 charge_time = 0.1
 min_distance_to_target = 4.0
-attack_distance = 32.0
+attack_distance = 16.0
 predictive_attacking = true
 skirmisher_mode = true
+orbit_attack_distance = 48.0
+preferred_orbit_distance = 10.0
+post_attack_retreat_time = 1.0
 dash_sidestep_enabled = true
+dash_sidestep_min_distance = 10.0
 target_sprite = NodePath("sprite")
 metadata/_custom_type_script = "uid://bhkah5ac48rty"
 
@@ -528,7 +532,6 @@ metadata/_custom_type_script = "uid://byhtuq8lov8xm"
 
 [node name="health" type="Node2D" parent="." node_paths=PackedStringArray("hit_particles")]
 script = ExtResource("13_w7n1s")
-max_health = 30.0
 death_sounds = Array[AudioStream]([ExtResource("14_kvest")])
 death_drops = Array[int]([1, 1, 1])
 death_drop_odds = Array[int]([85, 25, 10])

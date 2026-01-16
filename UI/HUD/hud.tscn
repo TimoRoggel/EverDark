@@ -90,7 +90,6 @@ offset_bottom = 22.0
 mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_qdh7y")
 show_percentage = false
-script = ExtResource("2_te8l2")
 
 [node name="VirusLayover" type="TextureProgressBar" parent="VirusView/VirusBar"]
 layout_mode = 1

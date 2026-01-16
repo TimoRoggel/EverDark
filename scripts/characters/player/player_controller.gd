@@ -50,9 +50,6 @@ func _ready() -> void:
 	everdark_damage = get_component(EverdarkDamageComponent)
 	if everdark_damage and hud:
 		everdark_damage.virusbar_setup.connect(hud._on_setup_virusbar)
-		everdark_damage.virus_effect.connect(hud._on_virus_effect)
-		everdark_damage.everdark_entered.connect(hud.toggle_virus_view)
-		everdark_damage.create_virus_timer()
 	death = get_component(DeathComponent)
 	if death_view and death:
 		death_view.respawn_pressed.connect(death.respawn)

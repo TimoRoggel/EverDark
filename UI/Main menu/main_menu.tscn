@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c5x7ph6tqdf08"]
+[gd_scene load_steps=17 format=3 uid="uid://c5x7ph6tqdf08"]
 
 [ext_resource type="FontFile" uid="uid://bde85ifgt4hjt" path="res://resources/fonts/Jersey10-Regular.ttf" id="1_4m7xi"]
 [ext_resource type="Script" uid="uid://da3mii20clos5" path="res://UI/Main menu/main_menu.gd" id="1_sf1lb"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://d4npl8kgc8374" path="res://audio/music/title.mp3" id="4_ty6hc"]
 [ext_resource type="FontFile" uid="uid://cwa26q5pik8ll" path="res://resources/fonts/PressStart2P-Regular.ttf" id="5_j1eoc"]
 [ext_resource type="Script" uid="uid://dbd3rxj514tf6" path="res://scripts/tools/animated_button.gd" id="6_ohege"]
+[ext_resource type="PackedScene" uid="uid://lmkog5u88g8h" path="res://scenes/shader_caching.tscn" id="9_ltvnq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m7xi"]
 content_margin_left = 8.0
@@ -178,6 +179,8 @@ layout_mode = 1
 stream = ExtResource("4_ty6hc")
 autoplay = true
 bus = &"Music"
+
+[node name="shader_caching" parent="." instance=ExtResource("9_ltvnq")]
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="confirmed" from="MarginContainer/HBoxContainer/VBoxContainer/Start/NewGameConfirmation" to="." method="_on_new_game_confirmation_confirmed"]

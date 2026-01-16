@@ -11,6 +11,7 @@ class_name EnemyController extends CharacterController
 
 @export var skirmisher_mode: bool = false
 @export var orbit_start_distance: float = 120.0 
+@export var orbit_attack_distance: float = 60.0 
 @export var preferred_orbit_distance: float = 80.0   
 @export var orbit_strength: float = 1.0              
 @export var orbit_switch_interval: float = 1.2        
@@ -108,7 +109,8 @@ func _custom_process(delta: float) -> void:
 				returning_home = true
 			if returning_home:
 				var dir_home: Vector2 = (spawn_origin - global_position).normalized()
-				movement.desired_movement = dir_home
+				target.agent.target_position = spawn_origin
+				movement.desired_movement = target.get_target_direction()
 				_apply_animation(dir_home, false)
 				if d < max_wander_distance * 0.4:
 					returning_home = false
@@ -143,7 +145,8 @@ func _custom_process(delta: float) -> void:
 		if dash_sidestep_enabled and _dash_timer > 0.0 and _dash_dir != Vector2.ZERO:
 			desired = _dash_dir
 
-		movement.desired_movement = desired
+		target.agent.target_position = global_position + desired * 5.0
+		movement.desired_movement = target.get_target_direction()
 
 	if attack and !charging and attack.can_attack() and distance <= attack_distance:
 		charging = true
@@ -165,7 +168,8 @@ func _custom_process(delta: float) -> void:
 		if distance <= min_distance_to_target:
 			movement.desired_movement = Vector2.ZERO
 			if distance <= min_distance_to_target * 0.5:
-				movement.desired_movement = -Vector2.from_angle(angle_to_target)
+				target.agent.target_position = target.target.global_position
+				movement.desired_movement = target.get_target_direction()
 
 	var anim_dir: Vector2 = Vector2.from_angle(angle_to_target) if movement.desired_movement.is_zero_approx() else movement.desired_movement
 	_apply_animation(anim_dir, charging)
@@ -189,7 +193,7 @@ func _compute_skirmisher_movement(t: CharacterController, distance: float) -> Ve
 	if _retreat_timer > 0.0:
 		return -dir_to
 
-	if distance > orbit_start_distance:
+	if distance > orbit_start_distance || distance < orbit_attack_distance:
 		return dir_to
 
 	var tangent: Vector2 = dir_to.rotated(PI * 0.5) * float(_orbit_dir)
